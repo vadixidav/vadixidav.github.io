@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["BasicParticle","BasicParticle is the simplest object that implements PhysicsParticle without using constant values."]]});

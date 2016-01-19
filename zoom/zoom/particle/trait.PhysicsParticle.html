@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `PhysicsParticle` trait in crate `zoom`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, PhysicsParticle">
+
+    <title>zoom::particle::PhysicsParticle - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../../main.css">
+
+    
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <nav class="sidebar">
+        
+        <p class='location'><a href='../index.html'>zoom</a>::<wbr><a href='index.html'>particle</a></p><script>window.sidebarCurrent = {name: 'PhysicsParticle', ty: 'trait', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+    </nav>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press ‘S’ to search, ‘?’ for more options…"
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content trait">
+<h1 class='fqn'><span class='in-band'>Trait <a href='../index.html'>zoom</a>::<wbr><a href='index.html'>particle</a>::<wbr><a class='trait' href=''>PhysicsParticle</a></span><span class='out-of-band'><span id='render-detail'>
+            <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                [<span class='inner'>&#x2212;</span>]
+            </a>
+        </span><a id='src-362' class='srclink' href='../../src/zoom/particle/mod.rs.html#42-140' title='goto source code'>[src]</a></span></h1>
+<pre class='rust trait'>pub trait PhysicsParticle&lt;V, D&gt;: <a class='trait' href='../../zoom/particle/trait.Particle.html' title='zoom::particle::Particle'>Particle</a>&lt;V, D&gt; + <a class='trait' href='../../zoom/particle/trait.Quanta.html' title='zoom::particle::Quanta'>Quanta</a>&lt;D&gt; + <a class='trait' href='../../zoom/particle/trait.Inertia.html' title='zoom::particle::Inertia'>Inertia</a>&lt;D&gt; <span class='where'>where V: <a class='trait' href='../../zoom/vector/trait.Vector.html' title='zoom::vector::Vector'>Vector</a>&lt;D&gt;, D: <a class='trait' href='../../vector/num/traits/trait.Float.html' title='vector::num::traits::Float'>Float</a></span> {
+    fn <a href='#method.basic_form' class='fnname'>basic_form</a>(&amp;self) -&gt; <a class='struct' href='../../zoom/particle/basic_particle/struct.BasicParticle.html' title='zoom::particle::basic_particle::BasicParticle'>BasicParticle</a>&lt;V, D&gt; { ... }
+    fn <a href='#method.drag' class='fnname'>drag</a>(&amp;self, magnitude: D) { ... }
+    fn <a href='#method.gravitate_to' class='fnname'>gravitate_to</a>&lt;T: ?<a class='trait' href='https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html' title='core::marker::Sized'>Sized</a>&gt;(&amp;self, center: &amp;T, magnitude: D) <span class='where'>where T: <a class='trait' href='../../zoom/particle/trait.Quanta.html' title='zoom::particle::Quanta'>Quanta</a>&lt;D&gt; + <a class='trait' href='../../zoom/particle/trait.Position.html' title='zoom::particle::Position'>Position</a>&lt;V&gt;</span> { ... }
+    fn <a href='#method.gravitate_radius_to' class='fnname'>gravitate_radius_to</a>&lt;T: ?<a class='trait' href='https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html' title='core::marker::Sized'>Sized</a>&gt;(&amp;self, center: &amp;T, magnitude: D) <span class='where'>where T: <a class='trait' href='../../zoom/particle/trait.Quanta.html' title='zoom::particle::Quanta'>Quanta</a>&lt;D&gt; + <a class='trait' href='../../zoom/particle/trait.Position.html' title='zoom::particle::Position'>Position</a>&lt;V&gt; + <a class='trait' href='../../zoom/vector/space/trait.Ball.html' title='zoom::vector::space::Ball'>Ball</a>&lt;D&gt;</span> { ... }
+    fn <a href='#method.hooke_to' class='fnname'>hooke_to</a>&lt;T: ?<a class='trait' href='https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html' title='core::marker::Sized'>Sized</a>&gt;(&amp;self, center: &amp;T, magnitude: D) <span class='where'>where T: <a class='trait' href='../../zoom/particle/trait.Quanta.html' title='zoom::particle::Quanta'>Quanta</a>&lt;D&gt; + <a class='trait' href='../../zoom/particle/trait.Position.html' title='zoom::particle::Position'>Position</a>&lt;V&gt;</span> { ... }
+    fn <a href='#method.hooke_equilibrium_to' class='fnname'>hooke_equilibrium_to</a>&lt;T: ?<a class='trait' href='https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html' title='core::marker::Sized'>Sized</a>&gt;(&amp;self, center: &amp;T, equilibrium: D, magnitude: D) <span class='where'>where T: <a class='trait' href='../../zoom/particle/trait.Quanta.html' title='zoom::particle::Quanta'>Quanta</a>&lt;D&gt; + <a class='trait' href='../../zoom/particle/trait.Position.html' title='zoom::particle::Position'>Position</a>&lt;V&gt;</span> { ... }
+    fn <a href='#method.lorentz_field' class='fnname'>lorentz_field</a>(&amp;self, field: &amp;V) <span class='where'>where V: <a class='trait' href='../../zoom/vector/trait.CrossVector.html' title='zoom::vector::CrossVector'>CrossVector</a></span> { ... }
+    fn <a href='#method.lorentz_to' class='fnname'>lorentz_to</a>&lt;T: ?<a class='trait' href='https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html' title='core::marker::Sized'>Sized</a>&gt;(&amp;self, center: &amp;T, magnitude: D) <span class='where'>where V: <a class='trait' href='../../zoom/vector/trait.CrossVector.html' title='zoom::vector::CrossVector'>CrossVector</a>, T: <a class='trait' href='../../zoom/particle/trait.Quanta.html' title='zoom::particle::Quanta'>Quanta</a>&lt;D&gt; + <a class='trait' href='../../zoom/particle/trait.Position.html' title='zoom::particle::Position'>Position</a>&lt;V&gt; + <a class='trait' href='../../zoom/particle/trait.Velocity.html' title='zoom::particle::Velocity'>Velocity</a>&lt;V&gt;</span> { ... }
+    fn <a href='#method.lorentz_radius_to' class='fnname'>lorentz_radius_to</a>&lt;T: ?<a class='trait' href='https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html' title='core::marker::Sized'>Sized</a>&gt;(&amp;self, center: &amp;T, magnitude: D) <span class='where'>where V: <a class='trait' href='../../zoom/vector/trait.CrossVector.html' title='zoom::vector::CrossVector'>CrossVector</a>, T: <a class='trait' href='../../zoom/particle/trait.Quanta.html' title='zoom::particle::Quanta'>Quanta</a>&lt;D&gt; + <a class='trait' href='../../zoom/particle/trait.Position.html' title='zoom::particle::Position'>Position</a>&lt;V&gt; + <a class='trait' href='../../zoom/particle/trait.Velocity.html' title='zoom::particle::Velocity'>Velocity</a>&lt;V&gt; + <a class='trait' href='../../zoom/vector/space/trait.Ball.html' title='zoom::vector::space::Ball'>Ball</a>&lt;D&gt;</span> { ... }
+}</pre><div class='docblock'><p>Any particle that implements the necessary traits gains access to all of the capabilities of PhysicsParticle.</p>
+</div>
+            <h2 id='provided-methods'>Provided Methods</h2>
+            <div class='methods'>
+        <h3 id='method.basic_form' class='method stab '><code>fn <a href='#method.basic_form' class='fnname'>basic_form</a>(&amp;self) -&gt; <a class='struct' href='../../zoom/particle/basic_particle/struct.BasicParticle.html' title='zoom::particle::basic_particle::BasicParticle'>BasicParticle</a>&lt;V, D&gt;</code></h3><div class='docblock'><p>Convert a PhysicsParticle into a &quot;basic particle&quot; that implements PhysicsParticle but has the minimum members.
+Use this to implement data structures that need to create intermediary particles.</p>
+</div><h3 id='method.drag' class='method stab '><code>fn <a href='#method.drag' class='fnname'>drag</a>(&amp;self, magnitude: D)</code></h3><div class='docblock'><p>Apply drag forces to a particle.</p>
+</div><h3 id='method.gravitate_to' class='method stab '><code>fn <a href='#method.gravitate_to' class='fnname'>gravitate_to</a>&lt;T: ?<a class='trait' href='https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html' title='core::marker::Sized'>Sized</a>&gt;(&amp;self, center: &amp;T, magnitude: D) <span class='where'>where T: <a class='trait' href='../../zoom/particle/trait.Quanta.html' title='zoom::particle::Quanta'>Quanta</a>&lt;D&gt; + <a class='trait' href='../../zoom/particle/trait.Position.html' title='zoom::particle::Position'>Position</a>&lt;V&gt;</span></code></h3><div class='docblock'><p>Apply proper attraction to a single physics particle towards a location and with a magnitude.</p>
+</div><h3 id='method.gravitate_radius_to' class='method stab '><code>fn <a href='#method.gravitate_radius_to' class='fnname'>gravitate_radius_to</a>&lt;T: ?<a class='trait' href='https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html' title='core::marker::Sized'>Sized</a>&gt;(&amp;self, center: &amp;T, magnitude: D) <span class='where'>where T: <a class='trait' href='../../zoom/particle/trait.Quanta.html' title='zoom::particle::Quanta'>Quanta</a>&lt;D&gt; + <a class='trait' href='../../zoom/particle/trait.Position.html' title='zoom::particle::Position'>Position</a>&lt;V&gt; + <a class='trait' href='../../zoom/vector/space/trait.Ball.html' title='zoom::vector::space::Ball'>Ball</a>&lt;D&gt;</span></code></h3><div class='docblock'><p>This works the same as gravitate_radius_squared and gravitate_to.</p>
+</div><h3 id='method.hooke_to' class='method stab '><code>fn <a href='#method.hooke_to' class='fnname'>hooke_to</a>&lt;T: ?<a class='trait' href='https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html' title='core::marker::Sized'>Sized</a>&gt;(&amp;self, center: &amp;T, magnitude: D) <span class='where'>where T: <a class='trait' href='../../zoom/particle/trait.Quanta.html' title='zoom::particle::Quanta'>Quanta</a>&lt;D&gt; + <a class='trait' href='../../zoom/particle/trait.Position.html' title='zoom::particle::Position'>Position</a>&lt;V&gt;</span></code></h3><div class='docblock'><p>Apply spring forces between one particle and a virtual particle that is unaffected.</p>
+</div><h3 id='method.hooke_equilibrium_to' class='method stab '><code>fn <a href='#method.hooke_equilibrium_to' class='fnname'>hooke_equilibrium_to</a>&lt;T: ?<a class='trait' href='https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html' title='core::marker::Sized'>Sized</a>&gt;(&amp;self, center: &amp;T, equilibrium: D, magnitude: D) <span class='where'>where T: <a class='trait' href='../../zoom/particle/trait.Quanta.html' title='zoom::particle::Quanta'>Quanta</a>&lt;D&gt; + <a class='trait' href='../../zoom/particle/trait.Position.html' title='zoom::particle::Position'>Position</a>&lt;V&gt;</span></code></h3><div class='docblock'><p>Apply spring forces between one particle and a virtual particle that is unaffected.</p>
+</div><h3 id='method.lorentz_field' class='method stab '><code>fn <a href='#method.lorentz_field' class='fnname'>lorentz_field</a>(&amp;self, field: &amp;V) <span class='where'>where V: <a class='trait' href='../../zoom/vector/trait.CrossVector.html' title='zoom::vector::CrossVector'>CrossVector</a></span></code></h3><div class='docblock'><p>Apply lorentz force to a particle in a field given by a vector with the magnitude and direction of the field.</p>
+</div><h3 id='method.lorentz_to' class='method stab '><code>fn <a href='#method.lorentz_to' class='fnname'>lorentz_to</a>&lt;T: ?<a class='trait' href='https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html' title='core::marker::Sized'>Sized</a>&gt;(&amp;self, center: &amp;T, magnitude: D) <span class='where'>where V: <a class='trait' href='../../zoom/vector/trait.CrossVector.html' title='zoom::vector::CrossVector'>CrossVector</a>, T: <a class='trait' href='../../zoom/particle/trait.Quanta.html' title='zoom::particle::Quanta'>Quanta</a>&lt;D&gt; + <a class='trait' href='../../zoom/particle/trait.Position.html' title='zoom::particle::Position'>Position</a>&lt;V&gt; + <a class='trait' href='../../zoom/particle/trait.Velocity.html' title='zoom::particle::Velocity'>Velocity</a>&lt;V&gt;</span></code></h3><div class='docblock'><p>Apply the lorentz force on a virtual particle that is unaffected.</p>
+</div><h3 id='method.lorentz_radius_to' class='method stab '><code>fn <a href='#method.lorentz_radius_to' class='fnname'>lorentz_radius_to</a>&lt;T: ?<a class='trait' href='https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html' title='core::marker::Sized'>Sized</a>&gt;(&amp;self, center: &amp;T, magnitude: D) <span class='where'>where V: <a class='trait' href='../../zoom/vector/trait.CrossVector.html' title='zoom::vector::CrossVector'>CrossVector</a>, T: <a class='trait' href='../../zoom/particle/trait.Quanta.html' title='zoom::particle::Quanta'>Quanta</a>&lt;D&gt; + <a class='trait' href='../../zoom/particle/trait.Position.html' title='zoom::particle::Position'>Position</a>&lt;V&gt; + <a class='trait' href='../../zoom/particle/trait.Velocity.html' title='zoom::particle::Velocity'>Velocity</a>&lt;V&gt; + <a class='trait' href='../../zoom/vector/space/trait.Ball.html' title='zoom::vector::space::Ball'>Ball</a>&lt;D&gt;</span></code></h3><div class='docblock'><p>Apply the lorentz force on a virtual particle that is unaffected.</p>
+</div></div>
+        <h2 id='implementors'>Implementors</h2>
+        <ul class='item-list' id='implementors-list'>
+    <li><code>impl&lt;V, D&gt; <a class='trait' href='../../zoom/particle/trait.PhysicsParticle.html' title='zoom::particle::PhysicsParticle'>PhysicsParticle</a>&lt;V, D&gt; for <a class='struct' href='../../zoom/particle/basic_particle/struct.BasicParticle.html' title='zoom::particle::basic_particle::BasicParticle'>BasicParticle</a>&lt;V, D&gt; <span class='where'>where V: <a class='trait' href='../../zoom/vector/trait.Vector.html' title='zoom::vector::Vector'>Vector</a>&lt;D&gt;, D: <a class='trait' href='../../vector/num/traits/trait.Float.html' title='vector::num::traits::Float'>Float</a></span></code></li>
+</ul><script type="text/javascript" async
+                              src="../../implementors/zoom/particle/trait.PhysicsParticle.js">
+                      </script></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <aside id="help" class="hidden">
+        <div>
+            <h1 class="hidden">Help</h1>
+
+            <div class="shortcuts">
+                <h2>Keyboard Shortcuts</h2>
+
+                <dl>
+                    <dt>?</dt>
+                    <dd>Show this help dialog</dd>
+                    <dt>S</dt>
+                    <dd>Focus the search field</dd>
+                    <dt>&larrb;</dt>
+                    <dd>Move up in search results</dd>
+                    <dt>&rarrb;</dt>
+                    <dd>Move down in search results</dd>
+                    <dt>&#9166;</dt>
+                    <dd>Go to active search result</dd>
+                </dl>
+            </div>
+
+            <div class="infos">
+                <h2>Search Tricks</h2>
+
+                <p>
+                    Prefix searches with a type followed by a colon (e.g.
+                    <code>fn:</code>) to restrict the search to a given type.
+                </p>
+
+                <p>
+                    Accepted types are: <code>fn</code>, <code>mod</code>,
+                    <code>struct</code>, <code>enum</code>,
+                    <code>trait</code>, <code>type</code>, <code>macro</code>,
+                    and <code>const</code>.
+                </p>
+
+                <p>
+                    Search functions by type signature (e.g.
+                    <code>vec -> usize</code>)
+                </p>
+            </div>
+        </div>
+    </aside>
+
+    
+
+    <script>
+        window.rootPath = "../../";
+        window.currentCrate = "zoom";
+        window.playgroundUrl = "";
+    </script>
+    <script src="../../jquery.js"></script>
+    <script src="../../main.js"></script>
+    
+    <script async src="../../search-index.js"></script>
+</body>
+</html>

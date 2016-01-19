@@ -1,0 +1,1 @@
+initSidebarItems({"mod":[["particle",""],["vector","The vector module contains primitive objects and traits for performing vector geometry."]]});

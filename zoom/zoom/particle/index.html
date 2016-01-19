@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `particle` mod in crate `zoom`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, particle">
+
+    <title>zoom::particle - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../../main.css">
+
+    
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <nav class="sidebar">
+        
+        <p class='location'><a href='../index.html'>zoom</a></p><script>window.sidebarCurrent = {name: 'particle', ty: 'mod', relpath: '../'};</script><script defer src="../sidebar-items.js"></script>
+    </nav>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press ‘S’ to search, ‘?’ for more options…"
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content mod">
+<h1 class='fqn'><span class='in-band'>Module <a href='../index.html'>zoom</a>::<wbr><a class='mod' href=''>particle</a></span><span class='out-of-band'><span id='render-detail'>
+            <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                [<span class='inner'>&#x2212;</span>]
+            </a>
+        </span><a id='src-271' class='srclink' href='../../src/zoom/particle/mod.rs.html#1-300' title='goto source code'>[src]</a></span></h1>
+<h2 id='reexports' class='section-header'><a href="#reexports">Reexports</a></h2>
+<table><tr><td><code>pub use self::<a class='mod' href='../../zoom/particle/basic_particle/index.html' title='zoom::particle::basic_particle'>basic_particle</a>::*;</code></td></tr></table><h2 id='modules' class='section-header'><a href="#modules">Modules</a></h2>
+<table>
+                    <tr class=' module-item'>
+                        <td><a class='mod' href='basic_particle/index.html'
+                               title='zoom::particle::basic_particle'>basic_particle</a></td>
+                        <td class='docblock short'>
+                             
+                        </td>
+                    </tr>
+                </table><h2 id='traits' class='section-header'><a href="#traits">Traits</a></h2>
+<table>
+                    <tr class=' module-item'>
+                        <td><a class='trait' href='trait.Inertia.html'
+                               title='zoom::particle::Inertia'>Inertia</a></td>
+                        <td class='docblock short'>
+                             <p>An object that has inertia</p>
+
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
+                        <td><a class='trait' href='trait.Particle.html'
+                               title='zoom::particle::Particle'>Particle</a></td>
+                        <td class='docblock short'>
+                             <p>An object that has a simple particle motion interface</p>
+
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
+                        <td><a class='trait' href='trait.PhysicsParticle.html'
+                               title='zoom::particle::PhysicsParticle'>PhysicsParticle</a></td>
+                        <td class='docblock short'>
+                             <p>Any particle that implements the necessary traits gains access to all of the capabilities of PhysicsParticle.</p>
+
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
+                        <td><a class='trait' href='trait.Position.html'
+                               title='zoom::particle::Position'>Position</a></td>
+                        <td class='docblock short'>
+                             <p>An object that has location</p>
+
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
+                        <td><a class='trait' href='trait.Quanta.html'
+                               title='zoom::particle::Quanta'>Quanta</a></td>
+                        <td class='docblock short'>
+                             <p>An object that has quanta</p>
+
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
+                        <td><a class='trait' href='trait.Velocity.html'
+                               title='zoom::particle::Velocity'>Velocity</a></td>
+                        <td class='docblock short'>
+                             <p>An object that has velocity</p>
+
+                        </td>
+                    </tr>
+                </table><h2 id='functions' class='section-header'><a href="#functions">Functions</a></h2>
+<table>
+                    <tr class=' module-item'>
+                        <td><a class='fn' href='fn.gravitate.html'
+                               title='zoom::particle::gravitate'>gravitate</a></td>
+                        <td class='docblock short'>
+                             <p>Apply proper attraction between two physics particles based on their quanta and position.</p>
+
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
+                        <td><a class='fn' href='fn.gravitate_radius.html'
+                               title='zoom::particle::gravitate_radius'>gravitate_radius</a></td>
+                        <td class='docblock short'>
+                             <p>If gravitating at a distance greater than the net radius, then gravitational interaction is applied as if the
+particles are point particles. If the distance is less than the radius, then the interaction happens as if the
+gravitational quanta (mass) is evenly distributed and gravitational flux is used instead, which causes the
+interaction to become proportional to the radius, meaning that as the radius approaches zero, so does the force.</p>
+
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
+                        <td><a class='fn' href='fn.gravitate_radius_squared.html'
+                               title='zoom::particle::gravitate_radius_squared'>gravitate_radius_squared</a></td>
+                        <td class='docblock short'>
+                             <p>This is the same as the radius function, but the sum of the radii squared is passed separately to avoid overhead.</p>
+
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
+                        <td><a class='fn' href='fn.hooke.html'
+                               title='zoom::particle::hooke'>hooke</a></td>
+                        <td class='docblock short'>
+                             <p>Apply spring forces between two particles.</p>
+
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
+                        <td><a class='fn' href='fn.hooke_equilibrium.html'
+                               title='zoom::particle::hooke_equilibrium'>hooke_equilibrium</a></td>
+                        <td class='docblock short'>
+                             <p>Apply spring forces between two particles with specified equilibrium distance.</p>
+
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
+                        <td><a class='fn' href='fn.lorentz.html'
+                               title='zoom::particle::lorentz'>lorentz</a></td>
+                        <td class='docblock short'>
+                             <p>Apply lorentz forces between two PhysicsParticle objects based on quanta, position, and velocity.</p>
+
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
+                        <td><a class='fn' href='fn.lorentz_radius.html'
+                               title='zoom::particle::lorentz_radius'>lorentz_radius</a></td>
+                        <td class='docblock short'>
+                             <p>Apply lorentz forces between two PhysicsParticle + Ball objects assuming uniformly distributed quanta.</p>
+
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
+                        <td><a class='fn' href='fn.lorentz_radius_squared.html'
+                               title='zoom::particle::lorentz_radius_squared'>lorentz_radius_squared</a></td>
+                        <td class='docblock short'>
+                             <p>Apply lorentz forces between two PhysicsParticle objects using a precomputed net radius.</p>
+
+                        </td>
+                    </tr>
+                </table></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <aside id="help" class="hidden">
+        <div>
+            <h1 class="hidden">Help</h1>
+
+            <div class="shortcuts">
+                <h2>Keyboard Shortcuts</h2>
+
+                <dl>
+                    <dt>?</dt>
+                    <dd>Show this help dialog</dd>
+                    <dt>S</dt>
+                    <dd>Focus the search field</dd>
+                    <dt>&larrb;</dt>
+                    <dd>Move up in search results</dd>
+                    <dt>&rarrb;</dt>
+                    <dd>Move down in search results</dd>
+                    <dt>&#9166;</dt>
+                    <dd>Go to active search result</dd>
+                </dl>
+            </div>
+
+            <div class="infos">
+                <h2>Search Tricks</h2>
+
+                <p>
+                    Prefix searches with a type followed by a colon (e.g.
+                    <code>fn:</code>) to restrict the search to a given type.
+                </p>
+
+                <p>
+                    Accepted types are: <code>fn</code>, <code>mod</code>,
+                    <code>struct</code>, <code>enum</code>,
+                    <code>trait</code>, <code>type</code>, <code>macro</code>,
+                    and <code>const</code>.
+                </p>
+
+                <p>
+                    Search functions by type signature (e.g.
+                    <code>vec -> usize</code>)
+                </p>
+            </div>
+        </div>
+    </aside>
+
+    
+
+    <script>
+        window.rootPath = "../../";
+        window.currentCrate = "zoom";
+        window.playgroundUrl = "";
+    </script>
+    <script src="../../jquery.js"></script>
+    <script src="../../main.js"></script>
+    
+    <script async src="../../search-index.js"></script>
+</body>
+</html>
