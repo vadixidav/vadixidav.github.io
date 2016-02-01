@@ -1,0 +1,1 @@
+initSidebarItems({"trait":[["RangeArgument","Temporary re-implemenation of RangeArgument from stdlib while waiting for it to become stable"]]});
