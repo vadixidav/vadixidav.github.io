@@ -147,13 +147,6 @@
 <span id="105">105</span>
 <span id="106">106</span>
 <span id="107">107</span>
-<span id="108">108</span>
-<span id="109">109</span>
-<span id="110">110</span>
-<span id="111">111</span>
-<span id="112">112</span>
-<span id="113">113</span>
-<span id="114">114</span>
 </pre><pre class='rust '>
 <span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>num</span>;
 <span class='kw'>use</span> <span class='ident'>super</span>::{<span class='ident'>Vector</span>, <span class='ident'>CrossVector</span>};
@@ -161,6 +154,7 @@
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>ops</span>::{<span class='ident'>Add</span>, <span class='ident'>Sub</span>, <span class='ident'>Neg</span>, <span class='ident'>Mul</span>, <span class='ident'>Div</span>};
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>f64</span>::<span class='ident'>consts</span>::<span class='ident'>PI</span>;
 
+<span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>, <span class='ident'>Clone</span>)]</span>
 <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>Cartesian3</span><span class='op'>&lt;</span><span class='ident'>D</span><span class='op'>&gt;</span> {
     <span class='kw'>pub</span> <span class='ident'>x</span>: <span class='ident'>D</span>,
     <span class='kw'>pub</span> <span class='ident'>y</span>: <span class='ident'>D</span>,
@@ -184,14 +178,6 @@
         <span class='self'>self</span>.<span class='ident'>x</span>.<span class='ident'>is_zero</span>() <span class='op'>&amp;&amp;</span> <span class='self'>self</span>.<span class='ident'>y</span>.<span class='ident'>is_zero</span>() <span class='op'>&amp;&amp;</span> <span class='self'>self</span>.<span class='ident'>z</span>.<span class='ident'>is_zero</span>()
     }
 }
-
-<span class='kw'>impl</span><span class='op'>&lt;</span><span class='ident'>D</span><span class='op'>&gt;</span> <span class='ident'>Clone</span> <span class='kw'>for</span> <span class='ident'>Cartesian3</span><span class='op'>&lt;</span><span class='ident'>D</span><span class='op'>&gt;</span> <span class='kw'>where</span> <span class='ident'>D</span>: <span class='ident'>Copy</span> {
-    <span class='kw'>fn</span> <span class='ident'>clone</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='kw'>Self</span> {
-        <span class='ident'>Cartesian3</span>{<span class='ident'>x</span>: <span class='self'>self</span>.<span class='ident'>x</span>, <span class='ident'>y</span>: <span class='self'>self</span>.<span class='ident'>y</span>, <span class='ident'>z</span>: <span class='self'>self</span>.<span class='ident'>z</span>}
-    }
-}
-
-<span class='kw'>impl</span><span class='op'>&lt;</span><span class='ident'>D</span><span class='op'>&gt;</span> <span class='ident'>Copy</span> <span class='kw'>for</span> <span class='ident'>Cartesian3</span><span class='op'>&lt;</span><span class='ident'>D</span><span class='op'>&gt;</span> <span class='kw'>where</span> <span class='ident'>D</span>: <span class='ident'>Copy</span> {}
 
 <span class='kw'>impl</span><span class='op'>&lt;</span><span class='ident'>D</span><span class='op'>&gt;</span> <span class='ident'>Add</span> <span class='kw'>for</span> <span class='ident'>Cartesian3</span><span class='op'>&lt;</span><span class='ident'>D</span><span class='op'>&gt;</span>
     <span class='kw'>where</span> <span class='ident'>D</span>: <span class='ident'>Float</span>
@@ -258,7 +244,7 @@
     }
 }
 
-<span class='kw'>impl</span> <span class='op'>&lt;</span><span class='ident'>D</span><span class='op'>&gt;</span> <span class='ident'>CrossVector</span> <span class='kw'>for</span> <span class='ident'>Cartesian3</span><span class='op'>&lt;</span><span class='ident'>D</span><span class='op'>&gt;</span>
+<span class='kw'>impl</span><span class='op'>&lt;</span><span class='ident'>D</span><span class='op'>&gt;</span> <span class='ident'>CrossVector</span> <span class='kw'>for</span> <span class='ident'>Cartesian3</span><span class='op'>&lt;</span><span class='ident'>D</span><span class='op'>&gt;</span>
     <span class='kw'>where</span> <span class='ident'>D</span>: <span class='ident'>Float</span>
 {
     <span class='kw'>fn</span> <span class='ident'>cross</span>(<span class='ident'>lhs</span>: <span class='kw-2'>&amp;</span><span class='kw'>Self</span>, <span class='ident'>rhs</span>: <span class='kw-2'>&amp;</span><span class='kw'>Self</span>) <span class='op'>-&gt;</span> <span class='kw'>Self</span> {
