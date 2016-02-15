@@ -9,6 +9,7 @@
 
     <title>debug_builders::DebugStruct - Rust</title>
 
+    <link rel="stylesheet" type="text/css" href="../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../main.css">
 
     
@@ -52,9 +53,9 @@ pub struct DebugStruct&lt;'a, 'b&gt; {
 }</pre><div class='docblock'><p>A struct to help with <code>fmt::Debug</code> implementations.</p>
 
 <p>Constructed by the <code>Formatter::debug_struct</code> method.</p>
-</div><h2 id='methods'>Methods</h2><h3 class='impl'><code>impl&lt;'a, 'b&gt; <a class='struct' href='../debug_builders/struct.DebugStruct.html' title='debug_builders::DebugStruct'>DebugStruct</a>&lt;'a, 'b&gt;</code></h3><div class='impl-items'><h4 id='method.new' class='method'><code>fn <a href='#method.new' class='fnname'>new</a>(fmt: &amp;'a mut <a class='struct' href='https://doc.rust-lang.org/nightly/core/fmt/struct.Formatter.html' title='core::fmt::Formatter'>Formatter</a>&lt;'b&gt;, name: &amp;<a href='https://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>) -&gt; <a class='struct' href='../debug_builders/struct.DebugStruct.html' title='debug_builders::DebugStruct'>DebugStruct</a>&lt;'a, 'b&gt;</code></h4>
+</div><h2 id='methods'>Methods</h2><h3 class='impl'><code>impl&lt;'a, 'b&gt; <a class='struct' href='../debug_builders/struct.DebugStruct.html' title='debug_builders::DebugStruct'>DebugStruct</a>&lt;'a, 'b&gt;</code></h3><div class='impl-items'><h4 id='method.new' class='method'><code>fn <a href='#method.new' class='fnname'>new</a>(fmt: &amp;'a mut <a class='struct' href='https://doc.rust-lang.org/nightly/core/fmt/struct.Formatter.html' title='core::fmt::Formatter'>Formatter</a>&lt;'b&gt;, name: &amp;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>) -&gt; <a class='struct' href='../debug_builders/struct.DebugStruct.html' title='debug_builders::DebugStruct'>DebugStruct</a>&lt;'a, 'b&gt;</code></h4>
 <div class='docblock'><p>Creates a new <code>DebugStruct</code>.</p>
-</div><h4 id='method.field' class='method'><code>fn <a href='#method.field' class='fnname'>field</a>(self, name: &amp;<a href='https://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>, value: &amp;<a class='trait' href='https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html' title='core::fmt::Debug'>Debug</a>) -&gt; <a class='struct' href='../debug_builders/struct.DebugStruct.html' title='debug_builders::DebugStruct'>DebugStruct</a>&lt;'a, 'b&gt;</code></h4>
+</div><h4 id='method.field' class='method'><code>fn <a href='#method.field' class='fnname'>field</a>(self, name: &amp;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>, value: &amp;<a class='trait' href='https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html' title='core::fmt::Debug'>Debug</a>) -&gt; <a class='struct' href='../debug_builders/struct.DebugStruct.html' title='debug_builders::DebugStruct'>DebugStruct</a>&lt;'a, 'b&gt;</code></h4>
 <div class='docblock'><p>Adds a new field to the generated struct output.</p>
 </div><h4 id='method.finish' class='method'><code>fn <a href='#method.finish' class='fnname'>finish</a>(self) -&gt; <a class='type' href='https://doc.rust-lang.org/nightly/core/fmt/type.Result.html' title='core::fmt::Result'>Result</a></code></h4>
 <div class='docblock'><p>Consumes the <code>DebugStruct</code>, finishing output and returning any error
@@ -118,6 +119,6 @@ encountered.</p>
     <script src="../jquery.js"></script>
     <script src="../main.js"></script>
     
-    <script async src="../search-index.js"></script>
+    <script defer src="../search-index.js"></script>
 </body>
 </html>

@@ -9,6 +9,7 @@
 
     <title>glium::DisplayBuild - Rust</title>
 
+    <link rel="stylesheet" type="text/css" href="../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../main.css">
 
     
@@ -45,13 +46,13 @@
             <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                 [<span class='inner'>&#x2212;</span>]
             </a>
-        </span><a id='src-50255' class='srclink' href='../src/glium/lib.rs.html#1227-1265' title='goto source code'>[src]</a></span></h1>
+        </span><a id='src-50950' class='srclink' href='../src/glium/lib.rs.html#1227-1265' title='goto source code'>[src]</a></span></h1>
 <pre class='rust trait'>pub trait DisplayBuild {
     type Facade: <a class='trait' href='../glium/backend/trait.Facade.html' title='glium::backend::Facade'>Facade</a>;
     type Err;
     fn <a href='#tymethod.build_glium_debug' class='fnname'>build_glium_debug</a>(self, <a class='enum' href='../glium/debug/enum.DebugCallbackBehavior.html' title='glium::debug::DebugCallbackBehavior'>DebugCallbackBehavior</a>) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;Self::<a class='trait' href='../glium/trait.DisplayBuild.html' title='glium::DisplayBuild'>Facade</a>, Self::<a class='trait' href='../glium/trait.DisplayBuild.html' title='glium::DisplayBuild'>Err</a>&gt;;
     unsafe fn <a href='#tymethod.build_glium_unchecked_debug' class='fnname'>build_glium_unchecked_debug</a>(self, <a class='enum' href='../glium/debug/enum.DebugCallbackBehavior.html' title='glium::debug::DebugCallbackBehavior'>DebugCallbackBehavior</a>) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;Self::<a class='trait' href='../glium/trait.DisplayBuild.html' title='glium::DisplayBuild'>Facade</a>, Self::<a class='trait' href='../glium/trait.DisplayBuild.html' title='glium::DisplayBuild'>Err</a>&gt;;
-    fn <a href='#tymethod.rebuild_glium' class='fnname'>rebuild_glium</a>(self, &amp;Self::<a class='trait' href='../glium/trait.DisplayBuild.html' title='glium::DisplayBuild'>Facade</a>) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>()</a>, Self::<a class='trait' href='../glium/trait.DisplayBuild.html' title='glium::DisplayBuild'>Err</a>&gt;;
+    fn <a href='#tymethod.rebuild_glium' class='fnname'>rebuild_glium</a>(self, &amp;Self::<a class='trait' href='../glium/trait.DisplayBuild.html' title='glium::DisplayBuild'>Facade</a>) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>()</a>, Self::<a class='trait' href='../glium/trait.DisplayBuild.html' title='glium::DisplayBuild'>Err</a>&gt;;
 
     fn <a href='#method.build_glium' class='fnname'>build_glium</a>(self) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;Self::<a class='trait' href='../glium/trait.DisplayBuild.html' title='glium::DisplayBuild'>Facade</a>, Self::<a class='trait' href='../glium/trait.DisplayBuild.html' title='glium::DisplayBuild'>Err</a>&gt; <span class='where'>where Self: <a class='trait' href='https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html' title='core::marker::Sized'>Sized</a></span> { ... }
     unsafe fn <a href='#method.build_glium_unchecked' class='fnname'>build_glium_unchecked</a>(self) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;Self::<a class='trait' href='../glium/trait.DisplayBuild.html' title='glium::DisplayBuild'>Facade</a>, Self::<a class='trait' href='../glium/trait.DisplayBuild.html' title='glium::DisplayBuild'>Err</a>&gt; <span class='where'>where Self: <a class='trait' href='https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html' title='core::marker::Sized'>Sized</a></span> { ... }
@@ -72,7 +73,7 @@ are supported by the implementation.</p>
 
 <p>This function does the same as <code>build_glium</code>, except that the resulting context
 will assume that the current OpenGL context will never change.</p>
-</div><h3 id='tymethod.rebuild_glium' class='method stab '><code>fn <a href='#tymethod.rebuild_glium' class='fnname'>rebuild_glium</a>(self, &amp;Self::<a class='trait' href='../glium/trait.DisplayBuild.html' title='glium::DisplayBuild'>Facade</a>) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>()</a>, Self::<a class='trait' href='../glium/trait.DisplayBuild.html' title='glium::DisplayBuild'>Err</a>&gt;</code></h3><div class='docblock'><p>Changes the settings of an existing facade.</p>
+</div><h3 id='tymethod.rebuild_glium' class='method stab '><code>fn <a href='#tymethod.rebuild_glium' class='fnname'>rebuild_glium</a>(self, &amp;Self::<a class='trait' href='../glium/trait.DisplayBuild.html' title='glium::DisplayBuild'>Facade</a>) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>()</a>, Self::<a class='trait' href='../glium/trait.DisplayBuild.html' title='glium::DisplayBuild'>Err</a>&gt;</code></h3><div class='docblock'><p>Changes the settings of an existing facade.</p>
 </div></div>
             <h2 id='provided-methods'>Provided Methods</h2>
             <div class='methods'>
@@ -150,6 +151,6 @@ will assume that the current OpenGL context will never change.</p>
     <script src="../jquery.js"></script>
     <script src="../main.js"></script>
     
-    <script async src="../search-index.js"></script>
+    <script defer src="../search-index.js"></script>
 </body>
 </html>

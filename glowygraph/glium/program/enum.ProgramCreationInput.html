@@ -9,6 +9,7 @@
 
     <title>glium::program::ProgramCreationInput - Rust</title>
 
+    <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../main.css">
 
     
@@ -45,22 +46,22 @@
             <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                 [<span class='inner'>&#x2212;</span>]
             </a>
-        </span><a id='src-6387' class='srclink' href='../../src/glium/program/mod.rs.html#190-236' title='goto source code'>[src]</a></span></h1>
+        </span><a id='src-6567' class='srclink' href='../../src/glium/program/mod.rs.html#190-236' title='goto source code'>[src]</a></span></h1>
 <pre class='rust enum'>pub enum ProgramCreationInput&lt;'a&gt; {
     SourceCode {
-        vertex_shader: &amp;'a <a href='https://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>,
-        tessellation_control_shader: <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;&amp;'a <a href='https://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>&gt;,
-        tessellation_evaluation_shader: <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;&amp;'a <a href='https://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>&gt;,
-        geometry_shader: <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;&amp;'a <a href='https://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>&gt;,
-        fragment_shader: &amp;'a <a href='https://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>,
-        transform_feedback_varyings: <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>(<a class='struct' href='https://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='struct' href='https://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='collections::string::String'>String</a>&gt;, <a class='enum' href='../../glium/program/enum.TransformFeedbackMode.html' title='glium::program::TransformFeedbackMode'>TransformFeedbackMode</a>)</a>&gt;,
-        outputs_srgb: <a href='https://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a>,
-        uses_point_size: <a href='https://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a>,
+        vertex_shader: &amp;'a <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>,
+        tessellation_control_shader: <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;&amp;'a <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>&gt;,
+        tessellation_evaluation_shader: <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;&amp;'a <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>&gt;,
+        geometry_shader: <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;&amp;'a <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>&gt;,
+        fragment_shader: &amp;'a <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>,
+        transform_feedback_varyings: <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>(<a class='struct' href='https://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='struct' href='https://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='collections::string::String'>String</a>&gt;, <a class='enum' href='../../glium/program/enum.TransformFeedbackMode.html' title='glium::program::TransformFeedbackMode'>TransformFeedbackMode</a>)</a>&gt;,
+        outputs_srgb: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a>,
+        uses_point_size: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a>,
     },
     Binary {
         data: <a class='struct' href='../../glium/program/struct.Binary.html' title='glium::program::Binary'>Binary</a>,
-        outputs_srgb: <a href='https://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a>,
-        uses_point_size: <a href='https://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a>,
+        outputs_srgb: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a>,
+        uses_point_size: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a>,
     },
 }</pre><div class='docblock'><p>Input when creating a program.</p>
 </div><h2 class='variants'>Variants</h2>
@@ -89,7 +90,7 @@ meaning that the program outputs <code>RGB</code>.</p>
 </div></td></tr><tr><td id='variant.Binary.field.outputs_srgb'><code>outputs_srgb</code></td><td><div class='docblock'><p>See <code>SourceCode::outputs_srgb</code>.</p>
 </div></td></tr><tr><td id='variant.Binary.field.uses_point_size'><code>uses_point_size</code></td><td><div class='docblock'><p>Whether the shader uses point size.</p>
 </div></td></tr></table></td></tr></table><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><code>impl&lt;'a&gt; <a class='trait' href='https://doc.rust-lang.org/nightly/core/convert/trait.From.html' title='core::convert::From'>From</a>&lt;<a class='struct' href='../../glium/program/struct.SourceCode.html' title='glium::program::SourceCode'>SourceCode</a>&lt;'a&gt;&gt; for <a class='enum' href='../../glium/program/enum.ProgramCreationInput.html' title='glium::program::ProgramCreationInput'>ProgramCreationInput</a>&lt;'a&gt;</code></h3><div class='impl-items'><h4 id='method.from' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/convert/trait.From.html#method.from' class='fnname'>from</a>(code: <a class='struct' href='../../glium/program/struct.SourceCode.html' title='glium::program::SourceCode'>SourceCode</a>&lt;'a&gt;) -&gt; <a class='enum' href='../../glium/program/enum.ProgramCreationInput.html' title='glium::program::ProgramCreationInput'>ProgramCreationInput</a>&lt;'a&gt;</code></h4>
-</div><h3 class='impl'><code>impl&lt;'a&gt; <a class='trait' href='https://doc.rust-lang.org/nightly/core/convert/trait.From.html' title='core::convert::From'>From</a>&lt;<a class='struct' href='../../glium/program/struct.Binary.html' title='glium::program::Binary'>Binary</a>&gt; for <a class='enum' href='../../glium/program/enum.ProgramCreationInput.html' title='glium::program::ProgramCreationInput'>ProgramCreationInput</a>&lt;'a&gt;</code></h3><div class='impl-items'><h4 id='method.from' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/convert/trait.From.html#method.from' class='fnname'>from</a>(binary: <a class='struct' href='../../glium/program/struct.Binary.html' title='glium::program::Binary'>Binary</a>) -&gt; <a class='enum' href='../../glium/program/enum.ProgramCreationInput.html' title='glium::program::ProgramCreationInput'>ProgramCreationInput</a>&lt;'a&gt;</code></h4>
+</div><h3 class='impl'><code>impl&lt;'a&gt; <a class='trait' href='https://doc.rust-lang.org/nightly/core/convert/trait.From.html' title='core::convert::From'>From</a>&lt;<a class='struct' href='../../glium/program/struct.Binary.html' title='glium::program::Binary'>Binary</a>&gt; for <a class='enum' href='../../glium/program/enum.ProgramCreationInput.html' title='glium::program::ProgramCreationInput'>ProgramCreationInput</a>&lt;'a&gt;</code></h3><div class='impl-items'><h4 id='method.from-1' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/convert/trait.From.html#method.from' class='fnname'>from</a>(binary: <a class='struct' href='../../glium/program/struct.Binary.html' title='glium::program::Binary'>Binary</a>) -&gt; <a class='enum' href='../../glium/program/enum.ProgramCreationInput.html' title='glium::program::ProgramCreationInput'>ProgramCreationInput</a>&lt;'a&gt;</code></h4>
 </div></section>
     <section id='search' class="content hidden"></section>
 
@@ -149,6 +150,6 @@ meaning that the program outputs <code>RGB</code>.</p>
     <script src="../../jquery.js"></script>
     <script src="../../main.js"></script>
     
-    <script async src="../../search-index.js"></script>
+    <script defer src="../../search-index.js"></script>
 </body>
 </html>

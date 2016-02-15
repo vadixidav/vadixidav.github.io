@@ -9,6 +9,7 @@
 
     <title>glium::implement_buffer_content! - Rust</title>
 
+    <link rel="stylesheet" type="text/css" href="../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../main.css">
 
     
@@ -45,97 +46,14 @@
             <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                 [<span class='inner'>&#x2212;</span>]
             </a>
-        </span><a id='src-50339' class='srclink' href='../src/glium/macros.rs.html#159-248' title='goto source code'>[src]</a></span></h1>
+        </span><a id='src-51036' class='srclink' href='../src/glium/macros.rs.html#159-248' title='goto source code'>[src]</a></span></h1>
 <pre class='rust macro'>
 <span class='macro'>macro_rules</span><span class='macro'>!</span> <span class='ident'>implement_buffer_content</span> {
-    (<span class='ident'>__as_item</span> <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>i</span>:<span class='ident'>item</span>) <span class='op'>=&gt;</span> {<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>i</span>};
-
-    (<span class='ident'>__impl</span> <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>struct_name</span>:<span class='ident'>ident</span> [$(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>gs</span>:<span class='ident'>tt</span>)<span class='op'>*</span>]) <span class='op'>=&gt;</span> {
-        <span class='macro'>implement_buffer_content</span><span class='macro'>!</span> { <span class='ident'>__as_item</span>
-            <span class='kw'>unsafe</span> <span class='kw'>impl</span><span class='op'>&lt;</span>$(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>gs</span>)<span class='op'>*</span><span class='op'>&gt;</span> <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>crate</span>::<span class='ident'>buffer</span>::<span class='ident'>Content</span> <span class='kw'>for</span> <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>struct_name</span><span class='op'>&lt;</span>$(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>gs</span>)<span class='op'>*</span><span class='op'>&gt;</span> {
-                <span class='kw'>type</span> <span class='ident'>Owned</span> <span class='op'>=</span> <span class='ident'>Box</span><span class='op'>&lt;</span><span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>struct_name</span><span class='op'>&lt;</span>$(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>gs</span>)<span class='op'>*</span><span class='op'>&gt;&gt;</span>;
-
-                <span class='attribute'>#[<span class='ident'>inline</span>]</span>
-                <span class='kw'>fn</span> <span class='ident'>read</span><span class='op'>&lt;</span><span class='ident'>F</span>, <span class='ident'>E</span><span class='op'>&gt;</span>(<span class='ident'>size</span>: <span class='ident'>usize</span>, <span class='ident'>f</span>: <span class='ident'>F</span>) <span class='op'>-&gt;</span> ::<span class='ident'>std</span>::<span class='ident'>result</span>::<span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>Box</span><span class='op'>&lt;</span><span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>struct_name</span><span class='op'>&lt;</span>$(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>gs</span>)<span class='op'>*</span><span class='op'>&gt;&gt;</span>, <span class='ident'>E</span><span class='op'>&gt;</span>
-                              <span class='kw'>where</span> <span class='ident'>F</span>: <span class='ident'>FnOnce</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>struct_name</span><span class='op'>&lt;</span>$(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>gs</span>)<span class='op'>*</span><span class='op'>&gt;</span>) <span class='op'>-&gt;</span> ::<span class='ident'>std</span>::<span class='ident'>result</span>::<span class='prelude-ty'>Result</span><span class='op'>&lt;</span>(), <span class='ident'>E</span><span class='op'>&gt;</span>
-                {
-                    <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>mem</span>;
-
-                    <span class='macro'>assert</span><span class='macro'>!</span>(<span class='op'>&lt;</span><span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>struct_name</span> <span class='kw'>as</span> <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>crate</span>::<span class='ident'>buffer</span>::<span class='ident'>Content</span><span class='op'>&gt;</span>::<span class='ident'>is_size_suitable</span>(<span class='ident'>size</span>));
-
-                    <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>storage</span>: <span class='ident'>Vec</span><span class='op'>&lt;</span><span class='ident'>u8</span><span class='op'>&gt;</span> <span class='op'>=</span> <span class='ident'>Vec</span>::<span class='ident'>with_capacity</span>(<span class='ident'>size</span>);
-                    <span class='kw'>unsafe</span> { <span class='ident'>storage</span>.<span class='ident'>set_len</span>(<span class='ident'>size</span>) };
-                    <span class='kw'>let</span> <span class='ident'>storage</span> <span class='op'>=</span> <span class='ident'>storage</span>.<span class='ident'>into_boxed_slice</span>();
-                    <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>storage</span>: <span class='ident'>Box</span><span class='op'>&lt;</span><span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>struct_name</span><span class='op'>&lt;</span>$(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>gs</span>)<span class='op'>*</span><span class='op'>&gt;&gt;</span> <span class='op'>=</span> <span class='kw'>unsafe</span> { <span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='ident'>storage</span>) };
-
-                    <span class='macro'>try</span><span class='macro'>!</span>(<span class='ident'>f</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>storage</span>));
-                    <span class='prelude-val'>Ok</span>(<span class='ident'>storage</span>)
-                }
-
-                <span class='attribute'>#[<span class='ident'>inline</span>]</span>
-                <span class='kw'>fn</span> <span class='ident'>get_elements_size</span>() <span class='op'>-&gt;</span> <span class='ident'>usize</span> {
-                    <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>mem</span>;
-
-                    <span class='kw'>let</span> <span class='ident'>fake_ptr</span>: <span class='kw-2'>&amp;</span><span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>struct_name</span> <span class='op'>=</span> <span class='kw'>unsafe</span> { <span class='ident'>mem</span>::<span class='ident'>transmute</span>((<span class='number'>0usize</span>, <span class='number'>0usize</span>)) };
-                    <span class='ident'>mem</span>::<span class='ident'>size_of_val</span>(<span class='ident'>fake_ptr</span>)
-                }
-
-                <span class='attribute'>#[<span class='ident'>inline</span>]</span>
-                <span class='kw'>fn</span> <span class='ident'>to_void_ptr</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw'>const</span> () {
-                    <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>mem</span>;
-                    <span class='kw'>let</span> (<span class='ident'>ptr</span>, _): (<span class='op'>*</span><span class='kw'>const</span> (), <span class='ident'>usize</span>) <span class='op'>=</span> <span class='kw'>unsafe</span> { <span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='self'>self</span>) };
-                    <span class='ident'>ptr</span>
-                }
-
-                <span class='attribute'>#[<span class='ident'>inline</span>]</span>
-                <span class='kw'>fn</span> <span class='ident'>ref_from_ptr</span>(<span class='ident'>ptr</span>: <span class='op'>*</span><span class='kw-2'>mut</span> (), <span class='ident'>size</span>: <span class='ident'>usize</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Option</span><span class='op'>&lt;</span><span class='op'>*</span><span class='kw-2'>mut</span> <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>struct_name</span><span class='op'>&lt;</span>$(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>gs</span>)<span class='op'>*</span><span class='op'>&gt;&gt;</span> {
-                    <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>mem</span>;
-
-                    <span class='kw'>let</span> <span class='ident'>fake_ptr</span>: <span class='kw-2'>&amp;</span><span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>struct_name</span> <span class='op'>=</span> <span class='kw'>unsafe</span> { <span class='ident'>mem</span>::<span class='ident'>transmute</span>((<span class='number'>0usize</span>, <span class='number'>0usize</span>)) };
-                    <span class='kw'>let</span> <span class='ident'>min_size</span> <span class='op'>=</span> <span class='ident'>mem</span>::<span class='ident'>size_of_val</span>(<span class='ident'>fake_ptr</span>);
-
-                    <span class='kw'>let</span> <span class='ident'>fake_ptr</span>: <span class='kw-2'>&amp;</span><span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>struct_name</span> <span class='op'>=</span> <span class='kw'>unsafe</span> { <span class='ident'>mem</span>::<span class='ident'>transmute</span>((<span class='number'>0usize</span>, <span class='number'>1usize</span>)) };
-                    <span class='kw'>let</span> <span class='ident'>step</span> <span class='op'>=</span> <span class='ident'>mem</span>::<span class='ident'>size_of_val</span>(<span class='ident'>fake_ptr</span>) <span class='op'>-</span> <span class='ident'>min_size</span>;
-
-                    <span class='kw'>if</span> <span class='ident'>size</span> <span class='op'>&lt;</span> <span class='ident'>min_size</span> {
-                        <span class='kw'>return</span> <span class='prelude-val'>None</span>;
-                    }
-
-                    <span class='kw'>let</span> <span class='ident'>variadic</span> <span class='op'>=</span> <span class='ident'>size</span> <span class='op'>-</span> <span class='ident'>min_size</span>;
-                    <span class='kw'>if</span> <span class='ident'>variadic</span> <span class='op'>%</span> <span class='ident'>step</span> <span class='op'>!=</span> <span class='number'>0</span> {
-                        <span class='kw'>return</span> <span class='prelude-val'>None</span>;
-                    }
-
-                    <span class='prelude-val'>Some</span>(<span class='kw'>unsafe</span> { <span class='ident'>mem</span>::<span class='ident'>transmute</span>((<span class='ident'>ptr</span>, (<span class='ident'>variadic</span> <span class='op'>/</span> <span class='ident'>step</span>) <span class='kw'>as</span> <span class='ident'>usize</span>)) })
-                }
-
-                <span class='attribute'>#[<span class='ident'>inline</span>]</span>
-                <span class='kw'>fn</span> <span class='ident'>is_size_suitable</span>(<span class='ident'>size</span>: <span class='ident'>usize</span>) <span class='op'>-&gt;</span> <span class='ident'>bool</span> {
-                    <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>mem</span>;
-
-                    <span class='kw'>let</span> <span class='ident'>fake_ptr</span>: <span class='kw-2'>&amp;</span><span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>struct_name</span> <span class='op'>=</span> <span class='kw'>unsafe</span> { <span class='ident'>mem</span>::<span class='ident'>transmute</span>((<span class='number'>0usize</span>, <span class='number'>0usize</span>)) };
-                    <span class='kw'>let</span> <span class='ident'>min_size</span> <span class='op'>=</span> <span class='ident'>mem</span>::<span class='ident'>size_of_val</span>(<span class='ident'>fake_ptr</span>);
-
-                    <span class='kw'>let</span> <span class='ident'>fake_ptr</span>: <span class='kw-2'>&amp;</span><span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>struct_name</span> <span class='op'>=</span> <span class='kw'>unsafe</span> { <span class='ident'>mem</span>::<span class='ident'>transmute</span>((<span class='number'>0usize</span>, <span class='number'>1usize</span>)) };
-                    <span class='kw'>let</span> <span class='ident'>step</span> <span class='op'>=</span> <span class='ident'>mem</span>::<span class='ident'>size_of_val</span>(<span class='ident'>fake_ptr</span>) <span class='op'>-</span> <span class='ident'>min_size</span>;
-
-                    <span class='ident'>size</span> <span class='op'>&gt;</span> <span class='ident'>min_size</span> <span class='op'>&amp;&amp;</span> (<span class='ident'>size</span> <span class='op'>-</span> <span class='ident'>min_size</span>) <span class='op'>%</span> <span class='ident'>step</span> <span class='op'>==</span> <span class='number'>0</span>
-                }
-            }
-        }
-    };
-
-    (<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>struct_name</span>:<span class='ident'>ident</span>,) <span class='op'>=&gt;</span> (
-        <span class='macro'>implement_buffer_content</span><span class='macro'>!</span>(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>struct_name</span>);
-    );
-
-    (<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>struct_name</span>:<span class='ident'>ident</span>) <span class='op'>=&gt;</span> (
-        <span class='macro'>implement_buffer_content</span><span class='macro'>!</span>(<span class='ident'>__impl</span> <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>struct_name</span> []);
-    );
-
-    (<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>struct_name</span>:<span class='ident'>ident</span> <span class='op'>&lt;</span><span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>t1</span>:<span class='ident'>tt</span><span class='op'>&gt;</span>) <span class='op'>=&gt;</span> (
-        <span class='macro'>implement_buffer_content</span><span class='macro'>!</span>(<span class='ident'>__impl</span> <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>struct_name</span> [<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>t1</span>]);
-    );
+    (<span class='ident'>__as_item</span> <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>i</span>:<span class='ident'>item</span>) <span class='op'>=&gt;</span> { ... };
+    (<span class='ident'>__impl</span> <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>struct_name</span>:<span class='ident'>ident</span> [$(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>gs</span>:<span class='ident'>tt</span>)<span class='op'>*</span>]) <span class='op'>=&gt;</span> { ... };
+    (<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>struct_name</span>:<span class='ident'>ident</span>,) <span class='op'>=&gt;</span> { ... };
+    (<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>struct_name</span>:<span class='ident'>ident</span>) <span class='op'>=&gt;</span> { ... };
+    (<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>struct_name</span>:<span class='ident'>ident</span> <span class='op'>&lt;</span><span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>t1</span>:<span class='ident'>tt</span><span class='op'>&gt;</span>) <span class='op'>=&gt;</span> { ... };
 }</pre>
 <div class='docblock'><p>Implements the <code>glium::buffer::Content</code> trait for the given type.</p>
 
@@ -208,6 +126,6 @@
     <script src="../jquery.js"></script>
     <script src="../main.js"></script>
     
-    <script async src="../search-index.js"></script>
+    <script defer src="../search-index.js"></script>
 </body>
 </html>

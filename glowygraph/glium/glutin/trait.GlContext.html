@@ -9,6 +9,7 @@
 
     <title>glium::glutin::GlContext - Rust</title>
 
+    <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../main.css">
 
     
@@ -45,22 +46,22 @@
             <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                 [<span class='inner'>&#x2212;</span>]
             </a>
-        </span><a id='src-5249' class='srclink' href='../../backend/glutin_backend/glutin/trait.GlContext.html?gotosrc=5249' title='goto source code'>[src]</a></span></h1>
+        </span><a id='src-5429' class='srclink' href='../../glutin/trait.GlContext.html?gotosrc=5429' title='goto source code'>[src]</a></span></h1>
 <pre class='rust trait'>pub trait GlContext {
-    unsafe fn <a href='#tymethod.make_current' class='fnname'>make_current</a>(&amp;self) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>()</a>, <a class='enum' href='../../glium/glutin/enum.ContextError.html' title='glium::glutin::ContextError'>ContextError</a>&gt;;
-    fn <a href='#tymethod.is_current' class='fnname'>is_current</a>(&amp;self) -&gt; <a href='https://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a>;
-    fn <a href='#tymethod.get_proc_address' class='fnname'>get_proc_address</a>(&amp;self, addr: &amp;<a href='https://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>) -&gt; <a href='https://doc.rust-lang.org/nightly/std/primitive.pointer.html'>*const <a href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>()</a></a>;
-    fn <a href='#tymethod.swap_buffers' class='fnname'>swap_buffers</a>(&amp;self) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>()</a>, <a class='enum' href='../../glium/glutin/enum.ContextError.html' title='glium::glutin::ContextError'>ContextError</a>&gt;;
+    unsafe fn <a href='#tymethod.make_current' class='fnname'>make_current</a>(&amp;self) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>()</a>, <a class='enum' href='../../glium/glutin/enum.ContextError.html' title='glium::glutin::ContextError'>ContextError</a>&gt;;
+    fn <a href='#tymethod.is_current' class='fnname'>is_current</a>(&amp;self) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a>;
+    fn <a href='#tymethod.get_proc_address' class='fnname'>get_proc_address</a>(&amp;self, addr: &amp;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.pointer.html'>*const <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>()</a></a>;
+    fn <a href='#tymethod.swap_buffers' class='fnname'>swap_buffers</a>(&amp;self) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>()</a>, <a class='enum' href='../../glium/glutin/enum.ContextError.html' title='glium::glutin::ContextError'>ContextError</a>&gt;;
     fn <a href='#tymethod.get_api' class='fnname'>get_api</a>(&amp;self) -&gt; <a class='enum' href='../../glium/glutin/enum.Api.html' title='glium::glutin::Api'>Api</a>;
     fn <a href='#tymethod.get_pixel_format' class='fnname'>get_pixel_format</a>(&amp;self) -&gt; <a class='struct' href='../../glium/glutin/struct.PixelFormat.html' title='glium::glutin::PixelFormat'>PixelFormat</a>;
 }</pre><div class='docblock'><p>Trait that describes objects that have access to an OpenGL context.</p>
 </div>
             <h2 id='required-methods'>Required Methods</h2>
             <div class='methods'>
-        <h3 id='tymethod.make_current' class='method stab '><code>unsafe fn <a href='#tymethod.make_current' class='fnname'>make_current</a>(&amp;self) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>()</a>, <a class='enum' href='../../glium/glutin/enum.ContextError.html' title='glium::glutin::ContextError'>ContextError</a>&gt;</code></h3><div class='docblock'><p>Sets the context as the current context.</p>
-</div><h3 id='tymethod.is_current' class='method stab '><code>fn <a href='#tymethod.is_current' class='fnname'>is_current</a>(&amp;self) -&gt; <a href='https://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a></code></h3><div class='docblock'><p>Returns true if this context is the current one in this thread.</p>
-</div><h3 id='tymethod.get_proc_address' class='method stab '><code>fn <a href='#tymethod.get_proc_address' class='fnname'>get_proc_address</a>(&amp;self, addr: &amp;<a href='https://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>) -&gt; <a href='https://doc.rust-lang.org/nightly/std/primitive.pointer.html'>*const <a href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>()</a></a></code></h3><div class='docblock'><p>Returns the address of an OpenGL function.</p>
-</div><h3 id='tymethod.swap_buffers' class='method stab '><code>fn <a href='#tymethod.swap_buffers' class='fnname'>swap_buffers</a>(&amp;self) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>()</a>, <a class='enum' href='../../glium/glutin/enum.ContextError.html' title='glium::glutin::ContextError'>ContextError</a>&gt;</code></h3><div class='docblock'><p>Swaps the buffers in case of double or triple buffering.</p>
+        <h3 id='tymethod.make_current' class='method stab '><code>unsafe fn <a href='#tymethod.make_current' class='fnname'>make_current</a>(&amp;self) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>()</a>, <a class='enum' href='../../glium/glutin/enum.ContextError.html' title='glium::glutin::ContextError'>ContextError</a>&gt;</code></h3><div class='docblock'><p>Sets the context as the current context.</p>
+</div><h3 id='tymethod.is_current' class='method stab '><code>fn <a href='#tymethod.is_current' class='fnname'>is_current</a>(&amp;self) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a></code></h3><div class='docblock'><p>Returns true if this context is the current one in this thread.</p>
+</div><h3 id='tymethod.get_proc_address' class='method stab '><code>fn <a href='#tymethod.get_proc_address' class='fnname'>get_proc_address</a>(&amp;self, addr: &amp;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.pointer.html'>*const <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>()</a></a></code></h3><div class='docblock'><p>Returns the address of an OpenGL function.</p>
+</div><h3 id='tymethod.swap_buffers' class='method stab '><code>fn <a href='#tymethod.swap_buffers' class='fnname'>swap_buffers</a>(&amp;self) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>()</a>, <a class='enum' href='../../glium/glutin/enum.ContextError.html' title='glium::glutin::ContextError'>ContextError</a>&gt;</code></h3><div class='docblock'><p>Swaps the buffers in case of double or triple buffering.</p>
 
 <p>You should call this function every time you have finished rendering, or the image
 may not be displayed on the screen.</p>
@@ -73,18 +74,18 @@ you can&#39;t know in advance whether <code>swap_buffers</code> will block or no
 </div></div>
         <h2 id='implementors'>Implementors</h2>
         <ul class='item-list' id='implementors-list'>
-    <li><code>impl <a class='trait' href='../../glium/glutin/trait.GlContext.html' title='glium::glutin::GlContext'>GlContext</a> for <a class='struct' href='../../backend/glutin_backend/glutin/api/caca/struct.Window.html' title='backend::glutin_backend::glutin::api::caca::Window'>Window</a></code></li>
-<li><code>impl <a class='trait' href='../../glium/glutin/trait.GlContext.html' title='glium::glutin::GlContext'>GlContext</a> for <a class='struct' href='../../backend/glutin_backend/glutin/api/egl/struct.Context.html' title='backend::glutin_backend::glutin::api::egl::Context'>Context</a></code></li>
-<li><code>impl <a class='trait' href='../../glium/glutin/trait.GlContext.html' title='glium::glutin::GlContext'>GlContext</a> for <a class='struct' href='../../backend/glutin_backend/glutin/api/glx/struct.Context.html' title='backend::glutin_backend::glutin::api::glx::Context'>Context</a></code></li>
-<li><code>impl <a class='trait' href='../../glium/glutin/trait.GlContext.html' title='glium::glutin::GlContext'>GlContext</a> for <a class='struct' href='../../backend/glutin_backend/glutin/api/osmesa/struct.OsMesaContext.html' title='backend::glutin_backend::glutin::api::osmesa::OsMesaContext'>OsMesaContext</a></code></li>
-<li><code>impl <a class='trait' href='../../glium/glutin/trait.GlContext.html' title='glium::glutin::GlContext'>GlContext</a> for <a class='struct' href='../../backend/glutin_backend/glutin/api/wayland/window/struct.Window.html' title='backend::glutin_backend::glutin::api::wayland::window::Window'>Window</a></code></li>
-<li><code>impl <a class='trait' href='../../glium/glutin/trait.GlContext.html' title='glium::glutin::GlContext'>GlContext</a> for <a class='struct' href='../../backend/glutin_backend/glutin/api/x11/window/struct.Window.html' title='backend::glutin_backend::glutin::api::x11::window::Window'>Window</a></code></li>
-<li><code>impl <a class='trait' href='../../glium/glutin/trait.GlContext.html' title='glium::glutin::GlContext'>GlContext</a> for <a class='enum' href='../../backend/glutin_backend/glutin/platform/platform/api_dispatch/enum.Window.html' title='backend::glutin_backend::glutin::platform::platform::api_dispatch::Window'>Window</a></code></li>
-<li><code>impl <a class='trait' href='../../glium/glutin/trait.GlContext.html' title='glium::glutin::GlContext'>GlContext</a> for <a class='struct' href='../../backend/glutin_backend/glutin/platform/platform/struct.HeadlessContext.html' title='backend::glutin_backend::glutin::platform::platform::HeadlessContext'>HeadlessContext</a></code></li>
+    <li><code>impl <a class='trait' href='../../glium/glutin/trait.GlContext.html' title='glium::glutin::GlContext'>GlContext</a> for <a class='struct' href='../../glutin/api/caca/struct.Window.html' title='glutin::api::caca::Window'>Window</a></code></li>
+<li><code>impl <a class='trait' href='../../glium/glutin/trait.GlContext.html' title='glium::glutin::GlContext'>GlContext</a> for <a class='struct' href='../../glutin/api/egl/struct.Context.html' title='glutin::api::egl::Context'>Context</a></code></li>
+<li><code>impl <a class='trait' href='../../glium/glutin/trait.GlContext.html' title='glium::glutin::GlContext'>GlContext</a> for <a class='struct' href='../../glutin/api/glx/struct.Context.html' title='glutin::api::glx::Context'>Context</a></code></li>
+<li><code>impl <a class='trait' href='../../glium/glutin/trait.GlContext.html' title='glium::glutin::GlContext'>GlContext</a> for <a class='struct' href='../../glutin/api/osmesa/struct.OsMesaContext.html' title='glutin::api::osmesa::OsMesaContext'>OsMesaContext</a></code></li>
+<li><code>impl <a class='trait' href='../../glium/glutin/trait.GlContext.html' title='glium::glutin::GlContext'>GlContext</a> for <a class='struct' href='../../glutin/api/wayland/window/struct.Window.html' title='glutin::api::wayland::window::Window'>Window</a></code></li>
+<li><code>impl <a class='trait' href='../../glium/glutin/trait.GlContext.html' title='glium::glutin::GlContext'>GlContext</a> for <a class='struct' href='../../glutin/api/x11/window/struct.Window.html' title='glutin::api::x11::window::Window'>Window</a></code></li>
+<li><code>impl <a class='trait' href='../../glium/glutin/trait.GlContext.html' title='glium::glutin::GlContext'>GlContext</a> for <a class='enum' href='../../glutin/platform/platform/api_dispatch/enum.Window.html' title='glutin::platform::platform::api_dispatch::Window'>Window</a></code></li>
+<li><code>impl <a class='trait' href='../../glium/glutin/trait.GlContext.html' title='glium::glutin::GlContext'>GlContext</a> for <a class='struct' href='../../glutin/platform/platform/struct.HeadlessContext.html' title='glutin::platform::platform::HeadlessContext'>HeadlessContext</a></code></li>
 <li><code>impl <a class='trait' href='../../glium/glutin/trait.GlContext.html' title='glium::glutin::GlContext'>GlContext</a> for <a class='struct' href='../../glium/glutin/struct.HeadlessContext.html' title='glium::glutin::HeadlessContext'>HeadlessContext</a></code></li>
 <li><code>impl <a class='trait' href='../../glium/glutin/trait.GlContext.html' title='glium::glutin::GlContext'>GlContext</a> for <a class='struct' href='../../glium/glutin/struct.Window.html' title='glium::glutin::Window'>Window</a></code></li>
 </ul><script type="text/javascript" async
-                              src="../../implementors/backend/glutin_backend/glutin/trait.GlContext.js">
+                              src="../../implementors/glutin/trait.GlContext.js">
                       </script></section>
     <section id='search' class="content hidden"></section>
 
@@ -144,6 +145,6 @@ you can&#39;t know in advance whether <code>swap_buffers</code> will block or no
     <script src="../../jquery.js"></script>
     <script src="../../main.js"></script>
     
-    <script async src="../../search-index.js"></script>
+    <script defer src="../../search-index.js"></script>
 </body>
 </html>

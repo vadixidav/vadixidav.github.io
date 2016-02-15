@@ -9,6 +9,7 @@
 
     <title>glium::texture::TextureAnyLayer - Rust</title>
 
+    <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../main.css">
 
     
@@ -45,19 +46,19 @@
             <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                 [<span class='inner'>&#x2212;</span>]
             </a>
-        </span><a id='src-10405' class='srclink' href='../../src/glium/texture/any.rs.html#733-738' title='goto source code'>[src]</a></span></h1>
+        </span><a id='src-10827' class='srclink' href='../../src/glium/texture/any.rs.html#733-738' title='goto source code'>[src]</a></span></h1>
 <pre class='rust struct'>pub struct TextureAnyLayer&lt;'a&gt; {
     // some fields omitted
 }</pre><div class='docblock'><p>Represents a specific layer of an array texture and 3D textures.</p>
 </div><h2 id='methods'>Methods</h2><h3 class='impl'><code>impl&lt;'a&gt; <a class='struct' href='../../glium/texture/struct.TextureAnyLayer.html' title='glium::texture::TextureAnyLayer'>TextureAnyLayer</a>&lt;'a&gt;</code></h3><div class='impl-items'><h4 id='method.get_texture' class='method'><code>fn <a href='#method.get_texture' class='fnname'>get_texture</a>(&amp;self) -&gt; &amp;'a <a class='struct' href='../../glium/texture/struct.TextureAny.html' title='glium::texture::TextureAny'>TextureAny</a></code></h4>
 <div class='docblock'><p>Returns the texture.</p>
-</div><h4 id='method.get_samples' class='method'><code>fn <a href='#method.get_samples' class='fnname'>get_samples</a>(&amp;self) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a href='https://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a>&gt;</code></h4>
+</div><h4 id='method.get_samples' class='method'><code>fn <a href='#method.get_samples' class='fnname'>get_samples</a>(&amp;self) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a>&gt;</code></h4>
 <div class='docblock'><p>Returns the number of samples of the texture.</p>
-</div><h4 id='method.get_layer' class='method'><code>fn <a href='#method.get_layer' class='fnname'>get_layer</a>(&amp;self) -&gt; <a href='https://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a></code></h4>
+</div><h4 id='method.get_layer' class='method'><code>fn <a href='#method.get_layer' class='fnname'>get_layer</a>(&amp;self) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a></code></h4>
 <div class='docblock'><p>Returns the layer of the texture.</p>
 </div><h4 id='method.main_level' class='method'><code>fn <a href='#method.main_level' class='fnname'>main_level</a>(&amp;self) -&gt; <a class='struct' href='../../glium/texture/struct.TextureAnyLayerMipmap.html' title='glium::texture::TextureAnyLayerMipmap'>TextureAnyLayerMipmap</a>&lt;'a&gt;</code></h4>
 <div class='docblock'><p>Returns a structure that represents the main mipmap level of this layer of the texture.</p>
-</div><h4 id='method.mipmap' class='method'><code>fn <a href='#method.mipmap' class='fnname'>mipmap</a>(&amp;self, level: <a href='https://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a>) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='struct' href='../../glium/texture/struct.TextureAnyLayerMipmap.html' title='glium::texture::TextureAnyLayerMipmap'>TextureAnyLayerMipmap</a>&lt;'a&gt;&gt;</code></h4>
+</div><h4 id='method.mipmap' class='method'><code>fn <a href='#method.mipmap' class='fnname'>mipmap</a>(&amp;self, level: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a>) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='struct' href='../../glium/texture/struct.TextureAnyLayerMipmap.html' title='glium::texture::TextureAnyLayerMipmap'>TextureAnyLayerMipmap</a>&lt;'a&gt;&gt;</code></h4>
 <div class='docblock'><p>Returns a structure that represents a specific mipmap of this layer of the texture.</p>
 
 <p>Returns <code>None</code> if out of range.</p>
@@ -122,6 +123,6 @@
     <script src="../../jquery.js"></script>
     <script src="../../main.js"></script>
     
-    <script async src="../../search-index.js"></script>
+    <script defer src="../../search-index.js"></script>
 </body>
 </html>

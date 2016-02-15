@@ -9,6 +9,7 @@
 
     <title>glium::texture::TextureAnyImage - Rust</title>
 
+    <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../main.css">
 
     
@@ -45,23 +46,23 @@
             <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                 [<span class='inner'>&#x2212;</span>]
             </a>
-        </span><a id='src-10602' class='srclink' href='../../src/glium/texture/any.rs.html#1310-1325' title='goto source code'>[src]</a></span></h1>
+        </span><a id='src-11024' class='srclink' href='../../src/glium/texture/any.rs.html#1310-1325' title='goto source code'>[src]</a></span></h1>
 <pre class='rust struct'>pub struct TextureAnyImage&lt;'a&gt; {
     // some fields omitted
 }</pre><div class='docblock'><p>Represents a specific 2D image of a texture. 1D textures are considered as having a height of 1.</p>
 </div><h2 id='methods'>Methods</h2><h3 class='impl'><code>impl&lt;'a&gt; <a class='struct' href='../../glium/texture/struct.TextureAnyImage.html' title='glium::texture::TextureAnyImage'>TextureAnyImage</a>&lt;'a&gt;</code></h3><div class='impl-items'><h4 id='method.get_texture' class='method'><code>fn <a href='#method.get_texture' class='fnname'>get_texture</a>(&amp;self) -&gt; &amp;'a <a class='struct' href='../../glium/texture/struct.TextureAny.html' title='glium::texture::TextureAny'>TextureAny</a></code></h4>
 <div class='docblock'><p>Returns the texture.</p>
-</div><h4 id='method.get_level' class='method'><code>fn <a href='#method.get_level' class='fnname'>get_level</a>(&amp;self) -&gt; <a href='https://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a></code></h4>
+</div><h4 id='method.get_level' class='method'><code>fn <a href='#method.get_level' class='fnname'>get_level</a>(&amp;self) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a></code></h4>
 <div class='docblock'><p>Returns the level of the texture.</p>
-</div><h4 id='method.get_layer' class='method'><code>fn <a href='#method.get_layer' class='fnname'>get_layer</a>(&amp;self) -&gt; <a href='https://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a></code></h4>
+</div><h4 id='method.get_layer' class='method'><code>fn <a href='#method.get_layer' class='fnname'>get_layer</a>(&amp;self) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a></code></h4>
 <div class='docblock'><p>Returns the layer of the texture.</p>
 </div><h4 id='method.get_cubemap_layer' class='method'><code>fn <a href='#method.get_cubemap_layer' class='fnname'>get_cubemap_layer</a>(&amp;self) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='enum' href='../../glium/texture/enum.CubeLayer.html' title='glium::texture::CubeLayer'>CubeLayer</a>&gt;</code></h4>
 <div class='docblock'><p>Returns the cubemap layer of this image, or <code>None</code> if the texture is not a cubemap.</p>
-</div><h4 id='method.get_width' class='method'><code>fn <a href='#method.get_width' class='fnname'>get_width</a>(&amp;self) -&gt; <a href='https://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a></code></h4>
+</div><h4 id='method.get_width' class='method'><code>fn <a href='#method.get_width' class='fnname'>get_width</a>(&amp;self) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a></code></h4>
 <div class='docblock'><p>Returns the width of this texture slice.</p>
-</div><h4 id='method.get_height' class='method'><code>fn <a href='#method.get_height' class='fnname'>get_height</a>(&amp;self) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a href='https://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a>&gt;</code></h4>
+</div><h4 id='method.get_height' class='method'><code>fn <a href='#method.get_height' class='fnname'>get_height</a>(&amp;self) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a>&gt;</code></h4>
 <div class='docblock'><p>Returns the height of this texture slice.</p>
-</div><h4 id='method.get_samples' class='method'><code>fn <a href='#method.get_samples' class='fnname'>get_samples</a>(&amp;self) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a href='https://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a>&gt;</code></h4>
+</div><h4 id='method.get_samples' class='method'><code>fn <a href='#method.get_samples' class='fnname'>get_samples</a>(&amp;self) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a>&gt;</code></h4>
 <div class='docblock'><p>Returns the number of samples of the texture.</p>
 </div><h4 id='method.raw_read' class='method'><code>fn <a href='#method.raw_read' class='fnname'>raw_read</a>&lt;T, P&gt;(&amp;self, rect: &amp;<a class='struct' href='../../glium/struct.Rect.html' title='glium::Rect'>Rect</a>) -&gt; T <span class='where'>where T: <a class='trait' href='../../glium/texture/trait.Texture2dDataSink.html' title='glium::texture::Texture2dDataSink'>Texture2dDataSink</a>&lt;P&gt;, P: <a class='trait' href='../../glium/texture/trait.PixelValue.html' title='glium::texture::PixelValue'>PixelValue</a></span></code></h4>
 <div class='docblock'><p>Reads the content of the image.</p>
@@ -71,7 +72,7 @@
 </div><h4 id='method.raw_read_to_pixel_buffer' class='method'><code>fn <a href='#method.raw_read_to_pixel_buffer' class='fnname'>raw_read_to_pixel_buffer</a>&lt;P&gt;(&amp;self, rect: &amp;<a class='struct' href='../../glium/struct.Rect.html' title='glium::Rect'>Rect</a>, dest: &amp;<a class='struct' href='../../glium/texture/pixel_buffer/struct.PixelBuffer.html' title='glium::texture::pixel_buffer::PixelBuffer'>PixelBuffer</a>&lt;P&gt;) <span class='where'>where P: <a class='trait' href='../../glium/texture/trait.PixelValue.html' title='glium::texture::PixelValue'>PixelValue</a></span></code></h4>
 <div class='docblock'><p>Reads the content of the image to a pixel buffer.</p>
 
-<h1 id='panic' class='section-header'><a href='#panic'>Panic</a></h1>
+<h1 id='panic-1' class='section-header'><a href='#panic-1'>Panic</a></h1>
 <ul>
 <li>Panicks if the rect is out of range.</li>
 <li>Panicks if the buffer is not large enough.</li>
@@ -79,7 +80,7 @@
 </div><h4 id='method.raw_clear_buffer' class='method'><code>fn <a href='#method.raw_clear_buffer' class='fnname'>raw_clear_buffer</a>&lt;D&gt;(&amp;self, data: D) <span class='where'>where D: <a class='trait' href='https://doc.rust-lang.org/nightly/core/convert/trait.Into.html' title='core::convert::Into'>Into</a>&lt;ClearBufferData&gt;</span></code></h4>
 <div class='docblock'><p>Clears the content of the texture to a specific value.</p>
 
-<h1 id='panic' class='section-header'><a href='#panic'>Panic</a></h1>
+<h1 id='panic-2' class='section-header'><a href='#panic-2'>Panic</a></h1>
 <p>Panicks if <code>data</code> does not match the kind of texture. For example passing a <code>[i32; 4]</code> when
 using a regular (float) texture.</p>
 </div></div><h2 id='implementations'>Trait Implementations</h2><h3 id='derived_implementations'>Derived Implementations </h3><h3 class='impl'><code>impl&lt;'a&gt; <a class='trait' href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html' title='core::clone::Clone'>Clone</a> for <a class='struct' href='../../glium/texture/struct.TextureAnyImage.html' title='glium::texture::TextureAnyImage'>TextureAnyImage</a>&lt;'a&gt;</code></h3><div class='impl-items'><h4 id='method.clone' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone' class='fnname'>clone</a>(&amp;self) -&gt; <a class='struct' href='../../glium/texture/struct.TextureAnyImage.html' title='glium::texture::TextureAnyImage'>TextureAnyImage</a>&lt;'a&gt;</code></h4>
@@ -143,6 +144,6 @@ using a regular (float) texture.</p>
     <script src="../../jquery.js"></script>
     <script src="../../main.js"></script>
     
-    <script async src="../../search-index.js"></script>
+    <script defer src="../../search-index.js"></script>
 </body>
 </html>

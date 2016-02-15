@@ -9,6 +9,7 @@
 
     <title>glium::debug::TimestampQuery - Rust</title>
 
+    <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../main.css">
 
     
@@ -45,7 +46,7 @@
             <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                 [<span class='inner'>&#x2212;</span>]
             </a>
-        </span><a id='src-1770' class='srclink' href='../../src/glium/debug.rs.html#119-122' title='goto source code'>[src]</a></span></h1>
+        </span><a id='src-1812' class='srclink' href='../../src/glium/debug.rs.html#119-122' title='goto source code'>[src]</a></span></h1>
 <pre class='rust struct'>pub struct TimestampQuery {
     // some fields omitted
 }</pre><div class='docblock'><p>Allows you to obtain the timestamp inside the OpenGL commands queue.</p>
@@ -71,12 +72,12 @@ it takes to execute commands.</p>
 }</pre>
 </div><h2 id='methods'>Methods</h2><h3 class='impl'><code>impl <a class='struct' href='../../glium/debug/struct.TimestampQuery.html' title='glium::debug::TimestampQuery'>TimestampQuery</a></code></h3><div class='impl-items'><h4 id='method.new' class='method'><code>fn <a href='#method.new' class='fnname'>new</a>&lt;F&gt;(facade: &amp;F) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='struct' href='../../glium/debug/struct.TimestampQuery.html' title='glium::debug::TimestampQuery'>TimestampQuery</a>&gt; <span class='where'>where F: <a class='trait' href='../../glium/backend/trait.Facade.html' title='glium::backend::Facade'>Facade</a></span></code></h4>
 <div class='docblock'><p>Creates a new <code>TimestampQuery</code>. Returns <code>None</code> if the backend doesn&#39;t support it.</p>
-</div><h4 id='method.is_ready' class='method'><code>fn <a href='#method.is_ready' class='fnname'>is_ready</a>(&amp;self) -&gt; <a href='https://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a></code></h4>
+</div><h4 id='method.is_ready' class='method'><code>fn <a href='#method.is_ready' class='fnname'>is_ready</a>(&amp;self) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a></code></h4>
 <div class='docblock'><p>Queries the counter to see if the timestamp is already available.</p>
 
 <p>It takes some time to retreive the value, during which you can execute other
 functions.</p>
-</div><h4 id='method.get' class='method'><code>fn <a href='#method.get' class='fnname'>get</a>(self) -&gt; <a href='https://doc.rust-lang.org/nightly/std/primitive.u64.html'>u64</a></code></h4>
+</div><h4 id='method.get' class='method'><code>fn <a href='#method.get' class='fnname'>get</a>(self) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u64.html'>u64</a></code></h4>
 <div class='docblock'><p>Returns the value of the timestamp. Blocks until it is available.</p>
 
 <p>This function doesn&#39;t block if <code>is_ready</code> returns true.</p>
@@ -139,6 +140,6 @@ functions.</p>
     <script src="../../jquery.js"></script>
     <script src="../../main.js"></script>
     
-    <script async src="../../search-index.js"></script>
+    <script defer src="../../search-index.js"></script>
 </body>
 </html>
