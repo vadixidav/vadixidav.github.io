@@ -143,9 +143,10 @@
 <tr><td><code>41</code></td><td>addc</td><td><code>a b -- (a + b + c)</code></td><td><code>c</code>, o</td></tr>
 <tr><td><code>42</code></td><td>sub</td><td><code>a b -- (a - b)</code></td><td><code>c</code>, <code>o</code></td></tr>
 <tr><td><code>43</code></td><td>subc</td><td><code>a b -- (a - b + c)</code></td><td><code>c</code>, <code>o</code></td></tr>
-<tr><td><code>44</code></td><td>lsl</td><td><code>a b -- (a &lt;&lt; b)</code></td><td><code>o</code> on shifting out a 1</td></tr>
-<tr><td><code>45</code></td><td>lsr</td><td><code>a b -- (a &gt;&gt; b)</code></td><td><code>o</code> on shifting out a 1</td></tr>
-<tr><td><code>46</code></td><td>asr</td><td><code>a b -- (a &gt;&gt;&gt; b)</code></td><td><code>o</code> on shifting out a significant bit</td></tr>
+<tr><td><code>44</code></td><td>les</td><td><code>a b --</code></td><td>if <code>a &lt; b</code> then <code>pc &lt;- dc0</code></td></tr>
+<tr><td><code>44</code></td><td>lsl</td><td><code>a b -- (a &lt;&lt; b)</code></td><td><code>c</code>, <code>o</code></td></tr>
+<tr><td><code>45</code></td><td>lsr</td><td><code>a b -- (a &gt;&gt; b)</code></td><td><code>c</code>, <code>o</code></td></tr>
+<tr><td><code>46</code></td><td>asr</td><td><code>a b -- (a &gt;&gt;&gt; b)</code></td><td><code>c</code>, <code>o</code></td></tr>
 <tr><td><code>47</code></td><td>mul</td><td><code>a b -- (a * b)</code></td><td><code>cv &lt;- (a * b)[2*WORD-1:WORD]</code></td></tr>
 <tr><td><code>48</code></td><td>mulu</td><td><code>a b -- (a * b)</code></td><td><code>cv &lt;- (a * b)[2*WORD-1:WORD]</code></td></tr>
 <tr><td><code>60</code></td><td>div</td><td><code>a b --</code></td><td><code>cv &lt;- a / b, a % b</code></td></tr>
