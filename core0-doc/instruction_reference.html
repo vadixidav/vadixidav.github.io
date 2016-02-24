@@ -1,0 +1,155 @@
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>UARC core0</title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="{% block description %}{% endblock %}">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <base href="">
+
+        <link rel="stylesheet" href="book.css">
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+        <link rel="shortcut icon" href="favicon.png">
+
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+
+        <!-- MathJax -->
+        <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+        <!-- Fetch JQuery from CDN but have a local fallback -->
+        <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+        <script>
+            if (typeof jQuery == 'undefined') {
+                document.write(unescape("%3Cscript src='jquery.js'%3E%3C/script%3E"));
+            }
+        </script>
+    </head>
+    <body>
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme = localStorage.getItem('theme');
+            if (theme == null) { theme = 'light'; }
+            $('body').removeClass().addClass(theme);
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var sidebar = localStorage.getItem('sidebar');
+            if (sidebar === "hidden") { $("html").addClass("sidebar-hidden") }
+            else if (sidebar === "visible") { $("html").addClass("sidebar-visible") }
+        </script>
+
+        <div id="sidebar" class="sidebar">
+            <ul class="chapter"><li class="affix"><a href="SUMMARY.html">Table of Contents</a></li><li><a href="overview.html"><strong>1.</strong> Overview</a></li><li><a href="architecture.html"><strong>2.</strong> Architecture</a></li><li><ul class="section"><li><a href="architecture/dstack.html"><strong>2.1.</strong> dstack</a></li><li><a href="architecture/cstack.html"><strong>2.2.</strong> cstack</a></li><li><a href="architecture/lstack.html"><strong>2.3.</strong> lstack</a></li><li><a href="architecture/tstack.html"><strong>2.4.</strong> tstack</a></li><li><a href="architecture/ifile.html"><strong>2.5.</strong> ifile</a></li></ul></li><li><a href="instruction_reference.html" class="active"><strong>3.</strong> Instruction Reference</a></li><li><ul class="section"><li><a href="instruction_reference/arithmetic.html"><strong>3.1.</strong> Arithmetic</a></li><li><a href="instruction_reference/stack_manipulation.html"><strong>3.2.</strong> Stack Manipulation</a></li><li><a href="instruction_reference/memory.html"><strong>3.3.</strong> Memory</a></li><li><a href="instruction_reference/uarc.html"><strong>3.4.</strong> UARC</a></li></ul>
+        </div>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar" class="menu-bar">
+                    <div class="left-buttons">
+                        <i id="sidebar-toggle" class="fa fa-bars"></i>
+                        <i id="theme-toggle" class="fa fa-paint-brush"></i>
+                    </div>
+
+                    <h1 class="menu-title">UARC core0</h1>
+
+                    <div class="right-buttons">
+                        <i id="print-button" class="fa fa-print" title="Print this book"></i>
+                    </div>
+                </div>
+
+                <div id="content" class="content">
+                    <h1>Instruction Reference</h1>
+<h3>c0 Instruction Formats</h3>
+<table><thead><tr><td> Format </td><td> Layout </td></tr></thead>
+<tr><td>I (Implicit)</td><td><code>OOOO OOOO</code></td></tr>
+<tr><td>L (Loop)</td><td><code>OOOO OOLL</code></td></tr>
+<tr><td>C (Conveyor)</td><td><code>OOOO LLLL</code></td></tr>
+<tr><td>R (Random Access)</td><td><code>OOOL LLLL</code></td></tr>
+</table>
+<ul>
+<li><code>O</code> - Opcode bit</li>
+<li><code>L</code> - Location bit</li>
+<li><code>I</code> - Index bit</li>
+</ul>
+<p>c0, being a simple architecture, has a simple instruction layout. All instructions are 8-bit words and come in four formats.</p>
+<h3><code>I</code> - Implicit</h3>
+<p>Implicit instructions have no explicit sources or destinations and all can be assumed from state information in the system. Such instructions include <code>add</code>, which takes parameters from the stack and places the result back on the stack.</p>
+<h3><code>L</code> - Loop</h3>
+<p>Loop instructions allow random read access to the loop index of the top 4 loops in the <a href="architecture/lstack.md">lstack</a>. This means that loops can be nested 4 times and are still able to retrieve the index in one instruction.</p>
+<h3><code>C</code> - Conveyor</h3>
+<p>Conveyor instructions allow random read access to the 16 things on the conveyor belt. The things on the conveyor may actually not be present and when accessed, the completion of the operation corresponding to that spot on the conveyor will be synchronized. This allows several asynchronous operations to be linked to different locations on the conveyor and read randomly when they are needed.</p>
+<h3><code>R</code> - Random</h3>
+<p>For R type instructions, 32 locations can be randomly addressed. This means that 32 places can be copied and rotated on the <a href="architecture/dstack.md">dstack</a> and 32 places can be read and written on the <a href="architecture/tstack.md">tstack</a>.</p>
+<h2>Key Words</h2>
+<ul>
+<li><code>WORD</code> - Data word width in use</li>
+<li><code>c</code> - Carry bit</li>
+<li><code>cv</code> - Conveyor Belt</li>
+</ul>
+<h2>Instruction Listing By Opcode</h2>
+<table><thead><tr><td>Op</td><td>Instruction</td><td>dstack</td><td>Side Effects</td></tr></thead>
+<tr><td><code>40</code></td><td>add</td><td><code>a b -- (a + b)</code></td><td><code>c</code>, <code>o</code></td></tr>
+<tr><td><code>41</code></td><td>addc</td><td><code>a b -- (a + b + c)</code></td><td><code>c</code>, o</td></tr>
+<tr><td><code>42</code></td><td>sub</td><td><code>a b -- (a - b)</code></td><td><code>c</code>, <code>o</code></td></tr>
+<tr><td><code>43</code></td><td>subc</td><td><code>a b -- (a - b + c)</code></td><td><code>c</code>, <code>o</code></td></tr>
+<tr><td><code>44</code></td><td>lsl</td><td><code>a b -- (a &lt;&lt; b)</code></td><td><code>o</code> on shifting out a 1</td></tr>
+<tr><td><code>45</code></td><td>lsr</td><td><code>a b -- (a &gt;&gt; b)</code></td><td><code>o</code> on shifting out a 1</td></tr>
+<tr><td><code>46</code></td><td>asr</td><td><code>a b -- (a &gt;&gt;&gt; b)</code></td><td><code>o</code> on shifting out a significant bit</td></tr>
+<tr><td><code>47</code></td><td>mul</td><td><code>a b -- (a * b)</code></td><td><code>cv &lt;- (a * b)[2*WORD-1:WORD]</code></td></tr>
+<tr><td><code>48</code></td><td>mulu</td><td><code>a b -- (a * b)</code></td><td><code>cv &lt;- (a * b)[2*WORD-1:WORD]</code></td></tr>
+<tr><td><code>60</code></td><td>div</td><td><code>a b --</code></td><td><code>cv &lt;- a / b, a % b</code></td></tr>
+<tr><td><code>61</code></td><td>divi</td><td><code>a b --</code></td><td><code>cv &lt;- a / b, a % b</code></td></tr>
+</table>
+
+                </div>
+
+                <!-- Mobile navigation buttons -->
+                
+                    <a href="architecture/ifile.html" class="mobile-nav-chapters previous">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a href="instruction_reference/arithmetic.html" class="mobile-nav-chapters next">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+
+            </div>
+
+            
+                <a href="architecture/ifile.html" class="nav-chapters previous" title="You can navigate through the chapters using the arrow keys">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+            
+
+            
+                <a href="instruction_reference/arithmetic.html" class="nav-chapters next" title="You can navigate through the chapters using the arrow keys">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            
+
+        </div>
+
+
+        <!-- Local fallback for Font Awesome -->
+        <script>
+            if ($(".fa").css("font-family") !== "FontAwesome") {
+                $('<link rel="stylesheet" type="text/css" href="_FontAwesome/css/font-awesome.css">').prependTo('head');
+            }
+        </script>
+
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+    </body>
+</html>

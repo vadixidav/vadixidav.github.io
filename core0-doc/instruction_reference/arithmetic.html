@@ -1,0 +1,134 @@
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>UARC core0</title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="{% block description %}{% endblock %}">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <base href="../">
+
+        <link rel="stylesheet" href="book.css">
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+        <link rel="shortcut icon" href="favicon.png">
+
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+
+        <!-- MathJax -->
+        <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+        <!-- Fetch JQuery from CDN but have a local fallback -->
+        <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+        <script>
+            if (typeof jQuery == 'undefined') {
+                document.write(unescape("%3Cscript src='jquery.js'%3E%3C/script%3E"));
+            }
+        </script>
+    </head>
+    <body>
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme = localStorage.getItem('theme');
+            if (theme == null) { theme = 'light'; }
+            $('body').removeClass().addClass(theme);
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var sidebar = localStorage.getItem('sidebar');
+            if (sidebar === "hidden") { $("html").addClass("sidebar-hidden") }
+            else if (sidebar === "visible") { $("html").addClass("sidebar-visible") }
+        </script>
+
+        <div id="sidebar" class="sidebar">
+            <ul class="chapter"><li class="affix"><a href="SUMMARY.html">Table of Contents</a></li><li><a href="overview.html"><strong>1.</strong> Overview</a></li><li><a href="architecture.html"><strong>2.</strong> Architecture</a></li><li><ul class="section"><li><a href="architecture/dstack.html"><strong>2.1.</strong> dstack</a></li><li><a href="architecture/cstack.html"><strong>2.2.</strong> cstack</a></li><li><a href="architecture/lstack.html"><strong>2.3.</strong> lstack</a></li><li><a href="architecture/tstack.html"><strong>2.4.</strong> tstack</a></li><li><a href="architecture/ifile.html"><strong>2.5.</strong> ifile</a></li></ul></li><li><a href="instruction_reference.html"><strong>3.</strong> Instruction Reference</a></li><li><ul class="section"><li><a href="instruction_reference/arithmetic.html" class="active"><strong>3.1.</strong> Arithmetic</a></li><li><a href="instruction_reference/stack_manipulation.html"><strong>3.2.</strong> Stack Manipulation</a></li><li><a href="instruction_reference/memory.html"><strong>3.3.</strong> Memory</a></li><li><a href="instruction_reference/uarc.html"><strong>3.4.</strong> UARC</a></li></ul>
+        </div>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar" class="menu-bar">
+                    <div class="left-buttons">
+                        <i id="sidebar-toggle" class="fa fa-bars"></i>
+                        <i id="theme-toggle" class="fa fa-paint-brush"></i>
+                    </div>
+
+                    <h1 class="menu-title">UARC core0</h1>
+
+                    <div class="right-buttons">
+                        <i id="print-button" class="fa fa-print" title="Print this book"></i>
+                    </div>
+                </div>
+
+                <div id="content" class="content">
+                    <h1>Arithmetic Instructions</h1>
+<h2><code>add</code></h2>
+<p><code>a b -- (a + b)</code></p>
+<h4>Description</h4>
+<p><code>add</code> takes parameters <code>a</code> and <code>b</code> from the stack and adds them. The carry bit is set by this instruction, but is not consumed.</p>
+<h4>Side Effects</h4>
+<p><code>c = (a + b)[WORD]</code></p>
+<h2><code>addc</code></h2>
+<p><code>a b -- (a + b + c)</code></p>
+<h4>Description</h4>
+<p><code>addc</code> takes parameters <code>a</code> and <code>b</code> from the stack and adds them with <code>c</code>. Unlike <code>add</code>, <code>addc</code> consumes the carry, so ensure it is correctly set before issuing this instruction.</p>
+<h4>Side Effects</h4>
+<p><code>c = (a + b)[WORD]</code></p>
+<h2><code>sub</code></h2>
+<p><code>a b -- (a - b)</code></p>
+<h4>Description</h4>
+<p><code>sub</code> subtracts parameter <code>b</code> from <code>a</code>. The carry bit is set by this instruction to <code>1</code> when no borrow occurs. The carry bit is not consumed by this instruction.</p>
+<h2><code>subc</code></h2>
+<p><code>a b -- (a - b + c)</code></p>
+<h4>Description</h4>
+<p><code>subc</code> subtracts parameter <code>b</code> from <code>a</code> and adds <code>c</code>. The carry bit is set by this instruction to <code>1</code> when no borrow occurs.</p>
+
+                </div>
+
+                <!-- Mobile navigation buttons -->
+                
+                    <a href="instruction_reference.html" class="mobile-nav-chapters previous">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a href="instruction_reference/stack_manipulation.html" class="mobile-nav-chapters next">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+
+            </div>
+
+            
+                <a href="instruction_reference.html" class="nav-chapters previous" title="You can navigate through the chapters using the arrow keys">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+            
+
+            
+                <a href="instruction_reference/stack_manipulation.html" class="nav-chapters next" title="You can navigate through the chapters using the arrow keys">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            
+
+        </div>
+
+
+        <!-- Local fallback for Font Awesome -->
+        <script>
+            if ($(".fa").css("font-family") !== "FontAwesome") {
+                $('<link rel="stylesheet" type="text/css" href="_FontAwesome/css/font-awesome.css">').prependTo('head');
+            }
+        </script>
+
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+    </body>
+</html>
