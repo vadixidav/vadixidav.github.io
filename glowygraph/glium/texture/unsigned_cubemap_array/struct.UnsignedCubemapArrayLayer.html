@@ -9,6 +9,7 @@
 
     <title>glium::texture::unsigned_cubemap_array::UnsignedCubemapArrayLayer - Rust</title>
 
+    <link rel="stylesheet" type="text/css" href="../../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../../main.css">
 
     
@@ -45,25 +46,25 @@
             <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                 [<span class='inner'>&#x2212;</span>]
             </a>
-        </span><a id='src-26093' class='srclink' href='../../../src/glium///home/vadix/project/library/glowygraph/target/debug/build/glium-49e0f56c93e4cd39/out/textures.rs.html#26427' title='goto source code'>[src]</a></span></h1>
+        </span><a id='src-26525' class='srclink' href='../../../src/glium///home/vadix/project/library/glowygraph/target/debug/build/glium-49e0f56c93e4cd39/out/textures.rs.html#26427' title='goto source code'>[src]</a></span></h1>
 <pre class='rust struct'>pub struct UnsignedCubemapArrayLayer&lt;'t&gt;(_, _);</pre><div class='docblock'><p>Represents a single layer of a <code>UnsignedCubemapArray</code>.</p>
 
 <p>Can be obtained by calling <code>UnsignedCubemapArray::layer()</code>.</p>
-</div><h2 id='methods'>Methods</h2><h3 class='impl'><code>impl&lt;'t&gt; <a class='struct' href='../../../glium/texture/unsigned_cubemap_array/struct.UnsignedCubemapArrayLayer.html' title='glium::texture::unsigned_cubemap_array::UnsignedCubemapArrayLayer'>UnsignedCubemapArrayLayer</a>&lt;'t&gt;</code></h3><div class='impl-items'><h4 id='method.width' class='method'><code>fn <a href='#method.width' class='fnname'>width</a>(&amp;self) -&gt; <a href='https://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a></code></h4>
+</div><h2 id='methods'>Methods</h2><h3 class='impl'><code>impl&lt;'t&gt; <a class='struct' href='../../../glium/texture/unsigned_cubemap_array/struct.UnsignedCubemapArrayLayer.html' title='glium::texture::unsigned_cubemap_array::UnsignedCubemapArrayLayer'>UnsignedCubemapArrayLayer</a>&lt;'t&gt;</code></h3><div class='impl-items'><h4 id='method.width' class='method'><code>fn <a href='#method.width' class='fnname'>width</a>(&amp;self) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a></code></h4>
 <div class='docblock'><p>Returns the width of that image.</p>
-</div><h4 id='method.height' class='method'><code>fn <a href='#method.height' class='fnname'>height</a>(&amp;self) -&gt; <a href='https://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a></code></h4>
+</div><h4 id='method.height' class='method'><code>fn <a href='#method.height' class='fnname'>height</a>(&amp;self) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a></code></h4>
 <div class='docblock'><p>Returns the height of that image.</p>
-</div><h4 id='method.dimensions' class='method'><code>fn <a href='#method.dimensions' class='fnname'>dimensions</a>(&amp;self) -&gt; <a href='https://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a></code></h4>
+</div><h4 id='method.dimensions' class='method'><code>fn <a href='#method.dimensions' class='fnname'>dimensions</a>(&amp;self) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a></code></h4>
 <div class='docblock'><p>Returns the dimension of that image.</p>
 </div><h4 id='method.get_texture' class='method'><code>fn <a href='#method.get_texture' class='fnname'>get_texture</a>(&amp;self) -&gt; &amp;'t <a class='struct' href='../../../glium/texture/unsigned_cubemap_array/struct.UnsignedCubemapArray.html' title='glium::texture::unsigned_cubemap_array::UnsignedCubemapArray'>UnsignedCubemapArray</a></code></h4>
 <div class='docblock'><p>Returns the corresponding texture.</p>
-</div><h4 id='method.get_layer' class='method'><code>fn <a href='#method.get_layer' class='fnname'>get_layer</a>(&amp;self) -&gt; <a href='https://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a></code></h4>
+</div><h4 id='method.get_layer' class='method'><code>fn <a href='#method.get_layer' class='fnname'>get_layer</a>(&amp;self) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a></code></h4>
 <div class='docblock'><p>Returns the layer index.</p>
-</div><h4 id='method.get_mipmap_levels' class='method'><code>fn <a href='#method.get_mipmap_levels' class='fnname'>get_mipmap_levels</a>(&amp;self) -&gt; <a href='https://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a></code></h4>
+</div><h4 id='method.get_mipmap_levels' class='method'><code>fn <a href='#method.get_mipmap_levels' class='fnname'>get_mipmap_levels</a>(&amp;self) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a></code></h4>
 <div class='docblock'><p>Returns the number of mipmap levels of the texture.</p>
 
 <p>The minimum value is 1, since there is always a main texture.</p>
-</div><h4 id='method.mipmap' class='method'><code>fn <a href='#method.mipmap' class='fnname'>mipmap</a>(&amp;self, level: <a href='https://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a>) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='struct' href='../../../glium/texture/unsigned_cubemap_array/struct.UnsignedCubemapArrayLayerMipmap.html' title='glium::texture::unsigned_cubemap_array::UnsignedCubemapArrayLayerMipmap'>UnsignedCubemapArrayLayerMipmap</a>&lt;'t&gt;&gt;</code></h4>
+</div><h4 id='method.mipmap' class='method'><code>fn <a href='#method.mipmap' class='fnname'>mipmap</a>(&amp;self, level: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a>) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='struct' href='../../../glium/texture/unsigned_cubemap_array/struct.UnsignedCubemapArrayLayerMipmap.html' title='glium::texture::unsigned_cubemap_array::UnsignedCubemapArrayLayerMipmap'>UnsignedCubemapArrayLayerMipmap</a>&lt;'t&gt;&gt;</code></h4>
 <div class='docblock'><p>Access a single mipmap level of this layer.</p>
 </div><h4 id='method.main_level' class='method'><code>fn <a href='#method.main_level' class='fnname'>main_level</a>(&amp;self) -&gt; <a class='struct' href='../../../glium/texture/unsigned_cubemap_array/struct.UnsignedCubemapArrayLayerMipmap.html' title='glium::texture::unsigned_cubemap_array::UnsignedCubemapArrayLayerMipmap'>UnsignedCubemapArrayLayerMipmap</a>&lt;'t&gt;</code></h4>
 <div class='docblock'><p>Access the main mipmap level of this layer.</p>
@@ -128,6 +129,6 @@
     <script src="../../../jquery.js"></script>
     <script src="../../../main.js"></script>
     
-    <script async src="../../../search-index.js"></script>
+    <script defer src="../../../search-index.js"></script>
 </body>
 </html>

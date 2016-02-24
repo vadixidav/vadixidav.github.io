@@ -9,6 +9,7 @@
 
     <title>glium::texture::TextureAnyLayerMipmap - Rust</title>
 
+    <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../main.css">
 
     
@@ -45,22 +46,22 @@
             <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                 [<span class='inner'>&#x2212;</span>]
             </a>
-        </span><a id='src-10565' class='srclink' href='../../src/glium/texture/any.rs.html#1230-1243' title='goto source code'>[src]</a></span></h1>
+        </span><a id='src-10987' class='srclink' href='../../src/glium/texture/any.rs.html#1230-1243' title='goto source code'>[src]</a></span></h1>
 <pre class='rust struct'>pub struct TextureAnyLayerMipmap&lt;'a&gt; {
     // some fields omitted
 }</pre><div class='docblock'><p>Represents a specific layer of a specific mipmap. This is the same as <code>TextureAnyImage</code>, except
 for 3D textures, cubemaps and cubemap arrays.</p>
 </div><h2 id='methods'>Methods</h2><h3 class='impl'><code>impl&lt;'a&gt; <a class='struct' href='../../glium/texture/struct.TextureAnyLayerMipmap.html' title='glium::texture::TextureAnyLayerMipmap'>TextureAnyLayerMipmap</a>&lt;'a&gt;</code></h3><div class='impl-items'><h4 id='method.get_texture' class='method'><code>fn <a href='#method.get_texture' class='fnname'>get_texture</a>(&amp;self) -&gt; &amp;'a <a class='struct' href='../../glium/texture/struct.TextureAny.html' title='glium::texture::TextureAny'>TextureAny</a></code></h4>
 <div class='docblock'><p>Returns the texture.</p>
-</div><h4 id='method.get_level' class='method'><code>fn <a href='#method.get_level' class='fnname'>get_level</a>(&amp;self) -&gt; <a href='https://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a></code></h4>
+</div><h4 id='method.get_level' class='method'><code>fn <a href='#method.get_level' class='fnname'>get_level</a>(&amp;self) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a></code></h4>
 <div class='docblock'><p>Returns the level of the texture.</p>
-</div><h4 id='method.get_layer' class='method'><code>fn <a href='#method.get_layer' class='fnname'>get_layer</a>(&amp;self) -&gt; <a href='https://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a></code></h4>
+</div><h4 id='method.get_layer' class='method'><code>fn <a href='#method.get_layer' class='fnname'>get_layer</a>(&amp;self) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a></code></h4>
 <div class='docblock'><p>Returns the layer of the texture.</p>
-</div><h4 id='method.get_width' class='method'><code>fn <a href='#method.get_width' class='fnname'>get_width</a>(&amp;self) -&gt; <a href='https://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a></code></h4>
+</div><h4 id='method.get_width' class='method'><code>fn <a href='#method.get_width' class='fnname'>get_width</a>(&amp;self) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a></code></h4>
 <div class='docblock'><p>Returns the width of this texture slice.</p>
-</div><h4 id='method.get_height' class='method'><code>fn <a href='#method.get_height' class='fnname'>get_height</a>(&amp;self) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a href='https://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a>&gt;</code></h4>
+</div><h4 id='method.get_height' class='method'><code>fn <a href='#method.get_height' class='fnname'>get_height</a>(&amp;self) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a>&gt;</code></h4>
 <div class='docblock'><p>Returns the height of this texture slice.</p>
-</div><h4 id='method.get_samples' class='method'><code>fn <a href='#method.get_samples' class='fnname'>get_samples</a>(&amp;self) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a href='https://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a>&gt;</code></h4>
+</div><h4 id='method.get_samples' class='method'><code>fn <a href='#method.get_samples' class='fnname'>get_samples</a>(&amp;self) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a>&gt;</code></h4>
 <div class='docblock'><p>Returns the number of samples of the texture.</p>
 </div><h4 id='method.into_image' class='method'><code>fn <a href='#method.into_image' class='fnname'>into_image</a>(&amp;self, cube_layer: <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='enum' href='../../glium/texture/enum.CubeLayer.html' title='glium::texture::CubeLayer'>CubeLayer</a>&gt;) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='struct' href='../../glium/texture/struct.TextureAnyImage.html' title='glium::texture::TextureAnyImage'>TextureAnyImage</a>&lt;'a&gt;&gt;</code></h4>
 <div class='docblock'><p>Turns this into an image.</p>
@@ -128,6 +129,6 @@ for 3D textures, cubemaps and cubemap arrays.</p>
     <script src="../../jquery.js"></script>
     <script src="../../main.js"></script>
     
-    <script async src="../../search-index.js"></script>
+    <script defer src="../../search-index.js"></script>
 </body>
 </html>

@@ -9,6 +9,7 @@
 
     <title>backtrace::Symbol - Rust</title>
 
+    <link rel="stylesheet" type="text/css" href="../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../main.css">
 
     
@@ -47,10 +48,10 @@
             </a>
         </span><a id='src-85' class='srclink' href='../src/backtrace/symbolize/mod.rs.html#15-36' title='goto source code'>[src]</a></span></h1>
 <pre class='rust trait'>pub trait Symbol {
-    fn <a href='#method.name' class='fnname'>name</a>(&amp;self) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>&amp;[</a><a href='https://doc.rust-lang.org/nightly/std/primitive.u8.html'>u8</a><a href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>]</a>&gt; { ... }
-    fn <a href='#method.addr' class='fnname'>addr</a>(&amp;self) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a href='https://doc.rust-lang.org/nightly/std/primitive.pointer.html'>*mut <a class='enum' href='https://doc.rust-lang.org/nightly/std/os/raw/enum.c_void.html' title='std::os::raw::c_void'>c_void</a></a>&gt; { ... }
-    fn <a href='#method.filename' class='fnname'>filename</a>(&amp;self) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>&amp;[</a><a href='https://doc.rust-lang.org/nightly/std/primitive.u8.html'>u8</a><a href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>]</a>&gt; { ... }
-    fn <a href='#method.lineno' class='fnname'>lineno</a>(&amp;self) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a href='https://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a>&gt; { ... }
+    fn <a href='#method.name' class='fnname'>name</a>(&amp;self) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>&amp;[</a><a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u8.html'>u8</a><a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>]</a>&gt; { ... }
+    fn <a href='#method.addr' class='fnname'>addr</a>(&amp;self) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.pointer.html'>*mut <a class='enum' href='https://doc.rust-lang.org/nightly/std/os/raw/enum.c_void.html' title='std::os::raw::c_void'>c_void</a></a>&gt; { ... }
+    fn <a href='#method.filename' class='fnname'>filename</a>(&amp;self) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>&amp;[</a><a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u8.html'>u8</a><a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>]</a>&gt; { ... }
+    fn <a href='#method.lineno' class='fnname'>lineno</a>(&amp;self) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a>&gt; { ... }
 }</pre><div class='docblock'><p>A trait representing the resolution of a symbol in a file.</p>
 
 <p>This trait is yielded as a trait object to the closure given to the
@@ -63,16 +64,16 @@ always available in a symbol, however, so all methods return an <code>Option</co
 </div>
             <h2 id='provided-methods'>Provided Methods</h2>
             <div class='methods'>
-        <h3 id='method.name' class='method stab '><code>fn <a href='#method.name' class='fnname'>name</a>(&amp;self) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>&amp;[</a><a href='https://doc.rust-lang.org/nightly/std/primitive.u8.html'>u8</a><a href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>]</a>&gt;</code></h3><div class='docblock'><p>Returns the name of this function as a byte array (may not always be
+        <h3 id='method.name' class='method stab '><code>fn <a href='#method.name' class='fnname'>name</a>(&amp;self) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>&amp;[</a><a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u8.html'>u8</a><a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>]</a>&gt;</code></h3><div class='docblock'><p>Returns the name of this function as a byte array (may not always be
 valid UTF-8).</p>
-</div><h3 id='method.addr' class='method stab '><code>fn <a href='#method.addr' class='fnname'>addr</a>(&amp;self) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a href='https://doc.rust-lang.org/nightly/std/primitive.pointer.html'>*mut <a class='enum' href='https://doc.rust-lang.org/nightly/std/os/raw/enum.c_void.html' title='std::os::raw::c_void'>c_void</a></a>&gt;</code></h3><div class='docblock'><p>Returns the starting address of this function.</p>
-</div><h3 id='method.filename' class='method stab '><code>fn <a href='#method.filename' class='fnname'>filename</a>(&amp;self) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>&amp;[</a><a href='https://doc.rust-lang.org/nightly/std/primitive.u8.html'>u8</a><a href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>]</a>&gt;</code></h3><div class='docblock'><p>Returns the file name where this function was defined.</p>
+</div><h3 id='method.addr' class='method stab '><code>fn <a href='#method.addr' class='fnname'>addr</a>(&amp;self) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.pointer.html'>*mut <a class='enum' href='https://doc.rust-lang.org/nightly/std/os/raw/enum.c_void.html' title='std::os::raw::c_void'>c_void</a></a>&gt;</code></h3><div class='docblock'><p>Returns the starting address of this function.</p>
+</div><h3 id='method.filename' class='method stab '><code>fn <a href='#method.filename' class='fnname'>filename</a>(&amp;self) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>&amp;[</a><a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u8.html'>u8</a><a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>]</a>&gt;</code></h3><div class='docblock'><p>Returns the file name where this function was defined.</p>
 
 <p>This is currently only available when libbacktrace is being used (e.g.
 unix platforms other than OSX) and when a binary is compiled with
 debuginfo. If neither of these conditions is met then this will likely
 return <code>None</code>.</p>
-</div><h3 id='method.lineno' class='method stab '><code>fn <a href='#method.lineno' class='fnname'>lineno</a>(&amp;self) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a href='https://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a>&gt;</code></h3><div class='docblock'><p>Returns the line number for where this symbol is currently executing.</p>
+</div><h3 id='method.lineno' class='method stab '><code>fn <a href='#method.lineno' class='fnname'>lineno</a>(&amp;self) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a>&gt;</code></h3><div class='docblock'><p>Returns the line number for where this symbol is currently executing.</p>
 
 <p>This return value is typically <code>Some</code> if <code>filename</code> returns <code>Some</code>, and
 is consequently subject to similar caveats.</p>
@@ -141,6 +142,6 @@ is consequently subject to similar caveats.</p>
     <script src="../jquery.js"></script>
     <script src="../main.js"></script>
     
-    <script async src="../search-index.js"></script>
+    <script defer src="../search-index.js"></script>
 </body>
 </html>

@@ -9,6 +9,7 @@
 
     <title>glium::buffer::BufferMode - Rust</title>
 
+    <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../main.css">
 
     
@@ -45,7 +46,7 @@
             <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                 [<span class='inner'>&#x2212;</span>]
             </a>
-        </span><a id='src-1629' class='srclink' href='../../src/glium/buffer/mod.rs.html#201-271' title='goto source code'>[src]</a></span></h1>
+        </span><a id='src-1634' class='srclink' href='../../src/glium/buffer/mod.rs.html#201-271' title='goto source code'>[src]</a></span></h1>
 <pre class='rust enum'>pub enum BufferMode {
     Default,
     Dynamic,
@@ -73,7 +74,7 @@ is something that you shouldn&#39;t do by the way.</p>
 find the most appropriate storage depending on how we use it. It is guaranteed to never be
 too slow, but it won&#39;t be too fast either.</p>
 
-<h1 id='implementation' class='section-header'><a href='#implementation'>Implementation</a></h1>
+<h1 id='implementation-1' class='section-header'><a href='#implementation-1'>Implementation</a></h1>
 <p>Tries to use <code>glBufferStorage</code> with the <code>GL_DYNAMIC_STORAGE_BIT</code> and
 <code>GL_CLIENT_STORAGE_BIT</code> flags.</p>
 
@@ -91,7 +92,7 @@ creating a buffer that has three times the capacity that it would normally have.
 and draw the first third, then modify and draw the second third, then the last part, then
 go back to the first third, etc.</p>
 
-<h1 id='implementation' class='section-header'><a href='#implementation'>Implementation</a></h1>
+<h1 id='implementation-2' class='section-header'><a href='#implementation-2'>Implementation</a></h1>
 <p>Tries to use <code>glBufferStorage</code> with <code>GL_MAP_PERSISTENT_BIT</code>. Sync fences are automatically
 managed by glium.</p>
 
@@ -101,15 +102,15 @@ managed by glium.</p>
 <p>Immutable buffers should be created once and never touched again. Modifying their content
 is permitted, but is very slow.</p>
 
-<h1 id='implementation' class='section-header'><a href='#implementation'>Implementation</a></h1>
+<h1 id='implementation-3' class='section-header'><a href='#implementation-3'>Implementation</a></h1>
 <p>Tries to use <code>glBufferStorage</code> without any flag. Modifications are done by creating
 temporary buffers and making the GPU copy the data from the temporary buffer to the real
 one.</p>
 
 <p>If this function is not available, falls back to <code>glBufferData</code> with <code>GL_STATIC_DRAW</code>.</p>
 </div></td></tr></table><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/default/trait.Default.html' title='core::default::Default'>Default</a> for <a class='enum' href='../../glium/buffer/enum.BufferMode.html' title='glium::buffer::BufferMode'>BufferMode</a></code></h3><div class='impl-items'><h4 id='method.default' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/default/trait.Default.html#method.default' class='fnname'>default</a>() -&gt; <a class='enum' href='../../glium/buffer/enum.BufferMode.html' title='glium::buffer::BufferMode'>BufferMode</a></code></h4>
-</div><h3 id='derived_implementations'>Derived Implementations </h3><h3 class='impl'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/cmp/trait.Eq.html' title='core::cmp::Eq'>Eq</a> for <a class='enum' href='../../glium/buffer/enum.BufferMode.html' title='glium::buffer::BufferMode'>BufferMode</a></code></h3><div class='impl-items'></div><h3 class='impl'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/cmp/trait.PartialEq.html' title='core::cmp::PartialEq'>PartialEq</a> for <a class='enum' href='../../glium/buffer/enum.BufferMode.html' title='glium::buffer::BufferMode'>BufferMode</a></code></h3><div class='impl-items'><h4 id='method.eq' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/cmp/trait.PartialEq.html#method.eq' class='fnname'>eq</a>(&amp;self, __arg_0: &amp;<a class='enum' href='../../glium/buffer/enum.BufferMode.html' title='glium::buffer::BufferMode'>BufferMode</a>) -&gt; <a href='https://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a></code></h4>
-<h4 id='method.ne' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/cmp/trait.PartialEq.html#method.ne' class='fnname'>ne</a>(&amp;self, __arg_0: &amp;<a class='enum' href='../../glium/buffer/enum.BufferMode.html' title='glium::buffer::BufferMode'>BufferMode</a>) -&gt; <a href='https://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a></code></h4>
+</div><h3 id='derived_implementations'>Derived Implementations </h3><h3 class='impl'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/cmp/trait.Eq.html' title='core::cmp::Eq'>Eq</a> for <a class='enum' href='../../glium/buffer/enum.BufferMode.html' title='glium::buffer::BufferMode'>BufferMode</a></code></h3><div class='impl-items'></div><h3 class='impl'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/cmp/trait.PartialEq.html' title='core::cmp::PartialEq'>PartialEq</a> for <a class='enum' href='../../glium/buffer/enum.BufferMode.html' title='glium::buffer::BufferMode'>BufferMode</a></code></h3><div class='impl-items'><h4 id='method.eq' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/cmp/trait.PartialEq.html#method.eq' class='fnname'>eq</a>(&amp;self, __arg_0: &amp;<a class='enum' href='../../glium/buffer/enum.BufferMode.html' title='glium::buffer::BufferMode'>BufferMode</a>) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a></code></h4>
+<h4 id='method.ne' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/cmp/trait.PartialEq.html#method.ne' class='fnname'>ne</a>(&amp;self, __arg_0: &amp;<a class='enum' href='../../glium/buffer/enum.BufferMode.html' title='glium::buffer::BufferMode'>BufferMode</a>) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a></code></h4>
 </div><h3 class='impl'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html' title='core::clone::Clone'>Clone</a> for <a class='enum' href='../../glium/buffer/enum.BufferMode.html' title='glium::buffer::BufferMode'>BufferMode</a></code></h3><div class='impl-items'><h4 id='method.clone' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone' class='fnname'>clone</a>(&amp;self) -&gt; <a class='enum' href='../../glium/buffer/enum.BufferMode.html' title='glium::buffer::BufferMode'>BufferMode</a></code></h4>
 <h4 id='method.clone_from' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone_from' class='fnname'>clone_from</a>(&amp;mut self, source: &amp;Self)</code></h4>
 </div><h3 class='impl'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/marker/trait.Copy.html' title='core::marker::Copy'>Copy</a> for <a class='enum' href='../../glium/buffer/enum.BufferMode.html' title='glium::buffer::BufferMode'>BufferMode</a></code></h3><div class='impl-items'></div><h3 class='impl'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html' title='core::fmt::Debug'>Debug</a> for <a class='enum' href='../../glium/buffer/enum.BufferMode.html' title='glium::buffer::BufferMode'>BufferMode</a></code></h3><div class='impl-items'><h4 id='method.fmt' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#method.fmt' class='fnname'>fmt</a>(&amp;self, __arg_0: &amp;mut <a class='struct' href='https://doc.rust-lang.org/nightly/core/fmt/struct.Formatter.html' title='core::fmt::Formatter'>Formatter</a>) -&gt; <a class='type' href='https://doc.rust-lang.org/nightly/core/fmt/type.Result.html' title='core::fmt::Result'>Result</a></code></h4>
@@ -172,6 +173,6 @@ one.</p>
     <script src="../../jquery.js"></script>
     <script src="../../main.js"></script>
     
-    <script async src="../../search-index.js"></script>
+    <script defer src="../../search-index.js"></script>
 </body>
 </html>

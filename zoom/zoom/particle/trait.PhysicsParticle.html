@@ -9,6 +9,7 @@
 
     <title>zoom::particle::PhysicsParticle - Rust</title>
 
+    <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../main.css">
 
     
@@ -45,8 +46,8 @@
             <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                 [<span class='inner'>&#x2212;</span>]
             </a>
-        </span><a id='src-412' class='srclink' href='../../src/zoom/particle/mod.rs.html#42-140' title='goto source code'>[src]</a></span></h1>
-<pre class='rust trait'>pub trait PhysicsParticle&lt;V, D&gt;: <a class='trait' href='../../zoom/particle/trait.Particle.html' title='zoom::particle::Particle'>Particle</a>&lt;V, D&gt; + <a class='trait' href='../../zoom/particle/trait.Quanta.html' title='zoom::particle::Quanta'>Quanta</a>&lt;D&gt; + <a class='trait' href='../../zoom/particle/trait.Inertia.html' title='zoom::particle::Inertia'>Inertia</a>&lt;D&gt; <span class='where'>where V: <a class='trait' href='../../zoom/vector/trait.Vector.html' title='zoom::vector::Vector'>Vector</a>&lt;D&gt;, D: <a class='trait' href='../../vector/num/traits/trait.Float.html' title='vector::num::traits::Float'>Float</a></span> {
+        </span><a id='src-417' class='srclink' href='../../src/zoom/particle/mod.rs.html#42-140' title='goto source code'>[src]</a></span></h1>
+<pre class='rust trait'>pub trait PhysicsParticle&lt;V, D&gt;: <a class='trait' href='../../zoom/particle/trait.Particle.html' title='zoom::particle::Particle'>Particle</a>&lt;V, D&gt; + <a class='trait' href='../../zoom/particle/trait.Quanta.html' title='zoom::particle::Quanta'>Quanta</a>&lt;D&gt; + <a class='trait' href='../../zoom/particle/trait.Inertia.html' title='zoom::particle::Inertia'>Inertia</a>&lt;D&gt; <span class='where'>where V: <a class='trait' href='../../zoom/vector/trait.Vector.html' title='zoom::vector::Vector'>Vector</a>&lt;D&gt;, D: <a class='trait' href='../../num/traits/trait.Float.html' title='num::traits::Float'>Float</a></span> {
     fn <a href='#method.basic_form' class='fnname'>basic_form</a>(&amp;self) -&gt; <a class='struct' href='../../zoom/particle/basic_particle/struct.BasicParticle.html' title='zoom::particle::basic_particle::BasicParticle'>BasicParticle</a>&lt;V, D&gt; { ... }
     fn <a href='#method.drag' class='fnname'>drag</a>(&amp;self, magnitude: D) { ... }
     fn <a href='#method.gravitate_to' class='fnname'>gravitate_to</a>&lt;T: ?<a class='trait' href='https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html' title='core::marker::Sized'>Sized</a>&gt;(&amp;self, center: &amp;T, magnitude: D) <span class='where'>where T: <a class='trait' href='../../zoom/particle/trait.Quanta.html' title='zoom::particle::Quanta'>Quanta</a>&lt;D&gt; + <a class='trait' href='../../zoom/particle/trait.Position.html' title='zoom::particle::Position'>Position</a>&lt;V&gt;</span> { ... }
@@ -73,7 +74,7 @@ Use this to implement data structures that need to create intermediary particles
 </div></div>
         <h2 id='implementors'>Implementors</h2>
         <ul class='item-list' id='implementors-list'>
-    <li><code>impl&lt;V, D&gt; <a class='trait' href='../../zoom/particle/trait.PhysicsParticle.html' title='zoom::particle::PhysicsParticle'>PhysicsParticle</a>&lt;V, D&gt; for <a class='struct' href='../../zoom/particle/basic_particle/struct.BasicParticle.html' title='zoom::particle::basic_particle::BasicParticle'>BasicParticle</a>&lt;V, D&gt; <span class='where'>where V: <a class='trait' href='../../zoom/vector/trait.Vector.html' title='zoom::vector::Vector'>Vector</a>&lt;D&gt;, D: <a class='trait' href='../../vector/num/traits/trait.Float.html' title='vector::num::traits::Float'>Float</a></span></code></li>
+    <li><code>impl&lt;V, D&gt; <a class='trait' href='../../zoom/particle/trait.PhysicsParticle.html' title='zoom::particle::PhysicsParticle'>PhysicsParticle</a>&lt;V, D&gt; for <a class='struct' href='../../zoom/particle/basic_particle/struct.BasicParticle.html' title='zoom::particle::basic_particle::BasicParticle'>BasicParticle</a>&lt;V, D&gt; <span class='where'>where V: <a class='trait' href='../../zoom/vector/trait.Vector.html' title='zoom::vector::Vector'>Vector</a>&lt;D&gt;, D: <a class='trait' href='../../num/traits/trait.Float.html' title='num::traits::Float'>Float</a></span></code></li>
 </ul><script type="text/javascript" async
                               src="../../implementors/zoom/particle/trait.PhysicsParticle.js">
                       </script></section>
@@ -135,6 +136,6 @@ Use this to implement data structures that need to create intermediary particles
     <script src="../../jquery.js"></script>
     <script src="../../main.js"></script>
     
-    <script async src="../../search-index.js"></script>
+    <script defer src="../../search-index.js"></script>
 </body>
 </html>

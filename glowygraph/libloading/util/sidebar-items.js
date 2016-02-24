@@ -1,1 +1,1 @@
-initSidebarItems({"trait":[["CStringAsRef",""]]});
+initSidebarItems({});

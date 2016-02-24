@@ -9,6 +9,7 @@
 
     <title>wayland_client::wayland::seat::WlKeyboardEvent - Rust</title>
 
+    <link rel="stylesheet" type="text/css" href="../../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../../main.css">
 
     
@@ -45,14 +46,14 @@
             <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                 [<span class='inner'>&#x2212;</span>]
             </a>
-        </span><a id='src-2051' class='srclink' href='../../../src/wayland_client///home/vadix/project/library/glowygraph/target/debug/build/wayland-client-84fbcd0eeaab8106/out/wayland_client_api.rs.html#2938-2995' title='goto source code'>[src]</a></span></h1>
+        </span><a id='src-2180' class='srclink' href='../../../src/wayland_client///home/vadix/project/library/glowygraph/target/debug/build/wayland-client-84fbcd0eeaab8106/out/wayland_client_api.rs.html#2938-2995' title='goto source code'>[src]</a></span></h1>
 <pre class='rust enum'>pub enum WlKeyboardEvent {
-    Keymap(<a class='enum' href='../../../wayland_client/wayland/seat/enum.WlKeyboardKeymapFormat.html' title='wayland_client::wayland::seat::WlKeyboardKeymapFormat'>WlKeyboardKeymapFormat</a>, <a class='type' href='https://doc.rust-lang.org/nightly/std/sys/ext/io/type.RawFd.html' title='std::sys::ext::io::RawFd'>RawFd</a>, <a href='https://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a>),
-    Enter(<a href='https://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a>, <a class='struct' href='../../../wayland_client/struct.ProxyId.html' title='wayland_client::ProxyId'>ProxyId</a>, <a class='struct' href='https://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a href='https://doc.rust-lang.org/nightly/std/primitive.u8.html'>u8</a>&gt;),
-    Leave(<a href='https://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a>, <a class='struct' href='../../../wayland_client/struct.ProxyId.html' title='wayland_client::ProxyId'>ProxyId</a>),
-    Key(<a href='https://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a>, <a href='https://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a>, <a href='https://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a>, <a class='enum' href='../../../wayland_client/wayland/seat/enum.WlKeyboardKeyState.html' title='wayland_client::wayland::seat::WlKeyboardKeyState'>WlKeyboardKeyState</a>),
-    Modifiers(<a href='https://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a>, <a href='https://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a>, <a href='https://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a>, <a href='https://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a>, <a href='https://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a>),
-    RepeatInfo(<a href='https://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a>, <a href='https://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a>),
+    Keymap(<a class='enum' href='../../../wayland_client/wayland/seat/enum.WlKeyboardKeymapFormat.html' title='wayland_client::wayland::seat::WlKeyboardKeymapFormat'>WlKeyboardKeymapFormat</a>, <a class='type' href='https://doc.rust-lang.org/nightly/std/sys/ext/io/type.RawFd.html' title='std::sys::ext::io::RawFd'>RawFd</a>, <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a>),
+    Enter(<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a>, <a class='struct' href='../../../wayland_client/struct.ProxyId.html' title='wayland_client::ProxyId'>ProxyId</a>, <a class='struct' href='https://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u8.html'>u8</a>&gt;),
+    Leave(<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a>, <a class='struct' href='../../../wayland_client/struct.ProxyId.html' title='wayland_client::ProxyId'>ProxyId</a>),
+    Key(<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a>, <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a>, <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a>, <a class='enum' href='../../../wayland_client/wayland/seat/enum.WlKeyboardKeyState.html' title='wayland_client::wayland::seat::WlKeyboardKeyState'>WlKeyboardKeyState</a>),
+    Modifiers(<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a>, <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a>, <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a>, <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a>, <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a>),
+    RepeatInfo(<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a>, <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a>),
 }</pre><h2 class='variants'>Variants</h2>
 <table><tr><td id='variant.Keymap'><code>Keymap</code></td><td><div class='docblock'><p>keyboard mapping</p>
 
@@ -164,6 +165,6 @@ of wl_keyboard.</p>
     <script src="../../../jquery.js"></script>
     <script src="../../../main.js"></script>
     
-    <script async src="../../../search-index.js"></script>
+    <script defer src="../../../search-index.js"></script>
 </body>
 </html>

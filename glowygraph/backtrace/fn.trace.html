@@ -9,6 +9,7 @@
 
     <title>backtrace::trace - Rust</title>
 
+    <link rel="stylesheet" type="text/css" href="../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../main.css">
 
     
@@ -46,7 +47,7 @@
                 [<span class='inner'>&#x2212;</span>]
             </a>
         </span><a id='src-21' class='srclink' href='../src/backtrace/backtrace/mod.rs.html#66-68' title='goto source code'>[src]</a></span></h1>
-<pre class='rust fn'>pub fn trace(cb: &amp;mut <a class='trait' href='https://doc.rust-lang.org/nightly/core/ops/trait.FnMut.html' title='core::ops::FnMut'>FnMut</a>(&amp;<a class='trait' href='../backtrace/trait.Frame.html' title='backtrace::Frame'>Frame</a>) -&gt; <a href='https://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a>)</pre><div class='docblock'><p>Inspects the current call-stack, passing all active frames into the closure
+<pre class='rust fn'>pub fn trace(cb: &amp;mut <a class='trait' href='https://doc.rust-lang.org/nightly/core/ops/trait.FnMut.html' title='core::ops::FnMut'>FnMut</a>(&amp;<a class='trait' href='../backtrace/trait.Frame.html' title='backtrace::Frame'>Frame</a>) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a>)</pre><div class='docblock'><p>Inspects the current call-stack, passing all active frames into the closure
 provided to calculate a stack trace.</p>
 
 <p>This function is the workhorse of this library in calculating the stack
@@ -132,6 +133,6 @@ through which the name and/or filename/line number can be learned.</p>
     <script src="../jquery.js"></script>
     <script src="../main.js"></script>
     
-    <script async src="../search-index.js"></script>
+    <script defer src="../search-index.js"></script>
 </body>
 </html>

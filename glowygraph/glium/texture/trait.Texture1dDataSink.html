@@ -9,6 +9,7 @@
 
     <title>glium::texture::Texture1dDataSink - Rust</title>
 
+    <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../main.css">
 
     
@@ -45,9 +46,9 @@
             <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                 [<span class='inner'>&#x2212;</span>]
             </a>
-        </span><a id='src-27114' class='srclink' href='../../src/glium/texture/mod.rs.html#291-294' title='goto source code'>[src]</a></span></h1>
+        </span><a id='src-27566' class='srclink' href='../../src/glium/texture/mod.rs.html#291-294' title='goto source code'>[src]</a></span></h1>
 <pre class='rust trait'>pub trait Texture1dDataSink&lt;T&gt; {
-    fn <a href='#tymethod.from_raw' class='fnname'>from_raw</a>(data: <a class='enum' href='https://doc.rust-lang.org/nightly/collections/borrow/enum.Cow.html' title='collections::borrow::Cow'>Cow</a>&lt;<a href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>[T]</a>&gt;, width: <a href='https://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a>) -&gt; Self <span class='where'>where <a href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>[T]</a>: <a class='trait' href='https://doc.rust-lang.org/nightly/collections/borrow/trait.ToOwned.html' title='collections::borrow::ToOwned'>ToOwned</a></span>;
+    fn <a href='#tymethod.from_raw' class='fnname'>from_raw</a>(data: <a class='enum' href='https://doc.rust-lang.org/nightly/collections/borrow/enum.Cow.html' title='collections::borrow::Cow'>Cow</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>[T]</a>&gt;, width: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a>) -&gt; Self <span class='where'>where <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>[T]</a>: <a class='trait' href='https://doc.rust-lang.org/nightly/collections/borrow/trait.ToOwned.html' title='collections::borrow::ToOwned'>ToOwned</a></span>;
 }</pre><div class='docblock'><p>Trait that describes types that can be built from one-dimensional texture data.</p>
 
 <p>The parameter indicates the type of pixels accepted by this sink.</p>
@@ -57,7 +58,7 @@ as this is the only format that is guaranteed to be supported by OpenGL when rea
 </div>
             <h2 id='required-methods'>Required Methods</h2>
             <div class='methods'>
-        <h3 id='tymethod.from_raw' class='method stab '><code>fn <a href='#tymethod.from_raw' class='fnname'>from_raw</a>(data: <a class='enum' href='https://doc.rust-lang.org/nightly/collections/borrow/enum.Cow.html' title='collections::borrow::Cow'>Cow</a>&lt;<a href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>[T]</a>&gt;, width: <a href='https://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a>) -&gt; Self <span class='where'>where <a href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>[T]</a>: <a class='trait' href='https://doc.rust-lang.org/nightly/collections/borrow/trait.ToOwned.html' title='collections::borrow::ToOwned'>ToOwned</a></span></code></h3><div class='docblock'><p>Builds a new object from raw data.</p>
+        <h3 id='tymethod.from_raw' class='method stab '><code>fn <a href='#tymethod.from_raw' class='fnname'>from_raw</a>(data: <a class='enum' href='https://doc.rust-lang.org/nightly/collections/borrow/enum.Cow.html' title='collections::borrow::Cow'>Cow</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>[T]</a>&gt;, width: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a>) -&gt; Self <span class='where'>where <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>[T]</a>: <a class='trait' href='https://doc.rust-lang.org/nightly/collections/borrow/trait.ToOwned.html' title='collections::borrow::ToOwned'>ToOwned</a></span></code></h3><div class='docblock'><p>Builds a new object from raw data.</p>
 </div></div>
         <h2 id='implementors'>Implementors</h2>
         <ul class='item-list' id='implementors-list'>
@@ -123,6 +124,6 @@ as this is the only format that is guaranteed to be supported by OpenGL when rea
     <script src="../../jquery.js"></script>
     <script src="../../main.js"></script>
     
-    <script async src="../../search-index.js"></script>
+    <script defer src="../../search-index.js"></script>
 </body>
 </html>

@@ -9,6 +9,7 @@
 
     <title>wayland_client::egl::WlEglSurface - Rust</title>
 
+    <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../main.css">
 
     
@@ -45,21 +46,21 @@
             <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                 [<span class='inner'>&#x2212;</span>]
             </a>
-        </span><a id='src-2678' class='srclink' href='../../src/wayland_client/egl.rs.html#19-22' title='goto source code'>[src]</a></span></h1>
+        </span><a id='src-2840' class='srclink' href='../../src/wayland_client/egl.rs.html#19-22' title='goto source code'>[src]</a></span></h1>
 <pre class='rust struct'>pub struct WlEglSurface {
     // some fields omitted
-}</pre><h2 id='methods'>Methods</h2><h3 class='impl'><code>impl <a class='struct' href='../../wayland_client/egl/struct.WlEglSurface.html' title='wayland_client::egl::WlEglSurface'>WlEglSurface</a></code></h3><div class='impl-items'><h4 id='method.new' class='method'><code>fn <a href='#method.new' class='fnname'>new</a>(surface: <a class='struct' href='../../wayland_client/wayland/compositor/struct.WlSurface.html' title='wayland_client::wayland::compositor::WlSurface'>WlSurface</a>, width: <a href='https://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a>, height: <a href='https://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a>) -&gt; <a class='struct' href='../../wayland_client/egl/struct.WlEglSurface.html' title='wayland_client::egl::WlEglSurface'>WlEglSurface</a></code></h4>
+}</pre><h2 id='methods'>Methods</h2><h3 class='impl'><code>impl <a class='struct' href='../../wayland_client/egl/struct.WlEglSurface.html' title='wayland_client::egl::WlEglSurface'>WlEglSurface</a></code></h3><div class='impl-items'><h4 id='method.new' class='method'><code>fn <a href='#method.new' class='fnname'>new</a>(surface: <a class='struct' href='../../wayland_client/wayland/compositor/struct.WlSurface.html' title='wayland_client::wayland::compositor::WlSurface'>WlSurface</a>, width: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a>, height: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a>) -&gt; <a class='struct' href='../../wayland_client/egl/struct.WlEglSurface.html' title='wayland_client::egl::WlEglSurface'>WlEglSurface</a></code></h4>
 <h4 id='method.destroy' class='method'><code>fn <a href='#method.destroy' class='fnname'>destroy</a>(self) -&gt; <a class='struct' href='../../wayland_client/wayland/compositor/struct.WlSurface.html' title='wayland_client::wayland::compositor::WlSurface'>WlSurface</a></code></h4>
-<h4 id='method.get_size' class='method'><code>fn <a href='#method.get_size' class='fnname'>get_size</a>(&amp;self) -&gt; <a href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>(<a href='https://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a>, <a href='https://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a>)</a></code></h4>
-<h4 id='method.resize' class='method'><code>fn <a href='#method.resize' class='fnname'>resize</a>(&amp;self, width: <a href='https://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a>, height: <a href='https://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a>, dx: <a href='https://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a>, dy: <a href='https://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a>)</code></h4>
-<h4 id='method.egl_surface_ptr' class='method'><code>fn <a href='#method.egl_surface_ptr' class='fnname'>egl_surface_ptr</a>(&amp;self) -&gt; <a href='https://doc.rust-lang.org/nightly/std/primitive.pointer.html'>*const <a class='enum' href='https://doc.rust-lang.org/nightly/std/os/raw/enum.c_void.html' title='std::os::raw::c_void'>c_void</a></a></code></h4>
-<h4 id='method.egl_surfaceptr' class='method'><code>unsafe fn <a href='#method.egl_surfaceptr' class='fnname'>egl_surfaceptr</a>(&amp;self) -&gt; <a href='https://doc.rust-lang.org/nightly/std/primitive.pointer.html'>*mut <a class='enum' href='https://doc.rust-lang.org/nightly/std/os/raw/enum.c_void.html' title='std::os::raw::c_void'>c_void</a></a></code></h4>
+<h4 id='method.get_size' class='method'><code>fn <a href='#method.get_size' class='fnname'>get_size</a>(&amp;self) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>(<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a>, <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a>)</a></code></h4>
+<h4 id='method.resize' class='method'><code>fn <a href='#method.resize' class='fnname'>resize</a>(&amp;self, width: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a>, height: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a>, dx: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a>, dy: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a>)</code></h4>
+<h4 id='method.egl_surface_ptr' class='method'><code>fn <a href='#method.egl_surface_ptr' class='fnname'>egl_surface_ptr</a>(&amp;self) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.pointer.html'>*const <a class='enum' href='https://doc.rust-lang.org/nightly/std/os/raw/enum.c_void.html' title='std::os::raw::c_void'>c_void</a></a></code></h4>
+<h4 id='method.egl_surfaceptr' class='method'><code>unsafe fn <a href='#method.egl_surfaceptr' class='fnname'>egl_surfaceptr</a>(&amp;self) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.pointer.html'>*mut <a class='enum' href='https://doc.rust-lang.org/nightly/std/os/raw/enum.c_void.html' title='std::os::raw::c_void'>c_void</a></a></code></h4>
 <div class='docblock'><p>DEPRECATED</p>
-</div></div><h2 id='deref-methods'>Methods from <a class='trait' href='https://doc.rust-lang.org/nightly/core/ops/trait.Deref.html' title='core::ops::Deref'>Deref</a>&lt;Target=<a class='struct' href='../../wayland_client/wayland/compositor/struct.WlSurface.html' title='wayland_client::wayland::compositor::WlSurface'>WlSurface</a>&gt;</h2><div class='impl-items'><h4 id='method.destroy' class='method'><code>fn <a href='#method.destroy' class='fnname'>destroy</a>(self)</code></h4>
+</div></div><h2 id='deref-methods'>Methods from <a class='trait' href='https://doc.rust-lang.org/nightly/core/ops/trait.Deref.html' title='core::ops::Deref'>Deref</a>&lt;Target=<a class='struct' href='../../wayland_client/wayland/compositor/struct.WlSurface.html' title='wayland_client::wayland::compositor::WlSurface'>WlSurface</a>&gt;</h2><div class='impl-items'><h4 id='method.destroy-1' class='method'><code>fn <a href='#method.destroy' class='fnname'>destroy</a>(self)</code></h4>
 <div class='docblock'><p>delete surface</p>
 
 <p>Deletes the surface and invalidates its object ID.</p>
-</div><h4 id='method.attach' class='method'><code>fn <a href='#method.attach' class='fnname'>attach</a>(&amp;self, buffer: <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;&amp;<a class='struct' href='../../wayland_client/wayland/shm/struct.WlBuffer.html' title='wayland_client::wayland::shm::WlBuffer'>WlBuffer</a>&gt;, x: <a href='https://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a>, y: <a href='https://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a>)</code></h4>
+</div><h4 id='method.attach' class='method'><code>fn <a href='#method.attach' class='fnname'>attach</a>(&amp;self, buffer: <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;&amp;<a class='struct' href='../../wayland_client/wayland/shm/struct.WlBuffer.html' title='wayland_client::wayland::shm::WlBuffer'>WlBuffer</a>&gt;, x: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a>, y: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a>)</code></h4>
 <div class='docblock'><p>set the surface contents</p>
 
 <p>Set a buffer as the content of this surface.</p>
@@ -101,7 +102,7 @@ contents become undefined immediately.</p>
 
 <p>If wl_surface.attach is sent with a NULL wl_buffer, the
 following wl_surface.commit will remove the surface content.</p>
-</div><h4 id='method.damage' class='method'><code>fn <a href='#method.damage' class='fnname'>damage</a>(&amp;self, x: <a href='https://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a>, y: <a href='https://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a>, width: <a href='https://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a>, height: <a href='https://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a>)</code></h4>
+</div><h4 id='method.damage' class='method'><code>fn <a href='#method.damage' class='fnname'>damage</a>(&amp;self, x: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a>, y: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a>, width: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a>, height: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a>)</code></h4>
 <div class='docblock'><p>mark part of the surface damaged</p>
 
 <p>This request is used to describe the regions where the pending
@@ -229,7 +230,7 @@ coordinates are relative to the current surface contents.</p>
 to affect double-buffered state.</p>
 
 <p>Other interfaces may add further double-buffered surface state.</p>
-</div><h4 id='method.set_buffer_transform' class='method'><code>fn <a href='#method.set_buffer_transform' class='fnname'>set_buffer_transform</a>(&amp;self, transform: <a href='https://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a>)</code></h4>
+</div><h4 id='method.set_buffer_transform' class='method'><code>fn <a href='#method.set_buffer_transform' class='fnname'>set_buffer_transform</a>(&amp;self, transform: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a>)</code></h4>
 <div class='docblock'><p>sets the buffer transformation</p>
 
 <p>This request sets an optional transformation on how the compositor
@@ -263,7 +264,7 @@ wl_output.transform enum the invalid_transform protocol error
 is raised.</p>
 
 <p>Requires interface version <code>&gt;= 2</code>.</p>
-</div><h4 id='method.set_buffer_scale' class='method'><code>fn <a href='#method.set_buffer_scale' class='fnname'>set_buffer_scale</a>(&amp;self, scale: <a href='https://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a>)</code></h4>
+</div><h4 id='method.set_buffer_scale' class='method'><code>fn <a href='#method.set_buffer_scale' class='fnname'>set_buffer_scale</a>(&amp;self, scale: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a>)</code></h4>
 <div class='docblock'><p>sets the buffer scaling factor</p>
 
 <p>This request sets an optional scaling factor on how the compositor
@@ -353,6 +354,6 @@ raised.</p>
     <script src="../../jquery.js"></script>
     <script src="../../main.js"></script>
     
-    <script async src="../../search-index.js"></script>
+    <script defer src="../../search-index.js"></script>
 </body>
 </html>
