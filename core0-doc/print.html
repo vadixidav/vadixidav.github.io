@@ -47,7 +47,7 @@
         </script>
 
         <div id="sidebar" class="sidebar">
-            <ul class="chapter"><li><a href="overview.html"><strong>1.</strong> Overview</a></li><li><a href="architecture.html"><strong>2.</strong> Architecture</a></li><li><ul class="section"><li><a href="architecture/dstack.html"><strong>2.1.</strong> dstack</a></li><li><a href="architecture/cstack.html"><strong>2.2.</strong> cstack</a></li><li><a href="architecture/lstack.html"><strong>2.3.</strong> lstack</a></li><li><a href="architecture/tstack.html"><strong>2.4.</strong> tstack</a></li><li><a href="architecture/ifile.html"><strong>2.5.</strong> ifile</a></li><li><a href="architecture/conveyor.html"><strong>2.6.</strong> conveyor</a></li></ul></li><li><a href="instruction_reference.html"><strong>3.</strong> Instruction Reference</a></li><li><ul class="section"><li><a href="instruction_reference/arithmetic.html"><strong>3.1.</strong> Arithmetic</a></li><li><a href="instruction_reference/stack_manipulation.html"><strong>3.2.</strong> Stack Manipulation</a></li><li><a href="instruction_reference/memory.html"><strong>3.3.</strong> Memory</a></li><li><a href="instruction_reference/uarc.html"><strong>3.4.</strong> UARC</a></li></ul>
+            <ul class="chapter"><li class="affix"><a href="SUMMARY.html">Table of Contents</a></li><li><a href="overview.html"><strong>1.</strong> Overview</a></li><li><a href="architecture.html"><strong>2.</strong> Architecture</a></li><li><ul class="section"><li><a href="architecture/dstack.html"><strong>2.1.</strong> dstack</a></li><li><a href="architecture/cstack.html"><strong>2.2.</strong> cstack</a></li><li><a href="architecture/lstack.html"><strong>2.3.</strong> lstack</a></li><li><a href="architecture/tstack.html"><strong>2.4.</strong> tstack</a></li><li><a href="architecture/ifile.html"><strong>2.5.</strong> ifile</a></li><li><a href="architecture/conveyor.html"><strong>2.6.</strong> conveyor</a></li></ul></li><li><a href="instruction_reference.html"><strong>3.</strong> Instruction Reference</a></li><li><ul class="section"><li><a href="instruction_reference/arithmetic.html"><strong>3.1.</strong> Arithmetic</a></li><li><a href="instruction_reference/stack_manipulation.html"><strong>3.2.</strong> Stack Manipulation</a></li><li><a href="instruction_reference/memory.html"><strong>3.3.</strong> Memory</a></li><li><a href="instruction_reference/uarc.html"><strong>3.4.</strong> UARC</a></li></ul>
         </div>
 
         <div id="page-wrapper" class="page-wrapper">
@@ -67,7 +67,30 @@
                 </div>
 
                 <div id="content" class="content">
-                    <h1>Overview</h1>
+                    <h1>Table of Contents</h1>
+<p><a href="SUMMARY.md">Table of Contents</a></p>
+<ul>
+<li><a href="overview.md">Overview</a></li>
+<li><a href="architecture.md">Architecture</a>
+<ul>
+<li><a href="architecture/dstack.md">dstack</a></li>
+<li><a href="architecture/cstack.md">cstack</a></li>
+<li><a href="architecture/lstack.md">lstack</a></li>
+<li><a href="architecture/tstack.md">tstack</a></li>
+<li><a href="architecture/ifile.md">ifile</a></li>
+<li><a href="architecture/conveyor.md">conveyor</a></li>
+</ul>
+</li>
+<li><a href="instruction_reference.md">Instruction Reference</a>
+<ul>
+<li><a href="instruction_reference/arithmetic.md">Arithmetic</a></li>
+<li><a href="instruction_reference/stack_manipulation.md">Stack Manipulation</a></li>
+<li><a href="instruction_reference/memory.md">Memory</a></li>
+<li><a href="instruction_reference/uarc.md">UARC</a></li>
+</ul>
+</li>
+</ul>
+<h1>Overview</h1>
 <p>UARC core0 (c0) is the primary general purpose ISA for the UARC standardized core collection. Although it is an ISA, a reference implementation is provided via emulator and SystemVerilog.</p>
 <p>This architecture is targeted towards small size and efficiency in shuffling data around across the UARC bus. No floating point instructions are included since it is expected that such algorithms will not run on core0, but will instead be offloaded to another UARC compatible core with floating point support. Due to the nature of UARC, it is possible to implement floating point operations using a coprocessor that connects over the UARC bus if desired.</p>
 <p>It is important to note that although this core can be used for an OS that spreads cross multiple UARC cores, it is not intended to be the target of user space applications, except where those applications need to shuffle data around between UARC cores or only require integer arithmetic. c0 demonstrates the UARC principle while simultaneously acting as a mediator of data between UARC cores.</p>
