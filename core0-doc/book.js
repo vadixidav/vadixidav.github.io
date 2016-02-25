@@ -8,7 +8,7 @@ $( document ).ready(function() {
 
     // Set theme
     var theme = localStorage.getItem('theme');
-    if (theme === null) { theme = 'light'; }
+    if (theme === null) { theme = 'coal'; }
 
     set_theme(theme);
 
