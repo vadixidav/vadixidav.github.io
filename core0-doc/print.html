@@ -47,7 +47,7 @@
         </script>
 
         <div id="sidebar" class="sidebar">
-            <ul class="chapter"><li class="affix"><a href="SUMMARY.html">Table of Contents</a></li><li><a href="overview.html"><strong>1.</strong> Overview</a></li><li><a href="architecture.html"><strong>2.</strong> Architecture</a></li><li><ul class="section"><li><a href="architecture/dstack.html"><strong>2.1.</strong> dstack</a></li><li><a href="architecture/cstack.html"><strong>2.2.</strong> cstack</a></li><li><a href="architecture/lstack.html"><strong>2.3.</strong> lstack</a></li><li><a href="architecture/tstack.html"><strong>2.4.</strong> tstack</a></li><li><a href="architecture/ifile.html"><strong>2.5.</strong> ifile</a></li></ul></li><li><a href="instruction_reference.html"><strong>3.</strong> Instruction Reference</a></li><li><ul class="section"><li><a href="instruction_reference/arithmetic.html"><strong>3.1.</strong> Arithmetic</a></li><li><a href="instruction_reference/stack_manipulation.html"><strong>3.2.</strong> Stack Manipulation</a></li><li><a href="instruction_reference/memory.html"><strong>3.3.</strong> Memory</a></li><li><a href="instruction_reference/uarc.html"><strong>3.4.</strong> UARC</a></li></ul>
+            <ul class="chapter"><li class="affix"><a href="SUMMARY.html">Table of Contents</a></li><li><a href="overview.html"><strong>1.</strong> Overview</a></li><li><a href="architecture.html"><strong>2.</strong> Architecture</a></li><li><ul class="section"><li><a href="architecture/dstack.html"><strong>2.1.</strong> dstack</a></li><li><a href="architecture/cstack.html"><strong>2.2.</strong> cstack</a></li><li><a href="architecture/lstack.html"><strong>2.3.</strong> lstack</a></li><li><a href="architecture/tstack.html"><strong>2.4.</strong> tstack</a></li><li><a href="architecture/ifile.html"><strong>2.5.</strong> ifile</a></li><li><a href="architecture/conveyor.html"><strong>2.6.</strong> conveyor</a></li></ul></li><li><a href="instruction_reference.html"><strong>3.</strong> Instruction Reference</a></li><li><ul class="section"><li><a href="instruction_reference/arithmetic.html"><strong>3.1.</strong> Arithmetic</a></li><li><a href="instruction_reference/stack_manipulation.html"><strong>3.2.</strong> Stack Manipulation</a></li><li><a href="instruction_reference/memory.html"><strong>3.3.</strong> Memory</a></li><li><a href="instruction_reference/uarc.html"><strong>3.4.</strong> UARC</a></li></ul>
         </div>
 
         <div id="page-wrapper" class="page-wrapper">
@@ -78,6 +78,7 @@
 <li><a href="architecture/lstack.md">lstack</a></li>
 <li><a href="architecture/tstack.md">tstack</a></li>
 <li><a href="architecture/ifile.md">ifile</a></li>
+<li><a href="architecture/conveyor.md">conveyor</a></li>
 </ul>
 </li>
 <li><a href="instruction_reference.md">Instruction Reference</a>
@@ -109,6 +110,7 @@
 <h1>lstack</h1>
 <h1>tstack</h1>
 <h1>ifile</h1>
+<h1>conveyor</h1>
 <h1>Instruction Reference</h1>
 <h3>c0 Instruction Formats</h3>
 <table><thead><tr><td> Format </td><td> Layout </td></tr></thead>
@@ -137,43 +139,71 @@
 <h3><code>D</code> - Data Counter</h3>
 <p>Data Counter instructions are instructions that operate on a random one of the 4 available DCs. These can be set, read, written, randomly read, and randomly written.</p>
 <h3><code>C</code> - Conveyor</h3>
-<p>Conveyor instructions allow random read access to the 16 things on the conveyor belt. The things on the conveyor may actually not be present and when accessed, the completion of the operation corresponding to that spot on the conveyor will be synchronized. This allows several asynchronous operations to be linked to different locations on the conveyor and read randomly when they are needed.</p>
+<p>Conveyor instructions allow random read access to the 16 things on the <a href="architecture/conveyor.md">conveyor belt</a>. The things on the conveyor may actually not be present and when accessed, the completion of the operation corresponding to that spot on the conveyor will be synchronized. This allows several asynchronous operations to be linked to different locations on the conveyor and read randomly when they are needed.</p>
 <h3><code>R</code> - Random</h3>
 <p>For R type instructions, 32 locations can be randomly addressed. This means that 32 places can be copied and rotated on the <a href="architecture/dstack.md">dstack</a> and 32 places can be read and written on the <a href="architecture/tstack.md">tstack</a>.</p>
 <h2>Key Words</h2>
 <ul>
 <li><code>WORD</code> - Data word width in use</li>
 <li><code>c</code> - Carry bit</li>
-<li><code>cv</code> - Conveyor Belt</li>
+<li><code>cv</code> - <a href="architecture/conveyor.md">Conveyor Belt</a></li>
 <li><code>dc[0-3]</code> - Data Counters</li>
 <li><code>pc</code> - Program Counter</li>
 <li><code>i[0-3]</code> - Loop Indices</li>
-<li><code>cv[0-7]</code> - Conveyor Belt Values</li>
+<li><code>cv[0-F]</code> - <a href="architecture/conveyor.md">Conveyor Belt</a> Values</li>
+<li><code>ts</code> - <a href="architecture/tstack.md">tstack</a></li>
+<li><code>if</code> - <a href="architecture/ifile.md">ifile</a></li>
 </ul>
 <h2>Instruction Listing By Opcode</h2>
 <table><thead><tr><td>Op</td><td>Instruction</td><td>dstack</td><td>Side Effects</td></tr></thead>
 <tr><td><code>00</code> - <code>03</code></td><td>rread#</td><td><code>a -- mem[dc# + a]</code></td></tr>
 <tr></tr>
+<tr><td><code>04</code></td><td>inc</td><td><code>a -- (a + 1)</code></td><td><code>c</code>, <code>o</code></td></tr>
+<tr><td><code>05</code></td><td>dec</td><td><code>a -- (a - 1)</code></td><td><code>c</code>, <code>o</code></td></tr>
+<tr><td><code>06</code></td><td>flush</td><td><code>--</code></td><td>Synchronizes cache flush</td></tr>
+<tr><td><code>07</code></td><td>reads</td><td><code>a -- mem[a]</code></td><td>Synchronous read</td></tr>
+<tr><td><code>08</code></td><td>ret</td><td><code>--</code></td><td>Pops <a href="architecture/cstack.md">cstack</a></td></tr>
+<tr><td><code>09</code></td><td>ien</td><td><code>--</code></td><td>Enables selected interrupts</td></tr>
+<tr><td><code>0A</code></td><td>idi</td><td><code>--</code></td><td>Disables selected interrupts</td></tr>
+<tr><td><code>0B</code></td><td>tcopy</td><td><code>v -- v</code></td><td>Pushes a copy of v to <a href="architecture/tstack.md">tstack</a></td></tr>
+<tr><td><code>0C</code></td><td>recv</td><td><code>--</code></td><td>Interrupt sync; <code>cv &lt;- bus, v</code></td></tr>
+<tr><td><code>16</code></td><td>calli</td><td><code>--</code></td><td><code>dc0 -&gt; pc</code>; push <a href="architecture/cstack.md">cstack</a></td></tr>
+<tr><td><code>17</code></td><td>jmpi</td><td><code>--</code></td><td><code>dc0 -&gt; pc</code></td></tr>
 <tr><td><code>20</code> - <code>2F</code></td><td>cv#</td><td><code>-- cv#</code></td><td>cv# synchronizes</td></tr>
 <tr><td><code>30</code> - <code>33</code></td><td>read#</td><td><code>-- mem[dc#]</code></td><td>dc# advances</td></tr>
 <tr><td><code>34</code> - <code>37</code></td><td>i#</td><td><code>-- i#</code></td><td> </td></tr>
-<tr><td><code>40</code> - <code>43</code></td><td>write#</td><td><code>v --</code></td><td><code>memory[dc#] = v</code>; dc# advances</td></tr>
+<tr><td><code>38</code></td><td>p0</td><td><code>-- 0</code></td><td> </td></tr>
+<tr><td><code>39</code></td><td>dup</td><td><code>a -- a a</code></td><td> </td></tr>
+<tr><td><code>40</code> - <code>43</code></td><td>write#</td><td><code>v --</code></td><td><code>mem[dc#] = v</code>; dc# advances</td></tr>
 <tr><td><code>44</code> - <code>47</code></td><td>setf#</td><td><code>a --</code></td><td><code>dc# = a</code>; dc# is write post-inc</td></tr>
 <tr><td><code>48</code> - <code>4B</code></td><td>setb#</td><td><code>a --</code></td><td><code>dc# = a</code>; dc# is write pre-dec</td></tr>
-<tr><td><code>40</code></td><td>add</td><td><code>a b -- (a + b)</code></td><td><code>c</code>, <code>o</code></td></tr>
-<tr><td><code>41</code></td><td>addc</td><td><code>a b -- (a + b + c)</code></td><td><code>c</code>, <code>o</code></td></tr>
-<tr><td><code>42</code></td><td>sub</td><td><code>a b -- (a - b)</code></td><td><code>c</code>, <code>o</code></td></tr>
-<tr><td><code>43</code></td><td>subc</td><td><code>a b -- (a - b + c)</code></td><td><code>c</code>, <code>o</code></td></tr>
-<tr><td><code>44</code></td><td>lsl</td><td><code>a b -- (a &lt;&lt; b)</code></td><td><code>c</code>, <code>o</code></td></tr>
-<tr><td><code>45</code></td><td>lsr</td><td><code>a b -- (a &gt;&gt; b)</code></td><td><code>c</code>, <code>o</code></td></tr>
-<tr><td><code>46</code></td><td>asr</td><td><code>a b -- (a &gt;&gt;&gt; b)</code></td><td><code>c</code>, <code>o</code></td></tr>
-<tr><td><code>47</code></td><td>mul</td><td><code>a b -- (a * b)</code></td><td><code>cv &lt;- (a * b)[2*WORD-1:WORD]</code></td></tr>
-<tr><td><code>48</code></td><td>mulu</td><td><code>a b -- (a * b)</code></td><td><code>cv &lt;- (a * b)[2*WORD-1:WORD]</code></td></tr>
-<tr><td><code>60</code> - <code>63</code></td><td>rwrite#</td><td><code>v a --</code></td><td><code>memory[dc# + a] = v</code></td></tr>
-<tr><td><code>64</code></td><td>les</td><td><code>a b --</code></td><td>if <code>a &lt; b</code> then <code>dc0 -&gt; pc</code></td></tr>
-<tr><td><code>65</code></td><td>leq</td><td><code>a b --</code></td><td>if <code>a &lt;= b</code> then <code>dc0 -&gt; pc</code></td></tr>
-<tr><td><code>66</code></td><td>div</td><td><code>a b --</code></td><td><code>cv &lt;- a / b, a % b</code></td></tr>
-<tr><td><code>67</code></td><td>divi</td><td><code>a b --</code></td><td><code>cv &lt;- a / b, a % b</code></td></tr>
+<tr><td><code>4C</code></td><td>add</td><td><code>a b -- (a + b)</code></td><td><code>c</code>, <code>o</code></td></tr>
+<tr><td><code>4D</code></td><td>addc</td><td><code>a b -- (a + b + c)</code></td><td><code>c</code>, <code>o</code></td></tr>
+<tr><td><code>4E</code></td><td>sub</td><td><code>a b -- (a - b)</code></td><td><code>c</code>, <code>o</code></td></tr>
+<tr><td><code>4F</code></td><td>subc</td><td><code>a b -- (a - b + c)</code></td><td><code>c</code>, <code>o</code></td></tr>
+<tr><td><code>50</code></td><td>lsl</td><td><code>a b -- (a &lt;&lt; b)</code></td><td><code>c</code>, <code>o</code></td></tr>
+<tr><td><code>51</code></td><td>lsr</td><td><code>a b -- (a &gt;&gt; b)</code></td><td><code>c</code>, <code>o</code></td></tr>
+<tr><td><code>52</code></td><td>asr</td><td><code>a b -- (a &gt;&gt;&gt; b)</code></td><td><code>c</code>, <code>o</code></td></tr>
+<tr><td><code>53</code></td><td>mul</td><td><code>a b -- (a * b)</code></td><td><code>cv &lt;- (a * b)[2*WORD-1:WORD]</code></td></tr>
+<tr><td><code>54</code></td><td>mulu</td><td><code>a b -- (a * b)</code></td><td><code>cv &lt;- (a * b)[2*WORD-1:WORD]</code></td></tr>
+<tr><td><code>55</code></td><td>reada</td><td><code>a --</code></td><td><code>cv &lt;- mem[a]</code></td></tr>
+<tr><td><code>56</code></td><td>call</td><td><code>a --</code></td><td><code>pc = a</code>; push <a href="architecture/cstack.md">cstack</a></td></tr>
+<tr><td><code>57</code></td><td>jmp</td><td><code>a --</code></td><td><code>pc = a</code></td></tr>
+<tr><td><code>58</code></td><td>tpush</td><td><code>a --</code></td><td><code>t</code></td></tr>
+<tr><td><code>59</code></td><td>seb</td><td><code>b --</code></td><td><code>if[b[WORD-1:WORD/2]] = b[WORD/2-1:0]</code></td></tr>
+<tr><td><code>5A</code></td><td>slb</td><td><code>b --</code></td><td><code>b[WORD/2-1:0]</code> to <code>if[b[WORD-1:WORD/2]]</code></td></tr>
+<tr><td><code>5B</code></td><td>iset</td><td><code>a --</code></td><td>Set selected interrupt addresses</td></tr>
+<tr><td><code>5C</code></td><td>send</td><td><code>v --</code></td><td>Send value to selected buses</td></tr>
+<tr><td><code>5D</code></td><td>in</td><td><code>n a -- b</code></td><td>Stream n words in and push bus</td></tr>
+<tr><td><code>60</code> - <code>63</code></td><td>rwrite#</td><td><code>v a --</code></td><td><code>mem[dc# + a] = v</code></td></tr>
+<tr><td><code>64</code></td><td>write</td><td><code>v a --</code></td><td><code>mem[a] = v</code></td></tr>
+<tr><td><code>65</code></td><td>jeq</td><td><code>a b --</code></td><td>if <code>a == b</code> then <code>dc0 -&gt; pc</code></td></tr>
+<tr><td><code>66</code></td><td>jne</td><td><code>a b --</code></td><td>if <code>a != b</code> then <code>dc0 -&gt; pc</code></td></tr>
+<tr><td><code>67</code></td><td>les</td><td><code>a b --</code></td><td>if <code>a &lt; b</code> then <code>dc0 -&gt; pc</code></td></tr>
+<tr><td><code>68</code></td><td>leq</td><td><code>a b --</code></td><td>if <code>a &lt;= b</code> then <code>dc0 -&gt; pc</code></td></tr>
+<tr><td><code>69</code></td><td>out</td><td><code>n a --</code></td><td>Stream n words to buses from a</td></tr>
+<tr><td><code>69</code></td><td>div</td><td><code>a b --</code></td><td><code>cv &lt;- a / b, a % b</code></td></tr>
+<tr><td><code>6A</code></td><td>divu</td><td><code>a b --</code></td><td><code>cv &lt;- a / b, a % b</code></td></tr>
 </table>
 <h1>Arithmetic Instructions</h1>
 <h2><code>add</code></h2>
