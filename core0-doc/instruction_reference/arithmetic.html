@@ -217,34 +217,31 @@
 <h2><code>mul</code></h2>
 <p><code>a b -- (a * b)</code></p>
 <h4>Description</h4>
-<p><code>mul</code> multiplies two signed numbers (<code>a</code> and <code>b</code>) with width <code>WORD</code> and produces a result with width <code>2 * WORD</code>. The lower <code>WORD</code> bits of the result are placed on the stack, including a sign bit as the most significant bit. On the other hand, the higher <code>WORD</code> bits (also including a sign bit) are placed on the <a href="architecture/conveyor.html">conveyor</a>.</p>
+<p><code>mul</code> multiplies two signed numbers (<code>a</code> and <code>b</code>) with width <code>WORD</code> and produces a result with width <code>2 * WORD</code>. The lower <code>WORD</code> and the higher <code>WORD</code> bits (both including a sign bit) are placed on the <a href="architecture/conveyor.html">conveyor</a>.</p>
 <h4>Side Effects</h4>
 <ul>
-<li>The highest <code>WORD</code> bits are placed onto the <a href="architecture/conveyor.html">conveyor</a></li>
+<li>The lowest <code>WORD</code> and highest <code>WORD</code> bits are placed onto the <a href="architecture/conveyor.html">conveyor</a> in that order</li>
 <li><code>o</code> is <code>1</code> if any significant bits are placed into the conveyor</li>
 </ul>
 <h4>Examples (with WORD of 32)</h4>
-<pre><code>h80000000 2 mul cv0
+<pre><code>h80000000 2 mul cv1 cv0
 </code></pre>
 <ul>
 <li><code>( -- h80000000 hFFFFFFFE)</code></li>
-<li><code>o</code> is set to <code>1</code> because of the <code>0</code> present in the least significant bit position in the high bits</li>
 </ul>
 <h2><code>mulu</code></h2>
 <p><code>a b -- (a * b)</code></p>
 <h4>Description</h4>
-<p><code>mulu</code> multiplies two unsigned numbers (<code>a</code> and <code>b</code>) with width <code>WORD</code> and produces a result with width <code>2 * WORD</code>. The lower <code>WORD</code> bits of the result are placed on the stack. On the other hand, the higher <code>WORD</code> bits are placed on the <a href="architecture/conveyor.html">conveyor</a>.</p>
+<p><code>mulu</code> multiplies two unsigned numbers (<code>a</code> and <code>b</code>) with width <code>WORD</code> and produces a result with width <code>2 * WORD</code>. The lower <code>WORD</code> and higher <code>WORD</code> bits of the result are placed on the <a href="architecture/conveyor.html">conveyor</a>.</p>
 <h4>Side Effects</h4>
 <ul>
-<li>The highest <code>WORD</code> bits are placed onto the <a href="architecture/conveyor.html">conveyor</a></li>
-<li><code>o</code> is <code>1</code> if any <code>1</code> bits are placed into the conveyor</li>
+<li>The lowest <code>WORD</code> and highest <code>WORD</code> bits are placed onto the <a href="architecture/conveyor.html">conveyor</a> in that order</li>
 </ul>
 <h4>Examples</h4>
-<pre><code>~0 2 mul cv0
+<pre><code>~0 2 mul cv1 cv0
 </code></pre>
 <ul>
 <li><code>( -- ~0 1)</code></li>
-<li><code>o</code> is set to <code>1</code> because of the <code>1</code> present in the least significant bit position in the high bits</li>
 </ul>
 <h2><code>div</code></h2>
 <p><code>a b --</code></p>
@@ -259,7 +256,6 @@
 </code></pre>
 <ul>
 <li><code>( -- hC0000000 hBFFFFFFF)</code></li>
-<li><code>o</code> is set to <code>1</code> because of the significant bit present in the low/fractional bits</li>
 </ul>
 <h2><code>divu</code></h2>
 <p><code>a b --</code></p>
@@ -270,11 +266,10 @@
 <li>The higher/whole <code>WORD</code> and lower/fractional <code>WORD</code> bits are placed onto the <a href="architecture/conveyor.html">conveyor</a> in that order</li>
 </ul>
 <h4>Examples (with WORD of 32)</h4>
-<pre><code>~0 2 div cv1 cv0
+<pre><code>~0 2 divu cv1 cv0
 </code></pre>
 <ul>
 <li><code>( -- h7FFFFFFF h80000000)</code></li>
-<li><code>o</code> is set to <code>1</code> because of the <code>1</code> present in the most significant bit position in the low/fractional bits</li>
 </ul>
 
                 </div>

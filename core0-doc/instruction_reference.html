@@ -117,15 +117,16 @@
 <tr></tr>
 <tr><td><code>04</code></td><td>inc</td><td><code>a -- (a + 1)</code></td><td><code>c</code>, <code>o</code></td></tr>
 <tr><td><code>05</code></td><td>dec</td><td><code>a -- (a - 1)</code></td><td><code>c</code>, <code>o</code></td></tr>
-<tr><td><code>06</code></td><td>carry</td><td><code>a -- (a + c)</code></td><td><code>c</code>, <code>o</code></td></tr>
-<tr><td><code>06</code></td><td>borrow</td><td><code>a -- (a + c - 1)</code></td><td><code>c</code>, <code>o</code></td></tr>
-<tr><td><code>06</code></td><td>flush</td><td><code>--</code></td><td>Synchronizes cache flush</td></tr>
-<tr><td><code>07</code></td><td>reads</td><td><code>a -- mem[a]</code></td><td>Synchronous read</td></tr>
-<tr><td><code>08</code></td><td>ret</td><td><code>--</code></td><td>Pops <a href="architecture/cstack.html">cstack</a></td></tr>
-<tr><td><code>09</code></td><td>ien</td><td><code>--</code></td><td>Enables selected interrupts</td></tr>
-<tr><td><code>0A</code></td><td>idi</td><td><code>--</code></td><td>Disables selected interrupts</td></tr>
-<tr><td><code>0B</code></td><td>tcopy</td><td><code>v -- v</code></td><td>Pushes a copy of v to <a href="architecture/tstack.html">tstack</a></td></tr>
-<tr><td><code>0C</code></td><td>recv</td><td><code>--</code></td><td>Interrupt sync; <code>cv &lt;- bus, v</code></td></tr>
+<tr><td><code>06</code></td><td>carry</td><td><code>v -- (v + c)</code></td><td><code>c</code>, <code>o</code></td></tr>
+<tr><td><code>07</code></td><td>borrow</td><td><code>v -- (v + c - 1)</code></td><td><code>c</code>, <code>o</code></td></tr>
+<tr><td><code>08</code></td><td>inv</td><td><code>v -- ~v</code></td><td> </td></tr>
+<tr><td><code>09</code></td><td>flush</td><td><code>--</code></td><td>Synchronizes cache flush</td></tr>
+<tr><td><code>0A</code></td><td>reads</td><td><code>a -- mem[a]</code></td><td>Synchronous read</td></tr>
+<tr><td><code>0B</code></td><td>ret</td><td><code>--</code></td><td>Pops <a href="architecture/cstack.html">cstack</a></td></tr>
+<tr><td><code>0C</code></td><td>ien</td><td><code>--</code></td><td>Enables selected interrupts</td></tr>
+<tr><td><code>0D</code></td><td>idi</td><td><code>--</code></td><td>Disables selected interrupts</td></tr>
+<tr><td><code>0E</code></td><td>tcopy</td><td><code>v -- v</code></td><td>Pushes a copy of v to <a href="architecture/tstack.html">tstack</a></td></tr>
+<tr><td><code>0F</code></td><td>recv</td><td><code>--</code></td><td>Interrupt sync; <code>cv &lt;- bus, v</code></td></tr>
 <tr><td><code>16</code></td><td>calli</td><td><code>--</code></td><td><code>dc0 -&gt; pc</code>; push <a href="architecture/cstack.html">cstack</a></td></tr>
 <tr><td><code>17</code></td><td>jmpi</td><td><code>--</code></td><td><code>dc0 -&gt; pc</code></td></tr>
 <tr><td><code>18</code></td><td>jc</td><td><code>--</code></td><td>if <code>c</code> then <code>dc0 -&gt; pc</code></td></tr>
@@ -149,8 +150,8 @@
 <tr><td><code>52</code></td><td>csl</td><td><code>a b -- ((a &lt;&lt; b) or (a &gt;&gt; (b - WORD)))</code></td><td> </td></tr>
 <tr><td><code>53</code></td><td>csr</td><td><code>a b -- ((a &gt;&gt; b) or (a &lt;&lt; (b - WORD)))</code></td><td> </td></tr>
 <tr><td><code>54</code></td><td>asr</td><td><code>a b -- (a &gt;&gt;&gt; b)</code></td><td><code>o</code></td></tr>
-<tr><td><code>55</code></td><td>mul</td><td><code>a b -- (a * b)</code></td><td><code>cv &lt;- (a * b)[2*WORD-1:WORD]</code>; <code>o</code></td></tr>
-<tr><td><code>56</code></td><td>mulu</td><td><code>a b -- (a * b)</code></td><td><code>cv &lt;- (a * b)[2*WORD-1:WORD]</code>; <code>o</code></td></tr>
+<tr><td><code>55</code></td><td>and</td><td><code>a b -- (a &amp; b)</code></td><td> </td></tr>
+<tr><td><code>56</code></td><td>or</td><td><code>a b -- (a or b)</code></td><td> </td></tr>
 <tr><td><code>57</code></td><td>reada</td><td><code>a --</code></td><td><code>cv &lt;- mem[a]</code></td></tr>
 <tr><td><code>58</code></td><td>call</td><td><code>a --</code></td><td><code>pc = a</code>; push <a href="architecture/cstack.html">cstack</a></td></tr>
 <tr><td><code>59</code></td><td>jmp</td><td><code>a --</code></td><td><code>pc = a</code></td></tr>
@@ -169,8 +170,10 @@
 <tr><td><code>69</code></td><td>lesu</td><td><code>a b --</code></td><td>if <code>a &lt; b</code> then <code>dc0 -&gt; pc</code></td></tr>
 <tr><td><code>6A</code></td><td>lequ</td><td><code>a b --</code></td><td>if <code>a &lt;= b</code> then <code>dc0 -&gt; pc</code></td></tr>
 <tr><td><code>6B</code></td><td>out</td><td><code>n a --</code></td><td>Stream n words to buses from a</td></tr>
-<tr><td><code>6C</code></td><td>div</td><td><code>a b --</code></td><td><code>cv &lt;- a / b, a % b</code></td></tr>
-<tr><td><code>6D</code></td><td>divu</td><td><code>a b --</code></td><td><code>cv &lt;- a / b, a % b</code></td></tr>
+<tr><td><code>6C</code></td><td>mul</td><td><code>a b --</code></td><td><code>cv &lt;- low(a * b), high(a * b)</code></td></tr>
+<tr><td><code>6D</code></td><td>mulu</td><td><code>a b --</code></td><td><code>cv &lt;- low(a * b), high(a * b)</code></td></tr>
+<tr><td><code>6E</code></td><td>div</td><td><code>a b --</code></td><td><code>cv &lt;- a / b, a % b</code></td></tr>
+<tr><td><code>6F</code></td><td>divu</td><td><code>a b --</code></td><td><code>cv &lt;- a / b, a % b</code></td></tr>
 <tr><td><code>80</code> - <code>9F</code></td><td>rot#</td><td><code>v (# + 1).. -- (# + 1).. v</code></td><td> </td></tr>
 <tr><td><code>A0</code> - <code>BF</code></td><td>copy#</td><td><code>v (# + 1).. -- v (# + 1).. v</code></td><td> </td></tr>
 <tr><td><code>C0</code> - <code>DF</code></td><td>tread#</td><td><code>-- ts[#]</code></td><td>Address 0 is the top of ts</td></tr>
