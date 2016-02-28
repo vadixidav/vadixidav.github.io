@@ -68,26 +68,116 @@
 
                 <div id="content" class="content">
                     <h1>Arithmetic Instructions</h1>
+<h2><code>inc</code></h2>
+<p><code>a -- (a + 1)</code></p>
+<h4>Description</h4>
+<p><code>inc</code> increments the top of the <a href="architecture/dstack.html">dstack</a> by 1. The overflow and carry bits are set, but not consumed.</p>
+<h4>Side Effects</h4>
+<ul>
+<li><code>c = (a + 1 == 0)</code></li>
+<li><code>o = (a + 1 == 1 &lt;&lt; (WORD - 1))</code></li>
+</ul>
+<h4>Examples</h4>
+<pre><code>h7FFFFFFF inc
+</code></pre>
+<ul>
+<li><code>( -- h80000000)</code></li>
+<li><code>o</code> is set to 1 because a positive number became negative by wrapping</li>
+<li><code>c</code> is set to 0</li>
+</ul>
+<h2><code>dec</code></h2>
+<p><code>a -- (a + 1)</code></p>
+<h4>Description</h4>
+<p><code>dec</code> decrements the top of the <a href="architecture/dstack.html">dstack</a> by 1. The overflow and carry bits are set, but not consumed.</p>
+<h4>Side Effects</h4>
+<ul>
+<li><code>c = (a - 1 == ~0)</code></li>
+<li><code>o = (a + 1 == 1 &lt;&lt; (WORD - 1))</code></li>
+</ul>
+<h4>Examples</h4>
+<pre><code>0 dec
+</code></pre>
+<ul>
+<li><code>( -- -1)</code></li>
+<li><code>o</code> is set to 0 because no overflow occurred</li>
+<li><code>c</code> is set to 1 because a borrow was incurred</li>
+</ul>
 <h2><code>add</code></h2>
 <p><code>a b -- (a + b)</code></p>
 <h4>Description</h4>
 <p><code>add</code> takes parameters <code>a</code> and <code>b</code> from the stack and adds them. The carry bit is set by this instruction, but is not consumed.</p>
 <h4>Side Effects</h4>
-<p><code>c = (a + b)[WORD]</code></p>
+<ul>
+<li><code>c = (a + b)[WORD]</code></li>
+<li><code>o = (a[WORD - 1] ^ b[WORD - 1]) ? 0 : a[WORD - 1] ^ (a + b)[WORD - 1]</code></li>
+</ul>
+<h4>Examples</h4>
+<pre><code>2 3 add
+</code></pre>
+<ul>
+<li><code>( -- 5)</code></li>
+<li>Carry is set to 0</li>
+</ul>
 <h2><code>addc</code></h2>
 <p><code>a b -- (a + b + c)</code></p>
 <h4>Description</h4>
 <p><code>addc</code> takes parameters <code>a</code> and <code>b</code> from the stack and adds them with <code>c</code>. Unlike <code>add</code>, <code>addc</code> consumes the carry, so ensure it is correctly set before issuing this instruction.</p>
 <h4>Side Effects</h4>
 <p><code>c = (a + b)[WORD]</code></p>
+<h4>Examples (with WORD of 32)</h4>
+<pre><code>h80000000 h80000000 add
+0 0 addc
+</code></pre>
+<ul>
+<li><code>( -- 0 1)</code></li>
+<li>Carry is set to 0</li>
+</ul>
 <h2><code>sub</code></h2>
 <p><code>a b -- (a - b)</code></p>
 <h4>Description</h4>
 <p><code>sub</code> subtracts parameter <code>b</code> from <code>a</code>. The carry bit is set by this instruction to <code>1</code> when no borrow occurs. The carry bit is not consumed by this instruction.</p>
+<h4>Side Effects</h4>
+<p><code>c = (a - b)[WORD]</code></p>
+<h4>Examples</h4>
+<pre><code>2 3 sub
+</code></pre>
+<ul>
+<li><code>( -- -1)</code></li>
+<li>Carry is set to 0
+<ul>
+<li>Which indicates a borrow</li>
+</ul>
+</li>
+</ul>
 <h2><code>subc</code></h2>
 <p><code>a b -- (a - b + c)</code></p>
 <h4>Description</h4>
 <p><code>subc</code> subtracts parameter <code>b</code> from <code>a</code> and adds <code>c</code>. The carry bit is set by this instruction to <code>1</code> when no borrow occurs.</p>
+<h4>Side Effects</h4>
+<p><code>c = (a - b)[WORD]</code></p>
+<h4>Examples</h4>
+<pre><code>2 3 sub
+1 0 subc
+</code></pre>
+<ul>
+<li><code>( -- -1 0)</code></li>
+<li>Carry is set to 1 (indicating no borrow)</li>
+</ul>
+<h2><code>asr</code></h2>
+<p><code>a b -- (a &gt;&gt;&gt; b)</code></p>
+<h4>Description</h4>
+<p><code>asr</code> shifts <code>a</code> by <code>b</code> bits and sign extends the result. If <code>-1</code> is shifted right, it will continue to stay <code>-1</code>, but <code>o</code> will not be set. The <code>o</code> bit is set if any 1 bits are lost in a positive number or 0 bits lost in a negative number.</p>
+<h4>Side Effects</h4>
+<ul>
+<li><code>o</code> is 1 if any significant bits were lost</li>
+</ul>
+<h4>Examples (with WORD of 32)</h4>
+<pre><code>h80000000 1 asr
+</code></pre>
+<ul>
+<li><code>( -- hC000000)</code></li>
+<li><code>o</code> is set to <code>1</code> because <code>0</code> is a significant bit and is lost</li>
+</ul>
 
                 </div>
 

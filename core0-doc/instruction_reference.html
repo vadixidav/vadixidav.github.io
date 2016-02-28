@@ -98,7 +98,7 @@
 <p>Conveyor instructions allow random read access to the 16 things on the <a href="architecture/conveyor.html">conveyor belt</a>. The things on the conveyor may actually not be present and when accessed, the completion of the operation corresponding to that spot on the conveyor will be synchronized. This allows several asynchronous operations to be linked to different locations on the conveyor and read randomly when they are needed.</p>
 <h3><code>R</code> - Random</h3>
 <p>For R type instructions, 32 locations can be randomly addressed. This means that 32 places can be copied and rotated on the <a href="architecture/dstack.html">dstack</a> and 32 places can be read and written on the <a href="architecture/tstack.html">tstack</a>.</p>
-<h2>Key Words</h2>
+<h2>Key</h2>
 <ul>
 <li><code>WORD</code> - Data word width in use</li>
 <li><code>c</code> - Carry bit</li>
@@ -109,6 +109,7 @@
 <li><code>cv[0-F]</code> - <a href="architecture/conveyor.html">Conveyor Belt</a> Values</li>
 <li><code>ts</code> - <a href="architecture/tstack.html">tstack</a></li>
 <li><code>if</code> - <a href="architecture/ifile.html">ifile</a></li>
+<li><code>n..</code> - <code>n</code> anonymous words on the stack</li>
 </ul>
 <h2>Instruction Listing By Opcode</h2>
 <table><thead><tr><td>Op</td><td>Instruction</td><td>dstack</td><td>Side Effects</td></tr></thead>
@@ -116,6 +117,8 @@
 <tr></tr>
 <tr><td><code>04</code></td><td>inc</td><td><code>a -- (a + 1)</code></td><td><code>c</code>, <code>o</code></td></tr>
 <tr><td><code>05</code></td><td>dec</td><td><code>a -- (a - 1)</code></td><td><code>c</code>, <code>o</code></td></tr>
+<tr><td><code>06</code></td><td>carry</td><td><code>a -- (a + c)</code></td><td><code>c</code>, <code>o</code></td></tr>
+<tr><td><code>06</code></td><td>borrow</td><td><code>a -- (a + c - 1)</code></td><td><code>c</code>, <code>o</code></td></tr>
 <tr><td><code>06</code></td><td>flush</td><td><code>--</code></td><td>Synchronizes cache flush</td></tr>
 <tr><td><code>07</code></td><td>reads</td><td><code>a -- mem[a]</code></td><td>Synchronous read</td></tr>
 <tr><td><code>08</code></td><td>ret</td><td><code>--</code></td><td>Pops <a href="architecture/cstack.html">cstack</a></td></tr>
@@ -137,29 +140,37 @@
 <tr><td><code>4D</code></td><td>addc</td><td><code>a b -- (a + b + c)</code></td><td><code>c</code>, <code>o</code></td></tr>
 <tr><td><code>4E</code></td><td>sub</td><td><code>a b -- (a - b)</code></td><td><code>c</code>, <code>o</code></td></tr>
 <tr><td><code>4F</code></td><td>subc</td><td><code>a b -- (a - b + c)</code></td><td><code>c</code>, <code>o</code></td></tr>
-<tr><td><code>50</code></td><td>lsl</td><td><code>a b -- (a &lt;&lt; b)</code></td><td><code>c</code>, <code>o</code></td></tr>
-<tr><td><code>51</code></td><td>lsr</td><td><code>a b -- (a &gt;&gt; b)</code></td><td><code>c</code>, <code>o</code></td></tr>
-<tr><td><code>52</code></td><td>asr</td><td><code>a b -- (a &gt;&gt;&gt; b)</code></td><td><code>c</code>, <code>o</code></td></tr>
-<tr><td><code>53</code></td><td>mul</td><td><code>a b -- (a * b)</code></td><td><code>cv &lt;- (a * b)[2*WORD-1:WORD]</code></td></tr>
-<tr><td><code>54</code></td><td>mulu</td><td><code>a b -- (a * b)</code></td><td><code>cv &lt;- (a * b)[2*WORD-1:WORD]</code></td></tr>
-<tr><td><code>55</code></td><td>reada</td><td><code>a --</code></td><td><code>cv &lt;- mem[a]</code></td></tr>
-<tr><td><code>56</code></td><td>call</td><td><code>a --</code></td><td><code>pc = a</code>; push <a href="architecture/cstack.html">cstack</a></td></tr>
-<tr><td><code>57</code></td><td>jmp</td><td><code>a --</code></td><td><code>pc = a</code></td></tr>
-<tr><td><code>58</code></td><td>tpush</td><td><code>a --</code></td><td><code>t</code></td></tr>
-<tr><td><code>59</code></td><td>seb</td><td><code>b --</code></td><td><code>if[b[WORD-1:WORD/2]] = b[WORD/2-1:0]</code></td></tr>
-<tr><td><code>5A</code></td><td>slb</td><td><code>b --</code></td><td><code>b[WORD/2-1:0]</code> to <code>if[b[WORD-1:WORD/2]]</code></td></tr>
-<tr><td><code>5B</code></td><td>iset</td><td><code>a --</code></td><td>Set selected interrupt addresses</td></tr>
-<tr><td><code>5C</code></td><td>send</td><td><code>v --</code></td><td>Send value to selected buses</td></tr>
-<tr><td><code>5D</code></td><td>in</td><td><code>n a -- b</code></td><td>Stream n words in and push bus</td></tr>
+<tr><td><code>50</code></td><td>lsl</td><td><code>a b -- (a &lt;&lt; b)</code></td><td><code>o</code></td></tr>
+<tr><td><code>51</code></td><td>lsr</td><td><code>a b -- (a &gt;&gt; b)</code></td><td><code>o</code></td></tr>
+<tr><td><code>52</code></td><td>csl</td><td><code>a b -- ((a &lt;&lt; b) or (a &gt;&gt; (b - WORD)))</code></td><td> </td></tr>
+<tr><td><code>53</code></td><td>csr</td><td><code>a b -- ((a &gt;&gt; b) or (a &lt;&lt; (b - WORD)))</code></td><td> </td></tr>
+<tr><td><code>54</code></td><td>asr</td><td><code>a b -- (a &gt;&gt;&gt; b)</code></td><td><code>o</code></td></tr>
+<tr><td><code>55</code></td><td>mul</td><td><code>a b -- (a * b)</code></td><td><code>cv &lt;- (a * b)[2*WORD-1:WORD]</code></td></tr>
+<tr><td><code>56</code></td><td>mulu</td><td><code>a b -- (a * b)</code></td><td><code>cv &lt;- (a * b)[2*WORD-1:WORD]</code></td></tr>
+<tr><td><code>57</code></td><td>reada</td><td><code>a --</code></td><td><code>cv &lt;- mem[a]</code></td></tr>
+<tr><td><code>58</code></td><td>call</td><td><code>a --</code></td><td><code>pc = a</code>; push <a href="architecture/cstack.html">cstack</a></td></tr>
+<tr><td><code>59</code></td><td>jmp</td><td><code>a --</code></td><td><code>pc = a</code></td></tr>
+<tr><td><code>5A</code></td><td>tpush</td><td><code>a --</code></td><td><code>ts &lt;- a</code></td></tr>
+<tr><td><code>5B</code></td><td>seb</td><td><code>b --</code></td><td><code>if[b[WORD-1:WORD/2]] = b[WORD/2-1:0]</code></td></tr>
+<tr><td><code>5C</code></td><td>slb</td><td><code>b --</code></td><td><code>b[WORD/2-1:0]</code> to <code>if[b[WORD-1:WORD/2]]</code></td></tr>
+<tr><td><code>5D</code></td><td>iset</td><td><code>a --</code></td><td>Set selected interrupt addresses</td></tr>
+<tr><td><code>5E</code></td><td>send</td><td><code>v --</code></td><td>Send value to selected buses</td></tr>
+<tr><td><code>5F</code></td><td>in</td><td><code>n a -- b</code></td><td>Stream n words in and push bus</td></tr>
 <tr><td><code>60</code> - <code>63</code></td><td>rwrite#</td><td><code>v a --</code></td><td><code>mem[dc# + a] = v</code></td></tr>
 <tr><td><code>64</code></td><td>write</td><td><code>v a --</code></td><td><code>mem[a] = v</code></td></tr>
 <tr><td><code>65</code></td><td>jeq</td><td><code>a b --</code></td><td>if <code>a == b</code> then <code>dc0 -&gt; pc</code></td></tr>
 <tr><td><code>66</code></td><td>jne</td><td><code>a b --</code></td><td>if <code>a != b</code> then <code>dc0 -&gt; pc</code></td></tr>
 <tr><td><code>67</code></td><td>les</td><td><code>a b --</code></td><td>if <code>a &lt; b</code> then <code>dc0 -&gt; pc</code></td></tr>
 <tr><td><code>68</code></td><td>leq</td><td><code>a b --</code></td><td>if <code>a &lt;= b</code> then <code>dc0 -&gt; pc</code></td></tr>
-<tr><td><code>69</code></td><td>out</td><td><code>n a --</code></td><td>Stream n words to buses from a</td></tr>
-<tr><td><code>69</code></td><td>div</td><td><code>a b --</code></td><td><code>cv &lt;- a / b, a % b</code></td></tr>
-<tr><td><code>6A</code></td><td>divu</td><td><code>a b --</code></td><td><code>cv &lt;- a / b, a % b</code></td></tr>
+<tr><td><code>69</code></td><td>lesu</td><td><code>a b --</code></td><td>if <code>a &lt; b</code> then <code>dc0 -&gt; pc</code></td></tr>
+<tr><td><code>6A</code></td><td>lequ</td><td><code>a b --</code></td><td>if <code>a &lt;= b</code> then <code>dc0 -&gt; pc</code></td></tr>
+<tr><td><code>6B</code></td><td>out</td><td><code>n a --</code></td><td>Stream n words to buses from a</td></tr>
+<tr><td><code>6C</code></td><td>div</td><td><code>a b --</code></td><td><code>cv &lt;- a / b, a % b</code></td></tr>
+<tr><td><code>6D</code></td><td>divu</td><td><code>a b --</code></td><td><code>cv &lt;- a / b, a % b</code></td></tr>
+<tr><td><code>80</code> - <code>9F</code></td><td>rot#</td><td><code>v (# + 1).. -- (# + 1).. v</code></td><td> </td></tr>
+<tr><td><code>A0</code> - <code>BF</code></td><td>copy#</td><td><code>v (# + 1).. -- v (# + 1).. v</code></td><td> </td></tr>
+<tr><td><code>C0</code> - <code>DF</code></td><td>tread#</td><td><code>-- ts[#]</code></td><td>Address 0 is the top of ts</td></tr>
+<tr><td><code>E0</code> - <code>FF</code></td><td>twrite#</td><td><code>v --</code></td><td><code>ts[#] = v</code></td></tr>
 </table>
 
                 </div>
