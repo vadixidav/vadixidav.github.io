@@ -218,6 +218,7 @@
 <li><code>o</code> is set to 1 because a positive number became negative by wrapping</li>
 <li><code>c</code> is set to 0</li>
 </ul>
+<hr />
 <h2><code>dec</code></h2>
 <p><code>a -- (a + 1)</code></p>
 <h4>Description</h4>
@@ -235,6 +236,7 @@
 <li><code>o</code> is set to 0 because no overflow occurred</li>
 <li><code>c</code> is set to 1 because a borrow was incurred</li>
 </ul>
+<hr />
 <h2><code>carry</code></h2>
 <p><code>a -- (a + c)</code></p>
 <h4>Description</h4>
@@ -253,6 +255,7 @@
 <li><code>c</code> is set to 0</li>
 <li><code>o</code> is set to 0</li>
 </ul>
+<hr />
 <h2><code>borrow</code></h2>
 <p><code>a -- (a + c - 1)</code></p>
 <h4>Description</h4>
@@ -271,6 +274,7 @@
 <li><code>c</code> is set to 0</li>
 <li><code>o</code> is set to 0</li>
 </ul>
+<hr />
 <h2><code>add</code></h2>
 <p><code>a b -- (a + b)</code></p>
 <h4>Description</h4>
@@ -287,6 +291,7 @@
 <li><code>( -- 5)</code></li>
 <li>Carry is set to 0</li>
 </ul>
+<hr />
 <h2><code>addc</code></h2>
 <p><code>a b -- (a + b + c)</code></p>
 <h4>Description</h4>
@@ -301,6 +306,7 @@
 <li><code>( -- 0 1)</code></li>
 <li>Carry is set to 0</li>
 </ul>
+<hr />
 <h2><code>sub</code></h2>
 <p><code>a b -- (a - b)</code></p>
 <h4>Description</h4>
@@ -318,6 +324,7 @@
 </ul>
 </li>
 </ul>
+<hr />
 <h2><code>subc</code></h2>
 <p><code>a b -- (a - b + c)</code></p>
 <h4>Description</h4>
@@ -332,6 +339,7 @@
 <li><code>( -- -1 0)</code></li>
 <li>Carry is set to 1 (indicating no borrow)</li>
 </ul>
+<hr />
 <h2><code>asr</code></h2>
 <p><code>a b -- (a &gt;&gt;&gt; b)</code></p>
 <h4>Description</h4>
@@ -347,6 +355,7 @@
 <li><code>( -- hC000000)</code></li>
 <li><code>o</code> is set to <code>1</code> because <code>0</code> is a significant bit and is lost</li>
 </ul>
+<hr />
 <h2><code>mul</code></h2>
 <p><code>a b -- (a * b)</code></p>
 <h4>Description</h4>
@@ -362,6 +371,7 @@
 <ul>
 <li><code>( -- h80000000 hFFFFFFFE)</code></li>
 </ul>
+<hr />
 <h2><code>mulu</code></h2>
 <p><code>a b -- (a * b)</code></p>
 <h4>Description</h4>
@@ -376,6 +386,7 @@
 <ul>
 <li><code>( -- ~0 1)</code></li>
 </ul>
+<hr />
 <h2><code>div</code></h2>
 <p><code>a b --</code></p>
 <h4>Description</h4>
@@ -390,6 +401,7 @@
 <ul>
 <li><code>( -- hC0000000 hBFFFFFFF)</code></li>
 </ul>
+<hr />
 <h2><code>divu</code></h2>
 <p><code>a b --</code></p>
 <h4>Description</h4>
@@ -406,6 +418,22 @@
 </ul>
 <h1>Stack Manipulation Instructions</h1>
 <h1>Memory Instructions</h1>
+<h2><code>flush</code></h2>
+<p><code>--</code></p>
+<h4>Description</h4>
+<p><code>flush</code> forces all dirty cache to be written to memory before this instruction completes execution.</p>
+<h4>Side Effects</h4>
+<ul>
+<li>Dirty cache is flushed to main memory</li>
+</ul>
+<h4>Examples</h4>
+<pre><code>write flush send
+</code></pre>
+<ul>
+<li><code>(send_val write_val address -- )</code></li>
+<li>On a ccNUMA architecture, the other core can now access the value <code>write_val</code> at <code>address</code></li>
+<li>The other core is interrupted only after the value has been flushed to memory</li>
+</ul>
 <h1>UARC Instructions</h1>
 
                 </div>
