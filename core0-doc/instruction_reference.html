@@ -128,6 +128,10 @@
 <tr><td><code>0C</code></td><td>recv</td><td><code>--</code></td><td>Interrupt sync; <code>cv &lt;- bus, v</code></td></tr>
 <tr><td><code>16</code></td><td>calli</td><td><code>--</code></td><td><code>dc0 -&gt; pc</code>; push <a href="architecture/cstack.html">cstack</a></td></tr>
 <tr><td><code>17</code></td><td>jmpi</td><td><code>--</code></td><td><code>dc0 -&gt; pc</code></td></tr>
+<tr><td><code>18</code></td><td>jc</td><td><code>--</code></td><td>if <code>c</code> then <code>dc0 -&gt; pc</code></td></tr>
+<tr><td><code>19</code></td><td>jnc</td><td><code>--</code></td><td>if <code>~c</code> then <code>dc0 -&gt; pc</code></td></tr>
+<tr><td><code>1A</code></td><td>jo</td><td><code>--</code></td><td>if <code>o</code> then <code>dc0 -&gt; pc</code></td></tr>
+<tr><td><code>1B</code></td><td>jno</td><td><code>--</code></td><td>if <code>~o</code> then <code>dc0 -&gt; pc</code></td></tr>
 <tr><td><code>20</code> - <code>2F</code></td><td>cv#</td><td><code>-- cv#</code></td><td>cv# synchronizes</td></tr>
 <tr><td><code>30</code> - <code>33</code></td><td>read#</td><td><code>-- mem[dc#]</code></td><td>dc# advances</td></tr>
 <tr><td><code>34</code> - <code>37</code></td><td>i#</td><td><code>-- i#</code></td><td> </td></tr>
@@ -145,8 +149,8 @@
 <tr><td><code>52</code></td><td>csl</td><td><code>a b -- ((a &lt;&lt; b) or (a &gt;&gt; (b - WORD)))</code></td><td> </td></tr>
 <tr><td><code>53</code></td><td>csr</td><td><code>a b -- ((a &gt;&gt; b) or (a &lt;&lt; (b - WORD)))</code></td><td> </td></tr>
 <tr><td><code>54</code></td><td>asr</td><td><code>a b -- (a &gt;&gt;&gt; b)</code></td><td><code>o</code></td></tr>
-<tr><td><code>55</code></td><td>mul</td><td><code>a b -- (a * b)</code></td><td><code>cv &lt;- (a * b)[2*WORD-1:WORD]</code></td></tr>
-<tr><td><code>56</code></td><td>mulu</td><td><code>a b -- (a * b)</code></td><td><code>cv &lt;- (a * b)[2*WORD-1:WORD]</code></td></tr>
+<tr><td><code>55</code></td><td>mul</td><td><code>a b -- (a * b)</code></td><td><code>cv &lt;- (a * b)[2*WORD-1:WORD]</code>; <code>o</code></td></tr>
+<tr><td><code>56</code></td><td>mulu</td><td><code>a b -- (a * b)</code></td><td><code>cv &lt;- (a * b)[2*WORD-1:WORD]</code>; <code>o</code></td></tr>
 <tr><td><code>57</code></td><td>reada</td><td><code>a --</code></td><td><code>cv &lt;- mem[a]</code></td></tr>
 <tr><td><code>58</code></td><td>call</td><td><code>a --</code></td><td><code>pc = a</code>; push <a href="architecture/cstack.html">cstack</a></td></tr>
 <tr><td><code>59</code></td><td>jmp</td><td><code>a --</code></td><td><code>pc = a</code></td></tr>

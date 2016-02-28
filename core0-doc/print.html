@@ -149,6 +149,10 @@
 <tr><td><code>0C</code></td><td>recv</td><td><code>--</code></td><td>Interrupt sync; <code>cv &lt;- bus, v</code></td></tr>
 <tr><td><code>16</code></td><td>calli</td><td><code>--</code></td><td><code>dc0 -&gt; pc</code>; push <a href="architecture/cstack.html">cstack</a></td></tr>
 <tr><td><code>17</code></td><td>jmpi</td><td><code>--</code></td><td><code>dc0 -&gt; pc</code></td></tr>
+<tr><td><code>18</code></td><td>jc</td><td><code>--</code></td><td>if <code>c</code> then <code>dc0 -&gt; pc</code></td></tr>
+<tr><td><code>19</code></td><td>jnc</td><td><code>--</code></td><td>if <code>~c</code> then <code>dc0 -&gt; pc</code></td></tr>
+<tr><td><code>1A</code></td><td>jo</td><td><code>--</code></td><td>if <code>o</code> then <code>dc0 -&gt; pc</code></td></tr>
+<tr><td><code>1B</code></td><td>jno</td><td><code>--</code></td><td>if <code>~o</code> then <code>dc0 -&gt; pc</code></td></tr>
 <tr><td><code>20</code> - <code>2F</code></td><td>cv#</td><td><code>-- cv#</code></td><td>cv# synchronizes</td></tr>
 <tr><td><code>30</code> - <code>33</code></td><td>read#</td><td><code>-- mem[dc#]</code></td><td>dc# advances</td></tr>
 <tr><td><code>34</code> - <code>37</code></td><td>i#</td><td><code>-- i#</code></td><td> </td></tr>
@@ -166,8 +170,8 @@
 <tr><td><code>52</code></td><td>csl</td><td><code>a b -- ((a &lt;&lt; b) or (a &gt;&gt; (b - WORD)))</code></td><td> </td></tr>
 <tr><td><code>53</code></td><td>csr</td><td><code>a b -- ((a &gt;&gt; b) or (a &lt;&lt; (b - WORD)))</code></td><td> </td></tr>
 <tr><td><code>54</code></td><td>asr</td><td><code>a b -- (a &gt;&gt;&gt; b)</code></td><td><code>o</code></td></tr>
-<tr><td><code>55</code></td><td>mul</td><td><code>a b -- (a * b)</code></td><td><code>cv &lt;- (a * b)[2*WORD-1:WORD]</code></td></tr>
-<tr><td><code>56</code></td><td>mulu</td><td><code>a b -- (a * b)</code></td><td><code>cv &lt;- (a * b)[2*WORD-1:WORD]</code></td></tr>
+<tr><td><code>55</code></td><td>mul</td><td><code>a b -- (a * b)</code></td><td><code>cv &lt;- (a * b)[2*WORD-1:WORD]</code>; <code>o</code></td></tr>
+<tr><td><code>56</code></td><td>mulu</td><td><code>a b -- (a * b)</code></td><td><code>cv &lt;- (a * b)[2*WORD-1:WORD]</code>; <code>o</code></td></tr>
 <tr><td><code>57</code></td><td>reada</td><td><code>a --</code></td><td><code>cv &lt;- mem[a]</code></td></tr>
 <tr><td><code>58</code></td><td>call</td><td><code>a --</code></td><td><code>pc = a</code>; push <a href="architecture/cstack.html">cstack</a></td></tr>
 <tr><td><code>59</code></td><td>jmp</td><td><code>a --</code></td><td><code>pc = a</code></td></tr>
@@ -217,8 +221,8 @@
 <p><code>dec</code> decrements the top of the <a href="architecture/dstack.html">dstack</a> by 1. The overflow and carry bits are set, but not consumed.</p>
 <h4>Side Effects</h4>
 <ul>
-<li><code>c = (a - 1 == ~0)</code></li>
-<li><code>o = (a + 1 == 1 &lt;&lt; (WORD - 1))</code></li>
+<li><code>c = (a - 1 != ~0)</code></li>
+<li><code>o = (a == 1 &lt;&lt; (WORD - 1))</code></li>
 </ul>
 <h4>Examples</h4>
 <pre><code>0 dec
@@ -227,6 +231,42 @@
 <li><code>( -- -1)</code></li>
 <li><code>o</code> is set to 0 because no overflow occurred</li>
 <li><code>c</code> is set to 1 because a borrow was incurred</li>
+</ul>
+<h2><code>carry</code></h2>
+<p><code>a -- (a + c)</code></p>
+<h4>Description</h4>
+<p><code>carry</code> is used when the carry bit needs to be accumulated to a more significant word after a less significant operation. It affects the <code>o</code> and <code>c</code> similarly to <code>inc</code>.</p>
+<h4>Side Effects</h4>
+<ul>
+<li><code>c = c == 1 &amp;&amp; (a + c == 0)</code></li>
+<li><code>o = c == 1 &amp;&amp; (a == -1)</code></li>
+</ul>
+<h4>Examples</h4>
+<pre><code>~0 inc
+0 carry
+</code></pre>
+<ul>
+<li><code>( -- 0 1)</code></li>
+<li><code>c</code> is set to 0</li>
+<li><code>o</code> is set to 0</li>
+</ul>
+<h2><code>borrow</code></h2>
+<p><code>a -- (a + c - 1)</code></p>
+<h4>Description</h4>
+<p><code>borrow</code> is used when a borrow must be applied to a more significant word after a less significant operation. It affects the <code>o</code> and <code>c</code> bits similarly to <code>dec</code>.</p>
+<h4>Side Effects</h4>
+<ul>
+<li><code>c = c == 1 || (a - 1 != ~0)</code></li>
+<li><code>o = c == 1 || (a == 1 &lt;&lt; (WORD - 1))</code></li>
+</ul>
+<h4>Examples</h4>
+<pre><code>0 dec
+1 borrow
+</code></pre>
+<ul>
+<li><code>( -- 0 0)</code></li>
+<li><code>c</code> is set to 0</li>
+<li><code>o</code> is set to 0</li>
 </ul>
 <h2><code>add</code></h2>
 <p><code>a b -- (a + b)</code></p>
@@ -303,6 +343,68 @@
 <ul>
 <li><code>( -- hC000000)</code></li>
 <li><code>o</code> is set to <code>1</code> because <code>0</code> is a significant bit and is lost</li>
+</ul>
+<h2><code>mul</code></h2>
+<p><code>a b -- (a * b)</code></p>
+<h4>Description</h4>
+<p><code>mul</code> multiplies two signed numbers (<code>a</code> and <code>b</code>) with width <code>WORD</code> and produces a result with width <code>2 * WORD</code>. The lower <code>WORD</code> bits of the result are placed on the stack, including a sign bit as the most significant bit. On the other hand, the higher <code>WORD</code> bits (also including a sign bit) are placed on the <a href="architecture/conveyor.html">conveyor</a>.</p>
+<h4>Side Effects</h4>
+<ul>
+<li>The highest <code>WORD</code> bits are placed onto the <a href="architecture/conveyor.html">conveyor</a></li>
+<li><code>o</code> is <code>1</code> if any significant bits are placed into the conveyor</li>
+</ul>
+<h4>Examples (with WORD of 32)</h4>
+<pre><code>h80000000 2 mul cv0
+</code></pre>
+<ul>
+<li><code>( -- h80000000 hFFFFFFFE)</code></li>
+<li><code>o</code> is set to <code>1</code> because of the <code>0</code> present in the least significant bit position in the high bits</li>
+</ul>
+<h2><code>mulu</code></h2>
+<p><code>a b -- (a * b)</code></p>
+<h4>Description</h4>
+<p><code>mulu</code> multiplies two unsigned numbers (<code>a</code> and <code>b</code>) with width <code>WORD</code> and produces a result with width <code>2 * WORD</code>. The lower <code>WORD</code> bits of the result are placed on the stack. On the other hand, the higher <code>WORD</code> bits are placed on the <a href="architecture/conveyor.html">conveyor</a>.</p>
+<h4>Side Effects</h4>
+<ul>
+<li>The highest <code>WORD</code> bits are placed onto the <a href="architecture/conveyor.html">conveyor</a></li>
+<li><code>o</code> is <code>1</code> if any <code>1</code> bits are placed into the conveyor</li>
+</ul>
+<h4>Examples</h4>
+<pre><code>~0 2 mul cv0
+</code></pre>
+<ul>
+<li><code>( -- ~0 1)</code></li>
+<li><code>o</code> is set to <code>1</code> because of the <code>1</code> present in the least significant bit position in the high bits</li>
+</ul>
+<h2><code>div</code></h2>
+<p><code>a b --</code></p>
+<h4>Description</h4>
+<p><code>div</code> divides two signed numbers (<code>a</code> and <code>b</code>) with width <code>WORD</code> and produces a result with width <code>2 * WORD</code>. The higher/whole <code>WORD</code> and the lower/fractional <code>WORD</code> bits of the result are placed on the <a href="architecture/conveyor.html">conveyor</a>. Both the higher and the lower results are signed.</p>
+<h4>Side Effects</h4>
+<ul>
+<li>The higher/whole <code>WORD</code> and lower/fractional <code>WORD</code> bits are placed onto the <a href="architecture/conveyor.html">conveyor</a> in that order</li>
+</ul>
+<h4>Examples (with WORD of 32)</h4>
+<pre><code>h80000000 2 div cv1 cv0
+</code></pre>
+<ul>
+<li><code>( -- hC0000000 hBFFFFFFF)</code></li>
+<li><code>o</code> is set to <code>1</code> because of the significant bit present in the low/fractional bits</li>
+</ul>
+<h2><code>divu</code></h2>
+<p><code>a b --</code></p>
+<h4>Description</h4>
+<p><code>divu</code> divides two unsigned numbers (<code>a</code> and <code>b</code>) with width <code>WORD</code> and produces a result with width <code>2 * WORD</code>. The higher/whole <code>WORD</code> and the lower/fractional <code>WORD</code> bits of the result are placed on the <a href="architecture/conveyor.html">conveyor</a>.</p>
+<h4>Side Effects</h4>
+<ul>
+<li>The higher/whole <code>WORD</code> and lower/fractional <code>WORD</code> bits are placed onto the <a href="architecture/conveyor.html">conveyor</a> in that order</li>
+</ul>
+<h4>Examples (with WORD of 32)</h4>
+<pre><code>~0 2 div cv1 cv0
+</code></pre>
+<ul>
+<li><code>( -- h7FFFFFFF h80000000)</code></li>
+<li><code>o</code> is set to <code>1</code> because of the <code>1</code> present in the most significant bit position in the low/fractional bits</li>
 </ul>
 <h1>Stack Manipulation Instructions</h1>
 <h1>Memory Instructions</h1>
