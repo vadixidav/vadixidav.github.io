@@ -68,6 +68,87 @@
 
                 <div id="content" class="content">
                     <h1>UARC Instructions</h1>
+<h2><code>ien</code></h2>
+<p><code>--</code></p>
+<h4>Description</h4>
+<p><code>ien</code> enables interrupts in the <a href="architecture/ifile.html">ifile</a> for buses which are presently selected.</p>
+<h4>Side Effects</h4>
+<ul>
+<li>All selected buses now have interrupts enabled.</li>
+</ul>
+<hr />
+<h2><code>idi</code></h2>
+<p><code>--</code></p>
+<h4>Description</h4>
+<p><code>idi</code> disables all interrupts currently enabled.</p>
+<h4>Side Effects</h4>
+<ul>
+<li>All buses now have interrupts disabled.</li>
+</ul>
+<hr />
+<h2><code>recv</code></h2>
+<p><code>--</code></p>
+<h4>Description</h4>
+<p><code>recv</code> accepts any interrupt synchronously without an interrupt handler from any selected bus. The bus ID and the interrupt value are added to the <a href="architecture/conveyor.html">conveyor</a> in that order.</p>
+<h4>Side Effects</h4>
+<ul>
+<li><code>cv &lt;- bus, v</code></li>
+<li>Synchronizes execution with the next interrupt</li>
+</ul>
+<hr />
+<h2><code>in</code></h2>
+<p><code>a -- b</code></p>
+<h4>Description</h4>
+<p><code>in</code> receives a stream from any selected UARC bus. <code>a</code> is the address at which those words are to be streamed to. <code>b</code> is the bus ID of the particular bus that streamed these values.</p>
+<h4>Side Effects</h4>
+<ul>
+<li>Execution is synchronized with the completion of the stream operation</li>
+</ul>
+<hr />
+<h2><code>seb</code></h2>
+<p><code>b --</code></p>
+<h4>Description</h4>
+<p><code>seb</code> clears all buses from being selected and then sets a specific set of UARC buses to be selected. The upper <code>WORD/2</code> bits of <code>b</code> select randomly from a register file of select registers and the lower <code>WORD/2</code> bits are a mask that represent which bits to specifically assign to that select register.</p>
+<h4>Side Effects</h4>
+<ul>
+<li>Specific UARC buses are now selected.</li>
+</ul>
+<hr />
+<h2><code>slb</code></h2>
+<p><code>b --</code></p>
+<h4>Description</h4>
+<p><code>seb</code> selects a specific set of UARC buses. The upper <code>WORD/2</code> bits of <code>b</code> select randomly from a register file of select registers and the lower <code>WORD/2</code> bits are a mask that represent which bits to specifically OR to that select register.</p>
+<h4>Side Effects</h4>
+<ul>
+<li>Specific UARC buses are now added to the selection.</li>
+</ul>
+<hr />
+<h2><code>iset</code></h2>
+<p><code>a --</code></p>
+<h4>Description</h4>
+<p><code>iset</code> sets the interrupt address of all selected UARC buses to <code>a</code>.</p>
+<h4>Side Effects</h4>
+<ul>
+<li>Any further interrupts on the selected UARC buses now call the routine at <code>a</code>.</li>
+</ul>
+<hr />
+<h2><code>send</code></h2>
+<p><code>v --</code></p>
+<h4>Description</h4>
+<p><code>send</code> sends a value to all selected UARC buses, and waits for all buses to accept the interrupt before continuing.</p>
+<h4>Side Effects</h4>
+<ul>
+<li>Execution is synchronized with the acceptance of all interrupts sent.</li>
+</ul>
+<hr />
+<h2><code>out</code></h2>
+<p><code>n a --</code></p>
+<h4>Description</h4>
+<p><code>out</code> sends a stream to all selected UARC buses. <code>n</code> is the number of words able to be streamed out and <code>a</code> is the address at which those words are to be streamed from.</p>
+<h4>Side Effects</h4>
+<ul>
+<li>Execution is synchronized with the completion of the stream operation</li>
+</ul>
 
                 </div>
 

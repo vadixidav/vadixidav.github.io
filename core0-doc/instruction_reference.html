@@ -125,9 +125,10 @@
 <tr><td><code>0A</code></td><td>reads</td><td><code>a -- mem[a]</code></td><td>Synchronous read</td></tr>
 <tr><td><code>0B</code></td><td>ret</td><td><code>--</code></td><td>Pops <a href="architecture/cstack.html">cstack</a></td></tr>
 <tr><td><code>0C</code></td><td>ien</td><td><code>--</code></td><td>Enables selected interrupts</td></tr>
-<tr><td><code>0D</code></td><td>idi</td><td><code>--</code></td><td>Disables selected interrupts</td></tr>
+<tr><td><code>0D</code></td><td>idi</td><td><code>--</code></td><td>Disables all interrupts</td></tr>
 <tr><td><code>0E</code></td><td>tcopy</td><td><code>v -- v</code></td><td>Pushes a copy of v to <a href="architecture/tstack.html">tstack</a></td></tr>
 <tr><td><code>0F</code></td><td>recv</td><td><code>--</code></td><td>Interrupt sync; <code>cv &lt;- bus, v</code></td></tr>
+<tr><td><code>10</code></td><td>in</td><td><code>a -- b</code></td><td>Stream in to <code>a</code></td></tr>
 <tr><td><code>16</code></td><td>calli</td><td><code>--</code></td><td><code>dc0 -&gt; pc</code>; push <a href="architecture/cstack.html">cstack</a></td></tr>
 <tr><td><code>17</code></td><td>jmpi</td><td><code>--</code></td><td><code>dc0 -&gt; pc</code></td></tr>
 <tr><td><code>18</code></td><td>jc</td><td><code>--</code></td><td>if <code>c</code> then <code>dc0 -&gt; pc</code></td></tr>
@@ -162,7 +163,7 @@
 <tr><td><code>5C</code></td><td>slb</td><td><code>b --</code></td><td><code>b[WORD/2-1:0]</code> to <code>if[b[WORD-1:WORD/2]]</code></td></tr>
 <tr><td><code>5D</code></td><td>iset</td><td><code>a --</code></td><td>Set selected interrupt addresses</td></tr>
 <tr><td><code>5E</code></td><td>send</td><td><code>v --</code></td><td>Send value to selected buses</td></tr>
-<tr><td><code>5F</code></td><td>in</td><td><code>n a -- b</code></td><td>Stream n words in and push bus</td></tr>
+<tr><td><code>5F</code></td><td>loopi</td><td><code>n --</code></td><td><code>ls &lt;- n, dc0, 0</code></td></tr>
 <tr><td><code>60</code> - <code>63</code></td><td>rwrite#</td><td><code>v a --</code></td><td><code>mem[dc# + a] = v</code></td></tr>
 <tr><td><code>64</code></td><td>write</td><td><code>v a --</code></td><td><code>mem[a] = v</code></td></tr>
 <tr><td><code>65</code></td><td>jeq</td><td><code>a b --</code></td><td>if <code>a == b</code> then <code>dc0 -&gt; pc</code></td></tr>
@@ -177,7 +178,6 @@
 <tr><td><code>6E</code></td><td>div</td><td><code>a b --</code></td><td><code>cv &lt;- a / b, a % b</code></td></tr>
 <tr><td><code>6F</code></td><td>divu</td><td><code>a b --</code></td><td><code>cv &lt;- a / b, a % b</code></td></tr>
 <tr><td><code>70</code></td><td>loop</td><td><code>n e --</code></td><td><code>ls &lt;- n, e, 0</code></td></tr>
-<tr><td><code>78</code></td><td>loopi</td><td><code>n --</code></td><td><code>ls &lt;- n, dc0, 0</code></td></tr>
 <tr><td><code>80</code> - <code>9F</code></td><td>rot#</td><td><code>v (# + 1).. -- (# + 1).. v</code></td><td> </td></tr>
 <tr><td><code>A0</code> - <code>BF</code></td><td>copy#</td><td><code>v (# + 1).. -- v (# + 1).. v</code></td><td> </td></tr>
 <tr><td><code>C0</code> - <code>DF</code></td><td>tread#</td><td><code>-- ts[#]</code></td><td>Address 0 is the top of ts</td></tr>
