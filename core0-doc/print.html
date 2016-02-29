@@ -129,6 +129,7 @@
 <li><code>i[0-3]</code> - Loop Indices</li>
 <li><code>cv[0-F]</code> - <a href="architecture/conveyor.html">Conveyor Belt</a> Values</li>
 <li><code>ts</code> - <a href="architecture/tstack.html">tstack</a></li>
+<li><code>ls</code> - <a href="architecture/lstack.html">lstack</a></li>
 <li><code>if</code> - <a href="architecture/ifile.html">ifile</a></li>
 <li><code>n..</code> - <code>n</code> anonymous words on the stack</li>
 </ul>
@@ -196,6 +197,8 @@
 <tr><td><code>6D</code></td><td>mulu</td><td><code>a b --</code></td><td><code>cv &lt;- low(a * b), high(a * b)</code></td></tr>
 <tr><td><code>6E</code></td><td>div</td><td><code>a b --</code></td><td><code>cv &lt;- a / b, a % b</code></td></tr>
 <tr><td><code>6F</code></td><td>divu</td><td><code>a b --</code></td><td><code>cv &lt;- a / b, a % b</code></td></tr>
+<tr><td><code>70</code></td><td>loop</td><td><code>n e --</code></td><td><code>ls &lt;- n, e, 0</code></td></tr>
+<tr><td><code>78</code></td><td>loopi</td><td><code>n --</code></td><td><code>ls &lt;- n, dc0, 0</code></td></tr>
 <tr><td><code>80</code> - <code>9F</code></td><td>rot#</td><td><code>v (# + 1).. -- (# + 1).. v</code></td><td> </td></tr>
 <tr><td><code>A0</code> - <code>BF</code></td><td>copy#</td><td><code>v (# + 1).. -- v (# + 1).. v</code></td><td> </td></tr>
 <tr><td><code>C0</code> - <code>DF</code></td><td>tread#</td><td><code>-- ts[#]</code></td><td>Address 0 is the top of ts</td></tr>
@@ -497,6 +500,20 @@
 <li><code>( -- 7)</code></li>
 </ul>
 <h1>Stack Manipulation Instructions</h1>
+<h2><code>tcopy</code></h2>
+<p><code>v -- v</code></p>
+<h4>Description</h4>
+<p><code>tcopy</code> pushes a copy of <code>v</code> onto the <a href="architecture/tstack.html">tstack</a>.</p>
+<h4>Side Effects</h4>
+<ul>
+<li><code>v</code> is pushed onto the <code>tstack</code>, moving everything down relative to the top</li>
+</ul>
+<h4>Examples</h4>
+<pre><code>1 tcopy tread0
+</code></pre>
+<ul>
+<li><code>( -- 1)</code></li>
+</ul>
 <h1>Memory Instructions</h1>
 <h2><code>rread#</code></h2>
 <p><code>a -- mem[dc# + a]</code></p>
@@ -802,6 +819,35 @@ subr:
 <ul>
 <li>PC is moved to immediate value if <code>a &lt;= b</code></li>
 <li><code>dc0</code> is incremented always</li>
+</ul>
+<hr />
+<h2><code>lequ</code></h2>
+<p><code>a b --</code></p>
+<h4>Description</h4>
+<p><code>lequ</code> jumps to an immediate value stored at <code>dc0</code> if <code>a</code> is less than or equal to <code>b</code> in an unsigned comparison. This also increments <code>dc0</code> in the process.</p>
+<h4>Side Effects</h4>
+<ul>
+<li>PC is moved to immediate value if <code>a &lt;= b</code></li>
+<li><code>dc0</code> is incremented always</li>
+</ul>
+<hr />
+<h2><code>loop</code></h2>
+<p><code>n e --</code></p>
+<h4>Description</h4>
+<p><code>loop</code> pushes a new loop into onto the <a href="architecture/lstack.html">lstack</a>. <code>n</code> represents the number of iterations of the loop, while <code>e</code> represents the end address of the loop. The loop index (<code>i0</code>) begins at <code>0</code>.</p>
+<h4>Side Effects</h4>
+<ul>
+<li><a href="architecture/lstack.html">lstack</a> is pushed</li>
+</ul>
+<hr />
+<h2><code>loopi</code></h2>
+<p><code>n --</code></p>
+<h4>Description</h4>
+<p><code>loopi</code> pushes a new loop into onto the <a href="architecture/lstack.html">lstack</a>. <code>n</code> represents the number of iterations of the loop. The end address is taken from <code>dc0</code> and <code>dc0</code> is incremented. The loop index (<code>i0</code>) begins at <code>0</code>.</p>
+<h4>Side Effects</h4>
+<ul>
+<li><a href="architecture/lstack.html">lstack</a> is pushed</li>
+<li><code>dc0</code> is incremented</li>
 </ul>
 <h1>UARC Instructions</h1>
 

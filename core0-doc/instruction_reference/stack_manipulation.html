@@ -68,6 +68,20 @@
 
                 <div id="content" class="content">
                     <h1>Stack Manipulation Instructions</h1>
+<h2><code>tcopy</code></h2>
+<p><code>v -- v</code></p>
+<h4>Description</h4>
+<p><code>tcopy</code> pushes a copy of <code>v</code> onto the <a href="architecture/tstack.html">tstack</a>.</p>
+<h4>Side Effects</h4>
+<ul>
+<li><code>v</code> is pushed onto the <code>tstack</code>, moving everything down relative to the top</li>
+</ul>
+<h4>Examples</h4>
+<pre><code>1 tcopy tread0
+</code></pre>
+<ul>
+<li><code>( -- 1)</code></li>
+</ul>
 
                 </div>
 

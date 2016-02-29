@@ -108,6 +108,7 @@
 <li><code>i[0-3]</code> - Loop Indices</li>
 <li><code>cv[0-F]</code> - <a href="architecture/conveyor.html">Conveyor Belt</a> Values</li>
 <li><code>ts</code> - <a href="architecture/tstack.html">tstack</a></li>
+<li><code>ls</code> - <a href="architecture/lstack.html">lstack</a></li>
 <li><code>if</code> - <a href="architecture/ifile.html">ifile</a></li>
 <li><code>n..</code> - <code>n</code> anonymous words on the stack</li>
 </ul>
@@ -175,6 +176,8 @@
 <tr><td><code>6D</code></td><td>mulu</td><td><code>a b --</code></td><td><code>cv &lt;- low(a * b), high(a * b)</code></td></tr>
 <tr><td><code>6E</code></td><td>div</td><td><code>a b --</code></td><td><code>cv &lt;- a / b, a % b</code></td></tr>
 <tr><td><code>6F</code></td><td>divu</td><td><code>a b --</code></td><td><code>cv &lt;- a / b, a % b</code></td></tr>
+<tr><td><code>70</code></td><td>loop</td><td><code>n e --</code></td><td><code>ls &lt;- n, e, 0</code></td></tr>
+<tr><td><code>78</code></td><td>loopi</td><td><code>n --</code></td><td><code>ls &lt;- n, dc0, 0</code></td></tr>
 <tr><td><code>80</code> - <code>9F</code></td><td>rot#</td><td><code>v (# + 1).. -- (# + 1).. v</code></td><td> </td></tr>
 <tr><td><code>A0</code> - <code>BF</code></td><td>copy#</td><td><code>v (# + 1).. -- v (# + 1).. v</code></td><td> </td></tr>
 <tr><td><code>C0</code> - <code>DF</code></td><td>tread#</td><td><code>-- ts[#]</code></td><td>Address 0 is the top of ts</td></tr>
