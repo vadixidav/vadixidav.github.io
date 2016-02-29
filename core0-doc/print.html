@@ -114,7 +114,7 @@
 <h3><code>L</code> - Loop</h3>
 <p>Loop instructions allow random read access to the loop index of the top 4 loops in the <a href="architecture/lstack.html">lstack</a>. This means that loops can be nested 4 times and are still able to retrieve the index in one instruction.</p>
 <h3><code>D</code> - Data Counter</h3>
-<p>Data Counter instructions are instructions that operate on a random one of the 4 available DCs. These can be set, read, written, randomly read, and randomly written.</p>
+<p>Data Counter instructions are instructions that operate on a random one of the 4 available DCs. These can be set, get, read, written, randomly read, and randomly written.</p>
 <h3><code>C</code> - Conveyor</h3>
 <p>Conveyor instructions allow random read access to the 16 things on the <a href="architecture/conveyor.html">conveyor belt</a>. The things on the conveyor may actually not be present and when accessed, the completion of the operation corresponding to that spot on the conveyor will be synchronized. This allows several asynchronous operations to be linked to different locations on the conveyor and read randomly when they are needed.</p>
 <h3><code>R</code> - Random</h3>
@@ -156,9 +156,10 @@
 <tr><td><code>1B</code></td><td>jno</td><td><code>--</code></td><td>if <code>~o</code> then <code>dc0 -&gt; pc</code></td></tr>
 <tr><td><code>20</code> - <code>2F</code></td><td>cv#</td><td><code>-- cv#</code></td><td>cv# synchronizes</td></tr>
 <tr><td><code>30</code> - <code>33</code></td><td>read#</td><td><code>-- mem[dc#]</code></td><td>dc# advances</td></tr>
-<tr><td><code>34</code> - <code>37</code></td><td>i#</td><td><code>-- i#</code></td><td> </td></tr>
-<tr><td><code>38</code></td><td>p0</td><td><code>-- 0</code></td><td> </td></tr>
-<tr><td><code>39</code></td><td>dup</td><td><code>a -- a a</code></td><td> </td></tr>
+<tr><td><code>34</code> - <code>37</code></td><td>get#</td><td><code>-- dc#</code></td><td> </td></tr>
+<tr><td><code>38</code> - <code>3B</code></td><td>i#</td><td><code>-- i#</code></td><td> </td></tr>
+<tr><td><code>3C</code></td><td>p0</td><td><code>-- 0</code></td><td> </td></tr>
+<tr><td><code>3D</code></td><td>dup</td><td><code>a -- a a</code></td><td> </td></tr>
 <tr><td><code>40</code> - <code>43</code></td><td>write#</td><td><code>v --</code></td><td><code>mem[dc#] = v</code>; dc# advances</td></tr>
 <tr><td><code>44</code> - <code>47</code></td><td>setf#</td><td><code>a --</code></td><td><code>dc# = a</code>; dc# is write post-inc</td></tr>
 <tr><td><code>48</code> - <code>4B</code></td><td>setb#</td><td><code>a --</code></td><td><code>dc# = a</code>; dc# is write pre-dec</td></tr>
@@ -418,6 +419,11 @@
 </ul>
 <h1>Stack Manipulation Instructions</h1>
 <h1>Memory Instructions</h1>
+<h2><code>rread#</code></h2>
+<p><code>a -- mem[dc# + a]</code></p>
+<h4>Description</h4>
+<p><code>rread#</code> performs a random read starting from <code>dc#</code> and indexing by <code>a</code>. The result is returned synchronously to the stack because it is assumed that this value is held in the cache, since memory at a dc is generally cached.</p>
+<hr />
 <h2><code>flush</code></h2>
 <p><code>--</code></p>
 <h4>Description</h4>
@@ -433,6 +439,72 @@
 <li><code>(send_val write_val address -- )</code></li>
 <li>On a ccNUMA architecture, the other core can now access the value <code>write_val</code> at <code>address</code></li>
 <li>The other core is interrupted only after the value has been flushed to memory</li>
+</ul>
+<hr />
+<h2><code>reads</code></h2>
+<p><code>a -- mem[a]</code></p>
+<h4>Description</h4>
+<p><code>reads</code> performs a synchronous read, meaning that this operation does not complete until the value is on the stack. <code>a</code> is an absolute address.</p>
+<hr />
+<h2><code>read#</code></h2>
+<p><code>-- mem[dc#]</code></p>
+<h4>Description</h4>
+<p><code>read#</code> performs a read directly at <code>dc#</code>. Doing this increments <code>dc#</code> after the read.</p>
+<hr />
+<h2><code>get#</code></h2>
+<p><code>-- dc#</code></p>
+<h4>Description</h4>
+<p><code>get#</code> places the address dc# is currently pointing to onto the stack. This allows the programmer to manipulate the dc for allocating memory on a stack or advancing the dc between elements in a vector for use with <code>rread#</code>.</p>
+<hr />
+<h2><code>write#</code></h2>
+<p><code>v --</code></p>
+<h4>Description</h4>
+<p><code>write#</code> performs a write directly at <code>dc#</code>. Doing this advances <code>dc#</code> depending on how it was set. If it was set with <code>setf</code>, then <code>dc#</code> will write and then increment. If it was set with <code>setb</code>, then <code>dc#</code> will decrement and then write. Due to this behavior, using setb allows a dc to be set up as a pushdown stack.</p>
+<hr />
+<h2><code>setf#</code></h2>
+<p><code>a --</code></p>
+<h4>Description</h4>
+<p><code>setf#</code> sets <code>dc#</code> to <code>a</code>. It also sets <code>dc#</code> to be in post-increment write mode.</p>
+<hr />
+<h2><code>setb#</code></h2>
+<p><code>a --</code></p>
+<h4>Description</h4>
+<p><code>setf#</code> sets <code>dc#</code> to <code>a</code>. It also sets <code>dc#</code> to be in pre-decrement write mode.</p>
+<hr />
+<h2><code>reada</code></h2>
+<p><code>a --</code></p>
+<h4>Description</h4>
+<p><code>reada</code> performs an asynchronous read. This means that the value read will not necessarily complete before the next instruction and the result is not put on the stack. Instead, the value is promised in a slot on the <a href="architecture/conveyor.html">conveyor</a>. When this slot is read from, the read is synchronized and the result is placed on the stack.</p>
+<h4>Side Effects</h4>
+<ul>
+<li><code>cv &lt;- mem[a]</code></li>
+</ul>
+<h4>Examples</h4>
+<pre><code>0 reada
+# Do other stuff here
+cv0
+</code></pre>
+<ul>
+<li><code>( -- mem[0])</code></li>
+<li>Between <code>reada</code> and <code>cv0</code>, any operations happen while the read is occurring.</li>
+</ul>
+<hr />
+<h2><code>rwrite#</code></h2>
+<p><code>v a --</code></p>
+<h4>Description</h4>
+<p><code>rwrite#</code> performs a random write relative to <code>dc#</code>. This means that <code>mem[dc# + a] = v</code>. This may be cached.</p>
+<h4>Side Effects</h4>
+<ul>
+<li><code>mem[dc# + a] = v</code></li>
+</ul>
+<hr />
+<h2><code>write</code></h2>
+<p><code>v a --</code></p>
+<h4>Description</h4>
+<p><code>write</code> performs a random write. This means that <code>mem[a] = v</code>. This may be cached.</p>
+<h4>Side Effects</h4>
+<ul>
+<li><code>mem[a] = v</code></li>
 </ul>
 <h1>UARC Instructions</h1>
 

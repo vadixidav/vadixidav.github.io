@@ -93,7 +93,7 @@
 <h3><code>L</code> - Loop</h3>
 <p>Loop instructions allow random read access to the loop index of the top 4 loops in the <a href="architecture/lstack.html">lstack</a>. This means that loops can be nested 4 times and are still able to retrieve the index in one instruction.</p>
 <h3><code>D</code> - Data Counter</h3>
-<p>Data Counter instructions are instructions that operate on a random one of the 4 available DCs. These can be set, read, written, randomly read, and randomly written.</p>
+<p>Data Counter instructions are instructions that operate on a random one of the 4 available DCs. These can be set, get, read, written, randomly read, and randomly written.</p>
 <h3><code>C</code> - Conveyor</h3>
 <p>Conveyor instructions allow random read access to the 16 things on the <a href="architecture/conveyor.html">conveyor belt</a>. The things on the conveyor may actually not be present and when accessed, the completion of the operation corresponding to that spot on the conveyor will be synchronized. This allows several asynchronous operations to be linked to different locations on the conveyor and read randomly when they are needed.</p>
 <h3><code>R</code> - Random</h3>
@@ -135,9 +135,10 @@
 <tr><td><code>1B</code></td><td>jno</td><td><code>--</code></td><td>if <code>~o</code> then <code>dc0 -&gt; pc</code></td></tr>
 <tr><td><code>20</code> - <code>2F</code></td><td>cv#</td><td><code>-- cv#</code></td><td>cv# synchronizes</td></tr>
 <tr><td><code>30</code> - <code>33</code></td><td>read#</td><td><code>-- mem[dc#]</code></td><td>dc# advances</td></tr>
-<tr><td><code>34</code> - <code>37</code></td><td>i#</td><td><code>-- i#</code></td><td> </td></tr>
-<tr><td><code>38</code></td><td>p0</td><td><code>-- 0</code></td><td> </td></tr>
-<tr><td><code>39</code></td><td>dup</td><td><code>a -- a a</code></td><td> </td></tr>
+<tr><td><code>34</code> - <code>37</code></td><td>get#</td><td><code>-- dc#</code></td><td> </td></tr>
+<tr><td><code>38</code> - <code>3B</code></td><td>i#</td><td><code>-- i#</code></td><td> </td></tr>
+<tr><td><code>3C</code></td><td>p0</td><td><code>-- 0</code></td><td> </td></tr>
+<tr><td><code>3D</code></td><td>dup</td><td><code>a -- a a</code></td><td> </td></tr>
 <tr><td><code>40</code> - <code>43</code></td><td>write#</td><td><code>v --</code></td><td><code>mem[dc#] = v</code>; dc# advances</td></tr>
 <tr><td><code>44</code> - <code>47</code></td><td>setf#</td><td><code>a --</code></td><td><code>dc# = a</code>; dc# is write post-inc</td></tr>
 <tr><td><code>48</code> - <code>4B</code></td><td>setb#</td><td><code>a --</code></td><td><code>dc# = a</code>; dc# is write pre-dec</td></tr>
