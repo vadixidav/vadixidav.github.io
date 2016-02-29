@@ -586,6 +586,223 @@ cv0
 <li><code>mem[a] = v</code></li>
 </ul>
 <h1>Control Flow</h1>
+<h2><code>ret</code></h2>
+<p><code>--</code></p>
+<h4>Description</h4>
+<p><code>ret</code> returns from a subroutine call. It pops the <a href="architecture/cstack.html">cstack</a>, moving the PC, DCs, and <a href="architecture/tstack.html">tstack</a> back to the position it was at in the caller to continue execution. This instruction returns from interrupts as well as normal subroutines, since an interrupt is a simulated subroutine call. Using <code>ret</code> in an interrupt also allows more interrupts to be serviced unless they are explicitly disabled in the interrupt.</p>
+<h4>Side Effects</h4>
+<ul>
+<li><a href="architecture/cstack.html">cstack</a> is popped
+<ul>
+<li>DCs are returned to their previous values</li>
+<li>PC is returned to its previous value</li>
+<li><a href="architecture/tstack.html">tstack</a> is popped until it is at its previous position</li>
+<li>If this is the initial subroutine of an interrupt
+<ul>
+<li>It is finished servicing</li>
+<li>The interrupt <a href="architecture/conveyor.html">conveyor</a> is replaced with the normal <a href="architecture/conveyor.html">conveyor</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4>Notes</h4>
+<ul>
+<li>The <a href="architecture/lstack.html">lstack</a> is NOT returned to its previous state.</li>
+</ul>
+<h4>Examples</h4>
+<pre><code>subr calli
+ret
+
+subr:
+  ret
+</code></pre>
+<ul>
+<li><code>( -- )</code></li>
+<li>The example calls <code>subr</code> before returning to the original caller</li>
+</ul>
+<pre><code>subr jumpi
+
+subr:
+  ret
+</code></pre>
+<ul>
+<li><code>( -- )</code></li>
+<li>A more efficient version of the previous example by utilizing tail-call elimination</li>
+</ul>
+<hr />
+<h2><code>calli</code></h2>
+<p><code>--</code></p>
+<h4>Description</h4>
+<p><code>calli</code> is an immediate call. In this situation, immediate means that the PC to jump to is taken from <code>dc0</code>. This also increments <code>dc0</code> and puts the incremented copy of <code>dc0</code> onto the <a href="architecture/cstack.html">cstack</a>, along with the other state elements preserved in a call.</p>
+<h4>Side Effects</h4>
+<ul>
+<li><a href="architecture/cstack.html">cstack</a> is pushed
+<ul>
+<li>DCs are preserved</li>
+<li>PC is preserved</li>
+<li><a href="architecture/tstack.html">tstack</a> position is preserved</li>
+<li>Whether an interrupt is being serviced or not is preserved</li>
+</ul>
+</li>
+</ul>
+<h4>Examples</h4>
+<pre><code>subr calli
+ret
+
+subr:
+  ret
+</code></pre>
+<ul>
+<li><code>( -- )</code></li>
+<li>The example calls <code>subr</code> before returning to the original caller</li>
+</ul>
+<hr />
+<h2><code>jmpi</code></h2>
+<p><code>--</code></p>
+<h4>Description</h4>
+<p><code>jmpi</code> jumps to an immediate value stored at <code>dc0</code>. This also increments <code>dc0</code> in the process.</p>
+<h4>Side Effects</h4>
+<ul>
+<li>PC is moved to immediate value</li>
+<li><code>dc0</code> is incremented</li>
+</ul>
+<hr />
+<h2><code>jc</code></h2>
+<p><code>--</code></p>
+<h4>Description</h4>
+<p><code>jc</code> jumps to an immediate value stored at <code>dc0</code> if the <code>c</code> bit is <code>1</code>. This also increments <code>dc0</code> in the process.</p>
+<h4>Side Effects</h4>
+<ul>
+<li>PC is moved to immediate value if <code>c</code> is <code>1</code></li>
+<li><code>dc0</code> is incremented always</li>
+</ul>
+<hr />
+<h2><code>jnc</code></h2>
+<p><code>--</code></p>
+<h4>Description</h4>
+<p><code>jnc</code> jumps to an immediate value stored at <code>dc0</code> if the <code>c</code> bit is <code>0</code>. This also increments <code>dc0</code> in the process.</p>
+<h4>Side Effects</h4>
+<ul>
+<li>PC is moved to immediate value if <code>c</code> is <code>0</code></li>
+<li><code>dc0</code> is incremented always</li>
+</ul>
+<hr />
+<h2><code>jo</code></h2>
+<p><code>--</code></p>
+<h4>Description</h4>
+<p><code>jo</code> jumps to an immediate value stored at <code>dc0</code> if the <code>o</code> bit is <code>1</code>. This also increments <code>dc0</code> in the process.</p>
+<h4>Side Effects</h4>
+<ul>
+<li>PC is moved to immediate value if <code>o</code> is <code>1</code></li>
+<li><code>dc0</code> is incremented always</li>
+</ul>
+<hr />
+<h2><code>jno</code></h2>
+<p><code>--</code></p>
+<h4>Description</h4>
+<p><code>jno</code> jumps to an immediate value stored at <code>dc0</code> if the <code>o</code> bit is <code>0</code>. This also increments <code>dc0</code> in the process.</p>
+<h4>Side Effects</h4>
+<ul>
+<li>PC is moved to immediate value if <code>o</code> is <code>0</code></li>
+<li><code>dc0</code> is incremented always</li>
+</ul>
+<hr />
+<h2><code>call</code></h2>
+<p><code>a --</code></p>
+<h4>Description</h4>
+<p><code>call</code> calls a subroutine. The address <code>a</code> is the destination the PC is set to. This pushes the <a href="architecture/cstack.html">cstack</a>, storing all the state elements preserved in a call.</p>
+<h4>Side Effects</h4>
+<ul>
+<li><a href="architecture/cstack.html">cstack</a> is pushed
+<ul>
+<li>DCs are preserved</li>
+<li>PC is preserved</li>
+<li><a href="architecture/tstack.html">tstack</a> position is preserved</li>
+<li>Whether an interrupt is being serviced or not is preserved</li>
+</ul>
+</li>
+</ul>
+<h4>Examples</h4>
+<pre><code>subr read0 call
+ret
+
+subr:
+  ret
+</code></pre>
+<ul>
+<li><code>( -- )</code></li>
+<li>The example calls <code>subr</code> before returning to the original caller</li>
+</ul>
+<hr />
+<h2><code>jmp</code></h2>
+<p><code>a --</code></p>
+<h4>Description</h4>
+<p><code>jmp</code> jumps to the address <code>a</code>.</p>
+<h4>Side Effects</h4>
+<ul>
+<li>PC is moved to <code>a</code></li>
+</ul>
+<hr />
+<h2><code>jeq</code></h2>
+<p><code>a b --</code></p>
+<h4>Description</h4>
+<p><code>jeq</code> jumps to an immediate value stored at <code>dc0</code> if <code>a</code> and <code>b</code> are equal. This also increments <code>dc0</code> in the process.</p>
+<h4>Side Effects</h4>
+<ul>
+<li>PC is moved to immediate value if <code>a == b</code></li>
+<li><code>dc0</code> is incremented always</li>
+</ul>
+<hr />
+<h2><code>jne</code></h2>
+<p><code>a b --</code></p>
+<h4>Description</h4>
+<p><code>jne</code> jumps to an immediate value stored at <code>dc0</code> if <code>a</code> and <code>b</code> are not equal. This also increments <code>dc0</code> in the process.</p>
+<h4>Side Effects</h4>
+<ul>
+<li>PC is moved to immediate value if <code>a != b</code></li>
+<li><code>dc0</code> is incremented always</li>
+</ul>
+<hr />
+<h2><code>les</code></h2>
+<p><code>a b --</code></p>
+<h4>Description</h4>
+<p><code>les</code> jumps to an immediate value stored at <code>dc0</code> if <code>a</code> is less than <code>b</code> in a signed comparison. This also increments <code>dc0</code> in the process.</p>
+<h4>Side Effects</h4>
+<ul>
+<li>PC is moved to immediate value if <code>a &lt; b</code></li>
+<li><code>dc0</code> is incremented always</li>
+</ul>
+<hr />
+<h2><code>leq</code></h2>
+<p><code>a b --</code></p>
+<h4>Description</h4>
+<p><code>leq</code> jumps to an immediate value stored at <code>dc0</code> if <code>a</code> is less than or equal to <code>b</code> in a signed comparison. This also increments <code>dc0</code> in the process.</p>
+<h4>Side Effects</h4>
+<ul>
+<li>PC is moved to immediate value if <code>a &lt;= b</code></li>
+<li><code>dc0</code> is incremented always</li>
+</ul>
+<hr />
+<h2><code>lesu</code></h2>
+<p><code>a b --</code></p>
+<h4>Description</h4>
+<p><code>lesu</code> jumps to an immediate value stored at <code>dc0</code> if <code>a</code> is less than <code>b</code> in an unsigned comparison. This also increments <code>dc0</code> in the process.</p>
+<h4>Side Effects</h4>
+<ul>
+<li>PC is moved to immediate value if <code>a &lt; b</code></li>
+<li><code>dc0</code> is incremented always</li>
+</ul>
+<hr />
+<h2><code>lequ</code></h2>
+<p><code>a b --</code></p>
+<h4>Description</h4>
+<p><code>lequ</code> jumps to an immediate value stored at <code>dc0</code> if <code>a</code> is less than or equal to <code>b</code> in an unsigned comparison. This also increments <code>dc0</code> in the process.</p>
+<h4>Side Effects</h4>
+<ul>
+<li>PC is moved to immediate value if <code>a &lt;= b</code></li>
+<li><code>dc0</code> is incremented always</li>
+</ul>
 <h1>UARC Instructions</h1>
 
                 </div>
