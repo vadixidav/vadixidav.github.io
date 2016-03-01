@@ -47,7 +47,7 @@
         </script>
 
         <div id="sidebar" class="sidebar">
-            <ul class="chapter"><li><a href="overview.html"><strong>1.</strong> Overview</a></li><li><a href="architecture.html"><strong>2.</strong> Architecture</a></li><li><ul class="section"><li><a href="architecture/dstack.html"><strong>2.1.</strong> dstack</a></li><li><a href="architecture/cstack.html"><strong>2.2.</strong> cstack</a></li><li><a href="architecture/lstack.html"><strong>2.3.</strong> lstack</a></li><li><a href="architecture/tstack.html"><strong>2.4.</strong> tstack</a></li><li><a href="architecture/ifile.html"><strong>2.5.</strong> ifile</a></li><li><a href="architecture/conveyor.html"><strong>2.6.</strong> conveyor</a></li></ul></li><li><a href="instruction_reference.html" class="active"><strong>3.</strong> Instruction Reference</a></li><li><ul class="section"><li><a href="instruction_reference/arithmetic.html"><strong>3.1.</strong> Arithmetic</a></li><li><a href="instruction_reference/bit_manipulation.html"><strong>3.2.</strong> Bit Manipulation</a></li><li><a href="instruction_reference/stack_manipulation.html"><strong>3.3.</strong> Stack Manipulation</a></li><li><a href="instruction_reference/memory.html"><strong>3.4.</strong> Memory</a></li><li><a href="instruction_reference/control_flow.html"><strong>3.5.</strong> Control Flow</a></li><li><a href="instruction_reference/uarc.html"><strong>3.6.</strong> UARC</a></li></ul>
+            <ul class="chapter"><li><a href="overview.html"><strong>1.</strong> Overview</a></li><li><a href="architecture.html"><strong>2.</strong> Architecture</a></li><li><ul class="section"><li><a href="architecture/dstack.html"><strong>2.1.</strong> dstack</a></li><li><a href="architecture/cstack.html"><strong>2.2.</strong> cstack</a></li><li><a href="architecture/lstack.html"><strong>2.3.</strong> lstack</a></li><li><a href="architecture/tstack.html"><strong>2.4.</strong> tstack</a></li><li><a href="architecture/ifile.html"><strong>2.5.</strong> ifile</a></li><li><a href="architecture/conveyor.html"><strong>2.6.</strong> conveyor</a></li></ul></li><li><a href="instruction_reference.html" class="active"><strong>3.</strong> Instruction Reference</a></li><li><ul class="section"><li><a href="instruction_reference/arithmetic.html"><strong>3.1.</strong> Arithmetic</a></li><li><a href="instruction_reference/bit_manipulation.html"><strong>3.2.</strong> Bit Manipulation</a></li><li><a href="instruction_reference/stack_manipulation.html"><strong>3.3.</strong> Stack Manipulation</a></li><li><a href="instruction_reference/memory.html"><strong>3.4.</strong> Memory</a></li><li><a href="instruction_reference/control_flow.html"><strong>3.5.</strong> Control Flow</a></li><li><a href="instruction_reference/uarc.html"><strong>3.6.</strong> UARC</a></li></ul></li><li><a href="uarc.html"><strong>4.</strong> UARC</a></li></ul>
         </div>
 
         <div id="page-wrapper" class="page-wrapper">
@@ -129,6 +129,7 @@
 <tr><td><code>0E</code></td><td>tcopy</td><td><code>v -- v</code></td><td>Pushes a copy of v to <a href="architecture/tstack.html">tstack</a></td></tr>
 <tr><td><code>0F</code></td><td>recv</td><td><code>--</code></td><td>Interrupt sync; <code>cv &lt;- bus, v</code></td></tr>
 <tr><td><code>10</code></td><td>in</td><td><code>a -- b</code></td><td>Stream in to <code>a</code></td></tr>
+<tr><td><code>11</code></td><td>kill</td><td><code>--</code></td><td>Kill all selected cores</td></tr>
 <tr><td><code>16</code></td><td>calli</td><td><code>--</code></td><td><code>dc0 -&gt; pc</code>; push <a href="architecture/cstack.html">cstack</a></td></tr>
 <tr><td><code>17</code></td><td>jmpi</td><td><code>--</code></td><td><code>dc0 -&gt; pc</code></td></tr>
 <tr><td><code>18</code></td><td>jc</td><td><code>--</code></td><td>if <code>c</code> then <code>dc0 -&gt; pc</code></td></tr>
@@ -141,6 +142,8 @@
 <tr><td><code>38</code> - <code>3B</code></td><td>i#</td><td><code>-- i#</code></td><td> </td></tr>
 <tr><td><code>3C</code></td><td>p0</td><td><code>-- 0</code></td><td> </td></tr>
 <tr><td><code>3D</code></td><td>dup</td><td><code>v -- v v</code></td><td> </td></tr>
+<tr><td><code>3E</code></td><td>getp</td><td><code>-- priv</code></td><td>Get UARC privilege</td></tr>
+<tr><td><code>3F</code></td><td>geta</td><td><code>-- addr</code></td><td>Get UARC address</td></tr>
 <tr><td><code>40</code> - <code>43</code></td><td>write#</td><td><code>v --</code></td><td><code>mem[dc#] = v</code>; dc# advances</td></tr>
 <tr><td><code>44</code> - <code>47</code></td><td>setf#</td><td><code>a --</code></td><td><code>dc# = a</code>; dc# is write post-inc</td></tr>
 <tr><td><code>48</code> - <code>4B</code></td><td>setb#</td><td><code>a --</code></td><td><code>dc# = a</code>; dc# is write pre-dec</td></tr>
@@ -178,6 +181,7 @@
 <tr><td><code>6E</code></td><td>div</td><td><code>a b --</code></td><td><code>cv &lt;- a / b, a % b</code></td></tr>
 <tr><td><code>6F</code></td><td>divu</td><td><code>a b --</code></td><td><code>cv &lt;- a / b, a % b</code></td></tr>
 <tr><td><code>70</code></td><td>loop</td><td><code>n e --</code></td><td><code>ls &lt;- n, e, 0</code></td></tr>
+<tr><td><code>71</code></td><td>setp</td><td><code>priv addr --</code></td><td>Sets UARC permission delegation</td></tr>
 <tr><td><code>80</code> - <code>9F</code></td><td>rot#</td><td><code>v (# + 1).. -- (# + 1).. v</code></td><td> </td></tr>
 <tr><td><code>A0</code> - <code>BF</code></td><td>copy#</td><td><code>v (# + 1).. -- v (# + 1).. v</code></td><td> </td></tr>
 <tr><td><code>C0</code> - <code>DF</code></td><td>tread#</td><td><code>-- ts[#]</code></td><td>Address 0 is the top of ts</td></tr>

@@ -47,7 +47,7 @@
         </script>
 
         <div id="sidebar" class="sidebar">
-            <ul class="chapter"><li><a href="overview.html"><strong>1.</strong> Overview</a></li><li><a href="architecture.html"><strong>2.</strong> Architecture</a></li><li><ul class="section"><li><a href="architecture/dstack.html"><strong>2.1.</strong> dstack</a></li><li><a href="architecture/cstack.html"><strong>2.2.</strong> cstack</a></li><li><a href="architecture/lstack.html"><strong>2.3.</strong> lstack</a></li><li><a href="architecture/tstack.html"><strong>2.4.</strong> tstack</a></li><li><a href="architecture/ifile.html"><strong>2.5.</strong> ifile</a></li><li><a href="architecture/conveyor.html"><strong>2.6.</strong> conveyor</a></li></ul></li><li><a href="instruction_reference.html"><strong>3.</strong> Instruction Reference</a></li><li><ul class="section"><li><a href="instruction_reference/arithmetic.html"><strong>3.1.</strong> Arithmetic</a></li><li><a href="instruction_reference/bit_manipulation.html"><strong>3.2.</strong> Bit Manipulation</a></li><li><a href="instruction_reference/stack_manipulation.html"><strong>3.3.</strong> Stack Manipulation</a></li><li><a href="instruction_reference/memory.html"><strong>3.4.</strong> Memory</a></li><li><a href="instruction_reference/control_flow.html"><strong>3.5.</strong> Control Flow</a></li><li><a href="instruction_reference/uarc.html" class="active"><strong>3.6.</strong> UARC</a></li></ul>
+            <ul class="chapter"><li><a href="overview.html"><strong>1.</strong> Overview</a></li><li><a href="architecture.html"><strong>2.</strong> Architecture</a></li><li><ul class="section"><li><a href="architecture/dstack.html"><strong>2.1.</strong> dstack</a></li><li><a href="architecture/cstack.html"><strong>2.2.</strong> cstack</a></li><li><a href="architecture/lstack.html"><strong>2.3.</strong> lstack</a></li><li><a href="architecture/tstack.html"><strong>2.4.</strong> tstack</a></li><li><a href="architecture/ifile.html"><strong>2.5.</strong> ifile</a></li><li><a href="architecture/conveyor.html"><strong>2.6.</strong> conveyor</a></li></ul></li><li><a href="instruction_reference.html"><strong>3.</strong> Instruction Reference</a></li><li><ul class="section"><li><a href="instruction_reference/arithmetic.html"><strong>3.1.</strong> Arithmetic</a></li><li><a href="instruction_reference/bit_manipulation.html"><strong>3.2.</strong> Bit Manipulation</a></li><li><a href="instruction_reference/stack_manipulation.html"><strong>3.3.</strong> Stack Manipulation</a></li><li><a href="instruction_reference/memory.html"><strong>3.4.</strong> Memory</a></li><li><a href="instruction_reference/control_flow.html"><strong>3.5.</strong> Control Flow</a></li><li><a href="instruction_reference/uarc.html" class="active"><strong>3.6.</strong> UARC</a></li></ul></li><li><a href="uarc.html"><strong>4.</strong> UARC</a></li></ul>
         </div>
 
         <div id="page-wrapper" class="page-wrapper">
@@ -105,6 +105,29 @@
 <li>Execution is synchronized with the completion of the stream operation</li>
 </ul>
 <hr />
+<h2><code>kill</code></h2>
+<p><code>--</code></p>
+<h4>Description</h4>
+<p><code>kill</code> causes every single core connected to every selected bus and every single one of their children to stop before the instruction completes. This instruction takes <code>2 * n</code> cycles, where <code>n</code> is the depth of the longest chain of incepted cores. This will not succeed unless the core has <a href="uarc.html">permission</a> over the target cores. If the target does not have the proper <a href="uarc.html">permission</a>, it will report success without doing anything.</p>
+<h4>Side Effects</h4>
+<ul>
+<li>All selected cores for which this core has permission will be stopped before this instruction finishes.</li>
+</ul>
+<hr />
+<h2><code>getp</code></h2>
+<p><code>-- priv</code></p>
+<h4>Description</h4>
+<p><code>getp</code> places the <a href="uarc.html">privilege</a> of the current core on the stack. This value will range from <code>0</code> to <code>31</code>.</p>
+<hr />
+<h2><code>geta</code></h2>
+<p><code>-- addr</code></p>
+<h4>Description</h4>
+<p><code>geta</code> places the <a href="uarc.html">address</a> of the current core on the stack. This value is 31 bits and will be placed in the least significant bits of the word.</p>
+<h4>Notes</h4>
+<ul>
+<li>This instruction is not supported for a <code>WORD</code> that is less than 32 bits.</li>
+</ul>
+<hr />
 <h2><code>seb</code></h2>
 <p><code>b --</code></p>
 <h4>Description</h4>
@@ -147,7 +170,16 @@
 <p><code>out</code> sends a stream to all selected UARC buses. <code>n</code> is the number of words able to be streamed out and <code>a</code> is the address at which those words are to be streamed from.</p>
 <h4>Side Effects</h4>
 <ul>
-<li>Execution is synchronized with the completion of the stream operation</li>
+<li>Execution is synchronized with the completion of the stream operation.</li>
+</ul>
+<hr />
+<h2><code>setp</code></h2>
+<p><code>priv addr --</code></p>
+<h4>Description</h4>
+<p><code>setp</code> sets the <a href="uarc.html">permission</a> that is to be delegated to all incepted UARC cores. This value defaults to the same <a href="uarc.html">permission</a> that this core receives on inception. If the user attempts to set a <a href="uarc.html">permission</a> that the core doesn't have access to, this instruction will fail without warning.</p>
+<h4>Side Effects</h4>
+<ul>
+<li>All cores incepted after this instruction is executed will have this <a href="uarc.html">permission</a>.</li>
 </ul>
 
                 </div>
@@ -160,6 +192,10 @@
                 
 
                 
+                    <a href="uarc.html" class="mobile-nav-chapters next">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
 
             </div>
 
@@ -169,6 +205,10 @@
                 </a>
             
 
+            
+                <a href="uarc.html" class="nav-chapters next" title="You can navigate through the chapters using the arrow keys">
+                    <i class="fa fa-angle-right"></i>
+                </a>
             
 
         </div>
