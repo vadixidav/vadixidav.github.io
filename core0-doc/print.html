@@ -130,6 +130,7 @@
 <li><code>cv</code> - <a href="architecture/conveyor.html">Conveyor Belt</a></li>
 <li><code>dc[0-3]</code> - Data Counters</li>
 <li><code>pc</code> - Program Counter</li>
+<li><code>iflag</code> - Interrupt Flag</li>
 <li><code>i[0-3]</code> - Loop Indices</li>
 <li><code>cv[0-F]</code> - <a href="architecture/conveyor.html">Conveyor Belt</a> Values</li>
 <li><code>ts</code> - <a href="architecture/tstack.html">tstack</a></li>
@@ -141,26 +142,30 @@
 <table><thead><tr><td>Op</td><td>Instruction</td><td>dstack</td><td>Side Effects</td></tr></thead>
 <tr><td><code>00</code> - <code>03</code></td><td>rread#</td><td><code>a -- mem[dc# + a]</code></td></tr>
 <tr></tr>
-<tr><td><code>04</code></td><td>inc</td><td><code>a -- (a + 1)</code></td><td><code>c</code>, <code>o</code></td></tr>
-<tr><td><code>05</code></td><td>dec</td><td><code>a -- (a - 1)</code></td><td><code>c</code>, <code>o</code></td></tr>
-<tr><td><code>06</code></td><td>carry</td><td><code>v -- (v + c)</code></td><td><code>c</code>, <code>o</code></td></tr>
-<tr><td><code>07</code></td><td>borrow</td><td><code>v -- (v + c - 1)</code></td><td><code>c</code>, <code>o</code></td></tr>
-<tr><td><code>08</code></td><td>inv</td><td><code>v -- ~v</code></td><td> </td></tr>
-<tr><td><code>09</code></td><td>flush</td><td><code>--</code></td><td>Synchronizes cache flush</td></tr>
-<tr><td><code>0A</code></td><td>reads</td><td><code>a -- mem[a]</code></td><td>Synchronous read</td></tr>
-<tr><td><code>0B</code></td><td>ret</td><td><code>--</code></td><td>Pops <a href="architecture/cstack.html">cstack</a></td></tr>
-<tr><td><code>0C</code></td><td>ien</td><td><code>--</code></td><td>Enables selected interrupts</td></tr>
-<tr><td><code>0D</code></td><td>idi</td><td><code>--</code></td><td>Disables all interrupts</td></tr>
-<tr><td><code>0E</code></td><td>tcopy</td><td><code>v -- v</code></td><td>Pushes a copy of v to <a href="architecture/tstack.html">tstack</a></td></tr>
-<tr><td><code>0F</code></td><td>recv</td><td><code>--</code></td><td>Interrupt sync; <code>cv &lt;- bus, v</code></td></tr>
-<tr><td><code>10</code></td><td>in</td><td><code>a -- b</code></td><td>Stream in to <code>a</code></td></tr>
-<tr><td><code>11</code></td><td>kill</td><td><code>--</code></td><td>Kill all selected cores</td></tr>
-<tr><td><code>16</code></td><td>calli</td><td><code>--</code></td><td><code>dc0 -&gt; pc</code>; push <a href="architecture/cstack.html">cstack</a></td></tr>
-<tr><td><code>17</code></td><td>jmpi</td><td><code>--</code></td><td><code>dc0 -&gt; pc</code></td></tr>
-<tr><td><code>18</code></td><td>jc</td><td><code>--</code></td><td>if <code>c</code> then <code>dc0 -&gt; pc</code></td></tr>
-<tr><td><code>19</code></td><td>jnc</td><td><code>--</code></td><td>if <code>~c</code> then <code>dc0 -&gt; pc</code></td></tr>
-<tr><td><code>1A</code></td><td>jo</td><td><code>--</code></td><td>if <code>o</code> then <code>dc0 -&gt; pc</code></td></tr>
-<tr><td><code>1B</code></td><td>jno</td><td><code>--</code></td><td>if <code>~o</code> then <code>dc0 -&gt; pc</code></td></tr>
+<tr><td><code>04</code> - <code>07</code></td><td>add#</td><td><code>a -- (a + dc#)</code></td><td>dc# advances; <code>c</code>, <code>o</code></td></tr>
+<tr><td><code>08</code></td><td>inc</td><td><code>a -- (a + 1)</code></td><td><code>c</code>, <code>o</code></td></tr>
+<tr><td><code>09</code></td><td>dec</td><td><code>a -- (a - 1)</code></td><td><code>c</code>, <code>o</code></td></tr>
+<tr><td><code>0A</code></td><td>carry</td><td><code>v -- (v + c)</code></td><td><code>c</code>, <code>o</code></td></tr>
+<tr><td><code>0B</code></td><td>borrow</td><td><code>v -- (v + c - 1)</code></td><td><code>c</code>, <code>o</code></td></tr>
+<tr><td><code>0C</code></td><td>inv</td><td><code>v -- ~v</code></td><td> </td></tr>
+<tr><td><code>0D</code></td><td>flush</td><td><code>--</code></td><td>Synchronizes cache flush</td></tr>
+<tr><td><code>0E</code></td><td>reads</td><td><code>a -- mem[a]</code></td><td>Synchronous read</td></tr>
+<tr><td><code>0F</code></td><td>ret</td><td><code>--</code></td><td>Pops <a href="architecture/cstack.html">cstack</a></td></tr>
+<tr><td><code>10</code></td><td>ien</td><td><code>--</code></td><td>Enables selected interrupts</td></tr>
+<tr><td><code>11</code></td><td>idi</td><td><code>--</code></td><td>Disables all interrupts</td></tr>
+<tr><td><code>12</code></td><td>tcopy</td><td><code>v -- v</code></td><td>Pushes a copy of v to <a href="architecture/tstack.html">tstack</a></td></tr>
+<tr><td><code>13</code></td><td>recv</td><td><code>--</code></td><td>Interrupt sync; <code>cv &lt;- bus, v</code></td></tr>
+<tr><td><code>14</code></td><td>in</td><td><code>a -- b</code></td><td>Stream in to <code>a</code></td></tr>
+<tr><td><code>15</code></td><td>kill</td><td><code>--</code></td><td>Kill all selected cores</td></tr>
+<tr><td><code>16</code></td><td>wait</td><td><code>--</code></td><td>Waits for an interrupt before continuing</td></tr>
+<tr><td><code>18</code></td><td>calli</td><td><code>--</code></td><td><code>dc0 -&gt; pc</code>; push <a href="architecture/cstack.html">cstack</a></td></tr>
+<tr><td><code>19</code></td><td>jmpi</td><td><code>--</code></td><td><code>dc0 -&gt; pc</code></td></tr>
+<tr><td><code>1A</code></td><td>jc</td><td><code>--</code></td><td>if <code>c</code> then <code>dc0 -&gt; pc</code></td></tr>
+<tr><td><code>1B</code></td><td>jnc</td><td><code>--</code></td><td>if <code>~c</code> then <code>dc0 -&gt; pc</code></td></tr>
+<tr><td><code>1C</code></td><td>jo</td><td><code>--</code></td><td>if <code>o</code> then <code>dc0 -&gt; pc</code></td></tr>
+<tr><td><code>1D</code></td><td>jno</td><td><code>--</code></td><td>if <code>~o</code> then <code>dc0 -&gt; pc</code></td></tr>
+<tr><td><code>1E</code></td><td>ji</td><td><code>--</code></td><td>if <code>iflag</code> then <code>dc0 -&gt; pc</code></td></tr>
+<tr><td><code>1F</code></td><td>jni</td><td><code>--</code></td><td>if <code>~iflag</code> then <code>dc0 -&gt; pc</code></td></tr>
 <tr><td><code>20</code> - <code>2F</code></td><td>cv#</td><td><code>-- cv#</code></td><td>cv# synchronizes</td></tr>
 <tr><td><code>30</code> - <code>33</code></td><td>read#</td><td><code>-- mem[dc#]</code></td><td>dc# advances</td></tr>
 <tr><td><code>34</code> - <code>37</code></td><td>get#</td><td><code>-- dc#</code></td><td> </td></tr>
@@ -187,11 +192,9 @@
 <tr><td><code>58</code></td><td>call</td><td><code>a --</code></td><td><code>pc = a</code>; push <a href="architecture/cstack.html">cstack</a></td></tr>
 <tr><td><code>59</code></td><td>jmp</td><td><code>a --</code></td><td><code>pc = a</code></td></tr>
 <tr><td><code>5A</code></td><td>tpush</td><td><code>a --</code></td><td><code>ts &lt;- a</code></td></tr>
-<tr><td><code>5B</code></td><td>seb</td><td><code>b --</code></td><td><code>if[b[WORD-1:WORD/2]] = b[WORD/2-1:0]</code></td></tr>
-<tr><td><code>5C</code></td><td>slb</td><td><code>b --</code></td><td><code>b[WORD/2-1:0]</code> to <code>if[b[WORD-1:WORD/2]]</code></td></tr>
-<tr><td><code>5D</code></td><td>iset</td><td><code>a --</code></td><td>Set selected interrupt addresses</td></tr>
-<tr><td><code>5E</code></td><td>send</td><td><code>v --</code></td><td>Send value to selected buses</td></tr>
-<tr><td><code>5F</code></td><td>loopi</td><td><code>n --</code></td><td><code>ls &lt;- n, dc0, 0</code></td></tr>
+<tr><td><code>5B</code></td><td>iset</td><td><code>a --</code></td><td>Set selected interrupt addresses</td></tr>
+<tr><td><code>5C</code></td><td>send</td><td><code>v --</code></td><td>Send value to selected buses</td></tr>
+<tr><td><code>5D</code></td><td>loopi</td><td><code>n --</code></td><td><code>ls &lt;- n, dc0, 0</code></td></tr>
 <tr><td><code>60</code> - <code>63</code></td><td>rwrite#</td><td><code>v a --</code></td><td><code>mem[dc# + a] = v</code></td></tr>
 <tr><td><code>64</code></td><td>write</td><td><code>v a --</code></td><td><code>mem[a] = v</code></td></tr>
 <tr><td><code>65</code></td><td>jeq</td><td><code>a b --</code></td><td>if <code>a == b</code> then <code>dc0 -&gt; pc</code></td></tr>
@@ -201,18 +204,30 @@
 <tr><td><code>69</code></td><td>lesu</td><td><code>a b --</code></td><td>if <code>a &lt; b</code> then <code>dc0 -&gt; pc</code></td></tr>
 <tr><td><code>6A</code></td><td>lequ</td><td><code>a b --</code></td><td>if <code>a &lt;= b</code> then <code>dc0 -&gt; pc</code></td></tr>
 <tr><td><code>6B</code></td><td>out</td><td><code>n a --</code></td><td>Stream n words to buses from a</td></tr>
-<tr><td><code>6C</code></td><td>mul</td><td><code>a b --</code></td><td><code>cv &lt;- low(a * b), high(a * b)</code></td></tr>
-<tr><td><code>6D</code></td><td>mulu</td><td><code>a b --</code></td><td><code>cv &lt;- low(a * b), high(a * b)</code></td></tr>
-<tr><td><code>6E</code></td><td>div</td><td><code>a b --</code></td><td><code>cv &lt;- a / b, a % b</code></td></tr>
-<tr><td><code>6F</code></td><td>divu</td><td><code>a b --</code></td><td><code>cv &lt;- a / b, a % b</code></td></tr>
-<tr><td><code>70</code></td><td>loop</td><td><code>n e --</code></td><td><code>ls &lt;- n, e, 0</code></td></tr>
-<tr><td><code>71</code></td><td>setp</td><td><code>priv addr --</code></td><td>Sets UARC permission delegation</td></tr>
+<tr><td><code>6C</code></td><td>seb</td><td><code>m s --</code></td><td>Clear ifile and set register <code>s</code> to <code>m</code></td></tr>
+<tr><td><code>6D</code></td><td>slb</td><td><code>m s --</code></td><td>Ors <code>m</code> with register <code>s</code> of ifile</td></tr>
+<tr><td><code>6E</code></td><td>mul</td><td><code>a b --</code></td><td><code>cv &lt;- low(a * b), high(a * b)</code></td></tr>
+<tr><td><code>6F</code></td><td>mulu</td><td><code>a b --</code></td><td><code>cv &lt;- low(a * b), high(a * b)</code></td></tr>
+<tr><td><code>70</code></td><td>div</td><td><code>a b --</code></td><td><code>cv &lt;- a / b, a % b</code></td></tr>
+<tr><td><code>71</code></td><td>divu</td><td><code>a b --</code></td><td><code>cv &lt;- a / b, a % b</code></td></tr>
+<tr><td><code>72</code></td><td>loop</td><td><code>n e --</code></td><td><code>ls &lt;- n, e, 0</code></td></tr>
+<tr><td><code>73</code></td><td>setp</td><td><code>priv addr --</code></td><td>Sets UARC permission delegation</td></tr>
 <tr><td><code>80</code> - <code>9F</code></td><td>rot#</td><td><code>v (# + 1).. -- (# + 1).. v</code></td><td> </td></tr>
 <tr><td><code>A0</code> - <code>BF</code></td><td>copy#</td><td><code>v (# + 1).. -- v (# + 1).. v</code></td><td> </td></tr>
 <tr><td><code>C0</code> - <code>DF</code></td><td>tread#</td><td><code>-- ts[#]</code></td><td>Address 0 is the top of ts</td></tr>
 <tr><td><code>E0</code> - <code>FF</code></td><td>twrite#</td><td><code>v --</code></td><td><code>ts[#] = v</code></td></tr>
 </table>
 <h1>Arithmetic Instructions</h1>
+<h2><code>add#</code></h2>
+<p><code>a -- (a + dc#)</code></p>
+<h4>Description</h4>
+<p><code>add#</code> adds the top of the <a href="architecture/dstack.html">dstack</a> with the immediate value from <code>dc#</code>. The <code>o</code> and <code>c</code> bits are set, but not consumed. <code>dc#</code> is incremented.</p>
+<h4>Side Effects</h4>
+<ul>
+<li><code>c = (a + dc#)[WORD]</code></li>
+<li><code>o = (a[WORD - 1] ^ dc#[WORD - 1]) ? 0 : a[WORD - 1] ^ (a + dc#)[WORD - 1]</code></li>
+</ul>
+<hr />
 <h2><code>inc</code></h2>
 <p><code>a -- (a + 1)</code></p>
 <h4>Description</h4>
@@ -770,6 +785,28 @@ subr:
 <li><code>dc0</code> is incremented always</li>
 </ul>
 <hr />
+<h2><code>ji</code></h2>
+<p><code>--</code></p>
+<h4>Description</h4>
+<p><code>ji</code> jumps to an immediate value stored at <code>dc0</code> if the <code>iflag</code> bit is <code>1</code>. This also increments <code>dc0</code> in the process. To indicate that the interrupt has been seen, <code>iflag</code> is set to <code>0</code>.</p>
+<h4>Side Effects</h4>
+<ul>
+<li>PC is moved to immediate value if <code>iflag</code> is <code>1</code></li>
+<li><code>dc0</code> is incremented always</li>
+<li><code>iflag</code> is set to <code>0</code></li>
+</ul>
+<hr />
+<h2><code>jni</code></h2>
+<p><code>--</code></p>
+<h4>Description</h4>
+<p><code>jni</code> jumps to an immediate value stored at <code>dc0</code> if the <code>iflag</code> bit is <code>0</code>. This also increments <code>dc0</code> in the process. To indicate that the interrupt has been seen, <code>iflag</code> is set to <code>0</code>.</p>
+<h4>Side Effects</h4>
+<ul>
+<li>PC is moved to immediate value if <code>iflag</code> is <code>0</code></li>
+<li><code>dc0</code> is incremented always</li>
+<li><code>iflag</code> is set to <code>0</code></li>
+</ul>
+<hr />
 <h2><code>call</code></h2>
 <p><code>a --</code></p>
 <h4>Description</h4>
@@ -941,6 +978,16 @@ subr:
 <li>All selected cores for which this core has permission will be stopped before this instruction finishes.</li>
 </ul>
 <hr />
+<h2><code>wait</code></h2>
+<p><code>--</code></p>
+<h4>Description</h4>
+<p><code>wait</code> allows the code to synchronously handle interrupts by waiting the core until the next interrupt. If an interrupt had already been received, the <code>iflag</code> will already be <code>1</code>. After this instruction executes, the <code>iflag</code> is set to <code>0</code> to indicate that no interrupts have executed that the kernel has not witnessed.</p>
+<h4>Side Effects</h4>
+<ul>
+<li>One interrupt will have been handled before this instruction completes.</li>
+<li>The <code>iflag</code> is set to <code>0</code>.</li>
+</ul>
+<hr />
 <h2><code>getp</code></h2>
 <p><code>-- priv</code></p>
 <h4>Description</h4>
@@ -1003,7 +1050,7 @@ subr:
 <h2><code>setp</code></h2>
 <p><code>priv addr --</code></p>
 <h4>Description</h4>
-<p><code>setp</code> sets the <a href="uarc.html">permission</a> that is to be delegated to all incepted UARC cores. This value defaults to the same <a href="uarc.html">permission</a> that this core receives on inception. If the user attempts to set a <a href="uarc.html">permission</a> that the core doesn't have access to, this instruction will fail without warning.</p>
+<p><code>setp</code> sets the <a href="uarc.html">permission</a> that is to be delegated to all incepted UARC cores. This value defaults to the same <a href="uarc.html">permission</a> that this core receives on inception. If the user attempts to set a <a href="uarc.html">permission</a> that the core doesn't have access to, this instruction will fail without warning. <code>priv</code> is the <strong>privilege</strong> from <code>0</code> to <code>31</code> assigned to incepted cores. <code>addr</code> is masked from the most significant values by <code>priv</code> bits to get the actual <strong>permission</strong>.</p>
 <h4>Side Effects</h4>
 <ul>
 <li>All cores incepted after this instruction is executed will have this <a href="uarc.html">permission</a>.</li>

@@ -68,6 +68,16 @@
 
                 <div id="content" class="content">
                     <h1>Arithmetic Instructions</h1>
+<h2><code>add#</code></h2>
+<p><code>a -- (a + dc#)</code></p>
+<h4>Description</h4>
+<p><code>add#</code> adds the top of the <a href="architecture/dstack.html">dstack</a> with the immediate value from <code>dc#</code>. The <code>o</code> and <code>c</code> bits are set, but not consumed. <code>dc#</code> is incremented.</p>
+<h4>Side Effects</h4>
+<ul>
+<li><code>c = (a + dc#)[WORD]</code></li>
+<li><code>o = (a[WORD - 1] ^ dc#[WORD - 1]) ? 0 : a[WORD - 1] ^ (a + dc#)[WORD - 1]</code></li>
+</ul>
+<hr />
 <h2><code>inc</code></h2>
 <p><code>a -- (a + 1)</code></p>
 <h4>Description</h4>
