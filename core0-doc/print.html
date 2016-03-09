@@ -116,7 +116,7 @@
 <tr><td>L (Loop)</td><td><code>OSSO OOLL</code></td></tr>
 <tr><td>D (DC)</td><td><code>OSSO OOLL</code></td></tr>
 <tr><td>C (Conveyor)</td><td><code>OSSO LLLL</code></td></tr>
-<tr><td>R (Random Access)</td><td><code>OOOL LLLL</code></td></tr>
+<tr><td>R (Random Access)</td><td><code>OOLL LLLL</code></td></tr>
 </table>
 <ul>
 <li><code>O</code> - Opcode bit</li>
@@ -548,7 +548,7 @@
 <h2><code>rot#</code></h2>
 <p><code>v (# + 1).. -- (# + 1).. v</code></p>
 <h4>Description</h4>
-<p><code>rot#</code> rotates a value <code>1</code> to <code>32</code> elements deep in the stack to the top of the stack. The value is removed from that location and elements under that value are not shifted in the stack.</p>
+<p><code>rot#</code> rotates a value <code>1</code> to <code>64</code> elements deep in the stack to the top of the stack. The value is removed from that location and elements under that value are not shifted in the stack.</p>
 <h4>Examples</h4>
 <pre><code>1 2 3 rot1
 </code></pre>
@@ -559,7 +559,7 @@
 <h2><code>copy#</code></h2>
 <p><code>v (# + 1).. -- v (# + 1).. v</code></p>
 <h4>Description</h4>
-<p><code>copy#</code> copies a value <code>1</code> to <code>32</code> elements deep in the stack to the top of the stack. This pushes all elements down on the stack.</p>
+<p><code>copy#</code> copies a value <code>1</code> to <code>64</code> elements deep in the stack to the top of the stack. This pushes all elements down on the stack.</p>
 <h4>Examples</h4>
 <pre><code>1 2 3 copy1
 </code></pre>
