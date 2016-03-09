@@ -47,7 +47,7 @@
         </script>
 
         <div id="sidebar" class="sidebar">
-            <ul class="chapter"><li><a href="overview.html"><strong>1.</strong> Overview</a></li><li><a href="architecture.html"><strong>2.</strong> Architecture</a></li><li><ul class="section"><li><a href="architecture/dstack.html"><strong>2.1.</strong> dstack</a></li><li><a href="architecture/cstack.html"><strong>2.2.</strong> cstack</a></li><li><a href="architecture/lstack.html"><strong>2.3.</strong> lstack</a></li><li><a href="architecture/tstack.html"><strong>2.4.</strong> tstack</a></li><li><a href="architecture/ifile.html"><strong>2.5.</strong> ifile</a></li><li><a href="architecture/conveyor.html"><strong>2.6.</strong> conveyor</a></li></ul></li><li><a href="instruction_reference.html"><strong>3.</strong> Instruction Reference</a></li><li><ul class="section"><li><a href="instruction_reference/arithmetic.html" class="active"><strong>3.1.</strong> Arithmetic</a></li><li><a href="instruction_reference/bit_manipulation.html"><strong>3.2.</strong> Bit Manipulation</a></li><li><a href="instruction_reference/stack_manipulation.html"><strong>3.3.</strong> Stack Manipulation</a></li><li><a href="instruction_reference/memory.html"><strong>3.4.</strong> Memory</a></li><li><a href="instruction_reference/control_flow.html"><strong>3.5.</strong> Control Flow</a></li><li><a href="instruction_reference/uarc.html"><strong>3.6.</strong> UARC</a></li></ul></li><li><a href="uarc.html"><strong>4.</strong> UARC</a></li></ul>
+            <ul class="chapter"><li><a href="overview.html"><strong>1.</strong> Overview</a></li><li><a href="architecture.html"><strong>2.</strong> Architecture</a></li><li><ul class="section"><li><a href="architecture/registers.html"><strong>2.1.</strong> Registers</a></li><li><a href="architecture/dstack.html"><strong>2.2.</strong> dstack</a></li><li><a href="architecture/cstack.html"><strong>2.3.</strong> cstack</a></li><li><a href="architecture/lstack.html"><strong>2.4.</strong> lstack</a></li><li><a href="architecture/ifile.html"><strong>2.5.</strong> ifile</a></li><li><a href="architecture/conveyor.html"><strong>2.6.</strong> conveyor</a></li></ul></li><li><a href="instruction_reference.html"><strong>3.</strong> Instruction Reference</a></li><li><ul class="section"><li><a href="instruction_reference/arithmetic.html" class="active"><strong>3.1.</strong> Arithmetic</a></li><li><a href="instruction_reference/bit_manipulation.html"><strong>3.2.</strong> Bit Manipulation</a></li><li><a href="instruction_reference/stack_manipulation.html"><strong>3.3.</strong> Stack Manipulation</a></li><li><a href="instruction_reference/memory.html"><strong>3.4.</strong> Memory</a></li><li><a href="instruction_reference/control_flow.html"><strong>3.5.</strong> Control Flow</a></li><li><a href="instruction_reference/uarc.html"><strong>3.6.</strong> UARC</a></li></ul></li><li><a href="uarc.html"><strong>4.</strong> UARC</a></li></ul>
         </div>
 
         <div id="page-wrapper" class="page-wrapper">
@@ -68,6 +68,16 @@
 
                 <div id="content" class="content">
                     <h1>Arithmetic Instructions</h1>
+<h2><code>add#</code></h2>
+<p><code>a -- (a + dc#)</code></p>
+<h4>Description</h4>
+<p><code>add#</code> adds the top of the <a href="architecture/dstack.html">dstack</a> with the immediate value from <code>dc#</code>. The <code>o</code> and <code>c</code> bits are set, but not consumed. <code>dc#</code> is incremented.</p>
+<h4>Side Effects</h4>
+<ul>
+<li><code>c = (a + dc#)[WORD]</code></li>
+<li><code>o = (a[WORD - 1] ^ dc#[WORD - 1]) ? 0 : a[WORD - 1] ^ (a + dc#)[WORD - 1]</code></li>
+</ul>
+<hr />
 <h2><code>inc</code></h2>
 <p><code>a -- (a + 1)</code></p>
 <h4>Description</h4>

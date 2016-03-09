@@ -7,6 +7,7 @@
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
+        <base href="../">
 
         <link rel="stylesheet" href="book.css">
         <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
@@ -46,7 +47,7 @@
         </script>
 
         <div id="sidebar" class="sidebar">
-            <ul class="chapter"><li><a href="overview.html" class="active"><strong>1.</strong> Overview</a></li><li><a href="architecture.html"><strong>2.</strong> Architecture</a></li><li><ul class="section"><li><a href="architecture/registers.html"><strong>2.1.</strong> Registers</a></li><li><a href="architecture/dstack.html"><strong>2.2.</strong> dstack</a></li><li><a href="architecture/cstack.html"><strong>2.3.</strong> cstack</a></li><li><a href="architecture/lstack.html"><strong>2.4.</strong> lstack</a></li><li><a href="architecture/ifile.html"><strong>2.5.</strong> ifile</a></li><li><a href="architecture/conveyor.html"><strong>2.6.</strong> conveyor</a></li></ul></li><li><a href="instruction_reference.html"><strong>3.</strong> Instruction Reference</a></li><li><ul class="section"><li><a href="instruction_reference/arithmetic.html"><strong>3.1.</strong> Arithmetic</a></li><li><a href="instruction_reference/bit_manipulation.html"><strong>3.2.</strong> Bit Manipulation</a></li><li><a href="instruction_reference/stack_manipulation.html"><strong>3.3.</strong> Stack Manipulation</a></li><li><a href="instruction_reference/memory.html"><strong>3.4.</strong> Memory</a></li><li><a href="instruction_reference/control_flow.html"><strong>3.5.</strong> Control Flow</a></li><li><a href="instruction_reference/uarc.html"><strong>3.6.</strong> UARC</a></li></ul></li><li><a href="uarc.html"><strong>4.</strong> UARC</a></li></ul>
+            <ul class="chapter"><li><a href="overview.html"><strong>1.</strong> Overview</a></li><li><a href="architecture.html"><strong>2.</strong> Architecture</a></li><li><ul class="section"><li><a href="architecture/registers.html" class="active"><strong>2.1.</strong> Registers</a></li><li><a href="architecture/dstack.html"><strong>2.2.</strong> dstack</a></li><li><a href="architecture/cstack.html"><strong>2.3.</strong> cstack</a></li><li><a href="architecture/lstack.html"><strong>2.4.</strong> lstack</a></li><li><a href="architecture/ifile.html"><strong>2.5.</strong> ifile</a></li><li><a href="architecture/conveyor.html"><strong>2.6.</strong> conveyor</a></li></ul></li><li><a href="instruction_reference.html"><strong>3.</strong> Instruction Reference</a></li><li><ul class="section"><li><a href="instruction_reference/arithmetic.html"><strong>3.1.</strong> Arithmetic</a></li><li><a href="instruction_reference/bit_manipulation.html"><strong>3.2.</strong> Bit Manipulation</a></li><li><a href="instruction_reference/stack_manipulation.html"><strong>3.3.</strong> Stack Manipulation</a></li><li><a href="instruction_reference/memory.html"><strong>3.4.</strong> Memory</a></li><li><a href="instruction_reference/control_flow.html"><strong>3.5.</strong> Control Flow</a></li><li><a href="instruction_reference/uarc.html"><strong>3.6.</strong> UARC</a></li></ul></li><li><a href="uarc.html"><strong>4.</strong> UARC</a></li></ul>
         </div>
 
         <div id="page-wrapper" class="page-wrapper">
@@ -66,19 +67,26 @@
                 </div>
 
                 <div id="content" class="content">
-                    <h1>Overview</h1>
-<p>UARC core0 (c0) is the primary general purpose ISA for the UARC standardized core collection. Although it is an ISA, a reference implementation is provided via emulator and SystemVerilog.</p>
-<p>This architecture is targeted towards small size and efficiency in shuffling data around across the UARC bus. No floating point instructions are included since it is expected that such algorithms will not run on core0, but will instead be offloaded to another UARC compatible core with floating point support. Due to the nature of UARC, it is possible to implement floating point operations using a coprocessor that connects over the UARC bus if desired.</p>
-<p>It is important to note that although this core can be used for an OS that spreads cross multiple UARC cores, it is not intended to be the target of user space applications, except where those applications need to shuffle data around between UARC cores or only require integer arithmetic. c0 demonstrates the UARC principle while simultaneously acting as a mediator of data between UARC cores.</p>
-<p>c0's ISA is designed to use whatever word size is required, but it is intended to be used as a 32-bit architecture.</p>
+                    <h1>Registers</h1>
+<table><thead><tr><td>Name</td><td>Purpose</td></tr></thead>
+<tr><td><code>PC</code></td><td>The location of the presently executing instruction</td></tr>
+<tr><td><code>DC#</code></td><td>4 locations data can be used and stored in order; also can be made into stacks</td></tr>
+<tr><td><code>i</code></td><td>A status bit that conveys if an interrupt has been handled since last checked</td></tr>
+<tr><td><code>c</code></td><td>A status bit for arithmetic carry</td></tr>
+<tr><td><code>o</code></td><td>A status bit for overflow</td></tr>
+</table>
 
                 </div>
 
                 <!-- Mobile navigation buttons -->
                 
+                    <a href="architecture.html" class="mobile-nav-chapters previous">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
 
                 
-                    <a href="architecture.html" class="mobile-nav-chapters next">
+                    <a href="architecture/dstack.html" class="mobile-nav-chapters next">
                         <i class="fa fa-angle-right"></i>
                     </a>
                 
@@ -86,9 +94,13 @@
             </div>
 
             
+                <a href="architecture.html" class="nav-chapters previous" title="You can navigate through the chapters using the arrow keys">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+            
 
             
-                <a href="architecture.html" class="nav-chapters next" title="You can navigate through the chapters using the arrow keys">
+                <a href="architecture/dstack.html" class="nav-chapters next" title="You can navigate through the chapters using the arrow keys">
                     <i class="fa fa-angle-right"></i>
                 </a>
             

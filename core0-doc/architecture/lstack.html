@@ -47,7 +47,7 @@
         </script>
 
         <div id="sidebar" class="sidebar">
-            <ul class="chapter"><li><a href="overview.html"><strong>1.</strong> Overview</a></li><li><a href="architecture.html"><strong>2.</strong> Architecture</a></li><li><ul class="section"><li><a href="architecture/dstack.html"><strong>2.1.</strong> dstack</a></li><li><a href="architecture/cstack.html"><strong>2.2.</strong> cstack</a></li><li><a href="architecture/lstack.html" class="active"><strong>2.3.</strong> lstack</a></li><li><a href="architecture/tstack.html"><strong>2.4.</strong> tstack</a></li><li><a href="architecture/ifile.html"><strong>2.5.</strong> ifile</a></li><li><a href="architecture/conveyor.html"><strong>2.6.</strong> conveyor</a></li></ul></li><li><a href="instruction_reference.html"><strong>3.</strong> Instruction Reference</a></li><li><ul class="section"><li><a href="instruction_reference/arithmetic.html"><strong>3.1.</strong> Arithmetic</a></li><li><a href="instruction_reference/bit_manipulation.html"><strong>3.2.</strong> Bit Manipulation</a></li><li><a href="instruction_reference/stack_manipulation.html"><strong>3.3.</strong> Stack Manipulation</a></li><li><a href="instruction_reference/memory.html"><strong>3.4.</strong> Memory</a></li><li><a href="instruction_reference/control_flow.html"><strong>3.5.</strong> Control Flow</a></li><li><a href="instruction_reference/uarc.html"><strong>3.6.</strong> UARC</a></li></ul></li><li><a href="uarc.html"><strong>4.</strong> UARC</a></li></ul>
+            <ul class="chapter"><li><a href="overview.html"><strong>1.</strong> Overview</a></li><li><a href="architecture.html"><strong>2.</strong> Architecture</a></li><li><ul class="section"><li><a href="architecture/registers.html"><strong>2.1.</strong> Registers</a></li><li><a href="architecture/dstack.html"><strong>2.2.</strong> dstack</a></li><li><a href="architecture/cstack.html"><strong>2.3.</strong> cstack</a></li><li><a href="architecture/lstack.html" class="active"><strong>2.4.</strong> lstack</a></li><li><a href="architecture/ifile.html"><strong>2.5.</strong> ifile</a></li><li><a href="architecture/conveyor.html"><strong>2.6.</strong> conveyor</a></li></ul></li><li><a href="instruction_reference.html"><strong>3.</strong> Instruction Reference</a></li><li><ul class="section"><li><a href="instruction_reference/arithmetic.html"><strong>3.1.</strong> Arithmetic</a></li><li><a href="instruction_reference/bit_manipulation.html"><strong>3.2.</strong> Bit Manipulation</a></li><li><a href="instruction_reference/stack_manipulation.html"><strong>3.3.</strong> Stack Manipulation</a></li><li><a href="instruction_reference/memory.html"><strong>3.4.</strong> Memory</a></li><li><a href="instruction_reference/control_flow.html"><strong>3.5.</strong> Control Flow</a></li><li><a href="instruction_reference/uarc.html"><strong>3.6.</strong> UARC</a></li></ul></li><li><a href="uarc.html"><strong>4.</strong> UARC</a></li></ul>
         </div>
 
         <div id="page-wrapper" class="page-wrapper">
@@ -68,6 +68,7 @@
 
                 <div id="content" class="content">
                     <h1>lstack</h1>
+<p>The <strong>lstack</strong> is a stack with architecture-dependent depth which allows the initialization of loops with zero-overhead. This means that no instruction is wasted checking for loop bounds and no hardware is needed to do branch prediction for loop bounds. Additionally, for the stack processor it means that the loop index is easily obtainable in one instruction for the top four loops. Only the very top loop is checked for its bounds, so the end of a loop that is not on top of the stack should never be encountered.</p>
 
                 </div>
 
@@ -79,7 +80,7 @@
                 
 
                 
-                    <a href="architecture/tstack.html" class="mobile-nav-chapters next">
+                    <a href="architecture/ifile.html" class="mobile-nav-chapters next">
                         <i class="fa fa-angle-right"></i>
                     </a>
                 
@@ -93,7 +94,7 @@
             
 
             
-                <a href="architecture/tstack.html" class="nav-chapters next" title="You can navigate through the chapters using the arrow keys">
+                <a href="architecture/ifile.html" class="nav-chapters next" title="You can navigate through the chapters using the arrow keys">
                     <i class="fa fa-angle-right"></i>
                 </a>
             

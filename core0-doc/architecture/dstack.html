@@ -47,7 +47,7 @@
         </script>
 
         <div id="sidebar" class="sidebar">
-            <ul class="chapter"><li><a href="overview.html"><strong>1.</strong> Overview</a></li><li><a href="architecture.html"><strong>2.</strong> Architecture</a></li><li><ul class="section"><li><a href="architecture/dstack.html" class="active"><strong>2.1.</strong> dstack</a></li><li><a href="architecture/cstack.html"><strong>2.2.</strong> cstack</a></li><li><a href="architecture/lstack.html"><strong>2.3.</strong> lstack</a></li><li><a href="architecture/tstack.html"><strong>2.4.</strong> tstack</a></li><li><a href="architecture/ifile.html"><strong>2.5.</strong> ifile</a></li><li><a href="architecture/conveyor.html"><strong>2.6.</strong> conveyor</a></li></ul></li><li><a href="instruction_reference.html"><strong>3.</strong> Instruction Reference</a></li><li><ul class="section"><li><a href="instruction_reference/arithmetic.html"><strong>3.1.</strong> Arithmetic</a></li><li><a href="instruction_reference/bit_manipulation.html"><strong>3.2.</strong> Bit Manipulation</a></li><li><a href="instruction_reference/stack_manipulation.html"><strong>3.3.</strong> Stack Manipulation</a></li><li><a href="instruction_reference/memory.html"><strong>3.4.</strong> Memory</a></li><li><a href="instruction_reference/control_flow.html"><strong>3.5.</strong> Control Flow</a></li><li><a href="instruction_reference/uarc.html"><strong>3.6.</strong> UARC</a></li></ul></li><li><a href="uarc.html"><strong>4.</strong> UARC</a></li></ul>
+            <ul class="chapter"><li><a href="overview.html"><strong>1.</strong> Overview</a></li><li><a href="architecture.html"><strong>2.</strong> Architecture</a></li><li><ul class="section"><li><a href="architecture/registers.html"><strong>2.1.</strong> Registers</a></li><li><a href="architecture/dstack.html" class="active"><strong>2.2.</strong> dstack</a></li><li><a href="architecture/cstack.html"><strong>2.3.</strong> cstack</a></li><li><a href="architecture/lstack.html"><strong>2.4.</strong> lstack</a></li><li><a href="architecture/ifile.html"><strong>2.5.</strong> ifile</a></li><li><a href="architecture/conveyor.html"><strong>2.6.</strong> conveyor</a></li></ul></li><li><a href="instruction_reference.html"><strong>3.</strong> Instruction Reference</a></li><li><ul class="section"><li><a href="instruction_reference/arithmetic.html"><strong>3.1.</strong> Arithmetic</a></li><li><a href="instruction_reference/bit_manipulation.html"><strong>3.2.</strong> Bit Manipulation</a></li><li><a href="instruction_reference/stack_manipulation.html"><strong>3.3.</strong> Stack Manipulation</a></li><li><a href="instruction_reference/memory.html"><strong>3.4.</strong> Memory</a></li><li><a href="instruction_reference/control_flow.html"><strong>3.5.</strong> Control Flow</a></li><li><a href="instruction_reference/uarc.html"><strong>3.6.</strong> UARC</a></li></ul></li><li><a href="uarc.html"><strong>4.</strong> UARC</a></li></ul>
         </div>
 
         <div id="page-wrapper" class="page-wrapper">
@@ -68,12 +68,15 @@
 
                 <div id="content" class="content">
                     <h1>dstack</h1>
+<p>The <strong>dstack</strong> is the primary stack on which all operations take place. This stack is the only stack that can be rotated and copied in one cycle. If the <strong>dstack</strong> is rotated, all elements below the selected element will not shift down, but all elements above it will shift down and the selected element will be placed on the top. If the <strong>dstack</strong> is copied, all elements move down and the copied element is moved to the top.</p>
+<p>All elements on the <strong>dstack</strong> are capable of being pushed once, doing nothing, popping once, or popping twice. What happens to the <strong>dstack</strong> is explicitly encoded in the <code>[6:5]</code> bits of the instruction for all instructions for which the <code>[7]</code> bit is <code>0</code>. More importantly, when the stack is rotated or copied, the <code>[5:0]</code> bits are used to encode the location to perform the operation on, which makes it quick for the instruction to be decoded.</p>
+<p>The <strong>dstack</strong> is where almost all parameters should be passed into functions and where almost all parameters should be returned from functions. Should a function need to access a loop index explicitly as a constant parameter, it can safely use loop index instructions. Information may also be passed into functions via the status bits. Except when programming manually using assembly, the compiler should not generate code that passes information using any method described above. If the compiler wishes to achieve a speed-up by preserving the DCs across the call, it should be implemented as an inline expansion of the function.</p>
 
                 </div>
 
                 <!-- Mobile navigation buttons -->
                 
-                    <a href="architecture.html" class="mobile-nav-chapters previous">
+                    <a href="architecture/registers.html" class="mobile-nav-chapters previous">
                         <i class="fa fa-angle-left"></i>
                     </a>
                 
@@ -87,7 +90,7 @@
             </div>
 
             
-                <a href="architecture.html" class="nav-chapters previous" title="You can navigate through the chapters using the arrow keys">
+                <a href="architecture/registers.html" class="nav-chapters previous" title="You can navigate through the chapters using the arrow keys">
                     <i class="fa fa-angle-left"></i>
                 </a>
             
