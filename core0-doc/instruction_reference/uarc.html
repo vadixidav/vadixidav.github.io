@@ -138,24 +138,6 @@
 <li>This instruction is not supported for a <code>WORD</code> that is less than 32 bits.</li>
 </ul>
 <hr />
-<h2><code>seb</code></h2>
-<p><code>b --</code></p>
-<h4>Description</h4>
-<p><code>seb</code> clears all buses from being selected and then sets a specific set of UARC buses to be selected. The upper <code>WORD/2</code> bits of <code>b</code> select randomly from a register file of select registers and the lower <code>WORD/2</code> bits are a mask that represent which bits to specifically assign to that select register.</p>
-<h4>Side Effects</h4>
-<ul>
-<li>Specific UARC buses are now selected.</li>
-</ul>
-<hr />
-<h2><code>slb</code></h2>
-<p><code>b --</code></p>
-<h4>Description</h4>
-<p><code>seb</code> selects a specific set of UARC buses. The upper <code>WORD/2</code> bits of <code>b</code> select randomly from a register file of select registers and the lower <code>WORD/2</code> bits are a mask that represent which bits to specifically OR to that select register.</p>
-<h4>Side Effects</h4>
-<ul>
-<li>Specific UARC buses are now added to the selection.</li>
-</ul>
-<hr />
 <h2><code>iset</code></h2>
 <p><code>a --</code></p>
 <h4>Description</h4>
@@ -163,6 +145,24 @@
 <h4>Side Effects</h4>
 <ul>
 <li>Any further interrupts on the selected UARC buses now call the routine at <code>a</code>.</li>
+</ul>
+<hr />
+<h2><code>seb</code></h2>
+<p><code>b --</code></p>
+<h4>Description</h4>
+<p><code>seb</code> sets the only UARC bus to be selected as <code>b</code>.</p>
+<h4>Side Effects</h4>
+<ul>
+<li>All UARC calls now affect only <code>b</code>.</li>
+</ul>
+<hr />
+<h2><code>slb</code></h2>
+<p><code>b --</code></p>
+<h4>Description</h4>
+<p><code>slb</code> adds the UARC bus <code>b</code> to the selected cores.</p>
+<h4>Side Effects</h4>
+<ul>
+<li>All UARC calls now also affect <code>b</code>.</li>
 </ul>
 <hr />
 <h2><code>send</code></h2>
@@ -181,6 +181,33 @@
 <h4>Side Effects</h4>
 <ul>
 <li>Execution is synchronized with the completion of the stream operation.</li>
+</ul>
+<hr />
+<h2><code>incept</code></h2>
+<p><code>n a --</code></p>
+<h4>Description</h4>
+<p><code>incept</code> sends a stream to all selected UARC buses. <code>n</code> is the number of words able to be streamed out and <code>a</code> is the address at which those words are to be streamed from. This will only work on a core which is not presently running and the stream will become the instructions to be executed by the target core.</p>
+<h4>Side Effects</h4>
+<ul>
+<li>Execution is synchronized with the completion of the stream operation.</li>
+</ul>
+<hr />
+<h2><code>set</code></h2>
+<p><code>b --</code></p>
+<h4>Description</h4>
+<p><code>set</code> clears all buses from being selected and then sets a specific set of UARC buses to be selected. The upper <code>WORD/2</code> bits of <code>b</code> select randomly from a register file of select registers and the lower <code>WORD/2</code> bits are a mask that represent which bits to specifically assign to that select register.</p>
+<h4>Side Effects</h4>
+<ul>
+<li>Specific UARC buses are now selected.</li>
+</ul>
+<hr />
+<h2><code>sel</code></h2>
+<p><code>b --</code></p>
+<h4>Description</h4>
+<p><code>sel</code> selects a specific set of UARC buses. The upper <code>WORD/2</code> bits of <code>b</code> select randomly from a register file of select registers and the lower <code>WORD/2</code> bits are a mask that represent which bits to specifically OR to that select register.</p>
+<h4>Side Effects</h4>
+<ul>
+<li>Specific UARC buses are now added to the selection.</li>
 </ul>
 <hr />
 <h2><code>setp</code></h2>

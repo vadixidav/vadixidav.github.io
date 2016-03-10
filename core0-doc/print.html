@@ -208,8 +208,10 @@
 <tr><td><code>58</code></td><td>call</td><td><code>a --</code></td><td><code>pc = a</code>; push <a href="architecture/cstack.html">cstack</a></td></tr>
 <tr><td><code>59</code></td><td>jmp</td><td><code>a --</code></td><td><code>pc = a</code></td></tr>
 <tr><td><code>5A</code></td><td>iset</td><td><code>a --</code></td><td>Set selected interrupt addresses</td></tr>
-<tr><td><code>5B</code></td><td>send</td><td><code>v --</code></td><td>Send value to selected buses</td></tr>
-<tr><td><code>5C</code></td><td>loopi</td><td><code>n --</code></td><td><code>ls &lt;- n, dc0, 0</code></td></tr>
+<tr><td><code>5B</code></td><td>seb</td><td><code>b --</code></td><td>Set a single UARC bus</td></tr>
+<tr><td><code>5C</code></td><td>slb</td><td><code>b --</code></td><td>Select an additional UARC bus</td></tr>
+<tr><td><code>5D</code></td><td>send</td><td><code>v --</code></td><td>Send value to selected buses</td></tr>
+<tr><td><code>5E</code></td><td>loopi</td><td><code>n --</code></td><td><code>ls &lt;- n, dc0, 0</code></td></tr>
 <tr><td><code>60</code> - <code>63</code></td><td>rwrite#</td><td><code>v a --</code></td><td><code>mem[dc# + a] = v</code></td></tr>
 <tr><td><code>64</code></td><td>write</td><td><code>v a --</code></td><td><code>mem[a] = v</code></td></tr>
 <tr><td><code>65</code></td><td>jeq</td><td><code>a b --</code></td><td>if <code>a == b</code> then <code>dc0 -&gt; pc</code></td></tr>
@@ -219,14 +221,15 @@
 <tr><td><code>69</code></td><td>lesu</td><td><code>a b --</code></td><td>if <code>a &lt; b</code> then <code>dc0 -&gt; pc</code></td></tr>
 <tr><td><code>6A</code></td><td>lequ</td><td><code>a b --</code></td><td>if <code>a &lt;= b</code> then <code>dc0 -&gt; pc</code></td></tr>
 <tr><td><code>6B</code></td><td>out</td><td><code>n a --</code></td><td>Stream n words to buses from a</td></tr>
-<tr><td><code>6C</code></td><td>seb</td><td><code>m s --</code></td><td>Clear ifile and set register <code>s</code> to <code>m</code></td></tr>
-<tr><td><code>6D</code></td><td>slb</td><td><code>m s --</code></td><td>Ors <code>m</code> with register <code>s</code> of ifile</td></tr>
-<tr><td><code>6E</code></td><td>mul</td><td><code>a b --</code></td><td><code>cv &lt;- low(a * b), high(a * b)</code></td></tr>
-<tr><td><code>6F</code></td><td>mulu</td><td><code>a b --</code></td><td><code>cv &lt;- low(a * b), high(a * b)</code></td></tr>
-<tr><td><code>70</code></td><td>div</td><td><code>a b --</code></td><td><code>cv &lt;- a / b, a % b</code></td></tr>
-<tr><td><code>71</code></td><td>divu</td><td><code>a b --</code></td><td><code>cv &lt;- a / b, a % b</code></td></tr>
-<tr><td><code>72</code></td><td>loop</td><td><code>n e --</code></td><td><code>ls &lt;- n, e, 0</code></td></tr>
-<tr><td><code>73</code></td><td>setp</td><td><code>priv addr --</code></td><td>Sets UARC permission delegation</td></tr>
+<tr><td><code>6C</code></td><td>incept</td><td><code>n a --</code></td><td>Incept target cores; same as out</td></tr>
+<tr><td><code>6D</code></td><td>set</td><td><code>m s --</code></td><td>Clear ifile and set register <code>s</code> to <code>m</code></td></tr>
+<tr><td><code>6E</code></td><td>sel</td><td><code>m s --</code></td><td>Ors <code>m</code> with register <code>s</code> of ifile</td></tr>
+<tr><td><code>6F</code></td><td>setp</td><td><code>priv addr --</code></td><td>Sets UARC permission delegation</td></tr>
+<tr><td><code>70</code></td><td>mul</td><td><code>a b --</code></td><td><code>cv &lt;- low(a * b), high(a * b)</code></td></tr>
+<tr><td><code>71</code></td><td>mulu</td><td><code>a b --</code></td><td><code>cv &lt;- low(a * b), high(a * b)</code></td></tr>
+<tr><td><code>72</code></td><td>div</td><td><code>a b --</code></td><td><code>cv &lt;- a / b, a % b</code></td></tr>
+<tr><td><code>73</code></td><td>divu</td><td><code>a b --</code></td><td><code>cv &lt;- a / b, a % b</code></td></tr>
+<tr><td><code>74</code></td><td>loop</td><td><code>n e --</code></td><td><code>ls &lt;- n, e, 0</code></td></tr>
 <tr><td><code>80</code> - <code>BF</code></td><td>rot#</td><td><code>v (# + 1).. -- (# + 1).. v</code></td><td> </td></tr>
 <tr><td><code>C0</code> - <code>FF</code></td><td>copy#</td><td><code>v (# + 1).. -- v (# + 1).. v</code></td><td> </td></tr>
 </table>
@@ -993,24 +996,6 @@ subr:
 <li>This instruction is not supported for a <code>WORD</code> that is less than 32 bits.</li>
 </ul>
 <hr />
-<h2><code>seb</code></h2>
-<p><code>b --</code></p>
-<h4>Description</h4>
-<p><code>seb</code> clears all buses from being selected and then sets a specific set of UARC buses to be selected. The upper <code>WORD/2</code> bits of <code>b</code> select randomly from a register file of select registers and the lower <code>WORD/2</code> bits are a mask that represent which bits to specifically assign to that select register.</p>
-<h4>Side Effects</h4>
-<ul>
-<li>Specific UARC buses are now selected.</li>
-</ul>
-<hr />
-<h2><code>slb</code></h2>
-<p><code>b --</code></p>
-<h4>Description</h4>
-<p><code>seb</code> selects a specific set of UARC buses. The upper <code>WORD/2</code> bits of <code>b</code> select randomly from a register file of select registers and the lower <code>WORD/2</code> bits are a mask that represent which bits to specifically OR to that select register.</p>
-<h4>Side Effects</h4>
-<ul>
-<li>Specific UARC buses are now added to the selection.</li>
-</ul>
-<hr />
 <h2><code>iset</code></h2>
 <p><code>a --</code></p>
 <h4>Description</h4>
@@ -1018,6 +1003,24 @@ subr:
 <h4>Side Effects</h4>
 <ul>
 <li>Any further interrupts on the selected UARC buses now call the routine at <code>a</code>.</li>
+</ul>
+<hr />
+<h2><code>seb</code></h2>
+<p><code>b --</code></p>
+<h4>Description</h4>
+<p><code>seb</code> sets the only UARC bus to be selected as <code>b</code>.</p>
+<h4>Side Effects</h4>
+<ul>
+<li>All UARC calls now affect only <code>b</code>.</li>
+</ul>
+<hr />
+<h2><code>slb</code></h2>
+<p><code>b --</code></p>
+<h4>Description</h4>
+<p><code>slb</code> adds the UARC bus <code>b</code> to the selected cores.</p>
+<h4>Side Effects</h4>
+<ul>
+<li>All UARC calls now also affect <code>b</code>.</li>
 </ul>
 <hr />
 <h2><code>send</code></h2>
@@ -1036,6 +1039,33 @@ subr:
 <h4>Side Effects</h4>
 <ul>
 <li>Execution is synchronized with the completion of the stream operation.</li>
+</ul>
+<hr />
+<h2><code>incept</code></h2>
+<p><code>n a --</code></p>
+<h4>Description</h4>
+<p><code>incept</code> sends a stream to all selected UARC buses. <code>n</code> is the number of words able to be streamed out and <code>a</code> is the address at which those words are to be streamed from. This will only work on a core which is not presently running and the stream will become the instructions to be executed by the target core.</p>
+<h4>Side Effects</h4>
+<ul>
+<li>Execution is synchronized with the completion of the stream operation.</li>
+</ul>
+<hr />
+<h2><code>set</code></h2>
+<p><code>b --</code></p>
+<h4>Description</h4>
+<p><code>set</code> clears all buses from being selected and then sets a specific set of UARC buses to be selected. The upper <code>WORD/2</code> bits of <code>b</code> select randomly from a register file of select registers and the lower <code>WORD/2</code> bits are a mask that represent which bits to specifically assign to that select register.</p>
+<h4>Side Effects</h4>
+<ul>
+<li>Specific UARC buses are now selected.</li>
+</ul>
+<hr />
+<h2><code>sel</code></h2>
+<p><code>b --</code></p>
+<h4>Description</h4>
+<p><code>sel</code> selects a specific set of UARC buses. The upper <code>WORD/2</code> bits of <code>b</code> select randomly from a register file of select registers and the lower <code>WORD/2</code> bits are a mask that represent which bits to specifically OR to that select register.</p>
+<h4>Side Effects</h4>
+<ul>
+<li>Specific UARC buses are now added to the selection.</li>
 </ul>
 <hr />
 <h2><code>setp</code></h2>
