@@ -177,7 +177,7 @@
 <span id="134">134</span>
 <span id="135">135</span>
 </pre><pre class='rust '>
-<span class='doccomment'>//!The vector module contains primitive objects and traits for performing vector geometry.</span>
+<span class='doccomment'>//!Contains primitive objects and traits for performing vector geometry</span>
 
 <span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>cartesian1</span>;
 <span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>cartesian2</span>;
@@ -194,7 +194,7 @@
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>ops</span>::{<span class='ident'>Add</span>, <span class='ident'>Sub</span>, <span class='ident'>Neg</span>, <span class='ident'>Mul</span>, <span class='ident'>Div</span>};
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>f64</span>::<span class='ident'>consts</span>::<span class='ident'>PI</span>;
 
-<span class='doccomment'>///Trait that implements all the functions necessary for any n-dimensional particle.</span>
+<span class='doccomment'>///Trait that implements all the functions necessary for any n-dimensional vector</span>
 <span class='kw'>pub</span> <span class='kw'>trait</span> <span class='ident'>Vector</span><span class='op'>&lt;</span><span class='ident'>D</span><span class='op'>&gt;</span>: <span class='ident'>Sized</span> <span class='op'>+</span> <span class='ident'>Clone</span> <span class='op'>+</span> <span class='ident'>Copy</span> <span class='op'>+</span> <span class='ident'>Zero</span> <span class='op'>+</span> <span class='ident'>Add</span><span class='op'>&lt;</span><span class='kw'>Self</span>, <span class='ident'>Output</span><span class='op'>=</span><span class='kw'>Self</span><span class='op'>&gt;</span> <span class='op'>+</span> <span class='ident'>Sub</span><span class='op'>&lt;</span><span class='kw'>Self</span>, <span class='ident'>Output</span><span class='op'>=</span><span class='kw'>Self</span><span class='op'>&gt;</span> <span class='op'>+</span> <span class='ident'>Neg</span><span class='op'>&lt;</span><span class='ident'>Output</span><span class='op'>=</span><span class='kw'>Self</span><span class='op'>&gt;</span> <span class='op'>+</span>
     <span class='ident'>Mul</span><span class='op'>&lt;</span><span class='ident'>D</span>, <span class='ident'>Output</span><span class='op'>=</span><span class='kw'>Self</span><span class='op'>&gt;</span> <span class='op'>+</span> <span class='ident'>Div</span><span class='op'>&lt;</span><span class='ident'>D</span>, <span class='ident'>Output</span><span class='op'>=</span><span class='kw'>Self</span><span class='op'>&gt;</span>
     <span class='kw'>where</span> <span class='ident'>D</span>: <span class='ident'>Float</span>
