@@ -1,1 +1,1 @@
-initSidebarItems({"mod":[["particle","Contains traits and methods for the operation of particle physics"],["vector","Contains primitive objects and traits for performing vector geometry"]]});
+initSidebarItems({"mod":[["particle",""],["vector","Contains primitive objects and traits for performing vector geometry"]]});
