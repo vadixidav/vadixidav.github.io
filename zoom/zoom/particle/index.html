@@ -46,7 +46,7 @@
             <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                 [<span class='inner'>&#x2212;</span>]
             </a>
-        </span><a id='src-321' class='srclink' href='../../src/zoom/particle/mod.rs.html#1-327' title='goto source code'>[src]</a></span></h1>
+        </span><a id='src-321' class='srclink' href='../../src/zoom/particle/mod.rs.html#1-483' title='goto source code'>[src]</a></span></h1>
 <h2 id='reexports' class='section-header'><a href="#reexports">Reexports</a></h2>
 <table><tr><td><code>pub use self::<a class='mod' href='../../zoom/particle/basic_particle/index.html' title='zoom::particle::basic_particle'>basic_particle</a>::*;</code></td></tr></table><h2 id='modules' class='section-header'><a href="#modules">Modules</a></h2>
 <table>
@@ -125,6 +125,15 @@
                     </tr>
                 
                     <tr class=' module-item'>
+                        <td><a class='fn' href='fn.gravitate_delta.html'
+                               title='zoom::particle::gravitate_delta'>gravitate_delta</a></td>
+                        <td class='docblock short'>
+                             <p>Use a special comp_delta closure to compute the delta from the first to the second param</p>
+
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
                         <td><a class='fn' href='fn.gravitate_radius.html'
                                title='zoom::particle::gravitate_radius'>gravitate_radius</a></td>
                         <td class='docblock short'>
@@ -132,6 +141,15 @@
 particles are point particles. If the distance is less than the radius, then the interaction happens as if the
 gravitational quanta (mass) is evenly distributed and gravitational flux is used instead, which causes the
 interaction to become proportional to the radius, meaning that as the radius approaches zero, so does the force.</p>
+
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
+                        <td><a class='fn' href='fn.gravitate_radius_delta.html'
+                               title='zoom::particle::gravitate_radius_delta'>gravitate_radius_delta</a></td>
+                        <td class='docblock short'>
+                             <p>Same as gravitate_radius, but uses a special comp_delta closure to compute the delta between the particles</p>
 
                         </td>
                     </tr>
@@ -146,10 +164,28 @@ interaction to become proportional to the radius, meaning that as the radius app
                     </tr>
                 
                     <tr class=' module-item'>
+                        <td><a class='fn' href='fn.gravitate_radius_squared_delta.html'
+                               title='zoom::particle::gravitate_radius_squared_delta'>gravitate_radius_squared_delta</a></td>
+                        <td class='docblock short'>
+                             <p>Same as gravitate_radius_squared, but uses a special comp_delta closure to compute the delta between the particles</p>
+
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
                         <td><a class='fn' href='fn.hooke.html'
                                title='zoom::particle::hooke'>hooke</a></td>
                         <td class='docblock short'>
                              <p>Apply spring forces between two particles.</p>
+
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
+                        <td><a class='fn' href='fn.hooke_delta.html'
+                               title='zoom::particle::hooke_delta'>hooke_delta</a></td>
+                        <td class='docblock short'>
+                             <p>Same as hooke, but uses a comp_delta closure to compute the distance from the first to second parameter</p>
 
                         </td>
                     </tr>
@@ -164,10 +200,28 @@ interaction to become proportional to the radius, meaning that as the radius app
                     </tr>
                 
                     <tr class=' module-item'>
+                        <td><a class='fn' href='fn.hooke_equilibrium_delta.html'
+                               title='zoom::particle::hooke_equilibrium_delta'>hooke_equilibrium_delta</a></td>
+                        <td class='docblock short'>
+                             <p>Same as hooke_equilibrium, but uses a comp_delta closure to compute the distance from the first to second parameter</p>
+
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
                         <td><a class='fn' href='fn.lorentz.html'
                                title='zoom::particle::lorentz'>lorentz</a></td>
                         <td class='docblock short'>
                              <p>Apply lorentz forces between two PhysicsParticle objects based on quanta, position, and velocity.</p>
+
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
+                        <td><a class='fn' href='fn.lorentz_delta.html'
+                               title='zoom::particle::lorentz_delta'>lorentz_delta</a></td>
+                        <td class='docblock short'>
+                             <p>Same as lorentz, but uses a comp_delta closure to compute the distance from the first to second parameter</p>
 
                         </td>
                     </tr>
@@ -182,10 +236,28 @@ interaction to become proportional to the radius, meaning that as the radius app
                     </tr>
                 
                     <tr class=' module-item'>
+                        <td><a class='fn' href='fn.lorentz_radius_delta.html'
+                               title='zoom::particle::lorentz_radius_delta'>lorentz_radius_delta</a></td>
+                        <td class='docblock short'>
+                             <p>Same as lorentz_radius, but uses a comp_delta closure to compute the distance from the first to second parameter</p>
+
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
                         <td><a class='fn' href='fn.lorentz_radius_squared.html'
                                title='zoom::particle::lorentz_radius_squared'>lorentz_radius_squared</a></td>
                         <td class='docblock short'>
                              <p>Apply lorentz forces between two PhysicsParticle objects using a precomputed net radius.</p>
+
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
+                        <td><a class='fn' href='fn.lorentz_radius_squared_delta.html'
+                               title='zoom::particle::lorentz_radius_squared_delta'>lorentz_radius_squared_delta</a></td>
+                        <td class='docblock short'>
+                             <p>Same as lorentz_radius_squared, but uses a comp_delta closure to compute the distance between the particles</p>
 
                         </td>
                     </tr>

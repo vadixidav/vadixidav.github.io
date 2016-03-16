@@ -4,10 +4,10 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="rustdoc">
-    <meta name="description" content="API documentation for the Rust `lorentz_radius_squared` fn in crate `zoom`.">
-    <meta name="keywords" content="rust, rustlang, rust-lang, lorentz_radius_squared">
+    <meta name="description" content="API documentation for the Rust `gravitate_delta` fn in crate `zoom`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, gravitate_delta">
 
-    <title>zoom::particle::lorentz_radius_squared - Rust</title>
+    <title>zoom::particle::gravitate_delta - Rust</title>
 
     <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../main.css">
@@ -27,7 +27,7 @@
 
     <nav class="sidebar">
         
-        <p class='location'><a href='../index.html'>zoom</a>::<wbr><a href='index.html'>particle</a></p><script>window.sidebarCurrent = {name: 'lorentz_radius_squared', ty: 'fn', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+        <p class='location'><a href='../index.html'>zoom</a>::<wbr><a href='index.html'>particle</a></p><script>window.sidebarCurrent = {name: 'gravitate_delta', ty: 'fn', relpath: ''};</script><script defer src="sidebar-items.js"></script>
     </nav>
 
     <nav class="sub">
@@ -42,12 +42,12 @@
     </nav>
 
     <section id='main' class="content fn">
-<h1 class='fqn'><span class='in-band'>Function <a href='../index.html'>zoom</a>::<wbr><a href='index.html'>particle</a>::<wbr><a class='fn' href=''>lorentz_radius_squared</a></span><span class='out-of-band'><span id='render-detail'>
+<h1 class='fqn'><span class='in-band'>Function <a href='../index.html'>zoom</a>::<wbr><a href='index.html'>particle</a>::<wbr><a class='fn' href=''>gravitate_delta</a></span><span class='out-of-band'><span id='render-detail'>
             <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                 [<span class='inner'>&#x2212;</span>]
             </a>
-        </span><a id='src-652' class='srclink' href='../../src/zoom/particle/mod.rs.html#443-460' title='goto source code'>[src]</a></span></h1>
-<pre class='rust fn'>pub fn lorentz_radius_squared&lt;V, D, T1: ?<a class='trait' href='https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html' title='core::marker::Sized'>Sized</a>, T2: ?<a class='trait' href='https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html' title='core::marker::Sized'>Sized</a>&gt;(lhs: &amp;T1, rhs: &amp;T2, radius_squared: D, magnitude: D) <span class='where'>where T1: <a class='trait' href='../../zoom/particle/trait.PhysicsParticle.html' title='zoom::particle::PhysicsParticle'>PhysicsParticle</a>&lt;V, D&gt;, T2: <a class='trait' href='../../zoom/particle/trait.PhysicsParticle.html' title='zoom::particle::PhysicsParticle'>PhysicsParticle</a>&lt;V, D&gt;, V: <a class='trait' href='../../zoom/vector/trait.Vector.html' title='zoom::vector::Vector'>Vector</a>&lt;D&gt; + <a class='trait' href='../../zoom/vector/trait.CrossVector.html' title='zoom::vector::CrossVector'>CrossVector</a>, D: <a class='trait' href='../../num/traits/trait.Float.html' title='num::traits::Float'>Float</a></span></pre><div class='docblock'><p>Apply lorentz forces between two PhysicsParticle objects using a precomputed net radius.</p>
+        </span><a id='src-489' class='srclink' href='../../src/zoom/particle/mod.rs.html#177-196' title='goto source code'>[src]</a></span></h1>
+<pre class='rust fn'>pub fn gravitate_delta&lt;V, D, F, T1: ?<a class='trait' href='https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html' title='core::marker::Sized'>Sized</a>, T2: ?<a class='trait' href='https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html' title='core::marker::Sized'>Sized</a>&gt;(lhs: &amp;T1, rhs: &amp;T2, magnitude: D, comp_delta: F) <span class='where'>where T1: <a class='trait' href='../../zoom/particle/trait.PhysicsParticle.html' title='zoom::particle::PhysicsParticle'>PhysicsParticle</a>&lt;V, D&gt;, T2: <a class='trait' href='../../zoom/particle/trait.PhysicsParticle.html' title='zoom::particle::PhysicsParticle'>PhysicsParticle</a>&lt;V, D&gt;, V: <a class='trait' href='../../zoom/vector/trait.Vector.html' title='zoom::vector::Vector'>Vector</a>&lt;D&gt;, D: <a class='trait' href='../../num/traits/trait.Float.html' title='num::traits::Float'>Float</a>, F: <a class='trait' href='https://doc.rust-lang.org/nightly/core/ops/trait.FnOnce.html' title='core::ops::FnOnce'>FnOnce</a>(V, V) -&gt; V</span></pre><div class='docblock'><p>Use a special comp_delta closure to compute the delta from the first to the second param</p>
 </div></section>
     <section id='search' class="content hidden"></section>
 
