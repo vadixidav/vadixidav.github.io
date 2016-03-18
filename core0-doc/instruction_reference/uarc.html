@@ -89,11 +89,11 @@
 <h2><code>recv</code></h2>
 <p><code>--</code></p>
 <h4>Description</h4>
-<p><code>recv</code> accepts any interrupt synchronously without an interrupt handler from any selected bus. The bus ID and the interrupt value are added to the <a href="architecture/conveyor.html">conveyor</a> in that order.</p>
+<p><code>recv</code> accepts any interrupt synchronously without an interrupt handler from any selected bus. The bus ID (<code>bus</code>), address (<code>addr</code>), and the interrupt value (<code>v</code>) are added to the <a href="architecture/conveyor.html">conveyor</a> in that order.</p>
 <h4>Side Effects</h4>
 <ul>
-<li><code>cv &lt;- bus, v</code></li>
-<li>Synchronizes execution with the next interrupt</li>
+<li><code>cv &lt;- bus, addr, v</code></li>
+<li>Synchronizes execution with the next interrupt from a selected bus</li>
 </ul>
 <hr />
 <h2><code>in</code></h2>
@@ -186,7 +186,7 @@
 <h2><code>incept</code></h2>
 <p><code>n a --</code></p>
 <h4>Description</h4>
-<p><code>incept</code> sends a stream to all selected UARC buses. <code>n</code> is the number of words able to be streamed out and <code>a</code> is the address at which those words are to be streamed from. This will only work on a core which is not presently running and the stream will become the instructions to be executed by the target core.</p>
+<p><code>incept</code> sends a stream to all selected UARC buses. <code>n</code> is the number of words able to be streamed out and <code>a</code> is the address at which those words are to be streamed from. This will only work on a core which is not presently running or the core has <strong>permission</strong> over the core and the stream will become the instructions to be executed by the target core. By incepting cores again, the system can maintain <strong>permission</strong> over cores allocated on a chip for a process and prevent those cores from incepting cores they aren't supposed to. If a chip is to be given up by the system to a process, the system can incept all cores with the <strong>permission</strong> of the process and run an idle routine.</p>
 <h4>Side Effects</h4>
 <ul>
 <li>Execution is synchronized with the completion of the stream operation.</li>
