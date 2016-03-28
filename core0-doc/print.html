@@ -210,8 +210,9 @@
 <tr><td><code>5A</code></td><td>iset</td><td><code>a --</code></td><td>Set selected interrupt addresses</td></tr>
 <tr><td><code>5B</code></td><td>seb</td><td><code>b --</code></td><td>Set a single UARC bus</td></tr>
 <tr><td><code>5C</code></td><td>slb</td><td><code>b --</code></td><td>Select an additional UARC bus</td></tr>
-<tr><td><code>5D</code></td><td>send</td><td><code>v --</code></td><td>Send value to selected buses</td></tr>
-<tr><td><code>5E</code></td><td>loopi</td><td><code>n --</code></td><td><code>ls &lt;- n, dc0, 0</code></td></tr>
+<tr><td><code>5D</code></td><td>usb</td><td><code>b --</code></td><td>Unselect a UARC bus</td></tr>
+<tr><td><code>5E</code></td><td>send</td><td><code>v --</code></td><td>Send value to selected buses</td></tr>
+<tr><td><code>5F</code></td><td>loopi</td><td><code>n --</code></td><td><code>ls &lt;- n, dc0, 0</code></td></tr>
 <tr><td><code>60</code> - <code>63</code></td><td>rwrite#</td><td><code>v a --</code></td><td><code>mem[dc# + a] = v</code></td></tr>
 <tr><td><code>64</code></td><td>write</td><td><code>v a --</code></td><td><code>mem[a] = v</code></td></tr>
 <tr><td><code>65</code></td><td>jeq</td><td><code>a b --</code></td><td>if <code>a == b</code> then <code>dc0 -&gt; pc</code></td></tr>
@@ -947,11 +948,11 @@ subr:
 <h2><code>recv</code></h2>
 <p><code>--</code></p>
 <h4>Description</h4>
-<p><code>recv</code> accepts any interrupt synchronously without an interrupt handler from any selected bus. The bus ID and the interrupt value are added to the <a href="architecture/conveyor.html">conveyor</a> in that order.</p>
+<p><code>recv</code> accepts any interrupt synchronously without an interrupt handler from any selected bus. The bus ID (<code>bus</code>), address (<code>addr</code>), and the interrupt value (<code>v</code>) are added to the <a href="architecture/conveyor.html">conveyor</a> in that order.</p>
 <h4>Side Effects</h4>
 <ul>
-<li><code>cv &lt;- bus, v</code></li>
-<li>Synchronizes execution with the next interrupt</li>
+<li><code>cv &lt;- bus, addr, v</code></li>
+<li>Synchronizes execution with the next interrupt from a selected bus</li>
 </ul>
 <hr />
 <h2><code>in</code></h2>
@@ -1023,6 +1024,15 @@ subr:
 <li>All UARC calls now also affect <code>b</code>.</li>
 </ul>
 <hr />
+<h2><code>usb</code></h2>
+<p><code>b --</code></p>
+<h4>Description</h4>
+<p><code>usb</code> removes the UARC bus <code>b</code> from the selected cores.</p>
+<h4>Side Effects</h4>
+<ul>
+<li>All UARC calls no longer affect <code>b</code>.</li>
+</ul>
+<hr />
 <h2><code>send</code></h2>
 <p><code>v --</code></p>
 <h4>Description</h4>
@@ -1044,7 +1054,7 @@ subr:
 <h2><code>incept</code></h2>
 <p><code>n a --</code></p>
 <h4>Description</h4>
-<p><code>incept</code> sends a stream to all selected UARC buses. <code>n</code> is the number of words able to be streamed out and <code>a</code> is the address at which those words are to be streamed from. This will only work on a core which is not presently running and the stream will become the instructions to be executed by the target core.</p>
+<p><code>incept</code> sends a stream to all selected UARC buses. <code>n</code> is the number of words able to be streamed out and <code>a</code> is the address at which those words are to be streamed from. This will only work on a core which is not presently running or the core has <strong>permission</strong> over the core and the stream will become the instructions to be executed by the target core. By incepting cores again, the system can maintain <strong>permission</strong> over cores allocated on a chip for a process and prevent those cores from incepting cores they aren't supposed to. If a chip is to be given up by the system to a process, the system can incept all cores with the <strong>permission</strong> of the process and run an idle routine.</p>
 <h4>Side Effects</h4>
 <ul>
 <li>Execution is synchronized with the completion of the stream operation.</li>

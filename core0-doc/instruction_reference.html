@@ -167,8 +167,9 @@
 <tr><td><code>5A</code></td><td>iset</td><td><code>a --</code></td><td>Set selected interrupt addresses</td></tr>
 <tr><td><code>5B</code></td><td>seb</td><td><code>b --</code></td><td>Set a single UARC bus</td></tr>
 <tr><td><code>5C</code></td><td>slb</td><td><code>b --</code></td><td>Select an additional UARC bus</td></tr>
-<tr><td><code>5D</code></td><td>send</td><td><code>v --</code></td><td>Send value to selected buses</td></tr>
-<tr><td><code>5E</code></td><td>loopi</td><td><code>n --</code></td><td><code>ls &lt;- n, dc0, 0</code></td></tr>
+<tr><td><code>5D</code></td><td>usb</td><td><code>b --</code></td><td>Unselect a UARC bus</td></tr>
+<tr><td><code>5E</code></td><td>send</td><td><code>v --</code></td><td>Send value to selected buses</td></tr>
+<tr><td><code>5F</code></td><td>loopi</td><td><code>n --</code></td><td><code>ls &lt;- n, dc0, 0</code></td></tr>
 <tr><td><code>60</code> - <code>63</code></td><td>rwrite#</td><td><code>v a --</code></td><td><code>mem[dc# + a] = v</code></td></tr>
 <tr><td><code>64</code></td><td>write</td><td><code>v a --</code></td><td><code>mem[a] = v</code></td></tr>
 <tr><td><code>65</code></td><td>jeq</td><td><code>a b --</code></td><td>if <code>a == b</code> then <code>dc0 -&gt; pc</code></td></tr>
