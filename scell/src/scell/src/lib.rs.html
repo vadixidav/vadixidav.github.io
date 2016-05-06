@@ -163,9 +163,9 @@
 <span id="119">119</span>
 </pre><pre class='rust '>
 <span class='doccomment'>//! The intention of this crate is to allow the use of a `Rc&lt;RefCell&lt;T&gt;&gt;` throughout code where, after enough testing</span>
-<span class='doccomment'>//! has been done, the `unchecked` feature can be enabled, which will convert SCell into a `Rc&lt;UnsafeCell&lt;T&gt;&gt;`.</span>
+<span class='doccomment'>//! has been done, the `unchecked` feature can be enabled, which will convert `SCell` into a `Rc&lt;UnsafeCell&lt;T&gt;&gt;`.</span>
 <span class='doccomment'>//!</span>
-<span class='doccomment'>//! SCell provides all of the things that the combination of `Rc&lt;RefCell&lt;T&gt;&gt;` normally allow and some more, such as</span>
+<span class='doccomment'>//! `SCell` provides all of the things that the combination of `Rc&lt;RefCell&lt;T&gt;&gt;` normally allow and some more, such as</span>
 <span class='doccomment'>//! implementations for `PartialOrd` and `Ord`.</span>
 <span class='doccomment'>//!</span>
 <span class='doccomment'>//! If you plan to do significant testing in `debug` mode, add the `unchecked` feature to this crate in `release` mode.</span>

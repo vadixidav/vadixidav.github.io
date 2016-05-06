@@ -49,9 +49,9 @@
                    </a>
                </span><a id='src-0' class='srclink' href='../src/scell/src/lib.rs.html#1-119' title='goto source code'>[src]</a></span></h1>
 <div class='docblock'><p>The intention of this crate is to allow the use of a <code>Rc&lt;RefCell&lt;T&gt;&gt;</code> throughout code where, after enough testing
-has been done, the <code>unchecked</code> feature can be enabled, which will convert SCell into a <code>Rc&lt;UnsafeCell&lt;T&gt;&gt;</code>.</p>
+has been done, the <code>unchecked</code> feature can be enabled, which will convert <code>SCell</code> into a <code>Rc&lt;UnsafeCell&lt;T&gt;&gt;</code>.</p>
 
-<p>SCell provides all of the things that the combination of <code>Rc&lt;RefCell&lt;T&gt;&gt;</code> normally allow and some more, such as
+<p><code>SCell</code> provides all of the things that the combination of <code>Rc&lt;RefCell&lt;T&gt;&gt;</code> normally allow and some more, such as
 implementations for <code>PartialOrd</code> and <code>Ord</code>.</p>
 
 <p>If you plan to do significant testing in <code>debug</code> mode, add the <code>unchecked</code> feature to this crate in <code>release</code> mode.
