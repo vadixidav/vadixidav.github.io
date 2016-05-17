@@ -10,12 +10,12 @@
         <base href="">
 
         <link rel="stylesheet" href="book.css">
-        <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
 
         <link rel="shortcut icon" href="favicon.png">
 
         <!-- Font Awesome -->
-        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 
         <link rel="stylesheet" href="highlight.css">
         <link rel="stylesheet" href="tomorrow-night.css">
@@ -24,7 +24,7 @@
         <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
         <!-- Fetch JQuery from CDN but have a local fallback -->
-        <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+        <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
         <script>
             if (typeof jQuery == 'undefined') {
                 document.write(unescape("%3Cscript src='jquery.js'%3E%3C/script%3E"));
@@ -69,17 +69,57 @@
                 <div id="content" class="content">
                     <h1>Instruction Reference</h1>
 <h3>c0 Instruction Formats</h3>
-<table><thead><tr><td> Format </td><td> Layout </td></tr></thead>
-<tr><td>I (Implicit)</td><td><code>OSSO OOOO</code></td></tr>
-<tr><td>L (Loop)</td><td><code>OSSO OOLL</code></td></tr>
-<tr><td>D (DC)</td><td><code>OSSO OOLL</code></td></tr>
-<tr><td>C (Conveyor)</td><td><code>OSSO LLLL</code></td></tr>
-<tr><td>R (Random Access)</td><td><code>OOLL LLLL</code></td></tr>
-</table>
 <ul>
-<li><code>O</code> - Opcode bit</li>
-<li><code>S</code> - Stack bit</li>
-<li><code>L</code> - Location bit</li>
+<li>
+<p><code>OOOO OOOO</code> (All instructions)</p>
+<ul>
+<li><code>0SSO OOOO</code> (Normal instructions)
+<ul>
+<li>All normal instructions affect the entire stack according to the <code>S</code> bits</li>
+<li><code>0010 LLLL</code> (Conveyor instruction)
+<ul>
+<li>Reads and synchronizes with conveyor index <code>location</code></li>
+</ul>
+</li>
+<li><code>0011 10LL</code> (Loop index)
+<ul>
+<li>Places the index from the loop of depth <code>location</code> on the <a href="architecture/dstack.html">dstack</a></li>
+</ul>
+</li>
+<li><code>0SSO OOLL</code> (DC instructions)
+<ul>
+<li>Operates using specifically the DC of index <code>location</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><code>1OLL LLLL</code> (Random access instructions)
+<ul>
+<li><code>10LL LLLL</code> (Rotate)
+<ul>
+<li><a href="architecture/dstack.html">dstack</a> item of depth <code>location + 1</code> rotated to top of <a href="architecture/dstack.html">dstack</a></li>
+<li>Only elements above the rotate are pushed down</li>
+</ul>
+</li>
+<li><code>11LL LLLL</code> (Copy)
+<ul>
+<li><a href="architecture/dstack.html">dstack</a> item of depth <code>location + 1</code> copied to top of <a href="architecture/dstack.html">dstack</a></li>
+<li>Entire stack is pushed down</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><code>O</code> - Opcode bit</p>
+</li>
+<li>
+<p><code>S</code> - Stack bit</p>
+</li>
+<li>
+<p><code>L</code> - Location bit</p>
+</li>
 </ul>
 <h3>Stack bits</h3>
 <ul>
@@ -88,16 +128,6 @@
 <li><code>10</code> - The stack is popped once.</li>
 <li><code>11</code> - The stack is popped twice.</li>
 </ul>
-<h3><code>I</code> - Implicit</h3>
-<p>Implicit instructions have no explicit sources or destinations and all can be assumed from state information in the system. Such instructions include <code>add</code>, which takes parameters from the stack and places the result back on the stack.</p>
-<h3><code>L</code> - Loop</h3>
-<p>Loop instructions allow random read access to the loop index of the top 4 loops in the <a href="architecture/lstack.html">lstack</a>. This means that loops can be nested 4 times and are still able to retrieve the index in one instruction.</p>
-<h3><code>D</code> - Data Counter</h3>
-<p>Data Counter instructions are instructions that operate on a random one of the 4 available DCs. These can be set, get, read, written, randomly read, and randomly written.</p>
-<h3><code>C</code> - Conveyor</h3>
-<p>Conveyor instructions allow random read access to the 16 things on the <a href="architecture/conveyor.html">conveyor belt</a>. The things on the conveyor may actually not be present and when accessed, the completion of the operation corresponding to that spot on the conveyor will be synchronized. This allows several asynchronous operations to be linked to different locations on the conveyor and read randomly when they are needed.</p>
-<h3><code>R</code> - Random</h3>
-<p>For R type instructions, 64 locations can be randomly addressed. This means that 64 places can be copied and rotated on the <a href="architecture/dstack.html">dstack</a>.</p>
 <h2>Key</h2>
 <ul>
 <li><code>WORD</code> - Data word width in use</li>
@@ -188,6 +218,7 @@
 <tr><td><code>72</code></td><td>div</td><td><code>a b --</code></td><td><code>cv &lt;- a / b, a % b</code></td></tr>
 <tr><td><code>73</code></td><td>divu</td><td><code>a b --</code></td><td><code>cv &lt;- a / b, a % b</code></td></tr>
 <tr><td><code>74</code></td><td>loop</td><td><code>n e --</code></td><td><code>ls &lt;- n, e, 0</code></td></tr>
+<tr><td><code>75</code></td><td>sef</td><td><code>a f --</code></td><td>Sets fault <code>f</code> handler to <code>a</code></td></tr>
 <tr><td><code>80</code> - <code>BF</code></td><td>rot#</td><td><code>v (# + 1).. -- (# + 1).. v</code></td><td> </td></tr>
 <tr><td><code>C0</code> - <code>FF</code></td><td>copy#</td><td><code>v (# + 1).. -- v (# + 1).. v</code></td><td> </td></tr>
 </table>
@@ -230,6 +261,9 @@
                 $('<link rel="stylesheet" type="text/css" href="_FontAwesome/css/font-awesome.css">').prependTo('head');
             }
         </script>
+
+        <!-- Livereload script (if served using the cli tool) -->
+        
 
         <script src="highlight.js"></script>
         <script src="book.js"></script>

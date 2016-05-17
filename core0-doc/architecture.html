@@ -10,12 +10,12 @@
         <base href="">
 
         <link rel="stylesheet" href="book.css">
-        <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
 
         <link rel="shortcut icon" href="favicon.png">
 
         <!-- Font Awesome -->
-        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 
         <link rel="stylesheet" href="highlight.css">
         <link rel="stylesheet" href="tomorrow-night.css">
@@ -24,7 +24,7 @@
         <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
         <!-- Fetch JQuery from CDN but have a local fallback -->
-        <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+        <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
         <script>
             if (typeof jQuery == 'undefined') {
                 document.write(unescape("%3Cscript src='jquery.js'%3E%3C/script%3E"));
@@ -74,9 +74,9 @@
 <tr><td><code>o</code></td><td>Overflow bit</td></tr>
 <tr><td><code>i</code></td><td>Interrupt bit</td></tr>
 </table>
-<p>c0 is a stack machine, meaning that all parameters are implicit and all destinations are implicit except for stack manipulation and memory access. For comparison, belt machines have an implicit destination and register machines (the most common) have explicit parameters and destination. This means that for many instructions, a stack machine's instruction is entirely composed of an opcode with no extra fields. For c0, half of all instructions only have an opcode field, but the other half (stack manipulation instructions) the instruction contains an opcode and location field. This means that c0 has <a href="instruction_reference.html">two instruction formats</a>.</p>
-<p>Since no task switching is required in c0, it is not necessary to be concerned with the amount of state elements in the architecture, except where those elements require random access. Due to this, several stacks are present in the architecture, aside from the main stack on which most of the processor occurs: the <a href="architecture/dstack.html">dstack</a>. For instance, the architecture also has a dedicated <a href="architecture/cstack.html">call stack</a> so that parameters can be passed orderly to a called routine and be consumed without worrying about the return address. A zero-overhead loop unit is also present that allows automatic conditional branching back to the beginning of the inner-most loop. The stack that contains the various loop parameters is called the <a href="architecture/lstack.html">loop stack</a>.</p>
-<p>Not all stacks present in c0 are Last-In First-Out (LIFO). The <a href="architecture/dstack.html">dstack</a> itself has dedicated copy and rotate instructions so that it is possible to copy or move things to the top of the stack. However, the <a href="architecture/dstack.html">dstack</a> copy instruction is intended to allow variables to be computed once and copied into place on the stack however many additional times they are required before the final value is consumed.</p>
+<p>c0 is a stack machine, meaning that all parameters are implicit and all destinations are implicit except for stack manipulation and memory access. For comparison, belt machines have an implicit destination and register machines (the most common) have explicit parameters and destination. This means that for many instructions, a stack machine's instruction is entirely composed of an opcode with no extra fields.</p>
+<p>Since no task switching is required in c0, it is not necessary to be concerned with the amount of state elements in the architecture, except where those elements require random access. Due to this, several stacks are present in the architecture aside from the main stack on which most of the processing occurs: the <a href="architecture/dstack.html">dstack</a>. For instance, the architecture also has a dedicated <a href="architecture/cstack.html">call stack</a> so that parameters can be passed on the <a href="architecture/dstack.html">dstack</a> orderly to a called routine and be consumed without worrying about the return address. A zero-overhead loop unit is also present that allows automatic conditional branching back to the beginning of the inner-most loop. The stack that contains the various loop parameters is called the <a href="architecture/lstack.html">loop stack</a>.</p>
+<p>Not all stacks present in c0 are Last-In First-Out (LIFO). The <a href="architecture/dstack.html">dstack</a> itself has dedicated copy and rotate instructions so that it is possible to copy or move things to the top of the stack. The <a href="architecture/dstack.html">dstack</a> copy instruction is intended to allow variables to be computed once and copied into place on the stack however many additional times they are required before the final value is consumed. The rotate instruction is used when it cannot be satisfied that an accumulator will be on the top of the stack when it must be accumulated to during a loop. Rotate may also need to be used in conditional branching when different branch paths do not consume values from the stack in the same order. Branch paths that are more likely to be taken should avoid the rotate instruction and rotates should be added to the less-likely path.</p>
 <p>Finally, the <a href="architecture/ifile.html">ifile</a> is a register file containing the interrupt address, enable bit, and selection bit that corresponds to each UARC bus present on the core. Each of the interrupts can be individually enabled, disabled, and set. Using the selection mechanism, several addresses can be enabled, disabled, and set simultaneously to avoid wasting time setting up interrupts or sending/receiving messages to/from multiple targets.</p>
 
                 </div>
@@ -117,6 +117,9 @@
                 $('<link rel="stylesheet" type="text/css" href="_FontAwesome/css/font-awesome.css">').prependTo('head');
             }
         </script>
+
+        <!-- Livereload script (if served using the cli tool) -->
+        
 
         <script src="highlight.js"></script>
         <script src="book.js"></script>
