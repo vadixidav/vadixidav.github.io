@@ -124,15 +124,25 @@
 <li>The <code>iflag</code> is set to <code>0</code>.</li>
 </ul>
 <hr />
-<h2><code>getp</code></h2>
-<p><code>-- priv</code></p>
+<h2><code>getbp</code></h2>
+<p><code>b -- perm</code></p>
 <h4>Description</h4>
-<p><code>getp</code> places the <a href="uarc.html">privilege</a> of the current core on the stack. This value will range from <code>0</code> to <code>31</code>.</p>
+<p><code>getbp</code> places the <a href="uarc.html">permission</a> of the core on bus <code>b</code> onto the stack.</p>
+<hr />
+<h2><code>getba</code></h2>
+<p><code>b -- addr</code></p>
+<h4>Description</h4>
+<p><code>getba</code> places the <a href="uarc.html">address</a> of the core on bus <code>b</code> onto the stack. If the <code>AND</code> of <code>addr</code> with this core's <a href="uarc.html">permission</a> is equal to this core's <a href="uarc.html">address</a> with the <a href="uarc.html">permission</a> then this core has <a href="uarc.html">privilege</a> over the core on this bus. This check shouldn't need to be performed manually, but that is the process.</p>
+<hr />
+<h2><code>getp</code></h2>
+<p><code>-- perm</code></p>
+<h4>Description</h4>
+<p><code>getp</code> places the <a href="uarc.html">permission</a> of the current core on the stack. This value is a mask of the <a href="uarc.html">address</a>. The core cannot delegate a <a href="uarc.html">permission</a> on a child core which has any bits unset from its own <a href="uarc.html">permission</a>. Any delegated <a href="uarc.html">address</a> must have the same <a href="uarc.html">address</a> bits which are masked by the delegating core's <a href="uarc.html">permission</a>.</p>
 <hr />
 <h2><code>geta</code></h2>
 <p><code>-- addr</code></p>
 <h4>Description</h4>
-<p><code>geta</code> places the <a href="uarc.html">address</a> of the current core on the stack. This value is 31 bits and will be placed in the least significant bits of the word.</p>
+<p><code>geta</code> places the <a href="uarc.html">address</a> of the current core on the stack. This value is 31 bits and will be placed in the least significant bits of the word. The bits of the <a href="uarc.html">address</a> masked by the <a href="uarc.html">permission</a> must be the same in all child cores.</p>
 <h4>Notes</h4>
 <ul>
 <li>This instruction is not supported for a <code>WORD</code> that is less than 32 bits.</li>
@@ -202,30 +212,30 @@
 </ul>
 <hr />
 <h2><code>set</code></h2>
-<p><code>b --</code></p>
+<p><code>m s --</code></p>
 <h4>Description</h4>
-<p><code>set</code> clears all buses from being selected and then sets a specific set of UARC buses to be selected. The upper <code>WORD/2</code> bits of <code>b</code> select randomly from a register file of select registers and the lower <code>WORD/2</code> bits are a mask that represent which bits to specifically assign to that select register.</p>
+<p><code>set</code> clears all buses from being selected and then sets a specific set of UARC buses to be selected. <code>m</code> is a mask for which cores to enable using an <code>OR</code> operation and <code>s</code> is a selector to choose which register to apply the mask to.</p>
 <h4>Side Effects</h4>
 <ul>
-<li>Specific UARC buses are now selected.</li>
+<li>Specific UARC buses are now selected and all others are unselected.</li>
 </ul>
 <hr />
 <h2><code>sel</code></h2>
-<p><code>b --</code></p>
+<p><code>m s --</code></p>
 <h4>Description</h4>
-<p><code>sel</code> selects a specific set of UARC buses. The upper <code>WORD/2</code> bits of <code>b</code> select randomly from a register file of select registers and the lower <code>WORD/2</code> bits are a mask that represent which bits to specifically OR to that select register.</p>
+<p><code>sel</code> selects a specific set of UARC buses. <code>m</code> is a mask for which cores to enable using an <code>OR</code> operation and <code>s</code> is a selector to choose which register to apply the mask to.</p>
 <h4>Side Effects</h4>
 <ul>
 <li>Specific UARC buses are now added to the selection.</li>
 </ul>
 <hr />
 <h2><code>setp</code></h2>
-<p><code>priv addr --</code></p>
+<p><code>perm addr --</code></p>
 <h4>Description</h4>
-<p><code>setp</code> sets the <a href="uarc.html">permission</a> that is to be delegated to all incepted UARC cores. This value defaults to the same <a href="uarc.html">permission</a> that this core receives on inception. If the user attempts to set a <a href="uarc.html">permission</a> that the core doesn't have access to, this instruction will fail without warning. <code>priv</code> is the <strong>privilege</strong> from <code>0</code> to <code>31</code> assigned to incepted cores. <code>addr</code> is masked from the most significant values by <code>priv</code> bits to get the actual <strong>permission</strong>.</p>
+<p><code>setp</code> sets the <a href="uarc.html">permission</a> that is to be delegated to all incepted UARC cores. This value defaults to the same <a href="uarc.html">permission</a> and <a href="uarc.html">address</a> that this core receives on inception. This instruction will only <code>OR</code> the bits of the old <a href="uarc.html">permission</a> with <code>perm</code>, so it can only restrict the <a href="uarc.html">permission</a>. Any bits from this core's <a href="uarc.html">address</a> which are masked by the <a href="uarc.html">permission</a> will be automatically set the same in the delegation address, while the only bits that will be changed are the ones in <code>addr</code> masked by the inverse of the <a href="uarc.html">permission</a>.</p>
 <h4>Side Effects</h4>
 <ul>
-<li>All cores incepted after this instruction is executed will have this <a href="uarc.html">permission</a>.</li>
+<li>All cores incepted after this instruction is executed will have the set <a href="uarc.html">permission</a> and <a href="uarc.html">address</a>.</li>
 </ul>
 
                 </div>

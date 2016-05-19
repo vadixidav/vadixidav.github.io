@@ -161,6 +161,8 @@
 <tr><td><code>13</code></td><td>in</td><td><code>a -- b</code></td><td>Stream in to <code>a</code></td></tr>
 <tr><td><code>14</code></td><td>kill</td><td><code>--</code></td><td>Kill all selected cores</td></tr>
 <tr><td><code>15</code></td><td>wait</td><td><code>--</code></td><td>Waits for an interrupt before continuing</td></tr>
+<tr><td><code>16</code></td><td>getbp</td><td><code>b -- perm</code></td><td>Gets the <a href="uarc.md">permission</a> on bus <code>b</code></td></tr>
+<tr><td><code>17</code></td><td>getba</td><td><code>b -- addr</code></td><td>Gets the <a href="uarc.md">address</a> on bus <code>b</code></td></tr>
 <tr><td><code>18</code></td><td>calli</td><td><code>--</code></td><td><code>dc0 -&gt; pc</code>; push <a href="architecture/cstack.html">cstack</a></td></tr>
 <tr><td><code>19</code></td><td>jmpi</td><td><code>--</code></td><td><code>dc0 -&gt; pc</code></td></tr>
 <tr><td><code>1A</code></td><td>jc</td><td><code>--</code></td><td>if <code>c</code> then <code>dc0 -&gt; pc</code></td></tr>
@@ -175,7 +177,7 @@
 <tr><td><code>38</code> - <code>3B</code></td><td>i#</td><td><code>-- i#</code></td><td> </td></tr>
 <tr><td><code>3C</code></td><td>p0</td><td><code>-- 0</code></td><td> </td></tr>
 <tr><td><code>3D</code></td><td>dup</td><td><code>v -- v v</code></td><td> </td></tr>
-<tr><td><code>3E</code></td><td>getp</td><td><code>-- priv</code></td><td>Get UARC privilege</td></tr>
+<tr><td><code>3E</code></td><td>getp</td><td><code>-- perm</code></td><td>Get UARC permission</td></tr>
 <tr><td><code>3F</code></td><td>geta</td><td><code>-- addr</code></td><td>Get UARC address</td></tr>
 <tr><td><code>40</code> - <code>43</code></td><td>write#</td><td><code>v --</code></td><td><code>mem[dc#] = v</code>; dc# advances</td></tr>
 <tr><td><code>44</code> - <code>47</code></td><td>setf#</td><td><code>a --</code></td><td><code>dc# = a</code>; dc# is write post-inc</td></tr>
@@ -212,7 +214,7 @@
 <tr><td><code>6C</code></td><td>incept</td><td><code>n a --</code></td><td>Incept target cores; same as out</td></tr>
 <tr><td><code>6D</code></td><td>set</td><td><code>m s --</code></td><td>Clear ifile and set register <code>s</code> to <code>m</code></td></tr>
 <tr><td><code>6E</code></td><td>sel</td><td><code>m s --</code></td><td>Ors <code>m</code> with register <code>s</code> of ifile</td></tr>
-<tr><td><code>6F</code></td><td>setp</td><td><code>priv addr --</code></td><td>Sets UARC permission delegation</td></tr>
+<tr><td><code>6F</code></td><td>seta</td><td><code>perm addr --</code></td><td>Sets UARC permission and address delegation</td></tr>
 <tr><td><code>70</code></td><td>mul</td><td><code>a b --</code></td><td><code>cv &lt;- low(a * b), high(a * b)</code></td></tr>
 <tr><td><code>71</code></td><td>mulu</td><td><code>a b --</code></td><td><code>cv &lt;- low(a * b), high(a * b)</code></td></tr>
 <tr><td><code>72</code></td><td>div</td><td><code>a b --</code></td><td><code>cv &lt;- a / b, a % b</code></td></tr>
