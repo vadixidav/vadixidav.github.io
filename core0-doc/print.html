@@ -10,12 +10,12 @@
         <base href="">
 
         <link rel="stylesheet" href="book.css">
-        <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
 
         <link rel="shortcut icon" href="favicon.png">
 
         <!-- Font Awesome -->
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 
         <link rel="stylesheet" href="highlight.css">
         <link rel="stylesheet" href="tomorrow-night.css">
@@ -24,7 +24,7 @@
         <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
         <!-- Fetch JQuery from CDN but have a local fallback -->
-        <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+        <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
         <script>
             if (typeof jQuery == 'undefined') {
                 document.write(unescape("%3Cscript src='jquery.js'%3E%3C/script%3E"));
@@ -229,11 +229,14 @@
 <tr><td><code>4D</code></td><td>addc</td><td><code>a b -- (a + b + c)</code></td><td><code>c</code>, <code>o</code></td></tr>
 <tr><td><code>4E</code></td><td>sub</td><td><code>a b -- (a - b)</code></td><td><code>c</code>, <code>o</code></td></tr>
 <tr><td><code>4F</code></td><td>subc</td><td><code>a b -- (a - b + c)</code></td><td><code>c</code>, <code>o</code></td></tr>
-<tr><td><code>50</code></td><td>lsl</td><td><code>a b -- (a &lt;&lt; b)</code></td><td><code>o</code></td></tr>
-<tr><td><code>51</code></td><td>lsr</td><td><code>a b -- (a &gt;&gt; b)</code></td><td><code>o</code></td></tr>
+<tr><td><code>50</code></td><td>lsl</td><td><code>a b -- (a &lt;&lt; b)</code></td></tr>
+<tr></tr>
+<tr><td><code>51</code></td><td>lsr</td><td><code>a b -- (a &gt;&gt; b)</code></td></tr>
+<tr></tr>
 <tr><td><code>52</code></td><td>csl</td><td><code>a b -- ((a &lt;&lt; b) or (a &gt;&gt; (b - WORD)))</code></td><td> </td></tr>
 <tr><td><code>53</code></td><td>csr</td><td><code>a b -- ((a &gt;&gt; b) or (a &lt;&lt; (b - WORD)))</code></td><td> </td></tr>
-<tr><td><code>54</code></td><td>asr</td><td><code>a b -- (a &gt;&gt;&gt; b)</code></td><td><code>o</code></td></tr>
+<tr><td><code>54</code></td><td>asr</td><td><code>a b -- (a &gt;&gt;&gt; b)</code></td></tr>
+<tr></tr>
 <tr><td><code>55</code></td><td>and</td><td><code>a b -- (a &amp; b)</code></td><td> </td></tr>
 <tr><td><code>56</code></td><td>or</td><td><code>a b -- (a or b)</code></td><td> </td></tr>
 <tr><td><code>57</code></td><td>reada</td><td><code>a --</code></td><td><code>cv &lt;- mem[a]</code></td></tr>
@@ -420,17 +423,12 @@
 <h2><code>asr</code></h2>
 <p><code>a b -- (a &gt;&gt;&gt; b)</code></p>
 <h4>Description</h4>
-<p><code>asr</code> shifts <code>a</code> by <code>b</code> bits and sign extends the result. If <code>-1</code> is shifted right, it will continue to stay <code>-1</code>, but <code>o</code> will not be set. The <code>o</code> bit is set if any 1 bits are lost in a positive number or 0 bits lost in a negative number.</p>
-<h4>Side Effects</h4>
-<ul>
-<li><code>o</code> is 1 if any significant bits were lost</li>
-</ul>
+<p><code>asr</code> shifts <code>a</code> by <code>b</code> bits and sign extends the result. If <code>-1</code> is shifted right, it will continue to stay <code>-1</code>.</p>
 <h4>Examples (with WORD of 32)</h4>
 <pre><code>h80000000 1 asr
 </code></pre>
 <ul>
 <li><code>( -- hC000000)</code></li>
-<li><code>o</code> is set to <code>1</code> because <code>0</code> is a significant bit and is lost</li>
 </ul>
 <hr />
 <h2><code>mul</code></h2>
@@ -508,25 +506,23 @@
 <h2><code>lsl</code></h2>
 <p><code>a b -- (a &lt;&lt; b)</code></p>
 <h4>Description</h4>
-<p><code>lsl</code> performs a logical shift left. If any <code>1</code> bits are lost in the shift, the <code>o</code> bit is set to <code>1</code>, otherwise <code>0</code>. This operation zero-fills.</p>
+<p><code>lsl</code> performs a logical shift left. This operation zero-fills.</p>
 <h4>Examples (with WORD of 32)</h4>
 <pre><code>hFFFFFFFF 1 lsl
 </code></pre>
 <ul>
 <li><code>( -- hFFFFFFFE)</code></li>
-<li><code>o</code> is set to <code>1</code></li>
 </ul>
 <hr />
 <h2><code>lsr</code></h2>
 <p><code>a b -- (a &gt;&gt; b)</code></p>
 <h4>Description</h4>
-<p><code>lsr</code> performs a logical shift right. If any <code>1</code> bits are lost in the shift, the <code>o</code> bit is set to <code>1</code>, otherwise <code>0</code>. This operation zero-fills.</p>
+<p><code>lsr</code> performs a logical shift right. This operation zero-fills.</p>
 <h4>Examples</h4>
 <pre><code>3 1 lsr
 </code></pre>
 <ul>
 <li><code>( -- 1)</code></li>
-<li><code>o</code> is set to <code>1</code></li>
 </ul>
 <hr />
 <h2><code>csl</code></h2>
@@ -1175,9 +1171,6 @@ subr:
                 $('<link rel="stylesheet" type="text/css" href="_FontAwesome/css/font-awesome.css">').prependTo('head');
             }
         </script>
-
-        <!-- Livereload script (if served using the cli tool) -->
-        
 
         <script src="highlight.js"></script>
         <script src="book.js"></script>
