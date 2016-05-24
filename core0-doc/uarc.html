@@ -10,12 +10,12 @@
         <base href="">
 
         <link rel="stylesheet" href="book.css">
-        <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
 
         <link rel="shortcut icon" href="favicon.png">
 
         <!-- Font Awesome -->
-        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 
         <link rel="stylesheet" href="highlight.css">
         <link rel="stylesheet" href="tomorrow-night.css">
@@ -24,7 +24,7 @@
         <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
         <!-- Fetch JQuery from CDN but have a local fallback -->
-        <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+        <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
         <script>
             if (typeof jQuery == 'undefined') {
                 document.write(unescape("%3Cscript src='jquery.js'%3E%3C/script%3E"));
@@ -73,7 +73,7 @@
 <p>UARC permissions work in a hierarchy. If a core has incepted a core, it also has <strong>privilege</strong> over all the cores incepted by that core. This means that any children cores can be stopped using the <code>kill</code> instruction. Such delegation allows an operating system to not only stop execution of processes, but also delegate permissions to those processes. To achieve this delegation capability, cores continuously share their <strong>permission</strong> and <strong>address</strong> with all targets over the UARC bus so that cores can tell if other cores have <strong>privilege</strong> over them. The only parts of the <strong>address</strong> that are relevant are those masked by the the <strong>permission</strong> of the core. A <strong>permission</strong> of 0 indicates that a core has absolute <strong>privilege</strong> over all cores, including all cores that are of the same privilege level. If the <strong>permission</strong> is all <code>1</code>s, then all <strong>address</strong> bits encode the <strong>privilege</strong> of the core, which means such a core can only <code>kill</code> cores the exact same <strong>address</strong>.</p>
 <p>It is permitted for any core to attempt communications with any other core, regardless of either of their <strong>permission</strong>. However, some cores may have specific schemes to accept or reject communications based on a communicating core's delegated <strong>permission</strong>. For instance, a core might have a table of <strong>permission</strong> values that allow it to filter communications based on a core's parents. In c0, such elaborate systems must be implemented in software, but programmers should be aware that other systems might be capable of this.</p>
 <p><code>kill</code> is a simple instruction, but it has a complicated result. All child cores of the core being killed must also be killed. To achieve this, the UARC bus has two lines. One line is for sending a kill signal and the other is for acknowledging completion. As soon as a core knows all children are stopped, it may assert the acknowledge line and stop on the next cycle. A core with no children may immediately assert the acknowledge line and stop as soon as possible, since it has already met the above condition. A side effect of this setup is that the kill signal will also take one cycle to propagate down through each core. It takes <code>2 * n</code> cycles to complete the <code>kill</code> instruction, depending on the depth of inception (<code>n</code>).</p>
-<p>A corner case is that a core may try to send a kill signal to a core for which it doesn't have <strong>permission</strong> to kill. In this case, the core should acknowledge immediately without doing anything to prevent deadlock. Also, any core which is already killed should continue to assert the acknowledge line to prevent deadlock in the case that the core is not even running. This also allows cores to know when another core is no longer running, though c0 is not capable of detecting this.</p>
+<p>A corner case is that a core may try to send a kill signal to a core for which it doesn't have <strong>privilege</strong> to kill. In this case, the core should acknowledge immediately without doing anything to prevent deadlock. Also, any core which is already killed should continue to assert the acknowledge line to prevent deadlock in the case that the core is not even running. This also allows cores to know when another core is no longer running, though c0 is not capable of detecting this.</p>
 
                 </div>
 
@@ -105,6 +105,9 @@
                 $('<link rel="stylesheet" type="text/css" href="_FontAwesome/css/font-awesome.css">').prependTo('head');
             }
         </script>
+
+        <!-- Livereload script (if served using the cli tool) -->
+        
 
         <script src="highlight.js"></script>
         <script src="book.js"></script>

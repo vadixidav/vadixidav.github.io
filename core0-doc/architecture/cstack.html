@@ -10,12 +10,12 @@
         <base href="../">
 
         <link rel="stylesheet" href="book.css">
-        <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
 
         <link rel="shortcut icon" href="favicon.png">
 
         <!-- Font Awesome -->
-        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 
         <link rel="stylesheet" href="highlight.css">
         <link rel="stylesheet" href="tomorrow-night.css">
@@ -24,7 +24,7 @@
         <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
         <!-- Fetch JQuery from CDN but have a local fallback -->
-        <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+        <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
         <script>
             if (typeof jQuery == 'undefined') {
                 document.write(unescape("%3Cscript src='jquery.js'%3E%3C/script%3E"));
@@ -71,9 +71,11 @@
 <table><thead><tr><td>State</td><td>Result on Pop</td></tr></thead>
 <tr><td>PC</td><td>Moves PC back to location in caller after the jump/call</td></tr>
 <tr><td>DCs</td><td>Restores all DCs to previous locations</td></tr>
+<tr><td>DC modifications</td><td>Tracks if the DCs were set in the previous call</td></tr>
 <tr><td>interrupt</td><td>Set the <code>i</code> flag to allow checks for interrupt handling</td></tr>
 </table>
-<p>The cstack is a call stack that contains state information required to return from a subroutine call. This includes things such as the PC, the DCs, and if the last call was to an interrupt. The status bits are not preserved in a call. If an interrupt is issued and accepted or either of the call instructions are executed, the cstack will be pushed. Any time a return instruction is executed, the cstack is popped. The cstack should be accessable on a single-cycle notice and thus should exist in processor memory. Because it is only pushed and popped in regular amounts, it deserves a place on-die as its own processor element, though this is not absolutely necessary, and the stack can be spilled into main memory if the need arise.</p>
+<p>The cstack is a call stack that contains state information required to return from a subroutine call. This includes things such as the PC, the DCs, and if the last call was to an interrupt. The status bits are not preserved in a call. If an interrupt is issued and accepted or either of the call instructions are executed, the cstack will be pushed. Any time a return instruction is executed, the cstack is popped. The cstack should be accessable on a single-cycle notice and thus should exist in processor memory. Because it is only pushed and popped in regular amounts, it deserves a place on-die as its own processor element, though this is not absolutely necessary, and the stack can be spilled into main memory if the need arises.</p>
+<p>If the cstack is pushed due to an interrupt, the interrupt bit is set on the cstack so that the interrupt flag can be appropriately set on a return from the interrupt and so that the processor can internally switch the mode back for the <a href="conveyor.html">conveyor</a>. The cstack also tracks if new DCs are set by this subroutine. If any particular DC is set in the subroutine, a flag is set which indicates this, and on returning from the subroutine the previous DC is restored. However, if the flag is not set, then the DC is not restored. The purpose of this is to allow a subroutine to use the DC of the parent caller and upon returning to the parent continue where the child left off. This is important for inlining functions and allowing a child to consume part of a vector pointed to by a DC. In all other cases, if the child sets its own DC, it is necessary to restore the DCs to their previous locations.</p>
 
                 </div>
 
@@ -113,6 +115,9 @@
                 $('<link rel="stylesheet" type="text/css" href="_FontAwesome/css/font-awesome.css">').prependTo('head');
             }
         </script>
+
+        <!-- Livereload script (if served using the cli tool) -->
+        
 
         <script src="highlight.js"></script>
         <script src="book.js"></script>
