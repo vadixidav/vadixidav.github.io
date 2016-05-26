@@ -155,8 +155,8 @@
 <tr><td><code>0D</code></td><td>break</td><td><code>--</code></td><td>Pops the lstack and goes to end of loop</td></tr>
 <tr><td><code>0E</code></td><td>reads</td><td><code>a -- mem[a]</code></td><td>Synchronous read</td></tr>
 <tr><td><code>0F</code></td><td>ret</td><td><code>--</code></td><td>Pops <a href="architecture/cstack.html">cstack</a></td></tr>
-<tr><td><code>10</code></td><td>ien</td><td><code>--</code></td><td>Enables selected interrupts</td></tr>
-<tr><td><code>11</code></td><td>idi</td><td><code>--</code></td><td>Disables all interrupts</td></tr>
+<tr><td><code>10</code></td><td>continue</td><td><code>--</code></td><td>Goes to the next loop iteration</td></tr>
+<tr><td><code>11</code></td><td>ien</td><td><code>--</code></td><td>Enables only selected interrupts</td></tr>
 <tr><td><code>12</code></td><td>recv</td><td><code>--</code></td><td>Interrupt sync; <code>cv &lt;- bus, v</code></td></tr>
 <tr><td><code>13</code></td><td>in</td><td><code>a -- b</code></td><td>Stream in to <code>a</code></td></tr>
 <tr><td><code>14</code></td><td>kill</td><td><code>--</code></td><td>Kill all selected cores</td></tr>

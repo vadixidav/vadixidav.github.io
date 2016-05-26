@@ -71,19 +71,11 @@
 <h2><code>ien</code></h2>
 <p><code>--</code></p>
 <h4>Description</h4>
-<p><code>ien</code> enables interrupts in the <a href="architecture/ifile.html">ifile</a> for buses which are presently selected.</p>
+<p><code>ien</code> enables interrupts in the <a href="architecture/ifile.html">ifile</a> only for buses which are presently selected.</p>
 <h4>Side Effects</h4>
 <ul>
 <li>All selected buses now have interrupts enabled.</li>
-</ul>
-<hr />
-<h2><code>idi</code></h2>
-<p><code>--</code></p>
-<h4>Description</h4>
-<p><code>idi</code> disables all interrupts currently enabled.</p>
-<h4>Side Effects</h4>
-<ul>
-<li>All buses now have interrupts disabled.</li>
+<li>All non-selected buses now have interrupts disabled.</li>
 </ul>
 <hr />
 <h2><code>recv</code></h2>

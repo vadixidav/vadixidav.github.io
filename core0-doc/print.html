@@ -201,8 +201,8 @@
 <tr><td><code>0D</code></td><td>break</td><td><code>--</code></td><td>Pops the lstack and goes to end of loop</td></tr>
 <tr><td><code>0E</code></td><td>reads</td><td><code>a -- mem[a]</code></td><td>Synchronous read</td></tr>
 <tr><td><code>0F</code></td><td>ret</td><td><code>--</code></td><td>Pops <a href="architecture/cstack.html">cstack</a></td></tr>
-<tr><td><code>10</code></td><td>ien</td><td><code>--</code></td><td>Enables selected interrupts</td></tr>
-<tr><td><code>11</code></td><td>idi</td><td><code>--</code></td><td>Disables all interrupts</td></tr>
+<tr><td><code>10</code></td><td>continue</td><td><code>--</code></td><td>Goes to the next loop iteration</td></tr>
+<tr><td><code>11</code></td><td>ien</td><td><code>--</code></td><td>Enables only selected interrupts</td></tr>
 <tr><td><code>12</code></td><td>recv</td><td><code>--</code></td><td>Interrupt sync; <code>cv &lt;- bus, v</code></td></tr>
 <tr><td><code>13</code></td><td>in</td><td><code>a -- b</code></td><td>Stream in to <code>a</code></td></tr>
 <tr><td><code>14</code></td><td>kill</td><td><code>--</code></td><td>Kill all selected cores</td></tr>
@@ -684,6 +684,15 @@ cv0
 <li><a href="architecture/lstack.html">lstack</a> is popped unconditionally</li>
 </ul>
 <hr />
+<h2><code>continue</code></h2>
+<p><code>--</code></p>
+<h4>Description</h4>
+<p><code>continue</code> immediately goes to the next loop iteration and moves the PC to the beginning of the loop. If this is the last iteration it goes to the end of the loop.</p>
+<h4>Side Effects</h4>
+<ul>
+<li>Moves PC to beginning of loop normally or after the loop if this is the last iteration</li>
+</ul>
+<hr />
 <h2><code>ret</code></h2>
 <p><code>--</code></p>
 <h4>Description</h4>
@@ -982,19 +991,11 @@ subr:
 <h2><code>ien</code></h2>
 <p><code>--</code></p>
 <h4>Description</h4>
-<p><code>ien</code> enables interrupts in the <a href="architecture/ifile.html">ifile</a> for buses which are presently selected.</p>
+<p><code>ien</code> enables interrupts in the <a href="architecture/ifile.html">ifile</a> only for buses which are presently selected.</p>
 <h4>Side Effects</h4>
 <ul>
 <li>All selected buses now have interrupts enabled.</li>
-</ul>
-<hr />
-<h2><code>idi</code></h2>
-<p><code>--</code></p>
-<h4>Description</h4>
-<p><code>idi</code> disables all interrupts currently enabled.</p>
-<h4>Side Effects</h4>
-<ul>
-<li>All buses now have interrupts disabled.</li>
+<li>All non-selected buses now have interrupts disabled.</li>
 </ul>
 <hr />
 <h2><code>recv</code></h2>
