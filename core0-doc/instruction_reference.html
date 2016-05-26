@@ -152,7 +152,7 @@
 <tr><td><code>0A</code></td><td>carry</td><td><code>v -- (v + c)</code></td><td><code>c</code>, <code>o</code></td></tr>
 <tr><td><code>0B</code></td><td>borrow</td><td><code>v -- (v + c - 1)</code></td><td><code>c</code>, <code>o</code></td></tr>
 <tr><td><code>0C</code></td><td>inv</td><td><code>v -- ~v</code></td><td> </td></tr>
-<tr><td><code>0D</code></td><td>flush</td><td><code>--</code></td><td>Synchronizes cache flush</td></tr>
+<tr><td><code>0D</code></td><td>break</td><td><code>--</code></td><td>Pops the lstack and goes to end of loop</td></tr>
 <tr><td><code>0E</code></td><td>reads</td><td><code>a -- mem[a]</code></td><td>Synchronous read</td></tr>
 <tr><td><code>0F</code></td><td>ret</td><td><code>--</code></td><td>Pops <a href="architecture/cstack.html">cstack</a></td></tr>
 <tr><td><code>10</code></td><td>ien</td><td><code>--</code></td><td>Enables selected interrupts</td></tr>

@@ -73,23 +73,6 @@
 <h4>Description</h4>
 <p><code>rread#</code> performs a random read starting from <code>dc#</code> and indexing by <code>a</code>. The result is returned synchronously to the stack because it is assumed that this value is held in the cache, since memory at a dc is generally cached.</p>
 <hr />
-<h2><code>flush</code></h2>
-<p><code>--</code></p>
-<h4>Description</h4>
-<p><code>flush</code> forces all dirty cache to be written to memory before this instruction completes execution.</p>
-<h4>Side Effects</h4>
-<ul>
-<li>Dirty cache is flushed to main memory</li>
-</ul>
-<h4>Examples</h4>
-<pre><code>write flush send
-</code></pre>
-<ul>
-<li><code>(send_val write_val address -- )</code></li>
-<li>On a ccNUMA architecture, the other core can now access the value <code>write_val</code> at <code>address</code></li>
-<li>The other core is interrupted only after the value has been flushed to memory</li>
-</ul>
-<hr />
 <h2><code>reads</code></h2>
 <p><code>a -- mem[a]</code></p>
 <h4>Description</h4>
