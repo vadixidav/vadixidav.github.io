@@ -204,7 +204,6 @@
 <tr><td><code>10</code></td><td>continue</td><td><code>--</code></td><td>Goes to the next loop iteration</td></tr>
 <tr><td><code>11</code></td><td>ien</td><td><code>--</code></td><td>Enables only selected interrupts</td></tr>
 <tr><td><code>12</code></td><td>recv</td><td><code>--</code></td><td>Interrupt sync; <code>cv &lt;- bus, v</code></td></tr>
-<tr><td><code>13</code></td><td>in</td><td><code>a -- b</code></td><td>Stream in to <code>a</code></td></tr>
 <tr><td><code>14</code></td><td>kill</td><td><code>--</code></td><td>Kill all selected cores</td></tr>
 <tr><td><code>15</code></td><td>wait</td><td><code>--</code></td><td>Waits for an interrupt before continuing</td></tr>
 <tr><td><code>16</code></td><td>getbp</td><td><code>b -- perm</code></td><td>Gets the <a href="uarc.md">permission</a> on bus <code>b</code></td></tr>
@@ -242,11 +241,11 @@
 <tr></tr>
 <tr><td><code>55</code></td><td>and</td><td><code>a b -- (a &amp; b)</code></td><td> </td></tr>
 <tr><td><code>56</code></td><td>or</td><td><code>a b -- (a or b)</code></td><td> </td></tr>
-<tr><td><code>57</code></td><td>reada</td><td><code>a --</code></td><td><code>cv &lt;- mem[a]</code></td></tr>
-<tr><td><code>58</code></td><td>call</td><td><code>a --</code></td><td><code>pc = a</code>; push <a href="architecture/cstack.html">cstack</a></td></tr>
-<tr><td><code>59</code></td><td>jmp</td><td><code>a --</code></td><td><code>pc = a</code></td></tr>
-<tr><td><code>5A</code></td><td>iset</td><td><code>a --</code></td><td>Set selected interrupt addresses</td></tr>
-<tr><td><code>5B</code></td><td>seb</td><td><code>b --</code></td><td>Set a single UARC bus</td></tr>
+<tr><td><code>57</code></td><td>xor</td><td><code>a b -- (a ^ b)</code></td><td> </td></tr>
+<tr><td><code>58</code></td><td>reada</td><td><code>a --</code></td><td><code>cv &lt;- mem[a]</code></td></tr>
+<tr><td><code>59</code></td><td>call</td><td><code>a --</code></td><td><code>pc = a</code>; push <a href="architecture/cstack.html">cstack</a></td></tr>
+<tr><td><code>5A</code></td><td>jmp</td><td><code>a --</code></td><td><code>pc = a</code></td></tr>
+<tr><td><code>5B</code></td><td>iset</td><td><code>a --</code></td><td>Set selected interrupt addresses</td></tr>
 <tr><td><code>5C</code></td><td>slb</td><td><code>b --</code></td><td>Select an additional UARC bus</td></tr>
 <tr><td><code>5D</code></td><td>usb</td><td><code>b --</code></td><td>Unselect a UARC bus</td></tr>
 <tr><td><code>5E</code></td><td>send</td><td><code>v --</code></td><td>Send value to selected buses</td></tr>
@@ -259,17 +258,18 @@
 <tr><td><code>68</code></td><td>leq</td><td><code>a b --</code></td><td>if <code>a &lt;= b</code> then <code>dc0 -&gt; pc</code></td></tr>
 <tr><td><code>69</code></td><td>lesu</td><td><code>a b --</code></td><td>if <code>a &lt; b</code> then <code>dc0 -&gt; pc</code></td></tr>
 <tr><td><code>6A</code></td><td>lequ</td><td><code>a b --</code></td><td>if <code>a &lt;= b</code> then <code>dc0 -&gt; pc</code></td></tr>
-<tr><td><code>6B</code></td><td>out</td><td><code>n a --</code></td><td>Stream n words to buses from a</td></tr>
-<tr><td><code>6C</code></td><td>incept</td><td><code>n a --</code></td><td>Incept target cores; same as out</td></tr>
-<tr><td><code>6D</code></td><td>set</td><td><code>m s --</code></td><td>Clear ifile and set register <code>s</code> to <code>m</code></td></tr>
-<tr><td><code>6E</code></td><td>sel</td><td><code>m s --</code></td><td>Ors <code>m</code> with register <code>s</code> of ifile</td></tr>
-<tr><td><code>6F</code></td><td>seta</td><td><code>perm addr --</code></td><td>Sets UARC permission and address delegation</td></tr>
-<tr><td><code>70</code></td><td>mul</td><td><code>a b --</code></td><td><code>cv &lt;- low(a * b), high(a * b)</code></td></tr>
-<tr><td><code>71</code></td><td>mulu</td><td><code>a b --</code></td><td><code>cv &lt;- low(a * b), high(a * b)</code></td></tr>
-<tr><td><code>72</code></td><td>div</td><td><code>a b --</code></td><td><code>cv &lt;- a / b, a % b</code></td></tr>
-<tr><td><code>73</code></td><td>divu</td><td><code>a b --</code></td><td><code>cv &lt;- a / b, a % b</code></td></tr>
-<tr><td><code>74</code></td><td>loop</td><td><code>n e --</code></td><td><code>ls &lt;- n, e, 0</code></td></tr>
-<tr><td><code>75</code></td><td>sef</td><td><code>a f --</code></td><td>Sets fault <code>f</code> handler to <code>a</code></td></tr>
+<tr><td><code>6B</code></td><td>in</td><td><code>n a --</code></td><td>Stream in to <code>a</code>; <code>cv &lt;- bus</code></td></tr>
+<tr><td><code>6C</code></td><td>out</td><td><code>n a --</code></td><td>Stream n words to buses from a</td></tr>
+<tr><td><code>6D</code></td><td>incept</td><td><code>n a --</code></td><td>Incept target cores; same as out</td></tr>
+<tr><td><code>6E</code></td><td>set</td><td><code>m s --</code></td><td>Clear ifile and set register <code>s</code> to <code>m</code></td></tr>
+<tr><td><code>6F</code></td><td>sel</td><td><code>m s --</code></td><td>Ors <code>m</code> with register <code>s</code> of ifile</td></tr>
+<tr><td><code>70</code></td><td>seta</td><td><code>perm addr --</code></td><td>Sets UARC permission and address delegation</td></tr>
+<tr><td><code>71</code></td><td>loop</td><td><code>n e --</code></td><td><code>ls &lt;- n, e, 0</code></td></tr>
+<tr><td><code>72</code></td><td>sef</td><td><code>a f --</code></td><td>Sets fault <code>f</code> handler to <code>a</code></td></tr>
+<tr><td><code>73</code></td><td>mul</td><td><code>a b --</code></td><td><code>cv &lt;- low(a * b), high(a * b)</code></td></tr>
+<tr><td><code>74</code></td><td>mulu</td><td><code>a b --</code></td><td><code>cv &lt;- low(a * b), high(a * b)</code></td></tr>
+<tr><td><code>75</code></td><td>div</td><td><code>a b --</code></td><td><code>cv &lt;- a / b, a % b</code></td></tr>
+<tr><td><code>76</code></td><td>divu</td><td><code>a b --</code></td><td><code>cv &lt;- a / b, a % b</code></td></tr>
 <tr><td><code>80</code> - <code>BF</code></td><td>rot#</td><td><code>v (# + 1).. -- (# + 1).. v</code></td><td> </td></tr>
 <tr><td><code>C0</code> - <code>FF</code></td><td>copy#</td><td><code>v (# + 1).. -- v (# + 1).. v</code></td><td> </td></tr>
 </table>
@@ -570,6 +570,17 @@
 </code></pre>
 <ul>
 <li><code>( -- 7)</code></li>
+</ul>
+<hr />
+<h2><code>xor</code></h2>
+<p><code>a b -- (a ^ b)</code></p>
+<h4>Description</h4>
+<p><code>xor</code> finds the binary XOR of <code>a</code> and <code>b</code>.</p>
+<h4>Examples</h4>
+<pre><code>5 3 xor
+</code></pre>
+<ul>
+<li><code>( -- 6)</code></li>
 </ul>
 <h1>Stack Manipulation Instructions</h1>
 <h2><code>p0</code></h2>
@@ -1008,15 +1019,6 @@ subr:
 <li>Synchronizes execution with the next interrupt from a selected bus</li>
 </ul>
 <hr />
-<h2><code>in</code></h2>
-<p><code>a -- b</code></p>
-<h4>Description</h4>
-<p><code>in</code> receives a stream from any selected UARC bus. <code>a</code> is the address at which those words are to be streamed to. <code>b</code> is the bus ID of the particular bus that streamed these values.</p>
-<h4>Side Effects</h4>
-<ul>
-<li>Execution is synchronized with the completion of the stream operation</li>
-</ul>
-<hr />
 <h2><code>kill</code></h2>
 <p><code>--</code></p>
 <h4>Description</h4>
@@ -1069,15 +1071,6 @@ subr:
 <li>Any further interrupts on the selected UARC buses now call the routine at <code>a</code>.</li>
 </ul>
 <hr />
-<h2><code>seb</code></h2>
-<p><code>b --</code></p>
-<h4>Description</h4>
-<p><code>seb</code> sets the only UARC bus to be selected as <code>b</code>.</p>
-<h4>Side Effects</h4>
-<ul>
-<li>All UARC calls now affect only <code>b</code>.</li>
-</ul>
-<hr />
 <h2><code>slb</code></h2>
 <p><code>b --</code></p>
 <h4>Description</h4>
@@ -1103,6 +1096,16 @@ subr:
 <h4>Side Effects</h4>
 <ul>
 <li>Execution is synchronized with the acceptance of all interrupts sent.</li>
+</ul>
+<hr />
+<h2><code>in</code></h2>
+<p><code>n a --</code></p>
+<h4>Description</h4>
+<p><code>in</code> receives a stream from any selected UARC bus. <code>a</code> is the address at which up to <code>n</code> words are to be streamed to. The bus ID of the core that streamed to this core is placed on the conveyor.</p>
+<h4>Side Effects</h4>
+<ul>
+<li>Execution is synchronized with the completion of the stream operation.</li>
+<li>The bus ID of the sending core is added to the conveyor.</li>
 </ul>
 <hr />
 <h2><code>out</code></h2>

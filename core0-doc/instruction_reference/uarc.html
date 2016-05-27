@@ -88,15 +88,6 @@
 <li>Synchronizes execution with the next interrupt from a selected bus</li>
 </ul>
 <hr />
-<h2><code>in</code></h2>
-<p><code>a -- b</code></p>
-<h4>Description</h4>
-<p><code>in</code> receives a stream from any selected UARC bus. <code>a</code> is the address at which those words are to be streamed to. <code>b</code> is the bus ID of the particular bus that streamed these values.</p>
-<h4>Side Effects</h4>
-<ul>
-<li>Execution is synchronized with the completion of the stream operation</li>
-</ul>
-<hr />
 <h2><code>kill</code></h2>
 <p><code>--</code></p>
 <h4>Description</h4>
@@ -149,15 +140,6 @@
 <li>Any further interrupts on the selected UARC buses now call the routine at <code>a</code>.</li>
 </ul>
 <hr />
-<h2><code>seb</code></h2>
-<p><code>b --</code></p>
-<h4>Description</h4>
-<p><code>seb</code> sets the only UARC bus to be selected as <code>b</code>.</p>
-<h4>Side Effects</h4>
-<ul>
-<li>All UARC calls now affect only <code>b</code>.</li>
-</ul>
-<hr />
 <h2><code>slb</code></h2>
 <p><code>b --</code></p>
 <h4>Description</h4>
@@ -183,6 +165,16 @@
 <h4>Side Effects</h4>
 <ul>
 <li>Execution is synchronized with the acceptance of all interrupts sent.</li>
+</ul>
+<hr />
+<h2><code>in</code></h2>
+<p><code>n a --</code></p>
+<h4>Description</h4>
+<p><code>in</code> receives a stream from any selected UARC bus. <code>a</code> is the address at which up to <code>n</code> words are to be streamed to. The bus ID of the core that streamed to this core is placed on the conveyor.</p>
+<h4>Side Effects</h4>
+<ul>
+<li>Execution is synchronized with the completion of the stream operation.</li>
+<li>The bus ID of the sending core is added to the conveyor.</li>
 </ul>
 <hr />
 <h2><code>out</code></h2>
