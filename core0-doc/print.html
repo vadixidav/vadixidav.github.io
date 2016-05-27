@@ -192,7 +192,7 @@
 <table><thead><tr><td>Op</td><td>Instruction</td><td>dstack</td><td>Side Effects</td></tr></thead>
 <tr><td><code>00</code> - <code>03</code></td><td>rread#</td><td><code>a -- mem[dc# + a]</code></td></tr>
 <tr></tr>
-<tr><td><code>04</code> - <code>07</code></td><td>add#</td><td><code>a -- (a + dc#)</code></td><td>dc# advances; <code>c</code>, <code>o</code></td></tr>
+<tr><td><code>04</code> - <code>07</code></td><td>add#</td><td><code>a -- (a + mem[dc#])</code></td><td>dc# advances; <code>c</code>, <code>o</code></td></tr>
 <tr><td><code>08</code></td><td>inc</td><td><code>a -- (a + 1)</code></td><td><code>c</code>, <code>o</code></td></tr>
 <tr><td><code>09</code></td><td>dec</td><td><code>a -- (a - 1)</code></td><td><code>c</code>, <code>o</code></td></tr>
 <tr><td><code>0A</code></td><td>carry</td><td><code>v -- (v + c)</code></td><td><code>c</code>, <code>o</code></td></tr>
@@ -275,13 +275,13 @@
 </table>
 <h1>Arithmetic Instructions</h1>
 <h2><code>add#</code></h2>
-<p><code>a -- (a + dc#)</code></p>
+<p><code>a -- (a + mem[dc#])</code></p>
 <h4>Description</h4>
 <p><code>add#</code> adds the top of the <a href="architecture/dstack.html">dstack</a> with the immediate value from <code>dc#</code>. The <code>o</code> and <code>c</code> bits are set, but not consumed. <code>dc#</code> is incremented.</p>
 <h4>Side Effects</h4>
 <ul>
-<li><code>c = (a + dc#)[WORD]</code></li>
-<li><code>o = (a[WORD - 1] ^ dc#[WORD - 1]) ? 0 : a[WORD - 1] ^ (a + dc#)[WORD - 1]</code></li>
+<li><code>c = (a + mem[dc#])[WORD]</code></li>
+<li><code>o = (a[WORD - 1] ^ mem[dc#][WORD - 1]) ? 0 : a[WORD - 1] ^ (a + mem[dc#])[WORD - 1]</code></li>
 </ul>
 <hr />
 <h2><code>inc</code></h2>

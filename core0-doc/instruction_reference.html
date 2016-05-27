@@ -146,7 +146,7 @@
 <table><thead><tr><td>Op</td><td>Instruction</td><td>dstack</td><td>Side Effects</td></tr></thead>
 <tr><td><code>00</code> - <code>03</code></td><td>rread#</td><td><code>a -- mem[dc# + a]</code></td></tr>
 <tr></tr>
-<tr><td><code>04</code> - <code>07</code></td><td>add#</td><td><code>a -- (a + dc#)</code></td><td>dc# advances; <code>c</code>, <code>o</code></td></tr>
+<tr><td><code>04</code> - <code>07</code></td><td>add#</td><td><code>a -- (a + mem[dc#])</code></td><td>dc# advances; <code>c</code>, <code>o</code></td></tr>
 <tr><td><code>08</code></td><td>inc</td><td><code>a -- (a + 1)</code></td><td><code>c</code>, <code>o</code></td></tr>
 <tr><td><code>09</code></td><td>dec</td><td><code>a -- (a - 1)</code></td><td><code>c</code>, <code>o</code></td></tr>
 <tr><td><code>0A</code></td><td>carry</td><td><code>v -- (v + c)</code></td><td><code>c</code>, <code>o</code></td></tr>
