@@ -158,6 +158,7 @@
 <tr><td><code>10</code></td><td>continue</td><td><code>--</code></td><td>Goes to the next loop iteration</td></tr>
 <tr><td><code>11</code></td><td>ien</td><td><code>--</code></td><td>Enables only selected interrupts</td></tr>
 <tr><td><code>12</code></td><td>recv</td><td><code>--</code></td><td>Interrupt sync; <code>cv &lt;- bus, v</code></td></tr>
+<tr><td><code>13</code></td><td>ldi0</td><td><code>--</code></td><td>dc0 = mem[dc0]; preserve dc0</td></tr>
 <tr><td><code>14</code></td><td>kill</td><td><code>--</code></td><td>Kill all selected cores</td></tr>
 <tr><td><code>15</code></td><td>wait</td><td><code>--</code></td><td>Waits for an interrupt before continuing</td></tr>
 <tr><td><code>16</code></td><td>getbp</td><td><code>b -- perm</code></td><td>Gets the <a href="uarc.md">permission</a> on bus <code>b</code></td></tr>
@@ -199,7 +200,7 @@
 <tr><td><code>58</code></td><td>reada</td><td><code>a --</code></td><td><code>cv &lt;- mem[a]</code></td></tr>
 <tr><td><code>59</code></td><td>call</td><td><code>a --</code></td><td><code>pc = a</code>; push <a href="architecture/cstack.html">cstack</a></td></tr>
 <tr><td><code>5A</code></td><td>jmp</td><td><code>a --</code></td><td><code>pc = a</code></td></tr>
-<tr><td><code>5B</code></td><td>iset</td><td><code>a --</code></td><td>Set selected interrupt addresses</td></tr>
+<tr><td><code>5B</code></td><td>iset</td><td><code>d --</code></td><td>Set selected interrupt addresses and dc0s</td></tr>
 <tr><td><code>5C</code></td><td>slb</td><td><code>b --</code></td><td>Select an additional UARC bus</td></tr>
 <tr><td><code>5D</code></td><td>usb</td><td><code>b --</code></td><td>Unselect a UARC bus</td></tr>
 <tr><td><code>5E</code></td><td>send</td><td><code>v --</code></td><td>Send value to selected buses</td></tr>

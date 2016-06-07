@@ -81,11 +81,12 @@
 <h2><code>recv</code></h2>
 <p><code>--</code></p>
 <h4>Description</h4>
-<p><code>recv</code> accepts any interrupt synchronously without an interrupt handler from any selected bus. The bus ID (<code>bus</code>), address (<code>addr</code>), and the interrupt value (<code>v</code>) are added to the <a href="architecture/conveyor.html">conveyor</a> in that order.</p>
+<p><code>recv</code> accepts any interrupt synchronously without an interrupt handler from any selected bus. The bus ID (<code>bus</code>) and the interrupt value (<code>v</code>) are added to the <a href="architecture/conveyor.html">conveyor</a> in that order.</p>
 <h4>Side Effects</h4>
 <ul>
-<li><code>cv &lt;- bus, addr, v</code></li>
+<li><code>cv &lt;- bus, v</code></li>
 <li>Synchronizes execution with the next interrupt from a selected bus</li>
+<li>Until this receives an interrupt, unselected buses cannot interrupt at all</li>
 </ul>
 <hr />
 <h2><code>kill</code></h2>
@@ -100,11 +101,10 @@
 <h2><code>wait</code></h2>
 <p><code>--</code></p>
 <h4>Description</h4>
-<p><code>wait</code> allows the code to synchronously handle interrupts by waiting the core until the next interrupt. This will allow interrupts through from selected buses rather than buses with interrupts enabled. If an interrupt had already been received, the <code>iflag</code> will already be <code>1</code>. After this instruction executes, the <code>iflag</code> is unchanged to indicate that no interrupts have executed that the kernel has not witnessed. Normal interrupts cannot interrupt the core while it is waiting, but they can interrupt the core immediately after <code>wait</code> catches an interrupt.</p>
+<p><code>wait</code> allows the code to synchronously handle interrupts by waiting the core until the next interrupt. If an interrupt had already been received, the <code>i</code> will already be <code>1</code>, thus this will immediately continue.</p>
 <h4>Side Effects</h4>
 <ul>
-<li>One interrupt from a selected bus will have been handled before this instruction completes.</li>
-<li>While it is waiting it blocks normal interrupts</li>
+<li>Synchronizes with the first received interrupt or continues if <code>i</code> is already set.</li>
 </ul>
 <hr />
 <h2><code>getbp</code></h2>
@@ -132,12 +132,12 @@
 </ul>
 <hr />
 <h2><code>iset</code></h2>
-<p><code>a --</code></p>
+<p><code>d --</code></p>
 <h4>Description</h4>
-<p><code>iset</code> sets the interrupt address of all selected UARC buses to <code>a</code>.</p>
+<p><code>iset</code> sets the interrupt address of all selected UARC buses to the value at <code>mem[dc0]</code> while incrementing the current <code>dc0</code> and also sets the corresponding <code>dc0</code> which is to be immediately set when the interrupt is handled to <code>d</code>. This DC will not be set on a <code>recv</code> instruction.</p>
 <h4>Side Effects</h4>
 <ul>
-<li>Any further interrupts on the selected UARC buses now call the routine at <code>a</code>.</li>
+<li>Any further interrupts on the selected UARC buses now call the routine at <code>mem[dc0]</code> with a <code>dc0 = d</code>.</li>
 </ul>
 <hr />
 <h2><code>slb</code></h2>
