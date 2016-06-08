@@ -205,7 +205,7 @@
 <tr><td><code>10</code></td><td>continue</td><td><code>--</code></td><td>Goes to the next loop iteration</td></tr>
 <tr><td><code>11</code></td><td>ien</td><td><code>--</code></td><td>Enables only selected interrupts</td></tr>
 <tr><td><code>12</code></td><td>recv</td><td><code>--</code></td><td>Interrupt sync; <code>cv &lt;- bus, v</code></td></tr>
-<tr><td><code>13</code></td><td>ldi0</td><td><code>--</code></td><td>dc0 = mem[dc0]; preserve dc0</td></tr>
+<tr><td><code>13</code></td><td>ld0i</td><td><code>--</code></td><td><code>dc0 = mem[dc0]</code>; preserve dc0; <code>dc0</code> forwards</td></tr>
 <tr><td><code>14</code></td><td>kill</td><td><code>--</code></td><td>Kill all selected cores</td></tr>
 <tr><td><code>15</code></td><td>wait</td><td><code>--</code></td><td>Waits for an interrupt before continuing</td></tr>
 <tr><td><code>16</code></td><td>getbp</td><td><code>b -- perm</code></td><td>Gets the <a href="uarc.md">permission</a> on bus <code>b</code></td></tr>
@@ -617,10 +617,10 @@
 <li><code>( -- 1 2 3 1)</code></li>
 </ul>
 <h1>Memory Instructions</h1>
-<h2><code>ldi0</code></h2>
+<h2><code>ld0i</code></h2>
 <p><code>--</code></p>
 <h4>Description</h4>
-<p><code>ldi0</code> loads dc0 from the location pointed to by the current dc0. The old dc0 is incremented before being changed and the restored dc0 when returning from this call will be that value. This means that this instruction can be the first instruction of a function which needs a unique dc0.</p>
+<p><code>ld0i</code> loads dc0 from the location pointed to by the current dc0. The old dc0 is incremented before being changed and the restored dc0 when returning from this call will be that value. This means that this instruction can be the first instruction of a function which needs a unique dc0.</p>
 <hr />
 <h2><code>rread#</code></h2>
 <p><code>a -- mem[dc# + a]</code></p>

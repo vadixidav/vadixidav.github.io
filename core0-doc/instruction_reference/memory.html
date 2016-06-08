@@ -68,10 +68,10 @@
 
                 <div id="content" class="content">
                     <h1>Memory Instructions</h1>
-<h2><code>ldi0</code></h2>
+<h2><code>ld0i</code></h2>
 <p><code>--</code></p>
 <h4>Description</h4>
-<p><code>ldi0</code> loads dc0 from the location pointed to by the current dc0. The old dc0 is incremented before being changed and the restored dc0 when returning from this call will be that value. This means that this instruction can be the first instruction of a function which needs a unique dc0.</p>
+<p><code>ld0i</code> loads dc0 from the location pointed to by the current dc0. The old dc0 is incremented before being changed and the restored dc0 when returning from this call will be that value. This means that this instruction can be the first instruction of a function which needs a unique dc0.</p>
 <hr />
 <h2><code>rread#</code></h2>
 <p><code>a -- mem[dc# + a]</code></p>

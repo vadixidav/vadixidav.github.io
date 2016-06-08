@@ -158,7 +158,7 @@
 <tr><td><code>10</code></td><td>continue</td><td><code>--</code></td><td>Goes to the next loop iteration</td></tr>
 <tr><td><code>11</code></td><td>ien</td><td><code>--</code></td><td>Enables only selected interrupts</td></tr>
 <tr><td><code>12</code></td><td>recv</td><td><code>--</code></td><td>Interrupt sync; <code>cv &lt;- bus, v</code></td></tr>
-<tr><td><code>13</code></td><td>ldi0</td><td><code>--</code></td><td>dc0 = mem[dc0]; preserve dc0</td></tr>
+<tr><td><code>13</code></td><td>ld0i</td><td><code>--</code></td><td><code>dc0 = mem[dc0]</code>; preserve dc0; <code>dc0</code> forwards</td></tr>
 <tr><td><code>14</code></td><td>kill</td><td><code>--</code></td><td>Kill all selected cores</td></tr>
 <tr><td><code>15</code></td><td>wait</td><td><code>--</code></td><td>Waits for an interrupt before continuing</td></tr>
 <tr><td><code>16</code></td><td>getbp</td><td><code>b -- perm</code></td><td>Gets the <a href="uarc.md">permission</a> on bus <code>b</code></td></tr>
