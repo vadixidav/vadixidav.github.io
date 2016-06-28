@@ -143,6 +143,15 @@ cv0
 <ul>
 <li><code>mem[a] = v</code></li>
 </ul>
+<hr />
+<h2><code>writep</code></h2>
+<p><code>v a --</code></p>
+<h4>Description</h4>
+<p><code>writep</code> performs a random write to program memory in little-endian byte-order. This means that <code>progmem[a] = v</code>. This may be cached. Program memory is ordered into octets, but this instruction can write several octets in one word, therefore the word byte-order is little-endian.</p>
+<h4>Side Effects</h4>
+<ul>
+<li><code>progmem[a] = v</code></li>
+</ul>
 
                 </div>
 

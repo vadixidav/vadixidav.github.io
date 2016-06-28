@@ -254,24 +254,25 @@
 <tr><td><code>5F</code></td><td>loopi</td><td><code>n --</code></td><td><code>ls &lt;- n, dc0, 0</code></td></tr>
 <tr><td><code>60</code> - <code>63</code></td><td>rwrite#</td><td><code>v a --</code></td><td><code>mem[dc# + a] = v</code></td></tr>
 <tr><td><code>64</code></td><td>write</td><td><code>v a --</code></td><td><code>mem[a] = v</code></td></tr>
-<tr><td><code>65</code></td><td>jeq</td><td><code>a b --</code></td><td>if <code>a == b</code> then <code>dc0 -&gt; pc</code></td></tr>
-<tr><td><code>66</code></td><td>jne</td><td><code>a b --</code></td><td>if <code>a != b</code> then <code>dc0 -&gt; pc</code></td></tr>
-<tr><td><code>67</code></td><td>les</td><td><code>a b --</code></td><td>if <code>a &lt; b</code> then <code>dc0 -&gt; pc</code></td></tr>
-<tr><td><code>68</code></td><td>leq</td><td><code>a b --</code></td><td>if <code>a &lt;= b</code> then <code>dc0 -&gt; pc</code></td></tr>
-<tr><td><code>69</code></td><td>lesu</td><td><code>a b --</code></td><td>if <code>a &lt; b</code> then <code>dc0 -&gt; pc</code></td></tr>
-<tr><td><code>6A</code></td><td>lequ</td><td><code>a b --</code></td><td>if <code>a &lt;= b</code> then <code>dc0 -&gt; pc</code></td></tr>
-<tr><td><code>6B</code></td><td>in</td><td><code>n a --</code></td><td>Stream in to <code>a</code>; <code>cv &lt;- bus</code></td></tr>
-<tr><td><code>6C</code></td><td>out</td><td><code>n a --</code></td><td>Stream n words to buses from a</td></tr>
-<tr><td><code>6D</code></td><td>incept</td><td><code>n a --</code></td><td>Incept target cores; same as out</td></tr>
-<tr><td><code>6E</code></td><td>set</td><td><code>m s --</code></td><td>Clear ifile and set register <code>s</code> to <code>m</code></td></tr>
-<tr><td><code>6F</code></td><td>sel</td><td><code>m s --</code></td><td>Ors <code>m</code> with register <code>s</code> of ifile</td></tr>
-<tr><td><code>70</code></td><td>seta</td><td><code>perm addr --</code></td><td>Sets UARC permission and address delegation</td></tr>
-<tr><td><code>71</code></td><td>loop</td><td><code>n e --</code></td><td><code>ls &lt;- n, e, 0</code></td></tr>
-<tr><td><code>72</code></td><td>sef</td><td><code>a f --</code></td><td>Sets fault <code>f</code> handler to <code>a</code></td></tr>
-<tr><td><code>73</code></td><td>mul</td><td><code>a b --</code></td><td><code>cv &lt;- low(a * b), high(a * b)</code></td></tr>
-<tr><td><code>74</code></td><td>mulu</td><td><code>a b --</code></td><td><code>cv &lt;- low(a * b), high(a * b)</code></td></tr>
-<tr><td><code>75</code></td><td>div</td><td><code>a b --</code></td><td><code>cv &lt;- a / b, a % b</code></td></tr>
-<tr><td><code>76</code></td><td>divu</td><td><code>a b --</code></td><td><code>cv &lt;- a / b, a % b</code></td></tr>
+<tr><td><code>65</code></td><td>writep</td><td><code>v a --</code></td><td><code>progmem[a] = v</code></td></tr>
+<tr><td><code>66</code></td><td>jeq</td><td><code>a b --</code></td><td>if <code>a == b</code> then <code>dc0 -&gt; pc</code></td></tr>
+<tr><td><code>67</code></td><td>jne</td><td><code>a b --</code></td><td>if <code>a != b</code> then <code>dc0 -&gt; pc</code></td></tr>
+<tr><td><code>68</code></td><td>les</td><td><code>a b --</code></td><td>if <code>a &lt; b</code> then <code>dc0 -&gt; pc</code></td></tr>
+<tr><td><code>69</code></td><td>leq</td><td><code>a b --</code></td><td>if <code>a &lt;= b</code> then <code>dc0 -&gt; pc</code></td></tr>
+<tr><td><code>6A</code></td><td>lesu</td><td><code>a b --</code></td><td>if <code>a &lt; b</code> then <code>dc0 -&gt; pc</code></td></tr>
+<tr><td><code>6B</code></td><td>lequ</td><td><code>a b --</code></td><td>if <code>a &lt;= b</code> then <code>dc0 -&gt; pc</code></td></tr>
+<tr><td><code>6C</code></td><td>in</td><td><code>n a --</code></td><td>Stream in to <code>a</code>; <code>cv &lt;- bus</code></td></tr>
+<tr><td><code>6D</code></td><td>out</td><td><code>n a --</code></td><td>Stream n words to buses from a</td></tr>
+<tr><td><code>6E</code></td><td>incept</td><td><code>n a --</code></td><td>Incept target cores; same as out</td></tr>
+<tr><td><code>6F</code></td><td>set</td><td><code>m s --</code></td><td>Clear ifile and set register <code>s</code> to <code>m</code></td></tr>
+<tr><td><code>70</code></td><td>sel</td><td><code>m s --</code></td><td>Ors <code>m</code> with register <code>s</code> of ifile</td></tr>
+<tr><td><code>71</code></td><td>seta</td><td><code>perm addr --</code></td><td>Sets UARC permission and address delegation</td></tr>
+<tr><td><code>72</code></td><td>loop</td><td><code>n e --</code></td><td><code>ls &lt;- n, e, 0</code></td></tr>
+<tr><td><code>73</code></td><td>sef</td><td><code>a f --</code></td><td>Sets fault <code>f</code> handler to <code>a</code></td></tr>
+<tr><td><code>74</code></td><td>mul</td><td><code>a b --</code></td><td><code>cv &lt;- low(a * b), high(a * b)</code></td></tr>
+<tr><td><code>75</code></td><td>mulu</td><td><code>a b --</code></td><td><code>cv &lt;- low(a * b), high(a * b)</code></td></tr>
+<tr><td><code>76</code></td><td>div</td><td><code>a b --</code></td><td><code>cv &lt;- a / b, a % b</code></td></tr>
+<tr><td><code>77</code></td><td>divu</td><td><code>a b --</code></td><td><code>cv &lt;- a / b, a % b</code></td></tr>
 <tr><td><code>80</code> - <code>BF</code></td><td>rot#</td><td><code>v (# + 1).. -- (# + 1).. v</code></td><td> </td></tr>
 <tr><td><code>C0</code> - <code>FF</code></td><td>copy#</td><td><code>v (# + 1).. -- v (# + 1).. v</code></td><td> </td></tr>
 </table>
@@ -691,6 +692,15 @@ cv0
 <h4>Side Effects</h4>
 <ul>
 <li><code>mem[a] = v</code></li>
+</ul>
+<hr />
+<h2><code>writep</code></h2>
+<p><code>v a --</code></p>
+<h4>Description</h4>
+<p><code>writep</code> performs a random write to program memory in little-endian byte-order. This means that <code>progmem[a] = v</code>. This may be cached. Program memory is ordered into octets, but this instruction can write several octets in one word, therefore the word byte-order is little-endian.</p>
+<h4>Side Effects</h4>
+<ul>
+<li><code>progmem[a] = v</code></li>
 </ul>
 <h1>Control Flow</h1>
 <h2><code>break</code></h2>
