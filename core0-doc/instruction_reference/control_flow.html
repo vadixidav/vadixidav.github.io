@@ -378,10 +378,16 @@ subr:
 <h4>Fault types</h4>
 <table><thead><tr><td>#</td><td>Name</td><td>Explanation</td></tr></thead>
 <tr><td><code>00</code></td><td>Data Stack Overflow</td><td>Triggers when an operation would otherwise have overflowed the <a href="architecture/dstack.html">dstack</a></td></tr>
-<tr><td><code>01</code></td><td>Signed Divide by Zero</td><td>Triggers when an operation reads a divide by zero from the <a href="architecture/conveyor.html">conveyor</a></td></tr>
-<tr><td><code>02</code></td><td>Unsigned Divide by Zero</td><td>Triggers when an operation reads a divide by zero from the <a href="architecture/conveyor.html">conveyor</a></td></tr>
-<tr><td><code>03</code></td><td>Segfault</td><td>Triggers when an operation attempts to read from an invalid memory address and places it on the stack</td></tr>
+<tr><td><code>01</code></td><td>Data Stack Underflow</td><td>Triggers when an operation would otherwise have underflowed the <a href="architecture/dstack.html">dstack</a></td></tr>
+<tr><td><code>02</code></td><td>Signed Divide by Zero</td><td>Triggers when an operation reads a divide by zero from the <a href="architecture/conveyor.html">conveyor</a></td></tr>
+<tr><td><code>03</code></td><td>Unsigned Divide by Zero</td><td>Triggers when an operation reads a divide by zero from the <a href="architecture/conveyor.html">conveyor</a></td></tr>
+<tr><td><code>04</code></td><td>Segfault</td><td>Triggers when an operation attempts to read from an invalid memory address and places it on the stack</td></tr>
 </table>
+<hr />
+<h2><code>reset</code></h2>
+<p><code>d p --</code></p>
+<h4>Description</h4>
+<p>Resets the whole processor, setting <code>d</code> as the new DC0 and <code>p</code> as the new PC. Everything is reinitialized, such as stack depth.</p>
 
                 </div>
 
