@@ -73,28 +73,23 @@
 <h4>Description</h4>
 <p><code>p0</code> pushes a <code>0</code> onto the top of the stack. This doesn't theoretically need to exist, but it makes it practically easy for the processor to add a <code>0</code> to the stack on inception to receive the data stream from the inceptor. It also has other uses, such as initializing an accumulator value and comparisons with <code>0</code>.</p>
 <hr />
-<h2><code>dup</code></h2>
-<p><code>v -- v v</code></p>
-<h4>Description</h4>
-<p><code>dup</code> fills a void where <code>copy#</code> cannot, which is copying the top of the stack. Since <code>copy#</code> and <code>rot#</code> address starting from the element directly under the top of stack, this instruction is dedicated to allow copying the top of the stack.</p>
-<hr />
 <h2><code>rot#</code></h2>
-<p><code>v (# + 1).. -- (# + 1).. v</code></p>
+<p><code>v #.. -- #.. v</code></p>
 <h4>Description</h4>
-<p><code>rot#</code> rotates a value <code>1</code> to <code>64</code> elements deep in the stack to the top of the stack. The value is removed from that location and elements under that value are not shifted in the stack.</p>
+<p><code>rot#</code> rotates a value <code>0</code> to <code>63</code> elements deep in the stack to the top of the stack. The value is removed from that location and elements under that value are not shifted in the stack. <code>rot0</code> has no effect and uses a cycle doing nothing.</p>
 <h4>Examples</h4>
-<pre><code>1 2 3 rot1
+<pre><code>1 2 3 rot2
 </code></pre>
 <ul>
 <li><code>( -- 2 3 1)</code></li>
 </ul>
 <hr />
 <h2><code>copy#</code></h2>
-<p><code>v (# + 1).. -- v (# + 1).. v</code></p>
+<p><code>v #.. -- v #.. v</code></p>
 <h4>Description</h4>
-<p><code>copy#</code> copies a value <code>1</code> to <code>64</code> elements deep in the stack to the top of the stack. This pushes all elements down on the stack.</p>
+<p><code>copy#</code> copies a value <code>0</code> to <code>63</code> elements deep in the stack to the top of the stack. This pushes all elements down on the stack. <code>copy0</code> is a duplicate operation.</p>
 <h4>Examples</h4>
-<pre><code>1 2 3 copy1
+<pre><code>1 2 3 copy2
 </code></pre>
 <ul>
 <li><code>( -- 1 2 3 1)</code></li>

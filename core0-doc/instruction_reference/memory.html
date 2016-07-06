@@ -88,6 +88,11 @@
 <h4>Description</h4>
 <p><code>read#</code> performs a read directly at <code>dc#</code>. Doing this increments <code>dc#</code> after the read.</p>
 <hr />
+<h2><code>readi</code></h2>
+<p><code>-- mem[mem[dc#]]</code></p>
+<h4>Description</h4>
+<p><code>readi</code> performs an indirect, immediate read using the address at <code>dc0</code>. Doing this increments <code>dc0</code> after the read.</p>
+<hr />
 <h2><code>get#</code></h2>
 <p><code>-- dc#</code></p>
 <h4>Description</h4>
@@ -126,13 +131,27 @@ cv0
 <li>Between <code>reada</code> and <code>cv0</code>, any operations happen while the read is occurring.</li>
 </ul>
 <hr />
-<h2><code>rwrite#</code></h2>
+<h2><code>writei</code></h2>
+<p><code>v --</code></p>
+<h4>Description</h4>
+<p><code>writei</code> performs an indirect, immediate write directly at the location <code>dc0</code>. Doing this always increments <code>dc0</code>. This is treated as an immediate read, despite the name, since an address is read from <code>dc0</code>.</p>
+<hr />
+<h2><code>rawrite#</code></h2>
 <p><code>v a --</code></p>
 <h4>Description</h4>
-<p><code>rwrite#</code> performs a random write relative to <code>dc#</code>. This means that <code>mem[dc# + a] = v</code>. This may be cached.</p>
+<p><code>rawrite#</code> performs a random write relative to <code>dc#</code>. This means that <code>mem[dc# + a] = v</code>. This may be cached.</p>
 <h4>Side Effects</h4>
 <ul>
 <li><code>mem[dc# + a] = v</code></li>
+</ul>
+<hr />
+<h2><code>rewrite#</code></h2>
+<p><code>v a --</code></p>
+<h4>Description</h4>
+<p><code>rewrite#</code> performs a random write relative to <code>a</code>. This means that <code>mem[mem[dc#] + a] = v</code>. This is treated as an immediate read, thus <code>dc#</code> will be incremented. This may be cached.</p>
+<h4>Side Effects</h4>
+<ul>
+<li><code>mem[mem[dc#] + a] = v</code></li>
 </ul>
 <hr />
 <h2><code>write</code></h2>
@@ -151,6 +170,15 @@ cv0
 <h4>Side Effects</h4>
 <ul>
 <li><code>progmem[a] = v</code></li>
+</ul>
+<hr />
+<h2><code>writepi</code></h2>
+<p><code>ins a --</code></p>
+<h4>Description</h4>
+<p><code>writepi</code> performs a random write of an instruction to program memory using a program address. This means that <code>progmem[a] = ins</code>, but only the lowest 8 bits of <code>ins</code> are written. This may be cached. Program memory is ordered into octets, which are written and addressed individually by this word.</p>
+<h4>Side Effects</h4>
+<ul>
+<li><code>progmem[a] = ins</code></li>
 </ul>
 
                 </div>

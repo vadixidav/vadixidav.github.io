@@ -169,21 +169,6 @@
 <li>Carry is set to 0</li>
 </ul>
 <hr />
-<h2><code>addc</code></h2>
-<p><code>a b -- (a + b + c)</code></p>
-<h4>Description</h4>
-<p><code>addc</code> takes parameters <code>a</code> and <code>b</code> from the stack and adds them with <code>c</code>. Unlike <code>add</code>, <code>addc</code> consumes the carry, so ensure it is correctly set before issuing this instruction.</p>
-<h4>Side Effects</h4>
-<p><code>c = (a + b)[WORD]</code></p>
-<h4>Examples (with WORD of 32)</h4>
-<pre><code>h80000000 h80000000 add
-0 0 addc
-</code></pre>
-<ul>
-<li><code>( -- 0 1)</code></li>
-<li>Carry is set to 0</li>
-</ul>
-<hr />
 <h2><code>sub</code></h2>
 <p><code>a b -- (a - b)</code></p>
 <h4>Description</h4>
@@ -200,21 +185,6 @@
 <li>Which indicates a borrow</li>
 </ul>
 </li>
-</ul>
-<hr />
-<h2><code>subc</code></h2>
-<p><code>a b -- (a - b + c - 1)</code></p>
-<h4>Description</h4>
-<p><code>subc</code> subtracts parameter <code>b</code> from <code>a</code> and adds <code>c</code>. The carry bit is set by this instruction to <code>1</code> when no borrow occurs.</p>
-<h4>Side Effects</h4>
-<p><code>c = (a - b)[WORD]</code></p>
-<h4>Examples</h4>
-<pre><code>2 3 sub
-1 0 subc
-</code></pre>
-<ul>
-<li><code>( -- -1 0)</code></li>
-<li>Carry is set to 1 (indicating no borrow)</li>
 </ul>
 <hr />
 <h2><code>asr</code></h2>
