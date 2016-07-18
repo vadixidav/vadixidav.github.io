@@ -1,0 +1,131 @@
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title></title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <base href="">
+
+        <link rel="stylesheet" href="book.css">
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+        <link rel="shortcut icon" href="favicon.png">
+
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+
+        <!-- MathJax -->
+        <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+        <!-- Fetch JQuery from CDN but have a local fallback -->
+        <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+        <script>
+            if (typeof jQuery == 'undefined') {
+                document.write(unescape("%3Cscript src='jquery.js'%3E%3C/script%3E"));
+            }
+        </script>
+    </head>
+    <body>
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme = localStorage.getItem('theme');
+            if (theme == null) { theme = 'light'; }
+            $('body').removeClass().addClass(theme);
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var sidebar = localStorage.getItem('sidebar');
+            if (sidebar === "hidden") { $("html").addClass("sidebar-hidden") }
+            else if (sidebar === "visible") { $("html").addClass("sidebar-visible") }
+        </script>
+
+        <div id="sidebar" class="sidebar">
+            <ul class="chapter"><li><a href="overview.html"><strong>1.</strong> Overview</a></li><li><a href="memory_layout.html" class="active"><strong>2.</strong> Memory Layout</a></li><li><a href="registers.html"><strong>3.</strong> Registers</a></li><li><a href="strings.html"><strong>4.</strong> Strings</a></li><li><a href="dictionary.html"><strong>5.</strong> Dictionary</a></li></ul>
+        </div>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar" class="menu-bar">
+                    <div class="left-buttons">
+                        <i id="sidebar-toggle" class="fa fa-bars"></i>
+                        <i id="theme-toggle" class="fa fa-paint-brush"></i>
+                    </div>
+
+                    <h1 class="menu-title"></h1>
+
+                    <div class="right-buttons">
+                        <i id="print-button" class="fa fa-print" title="Print this book"></i>
+                    </div>
+                </div>
+
+                <div id="content" class="content">
+                    <h1>Memory Layout</h1>
+<p>In UFORTH there are three important memory locations in the memory layout: the dictionary stack, the data space stack, and the program memory.</p>
+<h3>Dictionary Stack</h3>
+<p>At the end of memory, the dictionary stack descends towards lower addresses. The dictionary stack contains a fixed header for every single FORTH word in the dictionary. Any static information of any word is contained in the header. This header contains a pointer to the address of the program, the address of the name string, etc. The data space address for the word is 0 if it does not need one. The execution token for any given word points to the location in which the program address is stored, which is also the beginning of the word header.</p>
+<h5>Word Header Layout</h5>
+<table><thead><tr><td>Bits</td><td>Use</td></tr></thead>
+<tr><td>WORD</td><td>Program memory address</td></tr>
+<tr><td>WORD</td><td>Data space address</td></tr>
+<tr><td>WORD</td><td>Name string address</td></tr>
+<tr><td>1</td><td>Immediate word flag (bit 0)</td></tr>
+</table>
+<h3>Data Space Stack</h3>
+<p>When a word is compiled, it gets a data space area. If this area is ever increased in size/allocated to the word, it will cause the data space address to be set, otherwise it will remain 0 to indicate it was not used.</p>
+<h3>Program Memory</h3>
+<p>u0-x is a harvard architecture and therefore has its own program memory. As you compile a word, each instruction added to the word is placed into the program memory. The word header points to the beginning of the word definition and it is called or jumped to. Almost every word will return at its end, but that doesn't mean the word has to be called. The last non-immediate word in any given compiled word can be converted into a jump as a tail-call optimization. Words which are not immediate, but do perform calls, will need to explicitly handle this condition by calling the word <code>CALLED</code> right before writing the call to memory. This word is used by the OS to store the position and previous value of the word containing the instruction which is to potentially be replaced by a jump, and it requires the precise instruction to pass to it to perform the tail-call optimization. To see the full spec for <code>CALLED</code>, read its <a href="dictionary.html#CALLED">dictionary entry</a>.</p>
+
+                </div>
+
+                <!-- Mobile navigation buttons -->
+                
+                    <a href="overview.html" class="mobile-nav-chapters previous">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a href="registers.html" class="mobile-nav-chapters next">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+
+            </div>
+
+            
+                <a href="overview.html" class="nav-chapters previous" title="You can navigate through the chapters using the arrow keys">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+            
+
+            
+                <a href="registers.html" class="nav-chapters next" title="You can navigate through the chapters using the arrow keys">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            
+
+        </div>
+
+
+        <!-- Local fallback for Font Awesome -->
+        <script>
+            if ($(".fa").css("font-family") !== "FontAwesome") {
+                $('<link rel="stylesheet" type="text/css" href="_FontAwesome/css/font-awesome.css">').prependTo('head');
+            }
+        </script>
+
+        <!-- Livereload script (if served using the cli tool) -->
+        
+
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+    </body>
+</html>

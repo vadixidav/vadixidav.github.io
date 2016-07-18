@@ -1,0 +1,720 @@
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title></title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <base href="">
+
+        <link rel="stylesheet" href="book.css">
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+        <link rel="shortcut icon" href="favicon.png">
+
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+
+        <!-- MathJax -->
+        <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+        <!-- Fetch JQuery from CDN but have a local fallback -->
+        <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+        <script>
+            if (typeof jQuery == 'undefined') {
+                document.write(unescape("%3Cscript src='jquery.js'%3E%3C/script%3E"));
+            }
+        </script>
+    </head>
+    <body>
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme = localStorage.getItem('theme');
+            if (theme == null) { theme = 'light'; }
+            $('body').removeClass().addClass(theme);
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var sidebar = localStorage.getItem('sidebar');
+            if (sidebar === "hidden") { $("html").addClass("sidebar-hidden") }
+            else if (sidebar === "visible") { $("html").addClass("sidebar-visible") }
+        </script>
+
+        <div id="sidebar" class="sidebar">
+            <ul class="chapter"><li><a href="overview.html"><strong>1.</strong> Overview</a></li><li><a href="memory_layout.html"><strong>2.</strong> Memory Layout</a></li><li><a href="registers.html"><strong>3.</strong> Registers</a></li><li><a href="strings.html"><strong>4.</strong> Strings</a></li><li><a href="dictionary.html"><strong>5.</strong> Dictionary</a></li></ul>
+        </div>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar" class="menu-bar">
+                    <div class="left-buttons">
+                        <i id="sidebar-toggle" class="fa fa-bars"></i>
+                        <i id="theme-toggle" class="fa fa-paint-brush"></i>
+                    </div>
+
+                    <h1 class="menu-title"></h1>
+
+                    <div class="right-buttons">
+                        <i id="print-button" class="fa fa-print" title="Print this book"></i>
+                    </div>
+                </div>
+
+                <div id="content" class="content">
+                    <h1>Overview</h1>
+<p>UFORTH is a Subroutine Threaded Code (STC) FORTH OS for the u0-x processor. It does not follow the spec of ANSI FORTH, but tries to remain familiar to a FORTH user, occasionally replacing some words for convenience. The reason for many changes is that, as a stack architecture, u0-x can execute all of the common FORTH words in one instruction, but to gain access to this one-instruction computation, one would either need to run an optimization pass to find optimizations, or run special words to take advantage of the architecture. Also, supporting any other sort of FORTH other than STC would destroy the benefits of the stack architecture, so it is necessary to allow FORTH words to be compiled directly down into machine code.</p>
+<h1>Memory Layout</h1>
+<p>In UFORTH there are three important memory locations in the memory layout: the dictionary stack, the data space stack, and the program memory.</p>
+<h3>Dictionary Stack</h3>
+<p>At the end of memory, the dictionary stack descends towards lower addresses. The dictionary stack contains a fixed header for every single FORTH word in the dictionary. Any static information of any word is contained in the header. This header contains a pointer to the address of the program, the address of the name string, etc. The data space address for the word is 0 if it does not need one. The execution token for any given word points to the location in which the program address is stored, which is also the beginning of the word header.</p>
+<h5>Word Header Layout</h5>
+<table><thead><tr><td>Bits</td><td>Use</td></tr></thead>
+<tr><td>WORD</td><td>Program memory address</td></tr>
+<tr><td>WORD</td><td>Data space address</td></tr>
+<tr><td>WORD</td><td>Name string address</td></tr>
+<tr><td>1</td><td>Immediate word flag (bit 0)</td></tr>
+</table>
+<h3>Data Space Stack</h3>
+<p>When a word is compiled, it gets a data space area. If this area is ever increased in size/allocated to the word, it will cause the data space address to be set, otherwise it will remain 0 to indicate it was not used.</p>
+<h3>Program Memory</h3>
+<p>u0-x is a harvard architecture and therefore has its own program memory. As you compile a word, each instruction added to the word is placed into the program memory. The word header points to the beginning of the word definition and it is called or jumped to. Almost every word will return at its end, but that doesn't mean the word has to be called. The last non-immediate word in any given compiled word can be converted into a jump as a tail-call optimization. Words which are not immediate, but do perform calls, will need to explicitly handle this condition by calling the word <code>CALLED</code> right before writing the call to memory. This word is used by the OS to store the position and previous value of the word containing the instruction which is to potentially be replaced by a jump, and it requires the precise instruction to pass to it to perform the tail-call optimization. To see the full spec for <code>CALLED</code>, read its <a href="dictionary.html#CALLED">dictionary entry</a>.</p>
+<h1>Registers</h1>
+<p>u0 has 4 data counters. Since they cannot be used directly in FORTH, it would be ideal to use them for purposes of compiling and interpreting. DC0 is used by several of the words used by the user and kernel. DC1-3, on the other hand, are not used. DC1 is to be mapped to a pre-decrement stack for compilation of loops, if statements, and the like. It could also be used in programs as the return stack, though because of hardware loops and other improvements this is not necessary on u0. DC2 is to be mapped to the input processing position (PP) of the TIB. DC3 is to be mapped to HERED, the top of the data-space stack which grows upwards.</p>
+<h1>Strings</h1>
+<p>Strings in UFORTH store their length at the beginning of the string, followed by each character filling a whole processor word for every character.</p>
+<h1>Dictionary</h1>
+<p>Word patterns are enclosed in single quotes (') and are represented using a regex. Non-capitalized words are variables. Constants are still capitalized.</p>
+<h3>!</h3>
+<ul>
+<li>dstack: <code>( w addr -- )</code></li>
+<li>pattern: <code>'^ ([^ ]*)(?: |$)'</code></li>
+<li>Writes <code>w</code> to the address <code>addr</code>.</li>
+</ul>
+<h3>!:</h3>
+<ul>
+<li>dstack: <code>( w -- )</code></li>
+<li>pattern: <code>'^ ([^ ]*)(?: |$)'</code></li>
+<li>Writes <code>w</code> to the variable token specified in the pattern.</li>
+<li>Can be used to set the body address for many words, but not all.</li>
+</ul>
+<h3>&amp;</h3>
+<ul>
+<li>dstack: <code>( a b -- a&amp;b )</code></li>
+</ul>
+<h3>'</h3>
+<ul>
+<li>dstack: <code>( -- xt )</code></li>
+<li>pattern: <code>'^ ([^ ]*)(?: |$)'</code></li>
+<li>Places the execution token of the word found on the stack or calls <code>ABORT&quot;</code>.</li>
+</ul>
+<h3>(</h3>
+<ul>
+<li>pattern: <code>'^ ([^ ]*)\)'</code></li>
+<li>Ignores everything up until the next ')'.</li>
+</ul>
+<h3>(compile)</h3>
+<ul>
+<li>pattern: <code>'^ ([^ ]*)(?: |$)'</code></li>
+<li>Consumes a word and compiles it into the current definition.</li>
+<li>Skips the word currently being written when searching for words so the word can reference previous definitions.</li>
+</ul>
+<h3>(run)</h3>
+<ul>
+<li>pattern: <code>'^ ([^ ]*)(?: |$)'</code></li>
+<li>Consumes a word and immediately executes it.</li>
+</ul>
+<h3>+</h3>
+<ul>
+<li>dstack: <code>( a b -- a+b )</code></li>
+</ul>
+<h3>+:</h3>
+<ul>
+<li>dstack: <code>( a -- a+b )</code></li>
+<li>Attempt to parse a number <code>b</code> using <code>NUMBER</code> and create an immediate add using it.</li>
+</ul>
+<h3>+1</h3>
+<ul>
+<li>dstack: <code>( a -- a+1 )</code></li>
+</ul>
+<h3>,</h3>
+<ul>
+<li>dstack: <code>( w -- )</code></li>
+<li>Writes a single processor word to the data space of the most recently created word.</li>
+</ul>
+<h3>-</h3>
+<ul>
+<li>dstack: <code>( a b -- a-b )</code></li>
+</ul>
+<h3>-:</h3>
+<ul>
+<li>dstack: <code>( a -- a-b )</code></li>
+<li>Attempt to parse a number <code>b</code> using <code>NUMBER</code> and create an immediate subtract using it.</li>
+</ul>
+<h3>-1</h3>
+<ul>
+<li>dstack: <code>( a -- a-1 )</code></li>
+</ul>
+<h3>.</h3>
+<ul>
+<li>dstack: <code>( w -- )</code></li>
+<li>Print a signed number <code>w</code> using the base specified in <code>BASE</code>.</li>
+</ul>
+<h3>.&quot;</h3>
+<ul>
+<li>Compile-time pattern: <code>'^ ([^ ]*)&quot;'</code></li>
+<li>Prints out the string pattern.</li>
+</ul>
+<h3>.U</h3>
+<ul>
+<li>dstack: <code>( w -- )</code></li>
+<li>Print an unsigned number <code>w</code> using the base specified in <code>BASE</code>.</li>
+</ul>
+<h3>:</h3>
+<ul>
+<li>Compile-time pattern: <code>'^ ([^ ]*)(?: |$)'</code></li>
+<li>Updates <code>hered_start</code> with the current <code>hered</code>.</li>
+<li>Creates a new unfinished word entry in the dictionary with the name matched by the capture group in the pattern.</li>
+<li>Enters compilation mode.</li>
+<li>Resets tail call variables.</li>
+</ul>
+<h3>:NONAME</h3>
+<ul>
+<li>dstack: <code>( -- xt )</code></li>
+<li>Makes a new anonymous word.</li>
+<li>Places the execution token of this anonymous word on the stack.</li>
+<li>Updates <code>hered_start</code> with the current <code>hered</code>.</li>
+<li>Creates a new unfinished word entry in the dictionary with the name matched by the capture group in the pattern.</li>
+<li>Enters compilation mode.</li>
+<li>Resets tail call variables.</li>
+</ul>
+<h3>;</h3>
+<ul>
+<li>Finish the definition of this word, perform a tail-call optimization if possible, and if not insert an <code>EXIT</code>.</li>
+</ul>
+<h3>@</h3>
+<ul>
+<li>dstack: <code>( addr -- w )</code></li>
+<li>Reads <code>w</code> from the address <code>addr</code>.</li>
+</ul>
+<h3>@:</h3>
+<ul>
+<li>dstack: <code>( -- w )</code></li>
+<li>Compile-time pattern: <code>'^ ([^ ]*)(?: |$)'</code></li>
+<li>Reads <code>w</code> from the variable token specified in the pattern.</li>
+<li>Can also be used to find the address of the body of many tokens.</li>
+</ul>
+<h3>[</h3>
+<ul>
+<li>Enter into run mode.</li>
+</ul>
+<h3>\</h3>
+<ul>
+<li>pattern: <code>'^ ([^ ]*)$'</code></li>
+<li>Ignores everything else on the line.</li>
+</ul>
+<h3>]</h3>
+<ul>
+<li>Enter into compilation mode.</li>
+</ul>
+<h3>^</h3>
+<ul>
+<li>dstack: <code>( a b -- a^b )</code></li>
+</ul>
+<h3>|</h3>
+<ul>
+<li>dstack: <code>( a b -- a|b )</code></li>
+</ul>
+<h3>~</h3>
+<ul>
+<li>dstack: <code>( a -- ~a )</code></li>
+</ul>
+<h3>2*</h3>
+<ul>
+<li>dstack: <code>( w -- w*2 )</code></li>
+</ul>
+<h3>2/</h3>
+<ul>
+<li>dstack: <code>( w -- w/2 )</code></li>
+</ul>
+<h3>ABORT&quot;</h3>
+<ul>
+<li>pattern: <code>'^ ([^ ]*)&quot;'</code></li>
+<li>Compiles the specified message into the current word and prints it along with executing <code>QUIT</code>.</li>
+</ul>
+<h3>ABS</h3>
+<ul>
+<li>dstack: <code>( w -- u )</code></li>
+<li>Finds the absolute value of w.</li>
+</ul>
+<h3>ALLOT</h3>
+<ul>
+<li>dstack: <code>( w -- )</code></li>
+<li>Allocates, but does not initialize, <code>w</code> total processor words to the data space of the most recently created word.</li>
+</ul>
+<h3>base</h3>
+<ul>
+<li>Contains the base that numbers should be interpreted with using <code>NUMBER</code>.</li>
+</ul>
+<h3>BL</h3>
+<ul>
+<li>dstack: <code>( -- ' ' )</code></li>
+<li>Adds the character for space/blank to the stack.</li>
+</ul>
+<h3>BREAK</h3>
+<ul>
+<li>Breaks out of a loop.</li>
+</ul>
+<h3>BS</h3>
+<ul>
+<li>dstack: <code>( -- '\b' )</code></li>
+<li>Adds the character for backspace to the stack.</li>
+</ul>
+<h3>CALL</h3>
+<ul>
+<li>dstack: <code>( pa -- )</code></li>
+<li>Calls the program address <code>pa</code> on the stack.</li>
+</ul>
+<h3>CALLED</h3>
+<ul>
+<li>dstack: <code>( ins -- )</code></li>
+<li>Updates the various tail words to indicate the new tail call instruction to be optimized if <code>;</code> is encountered.</li>
+</ul>
+<h3>COMPILE,</h3>
+<ul>
+<li>dstack: <code>( xt -- )</code></li>
+<li>Adds a call to the execution token <code>xt</code> directly into the current word.</li>
+</ul>
+<h3>CONTINUE</h3>
+<ul>
+<li>Continues a loop on the next iteration from the beginning.</li>
+</ul>
+<h3>COPY:</h3>
+<ul>
+<li>dstack: <code>( w .. - w .. w )</code></li>
+<li>Aquires the next number using <code>NUMBER</code> and compiles an immediate stack copy to the top from a specific depth.</li>
+</ul>
+<h3>CREATE</h3>
+<ul>
+<li>Compile-time pattern: <code>'^ ([^ ]*)(?: |$)'</code></li>
+<li>Creates a new word entry with the name given by the pattern.</li>
+<li>Resets tail call variables.</li>
+</ul>
+<h3>CREATE_RAW</h3>
+<ul>
+<li>Compile-time pattern: <code>'^ ([^ ]*)(?: |$)'</code></li>
+<li>Creates a new word entry with the name given by the pattern.</li>
+<li>Does not add <code>LOADDS</code> automatically, so this can be used for optimization.</li>
+<li>Resets tail call variables.</li>
+</ul>
+<h3>DEFER</h3>
+<ul>
+<li>dstack: <code>( ins -- )</code></li>
+<li>Adds an instruction to the word currently being built.</li>
+</ul>
+<h3>DOES&gt;</h3>
+<ul>
+<li>Compile a combination of code and data to a new word up until a <code>;</code>.</li>
+<li>Unlike other FORTHs, this doesn't provide the data space pointer, and simply calls <code>POSTPONE</code> on everything until <code>;</code>.
+<ul>
+<li>If the pointer is needed, it should be provided by adding it into the data space of the executing word.</li>
+</ul>
+</li>
+</ul>
+<h3>DROP</h3>
+<ul>
+<li>dstack: <code>( w -- )</code></li>
+</ul>
+<h3>ELSE</h3>
+<ul>
+<li>The alternate case of an <code>IF</code> statement.</li>
+</ul>
+<h3>EMIT</h3>
+<ul>
+<li>dstack: <code>( c -- )</code></li>
+<li>Print the character c on the terminal.
+<ul>
+<li>This can control the terminal using the backspace and newline characters.</li>
+</ul>
+</li>
+</ul>
+<h3>EXIT</h3>
+<ul>
+<li>Returns from the current word.</li>
+</ul>
+<h3>FOR</h3>
+<ul>
+<li>dstack: <code>( w -- )</code></li>
+<li>Compile-time dstack: <code>( -- addr )</code>
+<ul>
+<li>Pushes the address where the address of the last instruction needs to be added.</li>
+</ul>
+</li>
+<li>Takes a number of times to iterate and iterates that many times.</li>
+</ul>
+<h3>FOREVER</h3>
+<ul>
+<li>Compile-time dstack: <code>( -- addr )</code>
+<ul>
+<li>Pushes the address where the address of the last instruction needs to be added.</li>
+</ul>
+</li>
+<li>Begins a loop which loops forever.</li>
+</ul>
+<h3>FORGET</h3>
+<ul>
+<li>pattern: <code>'^ ([^ ]*)(?: |$)'</code></li>
+<li>Forgets everything after and including the specified word.</li>
+</ul>
+<h3>GETCDS</h3>
+<ul>
+<li>dstack: <code>( -- addr )</code></li>
+<li>Get the address of the current data space location.</li>
+<li>This is compiled immediately into the definition and therefore does not affect the address.</li>
+</ul>
+<h3>HERED!</h3>
+<ul>
+<li>dstack: <code>( hered -- )</code></li>
+<li>Stores the data space post-increment stack pointer.</li>
+</ul>
+<h3>HERED@</h3>
+<ul>
+<li>dstack: <code>( -- hered )</code></li>
+<li>Reads the data space post-increment stack pointer.</li>
+</ul>
+<h3>hered_start</h3>
+<ul>
+<li>Contains the beginning of the current definition's hered.</li>
+<li>This is used to track how many things are in the current definition's data space.</li>
+</ul>
+<h3>HEREP!</h3>
+<ul>
+<li>dstack: <code>( herep -- )</code></li>
+<li>Stores the program memory post-increment stack pointer.</li>
+</ul>
+<h3>HEREP@</h3>
+<ul>
+<li>dstack: <code>( -- herep )</code></li>
+<li>Reads the program memory post-increment stack pointer.</li>
+</ul>
+<h3>HEREB!</h3>
+<ul>
+<li>dstack: <code>( hereb -- )</code></li>
+<li>Stores the address of the dictionary head/beginning (the xt of the most recent word).</li>
+</ul>
+<h3>HEREB@</h3>
+<ul>
+<li>dstack: <code>( -- hereb )</code></li>
+<li>Gets the address of the dictionary head/beginning (the xt of the most recent word).</li>
+</ul>
+<h3>I</h3>
+<ul>
+<li>dstack: <code>( -- i )</code></li>
+<li>Gets inner loop iterator.</li>
+</ul>
+<h3>IF=</h3>
+<ul>
+<li>dstack: <code>( a b -- )</code></li>
+<li>Goes to <code>ELSE</code> or <code>THEN</code> if there is none if the condition is not met.</li>
+</ul>
+<h3>IF!=</h3>
+<ul>
+<li>dstack: <code>( a b -- )</code></li>
+<li>Goes to <code>ELSE</code> or <code>THEN</code> if there is none if the condition is not met.</li>
+</ul>
+<h3>IF&gt;</h3>
+<ul>
+<li>dstack: <code>( a b -- )</code></li>
+<li>Goes to <code>ELSE</code> or <code>THEN</code> if there is none if the condition is not met.</li>
+</ul>
+<h3>IF&gt;=</h3>
+<ul>
+<li>dstack: <code>( a b -- )</code></li>
+<li>Goes to <code>ELSE</code> or <code>THEN</code> if there is none if the condition is not met.</li>
+</ul>
+<h3>IF&gt;U</h3>
+<ul>
+<li>dstack: <code>( a b -- )</code></li>
+<li>Goes to <code>ELSE</code> or <code>THEN</code> if there is none if the condition is not met.</li>
+<li>Performs an unsigned comparison.</li>
+</ul>
+<h3>IF&gt;=U</h3>
+<ul>
+<li>dstack: <code>( a b -- )</code></li>
+<li>Goes to <code>ELSE</code> or <code>THEN</code> if there is none if the condition is not met.</li>
+<li>Performs an unsigned comparison.</li>
+</ul>
+<h3>IFC</h3>
+<ul>
+<li>dstack: <code>( a b -- )</code></li>
+<li>Goes to <code>ELSE</code> or <code>THEN</code> if there is none if the condition is not met.</li>
+<li>Checks for carry bit status.</li>
+</ul>
+<h3>IFC!</h3>
+<ul>
+<li>dstack: <code>( a b -- )</code></li>
+<li>Goes to <code>ELSE</code> or <code>THEN</code> if there is none if the condition is not met.</li>
+<li>Checks for carry bit status.</li>
+</ul>
+<h3>IFO</h3>
+<ul>
+<li>dstack: <code>( a b -- )</code></li>
+<li>Goes to <code>ELSE</code> or <code>THEN</code> if there is none if the condition is not met.</li>
+<li>Checks for overflow bit status.</li>
+</ul>
+<h3>IFO!</h3>
+<ul>
+<li>dstack: <code>( a b -- )</code></li>
+<li>Goes to <code>ELSE</code> or <code>THEN</code> if there is none if the condition is not met.</li>
+<li>Checks for overflow bit status.</li>
+</ul>
+<h3>IFI</h3>
+<ul>
+<li>dstack: <code>( a b -- )</code></li>
+<li>Goes to <code>ELSE</code> or <code>THEN</code> if there is none if the condition is not met.</li>
+<li>Checks for interrupt bit status, which clears it if it was set.</li>
+</ul>
+<h3>IFI!</h3>
+<ul>
+<li>dstack: <code>( a b -- )</code></li>
+<li>Goes to <code>ELSE</code> or <code>THEN</code> if there is none if the condition is not met.</li>
+<li>Checks for interrupt bit status, which clears it if it was set.</li>
+</ul>
+<h3>INTERPRET</h3>
+<ul>
+<li>Interprets whatever is at the TIB, processing each word using <code>shell_xt</code> until all words are consumed.</li>
+</ul>
+<h3>J</h3>
+<ul>
+<li>dstack: <code>( -- j )</code></li>
+<li>Gets second most inner loop iterator.</li>
+</ul>
+<h3>K</h3>
+<ul>
+<li>dstack: <code>( -- k )</code></li>
+<li>Gets third most inner loop iterator.</li>
+</ul>
+<h3>KEY</h3>
+<ul>
+<li>dstack: <code>( -- c )</code></li>
+<li>Retrieves a key from the input device.</li>
+</ul>
+<h3>L</h3>
+<ul>
+<li>dstack: <code>( -- l )</code></li>
+<li>Gets fourth most inner loop iterator.</li>
+</ul>
+<h3>LITERAL</h3>
+<ul>
+<li>dstack: <code>( -- w )</code></li>
+<li>Compile-time dstack: <code>( w -- )</code></li>
+</ul>
+<h3>LOAD</h3>
+<ul>
+<li>dstack: <code>( -- w )</code></li>
+<li>Load an immediate word from the data space.</li>
+</ul>
+<h3>LOADDS</h3>
+<ul>
+<li>dstack: <code>( addr -- )</code></li>
+<li>Loads the data space address <code>addr</code>.</li>
+<li>This is compiled to any word which uses its data space immediately when it is required (many words may not).</li>
+</ul>
+<h3>LOOP</h3>
+<ul>
+<li>Compile-time dstack: <code>( addr -- )</code>
+<ul>
+<li>Places the address of the instruction before this at the address <code>addr</code>.</li>
+</ul>
+</li>
+<li>Ends a loop definition.</li>
+</ul>
+<h3>NL</h3>
+<ul>
+<li>dstack: <code>( -- '\n' )</code></li>
+<li>Adds the character for newline to the stack.</li>
+</ul>
+<h3>NUMBER</h3>
+<ul>
+<li>dstack: <code>( -- w )</code></li>
+<li>Reads a number from the <code>PP</code> with the proper base from <code>base</code>.</li>
+</ul>
+<h3>POSTPONE</h3>
+<ul>
+<li>Compile-time pattern: <code>'^ ([^ ]*)(?: |$)'</code></li>
+<li>Finds a word and compiles in the ability for the current word to add that word to the definition of another word appropriately when it is ran.</li>
+<li>This is called repeatedly on all words after a <code>DOES&gt;</code> up until the <code>;</code>, thus it provides the same behavior.</li>
+</ul>
+<h3>PP!</h3>
+<ul>
+<li>dstack: <code>( pp -- )</code></li>
+<li>Stores the pointer to the location of the input processing position.</li>
+</ul>
+<h3>PP@</h3>
+<ul>
+<li>dstack: <code>( -- pp )</code></li>
+<li>Provides the pointer to the location of the input processing position.</li>
+</ul>
+<h3>QUIT</h3>
+<ul>
+<li>This is called at the beginning of the program and when any fault occurs.</li>
+<li>This resets everything in the processor and returns control to the shell.</li>
+</ul>
+<h3>R&lt;</h3>
+<ul>
+<li>dstack: <code>( w -- )</code></li>
+<li>Places <code>w</code> on the r-stack.</li>
+</ul>
+<h3>R&gt;</h3>
+<ul>
+<li>dstack: <code>( -- w )</code></li>
+<li>Takes <code>w</code> from the r-stack.</li>
+</ul>
+<h3>REVEAL</h3>
+<ul>
+<li>Reveals and finishes the most recent word, also performing tail-call optimization on it.</li>
+</ul>
+<h3>ROT:</h3>
+<ul>
+<li>dstack: <code>( w .. - .. w )</code></li>
+<li>Aquires the next number using <code>NUMBER</code> and compiles an immediate stack rotate to the top from a specific depth.</li>
+</ul>
+<h3>S&quot;</h3>
+<ul>
+<li>dstack: <code>( -- str )</code></li>
+<li>Compile-time pattern: <code>'^ ([^ ]*)&quot;'</code></li>
+<li>Puts the string specified at compile-time onto the stack.</li>
+</ul>
+<h3>SCAN</h3>
+<ul>
+<li>dstack: <code>( c -- addr )</code></li>
+<li>Scans from <code>PP</code> out until the character <code>c</code> is found, then returning the address of c.</li>
+</ul>
+<h3>SELF</h3>
+<ul>
+<li>dstack: <code>( .. -- .. )</code></li>
+<li>Executes the word currently being compiled, allowing for recursion of itself.
+<ul>
+<li>This can create a data race if the word performs an immediate write of a variable in its own data space.
+<ul>
+<li>This can/may be intentional.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3>shell_xt</h3>
+<ul>
+<li>Contains the xt which is used by <code>INTERPRET</code> for determining what to do with words.</li>
+</ul>
+<h3>STATE</h3>
+<ul>
+<li>Sets the carry bit to <code>1</code> if the compiler is in compilation state. Any user-defined states will appear as <code>0</code>.</li>
+</ul>
+<h3>tail_paddr</h3>
+<ul>
+<li>Contains the program address off the tail call.</li>
+<li>If this is 0, no replacement happens.</li>
+</ul>
+<h3>tail_ins</h3>
+<ul>
+<li>Contains the instruction (properly shifted to the correct processor word position) to replace at the tail address.</li>
+</ul>
+<h3>THEN</h3>
+<ul>
+<li>The end of an <code>IF</code> statement.</li>
+</ul>
+<h3>TIB@</h3>
+<ul>
+<li>dstack: <code>( -- tib )</code></li>
+<li>Adds the address of the terminal input buffer to the stack.</li>
+</ul>
+<h3>TYPE</h3>
+<ul>
+<li>dstack: <code>( str -- )</code></li>
+<li>Takes a string address from the stack and sends/prints it to the terminal device.
+<ul>
+<li>Control characters may interface with the terminal.</li>
+</ul>
+</li>
+</ul>
+<h3>UNDO</h3>
+<ul>
+<li>Removes the most recent word from the dictionary.</li>
+<li>This is used automatically when an issue occurs when attempting to compile a word.</li>
+</ul>
+<h3>WORD</h3>
+<ul>
+<li>dstack: <code>( c -- str )</code></li>
+<li>Compile-time pattern: <code>'^ ([^ ]*)(?: |$)'</code></li>
+<li>Takes a character delimiter and places a string at hered from the input, then returns the address of the string.</li>
+</ul>
+<h3>XT&gt;DATA@</h3>
+<ul>
+<li>dstack: <code>( xt -- addr )</code></li>
+<li>Consumes an execution token and produces the data space address of the program.
+<ul>
+<li>If the word has no data space, this will return 0.</li>
+</ul>
+</li>
+</ul>
+<h3>XT&gt;EXEC</h3>
+<ul>
+<li>dstack: <code>( xt -- .. )</code></li>
+<li>Executes an execution token. This is not an efficient method of executing and it is recommended to compile execution directly into any word, which will optimize the call appropriately.</li>
+<li>Sets DC0 to the xt and does a jumpi.
+<ul>
+<li>If only one value is consumed by the word, it can use it immediately instead of loading a new DC0.</li>
+</ul>
+</li>
+</ul>
+<h3>XT&gt;NAME@</h3>
+<ul>
+<li>dstack: <code>( xt -- str )</code></li>
+<li>Consumes an execution token and produces the address to the name of the xt in UFORTH string format.</li>
+</ul>
+<h3>XT&gt;PROG@</h3>
+<ul>
+<li>dstack: <code>( xt -- pa )</code></li>
+<li>Consumes an execution token and produces a program address which can be called or jumped to.
+<ul>
+<li>If this token has no program this will return 0.</li>
+</ul>
+</li>
+</ul>
+
+                </div>
+
+                <!-- Mobile navigation buttons -->
+                
+
+                
+
+            </div>
+
+            
+
+            
+
+        </div>
+
+
+        <!-- Local fallback for Font Awesome -->
+        <script>
+            if ($(".fa").css("font-family") !== "FontAwesome") {
+                $('<link rel="stylesheet" type="text/css" href="_FontAwesome/css/font-awesome.css">').prependTo('head');
+            }
+        </script>
+
+        <!-- Livereload script (if served using the cli tool) -->
+        
+
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+    </body>
+</html>
