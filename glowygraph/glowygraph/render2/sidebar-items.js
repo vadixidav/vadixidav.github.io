@@ -1,1 +1,1 @@
-initSidebarItems({"struct":[["Node","Node is used to pass nodes into the renderer."],["QBezier","Node is used to pass nodes into the renderer."],["Renderer",""]]});
+initSidebarItems({"struct":[["Node","Node is used to pass nodes into the renderer."],["QBezier","QBezier is used to pass a quadratic bezier curve into the shader with interpolating values."],["Renderer",""]]});
