@@ -11,6 +11,7 @@
 
     <link rel="stylesheet" type="text/css" href="../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../main.css">
+    
 
     
     
@@ -43,10 +44,10 @@
 
     <section id='main' class="content trait">
 <h1 class='fqn'><span class='in-band'>Trait <a href='index.html'>glium</a>::<wbr><a class='trait' href=''>CapabilitiesSource</a></span><span class='out-of-band'><span id='render-detail'>
-            <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
-                [<span class='inner'>&#x2212;</span>]
-            </a>
-        </span><a id='src-50084' class='srclink' href='../src/glium/lib.rs.html#160-169' title='goto source code'>[src]</a></span></h1>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a id='src-50029' class='srclink' href='../src/glium/lib.rs.html#160-169' title='goto source code'>[src]</a></span></h1>
 <pre class='rust trait'>pub trait CapabilitiesSource {
     fn <a href='#tymethod.get_version' class='fnname'>get_version</a>(&amp;self) -&gt; &amp;<a class='struct' href='../glium/struct.Version.html' title='glium::Version'>Version</a>;
     fn <a href='#tymethod.get_extensions' class='fnname'>get_extensions</a>(&amp;self) -&gt; &amp;ExtensionsList;
@@ -61,10 +62,11 @@
 </div></div>
         <h2 id='implementors'>Implementors</h2>
         <ul class='item-list' id='implementors-list'>
-    <li><code>impl <a class='trait' href='../glium/trait.CapabilitiesSource.html' title='glium::CapabilitiesSource'>CapabilitiesSource</a> for <a class='struct' href='../glium/backend/struct.Context.html' title='glium::backend::Context'>Context</a></code></li>
+    <li><code>impl&lt;T&gt; CapabilitiesSource for T <span class='where'>where T: <a class='trait' href='../glium/backend/trait.Facade.html' title='glium::backend::Facade'>Facade</a></span></code></li>
+<li><code>impl CapabilitiesSource for <a class='struct' href='../glium/backend/struct.Context.html' title='glium::backend::Context'>Context</a></code></li>
 </ul><script type="text/javascript" async
-                              src="../implementors/glium/trait.CapabilitiesSource.js">
-                      </script></section>
+                         src="../implementors/glium/trait.CapabilitiesSource.js">
+                 </script></section>
     <section id='search' class="content hidden"></section>
 
     <section class="footer"></section>
@@ -87,6 +89,8 @@
                     <dd>Move down in search results</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
 
@@ -107,7 +111,7 @@
 
                 <p>
                     Search functions by type signature (e.g.
-                    <code>vec -> usize</code>)
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
                 </p>
             </div>
         </div>

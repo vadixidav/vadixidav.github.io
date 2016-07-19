@@ -11,6 +11,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../main.css">
+    
 
     
     
@@ -43,10 +44,10 @@
 
     <section id='main' class="content trait">
 <h1 class='fqn'><span class='in-band'>Trait <a href='../index.html'>glium</a>::<wbr><a href='index.html'>backend</a>::<wbr><a class='trait' href=''>Facade</a></span><span class='out-of-band'><span id='render-detail'>
-            <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
-                [<span class='inner'>&#x2212;</span>]
-            </a>
-        </span><a id='src-252' class='srclink' href='../../src/glium/backend/mod.rs.html#78-81' title='goto source code'>[src]</a></span></h1>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a id='src-252' class='srclink' href='../../src/glium/backend/mod.rs.html#78-81' title='goto source code'>[src]</a></span></h1>
 <pre class='rust trait'>pub trait Facade {
     fn <a href='#tymethod.get_context' class='fnname'>get_context</a>(&amp;self) -&gt; &amp;<a class='struct' href='https://doc.rust-lang.org/nightly/alloc/rc/struct.Rc.html' title='alloc::rc::Rc'>Rc</a>&lt;<a class='struct' href='../../glium/backend/struct.Context.html' title='glium::backend::Context'>Context</a>&gt;;
 }</pre><div class='docblock'><p>Trait for types that provide a safe access for glium functions.</p>
@@ -57,11 +58,11 @@
 </div></div>
         <h2 id='implementors'>Implementors</h2>
         <ul class='item-list' id='implementors-list'>
-    <li><code>impl <a class='trait' href='../../glium/backend/trait.Facade.html' title='glium::backend::Facade'>Facade</a> for <a class='struct' href='../../glium/backend/glutin_backend/struct.GlutinFacade.html' title='glium::backend::glutin_backend::GlutinFacade'>GlutinFacade</a></code></li>
-<li><code>impl <a class='trait' href='../../glium/backend/trait.Facade.html' title='glium::backend::Facade'>Facade</a> for <a class='struct' href='https://doc.rust-lang.org/nightly/alloc/rc/struct.Rc.html' title='alloc::rc::Rc'>Rc</a>&lt;<a class='struct' href='../../glium/backend/struct.Context.html' title='glium::backend::Context'>Context</a>&gt;</code></li>
+    <li><code>impl Facade for <a class='struct' href='../../glium/backend/glutin_backend/struct.GlutinFacade.html' title='glium::backend::glutin_backend::GlutinFacade'>GlutinFacade</a></code></li>
+<li><code>impl Facade for <a class='struct' href='https://doc.rust-lang.org/nightly/alloc/rc/struct.Rc.html' title='alloc::rc::Rc'>Rc</a>&lt;<a class='struct' href='../../glium/backend/struct.Context.html' title='glium::backend::Context'>Context</a>&gt;</code></li>
 </ul><script type="text/javascript" async
-                              src="../../implementors/glium/backend/trait.Facade.js">
-                      </script></section>
+                         src="../../implementors/glium/backend/trait.Facade.js">
+                 </script></section>
     <section id='search' class="content hidden"></section>
 
     <section class="footer"></section>
@@ -84,6 +85,8 @@
                     <dd>Move down in search results</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
 
@@ -104,7 +107,7 @@
 
                 <p>
                     Search functions by type signature (e.g.
-                    <code>vec -> usize</code>)
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
                 </p>
             </div>
         </div>

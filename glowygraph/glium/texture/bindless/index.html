@@ -11,6 +11,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../../main.css">
+    
 
     
     
@@ -43,10 +44,10 @@
 
     <section id='main' class="content mod">
 <h1 class='fqn'><span class='in-band'>Module <a href='../../index.html'>glium</a>::<wbr><a href='../index.html'>texture</a>::<wbr><a class='mod' href=''>bindless</a></span><span class='out-of-band'><span id='render-detail'>
-            <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
-                [<span class='inner'>&#x2212;</span>]
-            </a>
-        </span><a id='src-9871' class='srclink' href='../../../src/glium/texture/bindless.rs.html#1-302' title='goto source code'>[src]</a></span></h1>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a id='src-9947' class='srclink' href='../../../src/glium/texture/bindless.rs.html#1-302' title='goto source code'>[src]</a></span></h1>
 <div class='docblock'><p>Without bindless textures, using a texture in a shader requires binding the texture to a specific
 bind point before drawing. This not only slows down rendering, but may also prevent you from
 grouping multiple draw calls into one because of the limitation to the number of available
@@ -61,6 +62,7 @@ calling <code>resident</code> on the texture you want.</p>
 
 <p>Bindless textures are a very recent feature that is supported only by recent hardware and
 drivers. <code>resident</code> will return an <code>Err</code> if this feature is not supported.</p>
+
 <pre class='rust rust-example-rendered'>
 <span class='kw'>let</span> <span class='ident'>texture</span> <span class='op'>=</span> <span class='ident'>texture</span>.<span class='ident'>resident</span>().<span class='ident'>unwrap</span>();</pre>
 
@@ -69,6 +71,7 @@ drivers. <code>resident</code> will return an <code>Err</code> if this feature i
 <h1 id='usage' class='section-header'><a href='#usage'>Usage</a></h1>
 <p>You can then use a <code>TextureHandle</code> as if it was a pointer to a texture. A <code>TextureHandle</code> can be
 built from a <code>&amp;ResidentTexture</code> and can&#39;t outlive it.</p>
+
 <pre class='rust rust-example-rendered'>
 <span class='attribute'>#[<span class='ident'>macro_use</span>]</span>
 <span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>glium</span>;
@@ -92,34 +95,28 @@ do in the future). Binding the wrong type of texture may lead to undefined value
 the texture.</p>
 </div><h2 id='structs' class='section-header'><a href="#structs">Structs</a></h2>
 <table>
-                    <tr class=' module-item'>
-                        <td><a class='struct' href='struct.BindlessTexturesNotSupportedError.html'
-                               title='glium::texture::bindless::BindlessTexturesNotSupportedError'>BindlessTexturesNotSupportedError</a></td>
-                        <td class='docblock short'>
-                             <p>Bindless textures are not supported.</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='struct' href='struct.ResidentTexture.html'
-                               title='glium::texture::bindless::ResidentTexture'>ResidentTexture</a></td>
-                        <td class='docblock short'>
-                             <p>A texture that is resident in video memory. This allows you to use bindless textures in your
+                       <tr class=' module-item'>
+                           <td><a class='struct' href='struct.BindlessTexturesNotSupportedError.html'
+                                  title='glium::texture::bindless::BindlessTexturesNotSupportedError'>BindlessTexturesNotSupportedError</a></td>
+                           <td class='docblock short'>
+                                <p>Bindless textures are not supported.</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='struct' href='struct.ResidentTexture.html'
+                                  title='glium::texture::bindless::ResidentTexture'>ResidentTexture</a></td>
+                           <td class='docblock short'>
+                                <p>A texture that is resident in video memory. This allows you to use bindless textures in your
 shaders.</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='struct' href='struct.TextureHandle.html'
-                               title='glium::texture::bindless::TextureHandle'>TextureHandle</a></td>
-                        <td class='docblock short'>
-                             <p>Represents a handle to a texture. Contains a raw pointer to a texture that is hidden from you.</p>
-
-                        </td>
-                    </tr>
-                </table></section>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='struct' href='struct.TextureHandle.html'
+                                  title='glium::texture::bindless::TextureHandle'>TextureHandle</a></td>
+                           <td class='docblock short'>
+                                <p>Represents a handle to a texture. Contains a raw pointer to a texture that is hidden from you.</p>
+                           </td>
+                       </tr></table></section>
     <section id='search' class="content hidden"></section>
 
     <section class="footer"></section>
@@ -142,6 +139,8 @@ shaders.</p>
                     <dd>Move down in search results</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
 
@@ -162,7 +161,7 @@ shaders.</p>
 
                 <p>
                     Search functions by type signature (e.g.
-                    <code>vec -> usize</code>)
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
                 </p>
             </div>
         </div>

@@ -4,13 +4,14 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="rustdoc">
-    <meta name="description" content="Source to the Rust file `/home/vadix/.cargo/registry/src/github.com-88ac128001ac3a9a/glium-0.13.4/src/texture/pixel_buffer.rs`.">
+    <meta name="description" content="Source to the Rust file `/home/vadix/.cargo/registry/src/github.com-1ecc6299db9ec823/glium-0.14.0/src/texture/pixel_buffer.rs`.">
     <meta name="keywords" content="rust, rustlang, rust-lang">
 
     <title>pixel_buffer.rs.html -- source</title>
 
     <link rel="stylesheet" type="text/css" href="../../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../../main.css">
+    
 
     
     
@@ -120,7 +121,6 @@
 <span id="77">77</span>
 <span id="78">78</span>
 <span id="79">79</span>
-<span id="80">80</span>
 </pre><pre class='rust '>
 <span class='doccomment'>/*!
 Pixel buffers are buffers that contain two-dimensional texture data.
@@ -135,7 +135,6 @@ to transfer data to or from the video memory, before or after being turned into 
 <span class='kw'>use</span> <span class='ident'>backend</span>::<span class='ident'>Facade</span>;
 
 <span class='kw'>use</span> <span class='ident'>GlObject</span>;
-<span class='kw'>use</span> <span class='ident'>BufferExt</span>;
 <span class='kw'>use</span> <span class='ident'>buffer</span>::{<span class='ident'>ReadError</span>, <span class='ident'>Buffer</span>, <span class='ident'>BufferType</span>, <span class='ident'>BufferMode</span>};
 <span class='kw'>use</span> <span class='ident'>gl</span>;
 
@@ -192,7 +191,7 @@ to transfer data to or from the video memory, before or after being turned into 
 
     <span class='attribute'>#[<span class='ident'>inline</span>]</span>
     <span class='kw'>fn</span> <span class='ident'>get_id</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>gl</span>::<span class='ident'>types</span>::<span class='ident'>GLuint</span> {
-        <span class='self'>self</span>.<span class='ident'>buffer</span>.<span class='ident'>get_buffer_id</span>()
+        <span class='self'>self</span>.<span class='ident'>buffer</span>.<span class='ident'>get_id</span>()
     }
 }
 
@@ -226,6 +225,8 @@ to transfer data to or from the video memory, before or after being turned into 
                     <dd>Move down in search results</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
 
@@ -246,7 +247,7 @@ to transfer data to or from the video memory, before or after being turned into 
 
                 <p>
                     Search functions by type signature (e.g.
-                    <code>vec -> usize</code>)
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
                 </p>
             </div>
         </div>

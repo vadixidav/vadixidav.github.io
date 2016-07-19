@@ -11,6 +11,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../main.css">
+    
 
     
     
@@ -43,15 +44,16 @@
 
     <section id='main' class="content struct">
 <h1 class='fqn'><span class='in-band'>Struct <a href='../index.html'>glium</a>::<wbr><a href='index.html'>backend</a>::<wbr><a class='struct' href=''>Context</a></span><span class='out-of-band'><span id='render-detail'>
-            <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
-                [<span class='inner'>&#x2212;</span>]
-            </a>
-        </span><a id='src-28696' class='srclink' href='../../src/glium/context/mod.rs.html#43-95' title='goto source code'>[src]</a></span></h1>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a id='src-28744' class='srclink' href='../../src/glium/context/mod.rs.html#43-95' title='goto source code'>[src]</a></span></h1>
 <pre class='rust struct'>pub struct Context {
     // some fields omitted
 }</pre><div class='docblock'><p>Stores the state and information required for glium to execute commands. Most public glium
 functions require passing a <code>Rc&lt;Context&gt;</code>.</p>
-</div><h2 id='methods'>Methods</h2><h3 class='impl'><code>impl <a class='struct' href='../../glium/backend/struct.Context.html' title='glium::backend::Context'>Context</a></code></h3><div class='impl-items'><h4 id='method.new' class='method'><code>unsafe fn <a href='#method.new' class='fnname'>new</a>&lt;B, E&gt;(backend: B, check_current_context: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a>, callback_behavior: <a class='enum' href='../../glium/debug/enum.DebugCallbackBehavior.html' title='glium::debug::DebugCallbackBehavior'>DebugCallbackBehavior</a>) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a class='struct' href='https://doc.rust-lang.org/nightly/alloc/rc/struct.Rc.html' title='alloc::rc::Rc'>Rc</a>&lt;<a class='struct' href='../../glium/backend/struct.Context.html' title='glium::backend::Context'>Context</a>&gt;, <a class='enum' href='../../glium/enum.GliumCreationError.html' title='glium::GliumCreationError'>GliumCreationError</a>&lt;E&gt;&gt; <span class='where'>where B: <a class='trait' href='../../glium/backend/trait.Backend.html' title='glium::backend::Backend'>Backend</a> + 'static</span></code></h4>
+</div><h2 id='methods'>Methods</h2><h3 class='impl'><span class='in-band'><code>impl <a class='struct' href='../../glium/backend/struct.Context.html' title='glium::backend::Context'>Context</a></code></span><span class='out-of-band'><div class='ghost'></div><a id='src-28773' class='srclink' href='../../src/glium/context/mod.rs.html#140-623' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.new' class='method'><code>unsafe fn <a href='#method.new' class='fnname'>new</a>&lt;B, E&gt;(backend: B, check_current_context: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a>, callback_behavior: <a class='enum' href='../../glium/debug/enum.DebugCallbackBehavior.html' title='glium::debug::DebugCallbackBehavior'>DebugCallbackBehavior</a>) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a class='struct' href='https://doc.rust-lang.org/nightly/alloc/rc/struct.Rc.html' title='alloc::rc::Rc'>Rc</a>&lt;<a class='struct' href='../../glium/backend/struct.Context.html' title='glium::backend::Context'>Context</a>&gt;, <a class='enum' href='../../glium/enum.GliumCreationError.html' title='glium::GliumCreationError'>GliumCreationError</a>&lt;E&gt;&gt; <span class='where'>where B: <a class='trait' href='../../glium/backend/trait.Backend.html' title='glium::backend::Backend'>Backend</a> + 'static</span></code></h4>
 <div class='docblock'><p>Builds a new context.</p>
 
 <p>The <code>check_current_context</code> parameter tells the context whether it should check
@@ -63,7 +65,7 @@ is slightly slower.</p>
 
 <p>The OpenGL context must be newly-created. If you make modifications to the context before
 passing it to this function, glium&#39;s state cache may mismatch the actual one.</p>
-</div><h4 id='method.get_framebuffer_dimensions' class='method'><code>fn <a href='#method.get_framebuffer_dimensions' class='fnname'>get_framebuffer_dimensions</a>(&amp;self) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>(<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a>, <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a>)</a></code></h4>
+</div><h4 id='method.get_framebuffer_dimensions' class='method'><code>fn <a href='#method.get_framebuffer_dimensions' class='fnname'>get_framebuffer_dimensions</a>(&amp;self) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>(</a><a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a>, <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a><a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>)</a></code></h4>
 <div class='docblock'><p>Calls <code>get_framebuffer_dimensions</code> on the backend object stored by this context.</p>
 </div><h4 id='method.rebuild' class='method'><code>unsafe fn <a href='#method.rebuild' class='fnname'>rebuild</a>&lt;B, E&gt;(&amp;self, new_backend: B) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>()</a>, <a class='enum' href='../../glium/enum.GliumCreationError.html' title='glium::GliumCreationError'>GliumCreationError</a>&lt;E&gt;&gt; <span class='where'>where B: <a class='trait' href='../../glium/backend/trait.Backend.html' title='glium::backend::Backend'>Backend</a> + 'static</span></code></h4>
 <div class='docblock'><p>Changes the OpenGL context associated with this context.</p>
@@ -123,7 +125,7 @@ during creation.</p>
 </div><h4 id='method.get_max_anisotropy_support' class='method'><code>fn <a href='#method.get_max_anisotropy_support' class='fnname'>get_max_anisotropy_support</a>(&amp;self) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u16.html'>u16</a>&gt;</code></h4>
 <div class='docblock'><p>Returns the maximum value that can be used for anisotropic filtering, or <code>None</code>
 if the hardware doesn&#39;t support it.</p>
-</div><h4 id='method.get_max_viewport_dimensions' class='method'><code>fn <a href='#method.get_max_viewport_dimensions' class='fnname'>get_max_viewport_dimensions</a>(&amp;self) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>(<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a>, <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a>)</a></code></h4>
+</div><h4 id='method.get_max_viewport_dimensions' class='method'><code>fn <a href='#method.get_max_viewport_dimensions' class='fnname'>get_max_viewport_dimensions</a>(&amp;self) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>(</a><a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a>, <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a><a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>)</a></code></h4>
 <div class='docblock'><p>Returns the maximum dimensions of the viewport.</p>
 
 <p>Glium will panic if you request a larger viewport than this when drawing.</p>
@@ -135,14 +137,15 @@ if the hardware doesn&#39;t support it.</p>
 <div class='docblock'><p>Returns an estimate of the amount of video memory available in bytes.</p>
 
 <p>Returns <code>None</code> if no estimate is available.</p>
-</div><h4 id='method.read_front_buffer' class='method'><code>fn <a href='#method.read_front_buffer' class='fnname'>read_front_buffer</a>&lt;T&gt;(&amp;self) -&gt; T <span class='where'>where T: <a class='trait' href='../../glium/texture/trait.Texture2dDataSink.html' title='glium::texture::Texture2dDataSink'>Texture2dDataSink</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>(<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u8.html'>u8</a>, <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u8.html'>u8</a>, <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u8.html'>u8</a>, <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u8.html'>u8</a>)</a>&gt;</span></code></h4>
+</div><h4 id='method.read_front_buffer' class='method'><code>fn <a href='#method.read_front_buffer' class='fnname'>read_front_buffer</a>&lt;T&gt;(&amp;self) -&gt; T <span class='where'>where T: <a class='trait' href='../../glium/texture/trait.Texture2dDataSink.html' title='glium::texture::Texture2dDataSink'>Texture2dDataSink</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>(</a><a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u8.html'>u8</a>, <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u8.html'>u8</a>, <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u8.html'>u8</a>, <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u8.html'>u8</a><a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>)</a>&gt;</span></code></h4>
 <div class='docblock'><p>Reads the content of the front buffer.</p>
 
 <p>You will only see the data that has finished being drawn.</p>
 
 <p>This function can return any type that implements <code>Texture2dData</code>.</p>
 
-<h2 id='example' class='section-header'><a href='#example'>Example</a></h2><pre class='rust rust-example-rendered'>
+<h2 id='example' class='section-header'><a href='#example'>Example</a></h2>
+<pre class='rust rust-example-rendered'>
 <span class='kw'>let</span> <span class='ident'>pixels</span>: <span class='ident'>Vec</span><span class='op'>&lt;</span><span class='ident'>Vec</span><span class='op'>&lt;</span>(<span class='ident'>u8</span>, <span class='ident'>u8</span>, <span class='ident'>u8</span>, <span class='ident'>u8</span>)<span class='op'>&gt;&gt;</span> <span class='op'>=</span> <span class='ident'>display</span>.<span class='ident'>read_front_buffer</span>();</pre>
 </div><h4 id='method.exec_in_context' class='method'><code>unsafe fn <a href='#method.exec_in_context' class='fnname'>exec_in_context</a>&lt;'a, T, F&gt;(&amp;self, action: F) -&gt; T <span class='where'>where T: <a class='trait' href='../../core/marker/trait.Send.html' title='core::marker::Send'>Send</a> + 'static, F: <a class='trait' href='https://doc.rust-lang.org/nightly/core/ops/trait.FnOnce.html' title='core::ops::FnOnce'>FnOnce</a>() -&gt; T + 'a</span></code></h4>
 <div class='docblock'><p>Execute an arbitrary closure with the OpenGL context active. Useful if another
@@ -186,11 +189,17 @@ to call <code>.unwrap()</code> if you want to make sure that it works, or <code>
 </div><h4 id='method.debug_insert_debug_marker' class='method'><code>fn <a href='#method.debug_insert_debug_marker' class='fnname'>debug_insert_debug_marker</a>(&amp;self, marker: &amp;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>()</a>, <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>()</a>&gt;</code></h4>
 <div class='docblock'><p>Same as <code>insert_debug_marker</code>, except that if you don&#39;t compile with <code>debug_assertions</code>
 it is a no-op and returns <code>Ok</code>.</p>
-</div></div><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><code>impl <a class='trait' href='../../glium/trait.CapabilitiesSource.html' title='glium::CapabilitiesSource'>CapabilitiesSource</a> for <a class='struct' href='../../glium/backend/struct.Context.html' title='glium::backend::Context'>Context</a></code></h3><div class='impl-items'><h4 id='method.get_version-1' class='method'><code>fn <a href='../../glium/trait.CapabilitiesSource.html#method.get_version' class='fnname'>get_version</a>(&amp;self) -&gt; &amp;<a class='struct' href='../../glium/struct.Version.html' title='glium::Version'>Version</a></code></h4>
-<h4 id='method.get_extensions' class='method'><code>fn <a href='../../glium/trait.CapabilitiesSource.html#method.get_extensions' class='fnname'>get_extensions</a>(&amp;self) -&gt; &amp;ExtensionsList</code></h4>
-<h4 id='method.get_capabilities' class='method'><code>fn <a href='../../glium/trait.CapabilitiesSource.html#method.get_capabilities' class='fnname'>get_capabilities</a>(&amp;self) -&gt; &amp;Capabilities</code></h4>
-</div><h3 class='impl'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/ops/trait.Drop.html' title='core::ops::Drop'>Drop</a> for <a class='struct' href='../../glium/backend/struct.Context.html' title='glium::backend::Context'>Context</a></code></h3><div class='impl-items'><h4 id='method.drop' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/ops/trait.Drop.html#method.drop' class='fnname'>drop</a>(&amp;mut self)</code></h4>
-</div></section>
+</div></div><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><span class='in-band'><code>impl <a class='trait' href='../../glium/trait.CapabilitiesSource.html' title='glium::CapabilitiesSource'>CapabilitiesSource</a> for <a class='struct' href='../../glium/backend/struct.Context.html' title='glium::backend::Context'>Context</a></code></span><span class='out-of-band'><div class='ghost'></div><a id='src-28926' class='srclink' href='../../src/glium/context/mod.rs.html#662-677' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.get_version-1' class='method'><code>fn <a href='../../glium/trait.CapabilitiesSource.html#tymethod.get_version' class='fnname'>get_version</a>(&amp;self) -&gt; &amp;<a class='struct' href='../../glium/struct.Version.html' title='glium::Version'>Version</a></code></h4>
+<div class='docblock'><p>Returns the version of the backend.</p>
+</div><h4 id='method.get_extensions' class='method'><code>fn <a href='../../glium/trait.CapabilitiesSource.html#tymethod.get_extensions' class='fnname'>get_extensions</a>(&amp;self) -&gt; &amp;ExtensionsList</code></h4>
+<div class='docblock'><p>Returns the list of extensions that are supported.</p>
+</div><h4 id='method.get_capabilities' class='method'><code>fn <a href='../../glium/trait.CapabilitiesSource.html#tymethod.get_capabilities' class='fnname'>get_capabilities</a>(&amp;self) -&gt; &amp;Capabilities</code></h4>
+<div class='docblock'><p>Returns the capabilities of the backend.</p>
+</div></div><h3 class='impl'><span class='in-band'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/ops/trait.Drop.html' title='core::ops::Drop'>Drop</a> for <a class='struct' href='../../glium/backend/struct.Context.html' title='glium::backend::Context'>Context</a></code></span><span class='out-of-band'><div class='ghost'></div><a id='src-28933' class='srclink' href='../../src/glium/context/mod.rs.html#679-727' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.drop' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/ops/trait.Drop.html#tymethod.drop' class='fnname'>drop</a>(&amp;mut self)</code></h4>
+<div class='docblock'><p>A method called when the value goes out of scope. <a href="https://doc.rust-lang.org/nightly/core/ops/trait.Drop.html#tymethod.drop">Read more</a></p>
+</div></div></section>
     <section id='search' class="content hidden"></section>
 
     <section class="footer"></section>
@@ -213,6 +222,8 @@ it is a no-op and returns <code>Ok</code>.</p>
                     <dd>Move down in search results</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
 
@@ -233,7 +244,7 @@ it is a no-op and returns <code>Ok</code>.</p>
 
                 <p>
                     Search functions by type signature (e.g.
-                    <code>vec -> usize</code>)
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
                 </p>
             </div>
         </div>

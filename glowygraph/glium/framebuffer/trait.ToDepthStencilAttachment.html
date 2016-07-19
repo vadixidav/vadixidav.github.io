@@ -11,6 +11,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../main.css">
+    
 
     
     
@@ -43,10 +44,10 @@
 
     <section id='main' class="content trait">
 <h1 class='fqn'><span class='in-band'>Trait <a href='../index.html'>glium</a>::<wbr><a href='index.html'>framebuffer</a>::<wbr><a class='trait' href=''>ToDepthStencilAttachment</a></span><span class='out-of-band'><span id='render-detail'>
-            <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
-                [<span class='inner'>&#x2212;</span>]
-            </a>
-        </span><a id='src-4008' class='srclink' href='../../src/glium/framebuffer/mod.rs.html#874-877' title='goto source code'>[src]</a></span></h1>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a id='src-3955' class='srclink' href='../../src/glium/framebuffer/mod.rs.html#873-876' title='goto source code'>[src]</a></span></h1>
 <pre class='rust trait'>pub trait ToDepthStencilAttachment&lt;'a&gt; {
     fn <a href='#tymethod.to_depth_stencil_attachment' class='fnname'>to_depth_stencil_attachment</a>(self) -&gt; <a class='enum' href='../../glium/framebuffer/enum.DepthStencilAttachment.html' title='glium::framebuffer::DepthStencilAttachment'>DepthStencilAttachment</a>&lt;'a&gt;;
 }</pre><div class='docblock'><p>Trait for objects that can be used as depth and stencil attachments.</p>
@@ -57,23 +58,23 @@
 </div></div>
         <h2 id='implementors'>Implementors</h2>
         <ul class='item-list' id='implementors-list'>
-    <li><code>impl&lt;'a&gt; <a class='trait' href='../../glium/framebuffer/trait.ToDepthStencilAttachment.html' title='glium::framebuffer::ToDepthStencilAttachment'>ToDepthStencilAttachment</a>&lt;'a&gt; for &amp;'a <a class='struct' href='../../glium/framebuffer/struct.DepthStencilRenderBuffer.html' title='glium::framebuffer::DepthStencilRenderBuffer'>DepthStencilRenderBuffer</a></code></li>
-<li><code>impl&lt;'a&gt; <a class='trait' href='../../glium/framebuffer/trait.ToDepthStencilAttachment.html' title='glium::framebuffer::ToDepthStencilAttachment'>ToDepthStencilAttachment</a>&lt;'a&gt; for <a class='enum' href='../../glium/framebuffer/enum.DepthStencilAttachment.html' title='glium::framebuffer::DepthStencilAttachment'>DepthStencilAttachment</a>&lt;'a&gt;</code></li>
-<li><code>impl&lt;'t&gt; <a class='trait' href='../../glium/framebuffer/trait.ToDepthStencilAttachment.html' title='glium::framebuffer::ToDepthStencilAttachment'>ToDepthStencilAttachment</a>&lt;'t&gt; for &amp;'t <a class='struct' href='../../glium/texture/depth_stencil_texture1d/struct.DepthStencilTexture1d.html' title='glium::texture::depth_stencil_texture1d::DepthStencilTexture1d'>DepthStencilTexture1d</a></code></li>
-<li><code>impl&lt;'t&gt; <a class='trait' href='../../glium/framebuffer/trait.ToDepthStencilAttachment.html' title='glium::framebuffer::ToDepthStencilAttachment'>ToDepthStencilAttachment</a>&lt;'t&gt; for <a class='struct' href='../../glium/texture/depth_stencil_texture1d/struct.DepthStencilTexture1dMipmap.html' title='glium::texture::depth_stencil_texture1d::DepthStencilTexture1dMipmap'>DepthStencilTexture1dMipmap</a>&lt;'t&gt;</code></li>
-<li><code>impl&lt;'t&gt; <a class='trait' href='../../glium/framebuffer/trait.ToDepthStencilAttachment.html' title='glium::framebuffer::ToDepthStencilAttachment'>ToDepthStencilAttachment</a>&lt;'t&gt; for &amp;'t <a class='struct' href='../../glium/texture/depth_stencil_texture2d/struct.DepthStencilTexture2d.html' title='glium::texture::depth_stencil_texture2d::DepthStencilTexture2d'>DepthStencilTexture2d</a></code></li>
-<li><code>impl&lt;'t&gt; <a class='trait' href='../../glium/framebuffer/trait.ToDepthStencilAttachment.html' title='glium::framebuffer::ToDepthStencilAttachment'>ToDepthStencilAttachment</a>&lt;'t&gt; for <a class='struct' href='../../glium/texture/depth_stencil_texture2d/struct.DepthStencilTexture2dMipmap.html' title='glium::texture::depth_stencil_texture2d::DepthStencilTexture2dMipmap'>DepthStencilTexture2dMipmap</a>&lt;'t&gt;</code></li>
-<li><code>impl&lt;'t&gt; <a class='trait' href='../../glium/framebuffer/trait.ToDepthStencilAttachment.html' title='glium::framebuffer::ToDepthStencilAttachment'>ToDepthStencilAttachment</a>&lt;'t&gt; for &amp;'t <a class='struct' href='../../glium/texture/depth_stencil_texture2d_multisample/struct.DepthStencilTexture2dMultisample.html' title='glium::texture::depth_stencil_texture2d_multisample::DepthStencilTexture2dMultisample'>DepthStencilTexture2dMultisample</a></code></li>
-<li><code>impl&lt;'t&gt; <a class='trait' href='../../glium/framebuffer/trait.ToDepthStencilAttachment.html' title='glium::framebuffer::ToDepthStencilAttachment'>ToDepthStencilAttachment</a>&lt;'t&gt; for <a class='struct' href='../../glium/texture/depth_stencil_texture2d_multisample/struct.DepthStencilTexture2dMultisampleMipmap.html' title='glium::texture::depth_stencil_texture2d_multisample::DepthStencilTexture2dMultisampleMipmap'>DepthStencilTexture2dMultisampleMipmap</a>&lt;'t&gt;</code></li>
-<li><code>impl&lt;'t&gt; <a class='trait' href='../../glium/framebuffer/trait.ToDepthStencilAttachment.html' title='glium::framebuffer::ToDepthStencilAttachment'>ToDepthStencilAttachment</a>&lt;'t&gt; for <a class='struct' href='../../glium/texture/depth_stencil_texture3d/struct.DepthStencilTexture3dMipmap.html' title='glium::texture::depth_stencil_texture3d::DepthStencilTexture3dMipmap'>DepthStencilTexture3dMipmap</a>&lt;'t&gt;</code></li>
-<li><code>impl&lt;'t&gt; <a class='trait' href='../../glium/framebuffer/trait.ToDepthStencilAttachment.html' title='glium::framebuffer::ToDepthStencilAttachment'>ToDepthStencilAttachment</a>&lt;'t&gt; for <a class='struct' href='../../glium/texture/depth_stencil_texture1d_array/struct.DepthStencilTexture1dArrayLayerMipmap.html' title='glium::texture::depth_stencil_texture1d_array::DepthStencilTexture1dArrayLayerMipmap'>DepthStencilTexture1dArrayLayerMipmap</a>&lt;'t&gt;</code></li>
-<li><code>impl&lt;'t&gt; <a class='trait' href='../../glium/framebuffer/trait.ToDepthStencilAttachment.html' title='glium::framebuffer::ToDepthStencilAttachment'>ToDepthStencilAttachment</a>&lt;'t&gt; for <a class='struct' href='../../glium/texture/depth_stencil_texture2d_array/struct.DepthStencilTexture2dArrayLayerMipmap.html' title='glium::texture::depth_stencil_texture2d_array::DepthStencilTexture2dArrayLayerMipmap'>DepthStencilTexture2dArrayLayerMipmap</a>&lt;'t&gt;</code></li>
-<li><code>impl&lt;'t&gt; <a class='trait' href='../../glium/framebuffer/trait.ToDepthStencilAttachment.html' title='glium::framebuffer::ToDepthStencilAttachment'>ToDepthStencilAttachment</a>&lt;'t&gt; for <a class='struct' href='../../glium/texture/depth_stencil_texture2d_multisample_array/struct.DepthStencilTexture2dMultisampleArrayLayerMipmap.html' title='glium::texture::depth_stencil_texture2d_multisample_array::DepthStencilTexture2dMultisampleArrayLayerMipmap'>DepthStencilTexture2dMultisampleArrayLayerMipmap</a>&lt;'t&gt;</code></li>
-<li><code>impl&lt;'t&gt; <a class='trait' href='../../glium/framebuffer/trait.ToDepthStencilAttachment.html' title='glium::framebuffer::ToDepthStencilAttachment'>ToDepthStencilAttachment</a>&lt;'t&gt; for <a class='struct' href='../../glium/texture/depth_stencil_cubemap/struct.DepthStencilCubemapImage.html' title='glium::texture::depth_stencil_cubemap::DepthStencilCubemapImage'>DepthStencilCubemapImage</a>&lt;'t&gt;</code></li>
-<li><code>impl&lt;'t&gt; <a class='trait' href='../../glium/framebuffer/trait.ToDepthStencilAttachment.html' title='glium::framebuffer::ToDepthStencilAttachment'>ToDepthStencilAttachment</a>&lt;'t&gt; for <a class='struct' href='../../glium/texture/depth_stencil_cubemap_array/struct.DepthStencilCubemapArrayImage.html' title='glium::texture::depth_stencil_cubemap_array::DepthStencilCubemapArrayImage'>DepthStencilCubemapArrayImage</a>&lt;'t&gt;</code></li>
+    <li><code>impl&lt;'a&gt; ToDepthStencilAttachment&lt;'a&gt; for &amp;'a <a class='struct' href='../../glium/framebuffer/struct.DepthStencilRenderBuffer.html' title='glium::framebuffer::DepthStencilRenderBuffer'>DepthStencilRenderBuffer</a></code></li>
+<li><code>impl&lt;'a&gt; ToDepthStencilAttachment&lt;'a&gt; for <a class='enum' href='../../glium/framebuffer/enum.DepthStencilAttachment.html' title='glium::framebuffer::DepthStencilAttachment'>DepthStencilAttachment</a>&lt;'a&gt;</code></li>
+<li><code>impl&lt;'t&gt; ToDepthStencilAttachment&lt;'t&gt; for &amp;'t <a class='struct' href='../../glium/texture/depth_stencil_texture1d/struct.DepthStencilTexture1d.html' title='glium::texture::depth_stencil_texture1d::DepthStencilTexture1d'>DepthStencilTexture1d</a></code></li>
+<li><code>impl&lt;'t&gt; ToDepthStencilAttachment&lt;'t&gt; for <a class='struct' href='../../glium/texture/depth_stencil_texture1d/struct.DepthStencilTexture1dMipmap.html' title='glium::texture::depth_stencil_texture1d::DepthStencilTexture1dMipmap'>DepthStencilTexture1dMipmap</a>&lt;'t&gt;</code></li>
+<li><code>impl&lt;'t&gt; ToDepthStencilAttachment&lt;'t&gt; for &amp;'t <a class='struct' href='../../glium/texture/depth_stencil_texture2d/struct.DepthStencilTexture2d.html' title='glium::texture::depth_stencil_texture2d::DepthStencilTexture2d'>DepthStencilTexture2d</a></code></li>
+<li><code>impl&lt;'t&gt; ToDepthStencilAttachment&lt;'t&gt; for <a class='struct' href='../../glium/texture/depth_stencil_texture2d/struct.DepthStencilTexture2dMipmap.html' title='glium::texture::depth_stencil_texture2d::DepthStencilTexture2dMipmap'>DepthStencilTexture2dMipmap</a>&lt;'t&gt;</code></li>
+<li><code>impl&lt;'t&gt; ToDepthStencilAttachment&lt;'t&gt; for &amp;'t <a class='struct' href='../../glium/texture/depth_stencil_texture2d_multisample/struct.DepthStencilTexture2dMultisample.html' title='glium::texture::depth_stencil_texture2d_multisample::DepthStencilTexture2dMultisample'>DepthStencilTexture2dMultisample</a></code></li>
+<li><code>impl&lt;'t&gt; ToDepthStencilAttachment&lt;'t&gt; for <a class='struct' href='../../glium/texture/depth_stencil_texture2d_multisample/struct.DepthStencilTexture2dMultisampleMipmap.html' title='glium::texture::depth_stencil_texture2d_multisample::DepthStencilTexture2dMultisampleMipmap'>DepthStencilTexture2dMultisampleMipmap</a>&lt;'t&gt;</code></li>
+<li><code>impl&lt;'t&gt; ToDepthStencilAttachment&lt;'t&gt; for <a class='struct' href='../../glium/texture/depth_stencil_texture3d/struct.DepthStencilTexture3dMipmap.html' title='glium::texture::depth_stencil_texture3d::DepthStencilTexture3dMipmap'>DepthStencilTexture3dMipmap</a>&lt;'t&gt;</code></li>
+<li><code>impl&lt;'t&gt; ToDepthStencilAttachment&lt;'t&gt; for <a class='struct' href='../../glium/texture/depth_stencil_texture1d_array/struct.DepthStencilTexture1dArrayLayerMipmap.html' title='glium::texture::depth_stencil_texture1d_array::DepthStencilTexture1dArrayLayerMipmap'>DepthStencilTexture1dArrayLayerMipmap</a>&lt;'t&gt;</code></li>
+<li><code>impl&lt;'t&gt; ToDepthStencilAttachment&lt;'t&gt; for <a class='struct' href='../../glium/texture/depth_stencil_texture2d_array/struct.DepthStencilTexture2dArrayLayerMipmap.html' title='glium::texture::depth_stencil_texture2d_array::DepthStencilTexture2dArrayLayerMipmap'>DepthStencilTexture2dArrayLayerMipmap</a>&lt;'t&gt;</code></li>
+<li><code>impl&lt;'t&gt; ToDepthStencilAttachment&lt;'t&gt; for <a class='struct' href='../../glium/texture/depth_stencil_texture2d_multisample_array/struct.DepthStencilTexture2dMultisampleArrayLayerMipmap.html' title='glium::texture::depth_stencil_texture2d_multisample_array::DepthStencilTexture2dMultisampleArrayLayerMipmap'>DepthStencilTexture2dMultisampleArrayLayerMipmap</a>&lt;'t&gt;</code></li>
+<li><code>impl&lt;'t&gt; ToDepthStencilAttachment&lt;'t&gt; for <a class='struct' href='../../glium/texture/depth_stencil_cubemap/struct.DepthStencilCubemapImage.html' title='glium::texture::depth_stencil_cubemap::DepthStencilCubemapImage'>DepthStencilCubemapImage</a>&lt;'t&gt;</code></li>
+<li><code>impl&lt;'t&gt; ToDepthStencilAttachment&lt;'t&gt; for <a class='struct' href='../../glium/texture/depth_stencil_cubemap_array/struct.DepthStencilCubemapArrayImage.html' title='glium::texture::depth_stencil_cubemap_array::DepthStencilCubemapArrayImage'>DepthStencilCubemapArrayImage</a>&lt;'t&gt;</code></li>
 </ul><script type="text/javascript" async
-                              src="../../implementors/glium/framebuffer/trait.ToDepthStencilAttachment.js">
-                      </script></section>
+                         src="../../implementors/glium/framebuffer/trait.ToDepthStencilAttachment.js">
+                 </script></section>
     <section id='search' class="content hidden"></section>
 
     <section class="footer"></section>
@@ -96,6 +97,8 @@
                     <dd>Move down in search results</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
 
@@ -116,7 +119,7 @@
 
                 <p>
                     Search functions by type signature (e.g.
-                    <code>vec -> usize</code>)
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
                 </p>
             </div>
         </div>

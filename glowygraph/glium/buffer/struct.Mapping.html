@@ -11,6 +11,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../main.css">
+    
 
     
     
@@ -43,17 +44,22 @@
 
     <section id='main' class="content struct">
 <h1 class='fqn'><span class='in-band'>Struct <a href='../index.html'>glium</a>::<wbr><a href='index.html'>buffer</a>::<wbr><a class='struct' href=''>Mapping</a></span><span class='out-of-band'><span id='render-detail'>
-            <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
-                [<span class='inner'>&#x2212;</span>]
-            </a>
-        </span><a id='src-615' class='srclink' href='../../src/glium/buffer/alloc.rs.html#960-962' title='goto source code'>[src]</a></span></h1>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a id='src-615' class='srclink' href='../../src/glium/buffer/alloc.rs.html#960-962' title='goto source code'>[src]</a></span></h1>
 <pre class='rust struct'>pub struct Mapping&lt;'b, D: ?<a class='trait' href='https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html' title='core::marker::Sized'>Sized</a>&gt; <span class='where'>where D: <a class='trait' href='../../glium/buffer/trait.Content.html' title='glium::buffer::Content'>Content</a></span> {
     // some fields omitted
 }</pre><div class='docblock'><p>A mapping of a buffer for reading and writing.</p>
-</div><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><code>impl&lt;'a, D: ?<a class='trait' href='https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html' title='core::marker::Sized'>Sized</a>&gt; <a class='trait' href='https://doc.rust-lang.org/nightly/core/ops/trait.Deref.html' title='core::ops::Deref'>Deref</a> for <a class='struct' href='../../glium/buffer/struct.Mapping.html' title='glium::buffer::Mapping'>Mapping</a>&lt;'a, D&gt; <span class='where'>where D: <a class='trait' href='../../glium/buffer/trait.Content.html' title='glium::buffer::Content'>Content</a></span></code></h3><div class='impl-items'><h4 id='assoc_type.Target' class='type'><code>type Target = D</code></h4>
-<h4 id='method.deref' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/ops/trait.Deref.html#method.deref' class='fnname'>deref</a>(&amp;self) -&gt; &amp;D</code></h4>
-</div><h3 class='impl'><code>impl&lt;'a, D: ?<a class='trait' href='https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html' title='core::marker::Sized'>Sized</a>&gt; <a class='trait' href='https://doc.rust-lang.org/nightly/core/ops/trait.DerefMut.html' title='core::ops::DerefMut'>DerefMut</a> for <a class='struct' href='../../glium/buffer/struct.Mapping.html' title='glium::buffer::Mapping'>Mapping</a>&lt;'a, D&gt; <span class='where'>where D: <a class='trait' href='../../glium/buffer/trait.Content.html' title='glium::buffer::Content'>Content</a></span></code></h3><div class='impl-items'><h4 id='method.deref_mut' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/ops/trait.DerefMut.html#method.deref_mut' class='fnname'>deref_mut</a>(&amp;mut self) -&gt; &amp;mut D</code></h4>
-</div></section>
+</div><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><span class='in-band'><code>impl&lt;'a, D: ?<a class='trait' href='https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html' title='core::marker::Sized'>Sized</a>&gt; <a class='trait' href='https://doc.rust-lang.org/nightly/core/ops/trait.Deref.html' title='core::ops::Deref'>Deref</a> for <a class='struct' href='../../glium/buffer/struct.Mapping.html' title='glium::buffer::Mapping'>Mapping</a>&lt;'a, D&gt; <span class='where'>where D: <a class='trait' href='../../glium/buffer/trait.Content.html' title='glium::buffer::Content'>Content</a></span></code></span><span class='out-of-band'><div class='ghost'></div><a id='src-619' class='srclink' href='../../src/glium/buffer/alloc.rs.html#964-983' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='associatedtype.Target' class='type'><code>type <a href='https://doc.rust-lang.org/nightly/core/ops/trait.Deref.html#associatedtype.Target' class='type'>Target</a> = D</code></h4>
+<div class='docblock'><p>The resulting type after dereferencing</p>
+</div><h4 id='method.deref' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/ops/trait.Deref.html#tymethod.deref' class='fnname'>deref</a>(&amp;self) -&gt; &amp;D</code></h4>
+<div class='docblock'><p>The method called to dereference a value</p>
+</div></div><h3 class='impl'><span class='in-band'><code>impl&lt;'a, D: ?<a class='trait' href='https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html' title='core::marker::Sized'>Sized</a>&gt; <a class='trait' href='https://doc.rust-lang.org/nightly/core/ops/trait.DerefMut.html' title='core::ops::DerefMut'>DerefMut</a> for <a class='struct' href='../../glium/buffer/struct.Mapping.html' title='glium::buffer::Mapping'>Mapping</a>&lt;'a, D&gt; <span class='where'>where D: <a class='trait' href='../../glium/buffer/trait.Content.html' title='glium::buffer::Content'>Content</a></span></code></span><span class='out-of-band'><div class='ghost'></div><a id='src-628' class='srclink' href='../../src/glium/buffer/alloc.rs.html#985-1002' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.deref_mut' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/ops/trait.DerefMut.html#tymethod.deref_mut' class='fnname'>deref_mut</a>(&amp;mut self) -&gt; &amp;mut D</code></h4>
+<div class='docblock'><p>The method called to mutably dereference a value</p>
+</div></div></section>
     <section id='search' class="content hidden"></section>
 
     <section class="footer"></section>
@@ -76,6 +82,8 @@
                     <dd>Move down in search results</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
 
@@ -96,7 +104,7 @@
 
                 <p>
                     Search functions by type signature (e.g.
-                    <code>vec -> usize</code>)
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
                 </p>
             </div>
         </div>

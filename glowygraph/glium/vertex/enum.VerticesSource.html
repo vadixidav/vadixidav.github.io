@@ -11,6 +11,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../main.css">
+    
 
     
     
@@ -43,10 +44,10 @@
 
     <section id='main' class="content enum">
 <h1 class='fqn'><span class='in-band'>Enum <a href='../index.html'>glium</a>::<wbr><a href='index.html'>vertex</a>::<wbr><a class='enum' href=''>VerticesSource</a></span><span class='out-of-band'><span id='render-detail'>
-            <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
-                [<span class='inner'>&#x2212;</span>]
-            </a>
-        </span><a id='src-9689' class='srclink' href='../../src/glium/vertex/mod.rs.html#153-170' title='goto source code'>[src]</a></span></h1>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a id='src-9767' class='srclink' href='../../src/glium/vertex/mod.rs.html#153-170' title='goto source code'>[src]</a></span></h1>
 <pre class='rust enum'>pub enum VerticesSource&lt;'a&gt; {
     VertexBuffer(<a class='struct' href='../../glium/buffer/struct.BufferAnySlice.html' title='glium::buffer::BufferAnySlice'>BufferAnySlice</a>&lt;'a&gt;, &amp;'a <a class='type' href='../../glium/vertex/type.VertexFormat.html' title='glium::vertex::VertexFormat'>VertexFormat</a>, <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a>),
     Marker {
@@ -55,21 +56,26 @@
     },
 }</pre><div class='docblock'><p>Describes the source to use for the vertices when drawing.</p>
 </div><h2 class='variants'>Variants</h2>
-<table><tr><td id='variant.VertexBuffer'><code>VertexBuffer</code></td><td><div class='docblock'><p>A buffer uploaded in the video memory.</p>
+<table class='variants_table'><tr><td id='variant.VertexBuffer'><code>VertexBuffer</code></td><td><div class='docblock'><p>A buffer uploaded in the video memory.</p>
 
 <p>The second parameter is the number of vertices in the buffer.</p>
 
 <p>The third parameter tells whether or not this buffer is &quot;per instance&quot; (true) or
 &quot;per vertex&quot; (false).</p>
-</div></td></tr><tr><td id='variant.Marker'><code>Marker</code></td><td><div class='docblock'><p>A marker indicating a &quot;phantom list of attributes&quot;.</p>
+</div></td><td></td></tr><tr><td id='variant.Marker'><code>Marker</code></td><td><div class='docblock'><p>A marker indicating a &quot;phantom list of attributes&quot;.</p>
 </div><h3 class='fields'>Fields</h3>
 
-                                              <table><tr><td id='variant.Marker.field.len'><code>len</code></td><td><div class='docblock'><p>Number of attributes.</p>
+                           <table><tr><td id='variant.Marker.field.len'><code>len</code></td><td><div class='docblock'><p>Number of attributes.</p>
 </div></td></tr><tr><td id='variant.Marker.field.per_instance'><code>per_instance</code></td><td><div class='docblock'><p>Whether or not this buffer is &quot;per instance&quot; (true) or &quot;per vertex&quot; (false).</p>
-</div></td></tr></table></td></tr></table><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><code>impl&lt;'a&gt; <a class='trait' href='../../glium/vertex/trait.IntoVerticesSource.html' title='glium::vertex::IntoVerticesSource'>IntoVerticesSource</a>&lt;'a&gt; for <a class='enum' href='../../glium/vertex/enum.VerticesSource.html' title='glium::vertex::VerticesSource'>VerticesSource</a>&lt;'a&gt;</code></h3><div class='impl-items'><h4 id='method.into_vertices_source' class='method'><code>fn <a href='../../glium/vertex/trait.IntoVerticesSource.html#method.into_vertices_source' class='fnname'>into_vertices_source</a>(self) -&gt; <a class='enum' href='../../glium/vertex/enum.VerticesSource.html' title='glium::vertex::VerticesSource'>VerticesSource</a>&lt;'a&gt;</code></h4>
-</div><h3 id='derived_implementations'>Derived Implementations </h3><h3 class='impl'><code>impl&lt;'a&gt; <a class='trait' href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html' title='core::clone::Clone'>Clone</a> for <a class='enum' href='../../glium/vertex/enum.VerticesSource.html' title='glium::vertex::VerticesSource'>VerticesSource</a>&lt;'a&gt;</code></h3><div class='impl-items'><h4 id='method.clone' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone' class='fnname'>clone</a>(&amp;self) -&gt; <a class='enum' href='../../glium/vertex/enum.VerticesSource.html' title='glium::vertex::VerticesSource'>VerticesSource</a>&lt;'a&gt;</code></h4>
-<h4 id='method.clone_from' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone_from' class='fnname'>clone_from</a>(&amp;mut self, source: &amp;Self)</code></h4>
-</div></section>
+</div></td></tr></table></td><td></td></tr></table><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><span class='in-band'><code>impl&lt;'a&gt; <a class='trait' href='../../glium/vertex/trait.IntoVerticesSource.html' title='glium::vertex::IntoVerticesSource'>IntoVerticesSource</a>&lt;'a&gt; for <a class='enum' href='../../glium/vertex/enum.VerticesSource.html' title='glium::vertex::VerticesSource'>VerticesSource</a>&lt;'a&gt;</code></span><span class='out-of-band'><div class='ghost'></div><a id='src-9789' class='srclink' href='../../src/glium/vertex/mod.rs.html#178-183' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.into_vertices_source' class='method'><code>fn <a href='../../glium/vertex/trait.IntoVerticesSource.html#tymethod.into_vertices_source' class='fnname'>into_vertices_source</a>(self) -&gt; <a class='enum' href='../../glium/vertex/enum.VerticesSource.html' title='glium::vertex::VerticesSource'>VerticesSource</a>&lt;'a&gt;</code></h4>
+<div class='docblock'><p>Builds the <code>VerticesSource</code>.</p>
+</div></div><h3 id='derived_implementations'>Derived Implementations </h3><h3 class='impl'><span class='in-band'><code>impl&lt;'a&gt; <a class='trait' href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html' title='core::clone::Clone'>Clone</a> for <a class='enum' href='../../glium/vertex/enum.VerticesSource.html' title='glium::vertex::VerticesSource'>VerticesSource</a>&lt;'a&gt;</code></span><span class='out-of-band'><div class='ghost'></div><a id='src-9776' class='srclink' href='../../src/glium/vertex/mod.rs.html#152' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.clone' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone' class='fnname'>clone</a>(&amp;self) -&gt; <a class='enum' href='../../glium/vertex/enum.VerticesSource.html' title='glium::vertex::VerticesSource'>VerticesSource</a>&lt;'a&gt;</code></h4>
+<div class='docblock'><p>Returns a copy of the value. <a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone">Read more</a></p>
+</div><h4 id='method.clone_from' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone_from' class='fnname'>clone_from</a>(&amp;mut self, source: &amp;Self)</code><div class='since' title='Stable since Rust version 1.0.0'>1.0.0</div></h4>
+<div class='docblock'><p>Performs copy-assignment from <code>source</code>. <a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone_from">Read more</a></p>
+</div></div></section>
     <section id='search' class="content hidden"></section>
 
     <section class="footer"></section>
@@ -92,6 +98,8 @@
                     <dd>Move down in search results</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
 
@@ -112,7 +120,7 @@
 
                 <p>
                     Search functions by type signature (e.g.
-                    <code>vec -> usize</code>)
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
                 </p>
             </div>
         </div>

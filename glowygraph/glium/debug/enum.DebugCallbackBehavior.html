@@ -11,6 +11,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../main.css">
+    
 
     
     
@@ -43,10 +44,10 @@
 
     <section id='main' class="content enum">
 <h1 class='fqn'><span class='in-band'>Enum <a href='../index.html'>glium</a>::<wbr><a href='index.html'>debug</a>::<wbr><a class='enum' href=''>DebugCallbackBehavior</a></span><span class='out-of-band'><span id='render-detail'>
-            <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
-                [<span class='inner'>&#x2212;</span>]
-            </a>
-        </span><a id='src-28909' class='srclink' href='../../src/glium/context/mod.rs.html#787-805' title='goto source code'>[src]</a></span></h1>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a id='src-28952' class='srclink' href='../../src/glium/context/mod.rs.html#787-805' title='goto source code'>[src]</a></span></h1>
 <pre class='rust enum'>pub enum DebugCallbackBehavior {
     Ignore,
     DebugMessageOnError,
@@ -57,17 +58,19 @@
     },
 }</pre><div class='docblock'><p>Describes the behavior that the debug output should have.</p>
 </div><h2 class='variants'>Variants</h2>
-<table><tr><td id='variant.Ignore'><code>Ignore</code></td><td><div class='docblock'><p>Don&#39;t do anything. This is the default behavior in release.</p>
-</div></td></tr><tr><td id='variant.DebugMessageOnError'><code>DebugMessageOnError</code></td><td><div class='docblock'><p>Print a message on stdout on error, except in some circumstances like when compiling
+<table class='variants_table'><tr><td id='variant.Ignore'><code>Ignore</code></td><td><div class='docblock'><p>Don&#39;t do anything. This is the default behavior in release.</p>
+</div></td><td></td></tr><tr><td id='variant.DebugMessageOnError'><code>DebugMessageOnError</code></td><td><div class='docblock'><p>Print a message on stdout on error, except in some circumstances like when compiling
 shaders. This is the default behavior in debug mode.</p>
-</div></td></tr><tr><td id='variant.PrintAll'><code>PrintAll</code></td><td><div class='docblock'><p>Print every single output received by the driver.</p>
-</div></td></tr><tr><td id='variant.Custom'><code>Custom</code></td><td><div class='docblock'><p>Use a custom callback.</p>
+</div></td><td></td></tr><tr><td id='variant.PrintAll'><code>PrintAll</code></td><td><div class='docblock'><p>Print every single output received by the driver.</p>
+</div></td><td></td></tr><tr><td id='variant.Custom'><code>Custom</code></td><td><div class='docblock'><p>Use a custom callback.</p>
 </div><h3 class='fields'>Fields</h3>
 
-                                              <table><tr><td id='variant.Custom.field.callback'><code>callback</code></td><td><div class='docblock'><p>The function to be called.</p>
+                           <table><tr><td id='variant.Custom.field.callback'><code>callback</code></td><td><div class='docblock'><p>The function to be called.</p>
 </div></td></tr><tr><td id='variant.Custom.field.synchronous'><code>synchronous</code></td><td><div class='docblock'><p>Whether or not it should be called immediately (true) or asynchronously (false).</p>
-</div></td></tr></table></td></tr></table><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/default/trait.Default.html' title='core::default::Default'>Default</a> for <a class='enum' href='../../glium/debug/enum.DebugCallbackBehavior.html' title='glium::debug::DebugCallbackBehavior'>DebugCallbackBehavior</a></code></h3><div class='impl-items'><h4 id='method.default' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/default/trait.Default.html#method.default' class='fnname'>default</a>() -&gt; <a class='enum' href='../../glium/debug/enum.DebugCallbackBehavior.html' title='glium::debug::DebugCallbackBehavior'>DebugCallbackBehavior</a></code></h4>
-</div></section>
+</div></td></tr></table></td><td></td></tr></table><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><span class='in-band'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/default/trait.Default.html' title='core::default::Default'>Default</a> for <a class='enum' href='../../glium/debug/enum.DebugCallbackBehavior.html' title='glium::debug::DebugCallbackBehavior'>DebugCallbackBehavior</a></code></span><span class='out-of-band'><div class='ghost'></div><a id='src-28959' class='srclink' href='../../src/glium/context/mod.rs.html#807-816' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.default' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/default/trait.Default.html#tymethod.default' class='fnname'>default</a>() -&gt; <a class='enum' href='../../glium/debug/enum.DebugCallbackBehavior.html' title='glium::debug::DebugCallbackBehavior'>DebugCallbackBehavior</a></code></h4>
+<div class='docblock'><p>Returns the &quot;default value&quot; for a type. <a href="https://doc.rust-lang.org/nightly/core/default/trait.Default.html#tymethod.default">Read more</a></p>
+</div></div></section>
     <section id='search' class="content hidden"></section>
 
     <section class="footer"></section>
@@ -90,6 +93,8 @@ shaders. This is the default behavior in debug mode.</p>
                     <dd>Move down in search results</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
 
@@ -110,7 +115,7 @@ shaders. This is the default behavior in debug mode.</p>
 
                 <p>
                     Search functions by type signature (e.g.
-                    <code>vec -> usize</code>)
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
                 </p>
             </div>
         </div>

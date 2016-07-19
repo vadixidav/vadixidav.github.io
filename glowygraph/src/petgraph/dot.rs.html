@@ -4,13 +4,14 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="rustdoc">
-    <meta name="description" content="Source to the Rust file `/home/vadix/.cargo/registry/src/github.com-88ac128001ac3a9a/petgraph-0.2.2/src/dot.rs`.">
+    <meta name="description" content="Source to the Rust file `/home/vadix/.cargo/registry/src/github.com-1ecc6299db9ec823/petgraph-0.2.7/src/dot.rs`.">
     <meta name="keywords" content="rust, rustlang, rust-lang">
 
     <title>dot.rs.html -- source</title>
 
     <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../main.css">
+    
 
     
     
@@ -292,7 +293,7 @@
     <span class='ident'>EdgeType</span>,
     <span class='ident'>GraphMap</span>,
 };
-<span class='kw'>use</span> <span class='ident'>super</span>::<span class='ident'>graph</span>::<span class='ident'>IndexType</span>;
+<span class='kw'>use</span> <span class='kw'>super</span>::<span class='ident'>graph</span>::<span class='ident'>IndexType</span>;
 <span class='kw'>use</span> <span class='ident'>graphmap</span>::<span class='ident'>NodeTrait</span>;
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>collections</span>::<span class='ident'>HashMap</span>;
 
@@ -311,12 +312,12 @@
 
 <span class='kw'>impl</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span>, <span class='ident'>G</span><span class='op'>&gt;</span> <span class='ident'>Dot</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span>, <span class='ident'>G</span><span class='op'>&gt;</span> {
     <span class='doccomment'>/// Create a `Dot` formatting wrapper with default configuration.</span>
-    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>new</span>(<span class='ident'>graph</span>: <span class='kw-2'>&amp;</span><span class='lifetime'>&#39;a</span> <span class='ident'>G</span>) <span class='op'>-&gt;</span> <span class='kw'>Self</span> {
-        <span class='ident'>Self</span>::<span class='ident'>with_config</span>(<span class='ident'>graph</span>, <span class='kw-2'>&amp;</span>[])
+    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>new</span>(<span class='ident'>graph</span>: <span class='kw-2'>&amp;</span><span class='lifetime'>&#39;a</span> <span class='ident'>G</span>) <span class='op'>-&gt;</span> <span class='self'>Self</span> {
+        <span class='self'>Self</span>::<span class='ident'>with_config</span>(<span class='ident'>graph</span>, <span class='kw-2'>&amp;</span>[])
     }
 
     <span class='doccomment'>/// Create a `Dot` formatting wrapper with custom configuration.</span>
-    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>with_config</span>(<span class='ident'>graph</span>: <span class='kw-2'>&amp;</span><span class='lifetime'>&#39;a</span> <span class='ident'>G</span>, <span class='ident'>config</span>: <span class='kw-2'>&amp;</span><span class='lifetime'>&#39;a</span> [<span class='ident'>Config</span>]) <span class='op'>-&gt;</span> <span class='kw'>Self</span> {
+    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>with_config</span>(<span class='ident'>graph</span>: <span class='kw-2'>&amp;</span><span class='lifetime'>&#39;a</span> <span class='ident'>G</span>, <span class='ident'>config</span>: <span class='kw-2'>&amp;</span><span class='lifetime'>&#39;a</span> [<span class='ident'>Config</span>]) <span class='op'>-&gt;</span> <span class='self'>Self</span> {
         <span class='ident'>Dot</span> {
             <span class='ident'>graph</span>: <span class='ident'>graph</span>,
             <span class='ident'>config</span>: <span class='ident'>config</span>,
@@ -550,6 +551,8 @@
                     <dd>Move down in search results</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
 
@@ -570,7 +573,7 @@
 
                 <p>
                     Search functions by type signature (e.g.
-                    <code>vec -> usize</code>)
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
                 </p>
             </div>
         </div>

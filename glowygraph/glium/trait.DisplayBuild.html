@@ -11,6 +11,7 @@
 
     <link rel="stylesheet" type="text/css" href="../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../main.css">
+    
 
     
     
@@ -43,13 +44,13 @@
 
     <section id='main' class="content trait">
 <h1 class='fqn'><span class='in-band'>Trait <a href='index.html'>glium</a>::<wbr><a class='trait' href=''>DisplayBuild</a></span><span class='out-of-band'><span id='render-detail'>
-            <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
-                [<span class='inner'>&#x2212;</span>]
-            </a>
-        </span><a id='src-50950' class='srclink' href='../src/glium/lib.rs.html#1227-1265' title='goto source code'>[src]</a></span></h1>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a id='src-50918' class='srclink' href='../src/glium/lib.rs.html#1224-1262' title='goto source code'>[src]</a></span></h1>
 <pre class='rust trait'>pub trait DisplayBuild {
-    type Facade: <a class='trait' href='../glium/backend/trait.Facade.html' title='glium::backend::Facade'>Facade</a>;
-    type Err;
+    type <a href='#associatedtype.Facade' class='type'>Facade</a>: <a class='trait' href='../glium/backend/trait.Facade.html' title='glium::backend::Facade'>Facade</a>;
+    type <a href='#associatedtype.Err' class='type'>Err</a>;
     fn <a href='#tymethod.build_glium_debug' class='fnname'>build_glium_debug</a>(self, <a class='enum' href='../glium/debug/enum.DebugCallbackBehavior.html' title='glium::debug::DebugCallbackBehavior'>DebugCallbackBehavior</a>) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;Self::<a class='trait' href='../glium/trait.DisplayBuild.html' title='glium::DisplayBuild'>Facade</a>, Self::<a class='trait' href='../glium/trait.DisplayBuild.html' title='glium::DisplayBuild'>Err</a>&gt;;
     unsafe fn <a href='#tymethod.build_glium_unchecked_debug' class='fnname'>build_glium_unchecked_debug</a>(self, <a class='enum' href='../glium/debug/enum.DebugCallbackBehavior.html' title='glium::debug::DebugCallbackBehavior'>DebugCallbackBehavior</a>) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;Self::<a class='trait' href='../glium/trait.DisplayBuild.html' title='glium::DisplayBuild'>Facade</a>, Self::<a class='trait' href='../glium/trait.DisplayBuild.html' title='glium::DisplayBuild'>Err</a>&gt;;
     fn <a href='#tymethod.rebuild_glium' class='fnname'>rebuild_glium</a>(self, &amp;Self::<a class='trait' href='../glium/trait.DisplayBuild.html' title='glium::DisplayBuild'>Facade</a>) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>()</a>, Self::<a class='trait' href='../glium/trait.DisplayBuild.html' title='glium::DisplayBuild'>Err</a>&gt;;
@@ -60,8 +61,8 @@
 </div>
             <h2 id='associated-types'>Associated Types</h2>
             <div class='methods'>
-        <h3 id='associatedtype.Facade' class='method stab '><code>type Facade: <a class='trait' href='../glium/backend/trait.Facade.html' title='glium::backend::Facade'>Facade</a></code></h3><div class='docblock'><p>The object that this <code>DisplayBuild</code> builds.</p>
-</div><h3 id='associatedtype.Err' class='method stab '><code>type Err</code></h3><div class='docblock'><p>The type of error that initialization can return.</p>
+        <h3 id='associatedtype.Facade' class='method stab '><code>type <a href='#associatedtype.Facade' class='type'>Facade</a>: <a class='trait' href='../glium/backend/trait.Facade.html' title='glium::backend::Facade'>Facade</a></code></h3><div class='docblock'><p>The object that this <code>DisplayBuild</code> builds.</p>
+</div><h3 id='associatedtype.Err' class='method stab '><code>type <a href='#associatedtype.Err' class='type'>Err</a></code></h3><div class='docblock'><p>The type of error that initialization can return.</p>
 </div></div>
             <h2 id='required-methods'>Required Methods</h2>
             <div class='methods'>
@@ -88,11 +89,11 @@ will assume that the current OpenGL context will never change.</p>
 </div></div>
         <h2 id='implementors'>Implementors</h2>
         <ul class='item-list' id='implementors-list'>
-    <li><code>impl <a class='trait' href='../glium/trait.DisplayBuild.html' title='glium::DisplayBuild'>DisplayBuild</a> for <a class='struct' href='../glium/glutin/struct.WindowBuilder.html' title='glium::glutin::WindowBuilder'>WindowBuilder</a>&lt;'static&gt;</code></li>
-<li><code>impl&lt;'a&gt; <a class='trait' href='../glium/trait.DisplayBuild.html' title='glium::DisplayBuild'>DisplayBuild</a> for <a class='struct' href='../glium/glutin/struct.HeadlessRendererBuilder.html' title='glium::glutin::HeadlessRendererBuilder'>HeadlessRendererBuilder</a>&lt;'a&gt;</code></li>
+    <li><code>impl DisplayBuild for <a class='struct' href='../glium/glutin/struct.WindowBuilder.html' title='glium::glutin::WindowBuilder'>WindowBuilder</a>&lt;'static&gt;</code></li>
+<li><code>impl&lt;'a&gt; DisplayBuild for <a class='struct' href='../glium/glutin/struct.HeadlessRendererBuilder.html' title='glium::glutin::HeadlessRendererBuilder'>HeadlessRendererBuilder</a>&lt;'a&gt;</code></li>
 </ul><script type="text/javascript" async
-                              src="../implementors/glium/trait.DisplayBuild.js">
-                      </script></section>
+                         src="../implementors/glium/trait.DisplayBuild.js">
+                 </script></section>
     <section id='search' class="content hidden"></section>
 
     <section class="footer"></section>
@@ -115,6 +116,8 @@ will assume that the current OpenGL context will never change.</p>
                     <dd>Move down in search results</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
 
@@ -135,7 +138,7 @@ will assume that the current OpenGL context will never change.</p>
 
                 <p>
                     Search functions by type signature (e.g.
-                    <code>vec -> usize</code>)
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
                 </p>
             </div>
         </div>

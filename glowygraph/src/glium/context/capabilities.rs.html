@@ -4,13 +4,14 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="rustdoc">
-    <meta name="description" content="Source to the Rust file `/home/vadix/.cargo/registry/src/github.com-88ac128001ac3a9a/glium-0.13.4/src/context/capabilities.rs`.">
+    <meta name="description" content="Source to the Rust file `/home/vadix/.cargo/registry/src/github.com-1ecc6299db9ec823/glium-0.14.0/src/context/capabilities.rs`.">
     <meta name="keywords" content="rust, rustlang, rust-lang">
 
     <title>capabilities.rs.html -- source</title>
 
     <link rel="stylesheet" type="text/css" href="../../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../../main.css">
+    
 
     
     
@@ -960,7 +961,7 @@
         ((<span class='ident'>val</span> <span class='kw-2'>&amp;</span> <span class='ident'>gl</span>::<span class='ident'>CONTEXT_FLAG_DEBUG_BIT</span>) <span class='op'>!=</span> <span class='number'>0</span>,
          (<span class='ident'>val</span> <span class='kw-2'>&amp;</span> <span class='ident'>gl</span>::<span class='ident'>CONTEXT_FLAG_FORWARD_COMPATIBLE_BIT</span>) <span class='op'>!=</span> <span class='number'>0</span>)
     } <span class='kw'>else</span> {
-        (<span class='boolval'>false</span>, <span class='boolval'>false</span>)
+        (<span class='boolvalue'>false</span>, <span class='boolvalue'>false</span>)
     };
 
     <span class='comment'>// getting the value of `GL_RENDERER`</span>
@@ -1027,7 +1028,7 @@
             <span class='ident'>val</span> <span class='op'>!=</span> <span class='number'>0</span>
 
         } <span class='kw'>else</span> {
-            <span class='boolval'>false</span>
+            <span class='boolvalue'>false</span>
         },
 
         <span class='ident'>can_lose_context</span>: <span class='kw'>if</span> <span class='ident'>version</span> <span class='op'>&gt;=</span> <span class='kw-2'>&amp;</span><span class='ident'>Version</span>(<span class='ident'>Api</span>::<span class='ident'>Gl</span>, <span class='number'>4</span>, <span class='number'>5</span>) <span class='op'>||</span> <span class='ident'>extensions</span>.<span class='ident'>gl_khr_robustness</span> <span class='op'>||</span>
@@ -1037,19 +1038,19 @@
             <span class='ident'>gl</span>.<span class='ident'>GetIntegerv</span>(<span class='ident'>gl</span>::<span class='ident'>RESET_NOTIFICATION_STRATEGY</span>, <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>val</span>);
 
             <span class='kw'>match</span> <span class='ident'>val</span> <span class='kw'>as</span> <span class='ident'>gl</span>::<span class='ident'>types</span>::<span class='ident'>GLenum</span> {
-                <span class='ident'>gl</span>::<span class='ident'>LOSE_CONTEXT_ON_RESET</span> <span class='op'>=&gt;</span> <span class='boolval'>true</span>,
-                <span class='ident'>gl</span>::<span class='ident'>NO_RESET_NOTIFICATION</span> <span class='op'>=&gt;</span> <span class='boolval'>false</span>,
+                <span class='ident'>gl</span>::<span class='ident'>LOSE_CONTEXT_ON_RESET</span> <span class='op'>=&gt;</span> <span class='boolvalue'>true</span>,
+                <span class='ident'>gl</span>::<span class='ident'>NO_RESET_NOTIFICATION</span> <span class='op'>=&gt;</span> <span class='boolvalue'>false</span>,
 
                 <span class='comment'>// WORK-AROUND: AMD drivers erroneously return this value, which doesn&#39;t even</span>
                 <span class='comment'>//              correspond to any GLenum in the specs. We work around this bug</span>
                 <span class='comment'>//              by interpreting it as `false`.</span>
-                <span class='number'>0x31BE</span> <span class='op'>=&gt;</span> <span class='boolval'>false</span>,
+                <span class='number'>0x31BE</span> <span class='op'>=&gt;</span> <span class='boolvalue'>false</span>,
 
                 _ <span class='op'>=&gt;</span> <span class='macro'>unreachable</span><span class='macro'>!</span>()
             }
 
         } <span class='kw'>else</span> {
-            <span class='boolval'>false</span>
+            <span class='boolvalue'>false</span>
         },
 
         <span class='ident'>release_behavior</span>: <span class='kw'>if</span> <span class='ident'>extensions</span>.<span class='ident'>gl_khr_context_flush_control</span> {
@@ -1072,7 +1073,7 @@
                 <span class='ident'>gl</span>.<span class='ident'>GetBooleanv</span>(<span class='ident'>gl</span>::<span class='ident'>STEREO</span>, <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>val</span>);
                 <span class='ident'>val</span> <span class='op'>!=</span> <span class='number'>0</span>
             } <span class='kw'>else</span> {
-                <span class='boolval'>false</span>
+                <span class='boolvalue'>false</span>
             }
         },
 
@@ -1092,7 +1093,7 @@
                 <span class='ident'>value</span> <span class='op'>!=</span> <span class='number'>0</span>
 
             } <span class='kw'>else</span> {
-                <span class='boolval'>false</span>
+                <span class='boolvalue'>false</span>
             }
         },
 
@@ -1162,8 +1163,8 @@
             }
         },
 
-        <span class='ident'>internal_formats_textures</span>: <span class='ident'>get_internal_formats</span>(<span class='ident'>gl</span>, <span class='ident'>version</span>, <span class='ident'>extensions</span>, <span class='boolval'>false</span>),
-        <span class='ident'>internal_formats_renderbuffers</span>: <span class='ident'>get_internal_formats</span>(<span class='ident'>gl</span>, <span class='ident'>version</span>, <span class='ident'>extensions</span>, <span class='boolval'>true</span>),
+        <span class='ident'>internal_formats_textures</span>: <span class='ident'>get_internal_formats</span>(<span class='ident'>gl</span>, <span class='ident'>version</span>, <span class='ident'>extensions</span>, <span class='boolvalue'>false</span>),
+        <span class='ident'>internal_formats_renderbuffers</span>: <span class='ident'>get_internal_formats</span>(<span class='ident'>gl</span>, <span class='ident'>version</span>, <span class='ident'>extensions</span>, <span class='boolvalue'>true</span>),
 
         <span class='ident'>max_combined_texture_image_units</span>: {
             <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>val</span> <span class='op'>=</span> <span class='number'>2</span>;
@@ -1552,6 +1553,8 @@
                     <dd>Move down in search results</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
 
@@ -1572,7 +1575,7 @@
 
                 <p>
                     Search functions by type signature (e.g.
-                    <code>vec -> usize</code>)
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
                 </p>
             </div>
         </div>

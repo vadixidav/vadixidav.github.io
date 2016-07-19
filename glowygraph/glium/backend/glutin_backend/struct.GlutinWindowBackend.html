@@ -11,6 +11,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../../main.css">
+    
 
     
     
@@ -43,25 +44,32 @@
 
     <section id='main' class="content struct">
 <h1 class='fqn'><span class='in-band'>Struct <a href='../../index.html'>glium</a>::<wbr><a href='../index.html'>backend</a>::<wbr><a href='index.html'>glutin_backend</a>::<wbr><a class='struct' href=''>GlutinWindowBackend</a></span><span class='out-of-band'><span id='render-detail'>
-            <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
-                [<span class='inner'>&#x2212;</span>]
-            </a>
-        </span><a id='src-168' class='srclink' href='../../../src/glium/backend/glutin_backend.rs.html#219-221' title='goto source code'>[src]</a></span></h1>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a id='src-168' class='srclink' href='../../../src/glium/backend/glutin_backend.rs.html#219-221' title='goto source code'>[src]</a></span></h1>
 <pre class='rust struct'>pub struct GlutinWindowBackend {
     // some fields omitted
 }</pre><div class='docblock'><p>An implementation of the <code>Backend</code> trait for a glutin window.</p>
-</div><h2 id='methods'>Methods</h2><h3 class='impl'><code>impl <a class='struct' href='../../../glium/backend/glutin_backend/struct.GlutinWindowBackend.html' title='glium::backend::glutin_backend::GlutinWindowBackend'>GlutinWindowBackend</a></code></h3><div class='impl-items'><h4 id='method.new' class='method'><code>fn <a href='#method.new' class='fnname'>new</a>(builder: <a class='struct' href='../../../glium/glutin/struct.WindowBuilder.html' title='glium::glutin::WindowBuilder'>WindowBuilder</a>) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a class='struct' href='../../../glium/backend/glutin_backend/struct.GlutinWindowBackend.html' title='glium::backend::glutin_backend::GlutinWindowBackend'>GlutinWindowBackend</a>, <a class='enum' href='../../../glium/enum.GliumCreationError.html' title='glium::GliumCreationError'>GliumCreationError</a>&lt;<a class='enum' href='../../../glium/glutin/enum.CreationError.html' title='glium::glutin::CreationError'>CreationError</a>&gt;&gt;</code></h4>
+</div><h2 id='methods'>Methods</h2><h3 class='impl'><span class='in-band'><code>impl <a class='struct' href='../../../glium/backend/glutin_backend/struct.GlutinWindowBackend.html' title='glium::backend::glutin_backend::GlutinWindowBackend'>GlutinWindowBackend</a></code></span><span class='out-of-band'><div class='ghost'></div><a id='src-189' class='srclink' href='../../../src/glium/backend/glutin_backend.rs.html#257-293' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.new' class='method'><code>fn <a href='#method.new' class='fnname'>new</a>(builder: <a class='struct' href='../../../glium/glutin/struct.WindowBuilder.html' title='glium::glutin::WindowBuilder'>WindowBuilder</a>) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a class='struct' href='../../../glium/backend/glutin_backend/struct.GlutinWindowBackend.html' title='glium::backend::glutin_backend::GlutinWindowBackend'>GlutinWindowBackend</a>, <a class='enum' href='../../../glium/enum.GliumCreationError.html' title='glium::GliumCreationError'>GliumCreationError</a>&lt;<a class='enum' href='../../../glium/glutin/enum.CreationError.html' title='glium::glutin::CreationError'>CreationError</a>&gt;&gt;</code></h4>
 <div class='docblock'><p>Builds a new backend from the builder.</p>
 </div><h4 id='method.get_window' class='method'><code>fn <a href='#method.get_window' class='fnname'>get_window</a>(&amp;self) -&gt; &amp;<a class='struct' href='../../../glium/glutin/struct.Window.html' title='glium::glutin::Window'>Window</a></code></h4>
 <h4 id='method.poll_events' class='method'><code>fn <a href='#method.poll_events' class='fnname'>poll_events</a>(&amp;self) -&gt; <a class='struct' href='../../../glium/glutin/struct.PollEventsIterator.html' title='glium::glutin::PollEventsIterator'>PollEventsIterator</a></code></h4>
 <h4 id='method.wait_events' class='method'><code>fn <a href='#method.wait_events' class='fnname'>wait_events</a>(&amp;self) -&gt; <a class='struct' href='../../../glium/glutin/struct.WaitEventsIterator.html' title='glium::glutin::WaitEventsIterator'>WaitEventsIterator</a></code></h4>
 <h4 id='method.rebuild' class='method'><code>fn <a href='#method.rebuild' class='fnname'>rebuild</a>(&amp;self, builder: <a class='struct' href='../../../glium/glutin/struct.WindowBuilder.html' title='glium::glutin::WindowBuilder'>WindowBuilder</a>) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a class='struct' href='../../../glium/backend/glutin_backend/struct.GlutinWindowBackend.html' title='glium::backend::glutin_backend::GlutinWindowBackend'>GlutinWindowBackend</a>, <a class='enum' href='../../../glium/enum.GliumCreationError.html' title='glium::GliumCreationError'>GliumCreationError</a>&lt;<a class='enum' href='../../../glium/glutin/enum.CreationError.html' title='glium::glutin::CreationError'>CreationError</a>&gt;&gt;</code></h4>
-</div><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><code>impl <a class='trait' href='../../../glium/backend/trait.Backend.html' title='glium::backend::Backend'>Backend</a> for <a class='struct' href='../../../glium/backend/glutin_backend/struct.GlutinWindowBackend.html' title='glium::backend::glutin_backend::GlutinWindowBackend'>GlutinWindowBackend</a></code></h3><div class='impl-items'><h4 id='method.swap_buffers' class='method'><code>fn <a href='../../../glium/backend/trait.Backend.html#method.swap_buffers' class='fnname'>swap_buffers</a>(&amp;self) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>()</a>, <a class='enum' href='../../../glium/enum.SwapBuffersError.html' title='glium::SwapBuffersError'>SwapBuffersError</a>&gt;</code></h4>
-<h4 id='method.get_proc_address' class='method'><code>unsafe fn <a href='../../../glium/backend/trait.Backend.html#method.get_proc_address' class='fnname'>get_proc_address</a>(&amp;self, symbol: &amp;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.pointer.html'>*const <a class='enum' href='../../../std/os/raw/enum.c_void.html' title='std::os::raw::c_void'>c_void</a></a></code></h4>
-<h4 id='method.get_framebuffer_dimensions' class='method'><code>fn <a href='../../../glium/backend/trait.Backend.html#method.get_framebuffer_dimensions' class='fnname'>get_framebuffer_dimensions</a>(&amp;self) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>(<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a>, <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a>)</a></code></h4>
-<h4 id='method.is_current' class='method'><code>fn <a href='../../../glium/backend/trait.Backend.html#method.is_current' class='fnname'>is_current</a>(&amp;self) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a></code></h4>
-<h4 id='method.make_current' class='method'><code>unsafe fn <a href='../../../glium/backend/trait.Backend.html#method.make_current' class='fnname'>make_current</a>(&amp;self)</code></h4>
-</div></section>
+</div><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><span class='in-band'><code>impl <a class='trait' href='../../../glium/backend/trait.Backend.html' title='glium::backend::Backend'>Backend</a> for <a class='struct' href='../../../glium/backend/glutin_backend/struct.GlutinWindowBackend.html' title='glium::backend::glutin_backend::GlutinWindowBackend'>GlutinWindowBackend</a></code></span><span class='out-of-band'><div class='ghost'></div><a id='src-170' class='srclink' href='../../../src/glium/backend/glutin_backend.rs.html#223-254' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.swap_buffers' class='method'><code>fn <a href='../../../glium/backend/trait.Backend.html#tymethod.swap_buffers' class='fnname'>swap_buffers</a>(&amp;self) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>()</a>, <a class='enum' href='../../../glium/enum.SwapBuffersError.html' title='glium::SwapBuffersError'>SwapBuffersError</a>&gt;</code></h4>
+<div class='docblock'><p>Swaps buffers at the end of a frame.</p>
+</div><h4 id='method.get_proc_address' class='method'><code>unsafe fn <a href='../../../glium/backend/trait.Backend.html#tymethod.get_proc_address' class='fnname'>get_proc_address</a>(&amp;self, symbol: &amp;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.pointer.html'>*const </a><a class='enum' href='../../../std/os/raw/enum.c_void.html' title='std::os::raw::c_void'>c_void</a></code></h4>
+<div class='docblock'><p>Returns the address of an OpenGL function. <a href="../../../glium/backend/trait.Backend.html#tymethod.get_proc_address">Read more</a></p>
+</div><h4 id='method.get_framebuffer_dimensions' class='method'><code>fn <a href='../../../glium/backend/trait.Backend.html#tymethod.get_framebuffer_dimensions' class='fnname'>get_framebuffer_dimensions</a>(&amp;self) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>(</a><a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a>, <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a><a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>)</a></code></h4>
+<div class='docblock'><p>Returns the dimensions of the window, or screen, etc.</p>
+</div><h4 id='method.is_current' class='method'><code>fn <a href='../../../glium/backend/trait.Backend.html#tymethod.is_current' class='fnname'>is_current</a>(&amp;self) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a></code></h4>
+<div class='docblock'><p>Returns true if the OpenGL context is the current one in the thread.</p>
+</div><h4 id='method.make_current' class='method'><code>unsafe fn <a href='../../../glium/backend/trait.Backend.html#tymethod.make_current' class='fnname'>make_current</a>(&amp;self)</code></h4>
+<div class='docblock'><p>Makes the OpenGL context the current context in the current thread.</p>
+</div></div></section>
     <section id='search' class="content hidden"></section>
 
     <section class="footer"></section>
@@ -84,6 +92,8 @@
                     <dd>Move down in search results</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
 
@@ -104,7 +114,7 @@
 
                 <p>
                     Search functions by type signature (e.g.
-                    <code>vec -> usize</code>)
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
                 </p>
             </div>
         </div>

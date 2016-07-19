@@ -11,6 +11,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../main.css">
+    
 
     
     
@@ -43,21 +44,22 @@
 
     <section id='main' class="content struct">
 <h1 class='fqn'><span class='in-band'>Struct <a href='../index.html'>glium</a>::<wbr><a href='index.html'>glutin</a>::<wbr><a class='struct' href=''>WindowBuilder</a></span><span class='out-of-band'><span id='render-detail'>
-            <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
-                [<span class='inner'>&#x2212;</span>]
-            </a>
-        </span><a id='src-5183' class='srclink' href='../../glutin/window/struct.WindowBuilder.html?gotosrc=5183' title='goto source code'>[src]</a></span></h1>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a id='src-5480' class='srclink' href='../../glutin/struct.WindowBuilder.html?gotosrc=5480' title='goto source code'>[src]</a></span></h1>
 <pre class='rust struct'>pub struct WindowBuilder&lt;'a&gt; {
     pub window: <a class='struct' href='../../glium/glutin/struct.WindowAttributes.html' title='glium::glutin::WindowAttributes'>WindowAttributes</a>,
-    pub opengl: <a class='struct' href='../../glium/glutin/struct.GlAttributes.html' title='glium::glutin::GlAttributes'>GlAttributes</a>&lt;&amp;'a <a class='enum' href='../../glutin/platform/platform/api_dispatch/enum.Window.html' title='glutin::platform::platform::api_dispatch::Window'>Window</a>&gt;,
+    pub opengl: <a class='struct' href='../../glium/glutin/struct.GlAttributes.html' title='glium::glutin::GlAttributes'>GlAttributes</a>&lt;&amp;'a Window&gt;,
     // some fields omitted
 }</pre><div class='docblock'><p>Object that allows you to build windows.</p>
 </div><h2 class='fields'>Fields</h2>
 <table><tr class='stab '>
-                                  <td id='structfield.window'><code>window</code></td><td><div class='docblock'><p>The attributes to use to create the window.</p>
+                             <td id='structfield.window'><code>window</code></td><td><div class='docblock'><p>The attributes to use to create the window.</p>
 </div></td></tr><tr class='stab '>
-                                  <td id='structfield.opengl'><code>opengl</code></td><td><div class='docblock'><p>The attributes to use to create the context.</p>
-</div></td></tr></table><h2 id='methods'>Methods</h2><h3 class='impl'><code>impl&lt;'a&gt; <a class='struct' href='../../glium/glutin/struct.WindowBuilder.html' title='glium::glutin::WindowBuilder'>WindowBuilder</a>&lt;'a&gt;</code></h3><div class='impl-items'><h4 id='method.new' class='method'><code>fn <a href='#method.new' class='fnname'>new</a>() -&gt; <a class='struct' href='../../glium/glutin/struct.WindowBuilder.html' title='glium::glutin::WindowBuilder'>WindowBuilder</a>&lt;'a&gt;</code></h4>
+                             <td id='structfield.opengl'><code>opengl</code></td><td><div class='docblock'><p>The attributes to use to create the context.</p>
+</div></td></tr></table><h2 id='methods'>Methods</h2><h3 class='impl'><span class='in-band'><code>impl&lt;'a&gt; <a class='struct' href='../../glium/glutin/struct.WindowBuilder.html' title='glium::glutin::WindowBuilder'>WindowBuilder</a>&lt;'a&gt;</code></span><span class='out-of-band'></span></h3>
+<div class='impl-items'><h4 id='method.new' class='method'><code>fn <a href='#method.new' class='fnname'>new</a>() -&gt; <a class='struct' href='../../glium/glutin/struct.WindowBuilder.html' title='glium::glutin::WindowBuilder'>WindowBuilder</a>&lt;'a&gt;</code></h4>
 <div class='docblock'><p>Initializes a new <code>WindowBuilder</code> with default values.</p>
 </div><h4 id='method.with_dimensions' class='method'><code>fn <a href='#method.with_dimensions' class='fnname'>with_dimensions</a>(self, width: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a>, height: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a>) -&gt; <a class='struct' href='../../glium/glutin/struct.WindowBuilder.html' title='glium::glutin::WindowBuilder'>WindowBuilder</a>&lt;'a&gt;</code></h4>
 <div class='docblock'><p>Requests the window to be of specific dimensions.</p>
@@ -71,7 +73,7 @@
 <div class='docblock'><p>Sets a maximum dimension size for the window</p>
 
 <p>Width and height are in pixels.</p>
-</div><h4 id='method.with_title' class='method'><code>fn <a href='#method.with_title' class='fnname'>with_title</a>(self, title: <a class='struct' href='https://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='collections::string::String'>String</a>) -&gt; <a class='struct' href='../../glium/glutin/struct.WindowBuilder.html' title='glium::glutin::WindowBuilder'>WindowBuilder</a>&lt;'a&gt;</code></h4>
+</div><h4 id='method.with_title' class='method'><code>fn <a href='#method.with_title' class='fnname'>with_title</a>&lt;T&gt;(self, title: T) -&gt; <a class='struct' href='../../glium/glutin/struct.WindowBuilder.html' title='glium::glutin::WindowBuilder'>WindowBuilder</a>&lt;'a&gt; <span class='where'>where T: <a class='trait' href='https://doc.rust-lang.org/nightly/core/convert/trait.Into.html' title='core::convert::Into'>Into</a>&lt;<a class='struct' href='https://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='collections::string::String'>String</a>&gt;</span></code></h4>
 <div class='docblock'><p>Requests a specific title for the window.</p>
 </div><h4 id='method.with_fullscreen' class='method'><code>fn <a href='#method.with_fullscreen' class='fnname'>with_fullscreen</a>(self, monitor: <a class='struct' href='../../glium/glutin/struct.MonitorId.html' title='glium::glutin::MonitorId'>MonitorId</a>) -&gt; <a class='struct' href='../../glium/glutin/struct.WindowBuilder.html' title='glium::glutin::WindowBuilder'>WindowBuilder</a>&lt;'a&gt;</code></h4>
 <div class='docblock'><p>Requests fullscreen mode.</p>
@@ -127,14 +129,23 @@ out of memory, etc.</p>
 
 <p>The context is build in a <em>strict</em> way. That means that if the backend couldn&#39;t give
 you what you requested, an <code>Err</code> will be returned.</p>
-</div></div><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><code>impl <a class='trait' href='../../glium/trait.DisplayBuild.html' title='glium::DisplayBuild'>DisplayBuild</a> for <a class='struct' href='../../glium/glutin/struct.WindowBuilder.html' title='glium::glutin::WindowBuilder'>WindowBuilder</a>&lt;'static&gt;</code></h3><div class='impl-items'><h4 id='assoc_type.Facade' class='type'><code>type Facade = <a class='struct' href='../../glium/backend/glutin_backend/struct.GlutinFacade.html' title='glium::backend::glutin_backend::GlutinFacade'>GlutinFacade</a></code></h4>
-<h4 id='assoc_type.Err' class='type'><code>type Err = <a class='enum' href='../../glium/enum.GliumCreationError.html' title='glium::GliumCreationError'>GliumCreationError</a>&lt;<a class='enum' href='../../glium/glutin/enum.CreationError.html' title='glium::glutin::CreationError'>CreationError</a>&gt;</code></h4>
-<h4 id='method.build_glium_debug' class='method'><code>fn <a href='../../glium/trait.DisplayBuild.html#method.build_glium_debug' class='fnname'>build_glium_debug</a>(self, debug: <a class='enum' href='../../glium/debug/enum.DebugCallbackBehavior.html' title='glium::debug::DebugCallbackBehavior'>DebugCallbackBehavior</a>) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a class='struct' href='../../glium/backend/glutin_backend/struct.GlutinFacade.html' title='glium::backend::glutin_backend::GlutinFacade'>GlutinFacade</a>, <a class='enum' href='../../glium/enum.GliumCreationError.html' title='glium::GliumCreationError'>GliumCreationError</a>&lt;<a class='enum' href='../../glium/glutin/enum.CreationError.html' title='glium::glutin::CreationError'>CreationError</a>&gt;&gt;</code></h4>
-<h4 id='method.build_glium_unchecked_debug' class='method'><code>unsafe fn <a href='../../glium/trait.DisplayBuild.html#method.build_glium_unchecked_debug' class='fnname'>build_glium_unchecked_debug</a>(self, debug: <a class='enum' href='../../glium/debug/enum.DebugCallbackBehavior.html' title='glium::debug::DebugCallbackBehavior'>DebugCallbackBehavior</a>) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a class='struct' href='../../glium/backend/glutin_backend/struct.GlutinFacade.html' title='glium::backend::glutin_backend::GlutinFacade'>GlutinFacade</a>, <a class='enum' href='../../glium/enum.GliumCreationError.html' title='glium::GliumCreationError'>GliumCreationError</a>&lt;<a class='enum' href='../../glium/glutin/enum.CreationError.html' title='glium::glutin::CreationError'>CreationError</a>&gt;&gt;</code></h4>
-<h4 id='method.rebuild_glium' class='method'><code>fn <a href='../../glium/trait.DisplayBuild.html#method.rebuild_glium' class='fnname'>rebuild_glium</a>(self, display: &amp;<a class='struct' href='../../glium/backend/glutin_backend/struct.GlutinFacade.html' title='glium::backend::glutin_backend::GlutinFacade'>GlutinFacade</a>) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>()</a>, <a class='enum' href='../../glium/enum.GliumCreationError.html' title='glium::GliumCreationError'>GliumCreationError</a>&lt;<a class='enum' href='../../glium/glutin/enum.CreationError.html' title='glium::glutin::CreationError'>CreationError</a>&gt;&gt;</code></h4>
-<h4 id='method.build_glium' class='method'><code>fn <a href='../../glium/trait.DisplayBuild.html#method.build_glium' class='fnname'>build_glium</a>(self) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;Self::<a class='trait' href='../../glium/trait.DisplayBuild.html' title='glium::DisplayBuild'>Facade</a>, Self::<a class='trait' href='../../glium/trait.DisplayBuild.html' title='glium::DisplayBuild'>Err</a>&gt; <span class='where'>where Self: <a class='trait' href='https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html' title='core::marker::Sized'>Sized</a></span></code></h4>
-<h4 id='method.build_glium_unchecked' class='method'><code>unsafe fn <a href='../../glium/trait.DisplayBuild.html#method.build_glium_unchecked' class='fnname'>build_glium_unchecked</a>(self) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;Self::<a class='trait' href='../../glium/trait.DisplayBuild.html' title='glium::DisplayBuild'>Facade</a>, Self::<a class='trait' href='../../glium/trait.DisplayBuild.html' title='glium::DisplayBuild'>Err</a>&gt; <span class='where'>where Self: <a class='trait' href='https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html' title='core::marker::Sized'>Sized</a></span></code></h4>
-</div></section>
+</div></div><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><span class='in-band'><code>impl&lt;'a&gt; <a class='trait' href='../../glium/glutin/os/unix/trait.WindowBuilderExt.html' title='glium::glutin::os::unix::WindowBuilderExt'>WindowBuilderExt</a> for <a class='struct' href='../../glium/glutin/struct.WindowBuilder.html' title='glium::glutin::WindowBuilder'>WindowBuilder</a>&lt;'a&gt;</code></span><span class='out-of-band'></span></h3>
+<div class='impl-items'></div><h3 class='impl'><span class='in-band'><code>impl <a class='trait' href='../../glium/trait.DisplayBuild.html' title='glium::DisplayBuild'>DisplayBuild</a> for <a class='struct' href='../../glium/glutin/struct.WindowBuilder.html' title='glium::glutin::WindowBuilder'>WindowBuilder</a>&lt;'static&gt;</code></span><span class='out-of-band'><div class='ghost'></div><a id='src-109' class='srclink' href='../../src/glium/backend/glutin_backend.rs.html#143-183' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='associatedtype.Facade' class='type'><code>type <a href='../../glium/trait.DisplayBuild.html#associatedtype.Facade' class='type'>Facade</a> = <a class='struct' href='../../glium/backend/glutin_backend/struct.GlutinFacade.html' title='glium::backend::glutin_backend::GlutinFacade'>GlutinFacade</a></code></h4>
+<div class='docblock'><p>The object that this <code>DisplayBuild</code> builds.</p>
+</div><h4 id='associatedtype.Err' class='type'><code>type <a href='../../glium/trait.DisplayBuild.html#associatedtype.Err' class='type'>Err</a> = <a class='enum' href='../../glium/enum.GliumCreationError.html' title='glium::GliumCreationError'>GliumCreationError</a>&lt;<a class='enum' href='../../glium/glutin/enum.CreationError.html' title='glium::glutin::CreationError'>CreationError</a>&gt;</code></h4>
+<div class='docblock'><p>The type of error that initialization can return.</p>
+</div><h4 id='method.build_glium_debug' class='method'><code>fn <a href='../../glium/trait.DisplayBuild.html#tymethod.build_glium_debug' class='fnname'>build_glium_debug</a>(self, debug: <a class='enum' href='../../glium/debug/enum.DebugCallbackBehavior.html' title='glium::debug::DebugCallbackBehavior'>DebugCallbackBehavior</a>) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a class='struct' href='../../glium/backend/glutin_backend/struct.GlutinFacade.html' title='glium::backend::glutin_backend::GlutinFacade'>GlutinFacade</a>, <a class='enum' href='../../glium/enum.GliumCreationError.html' title='glium::GliumCreationError'>GliumCreationError</a>&lt;<a class='enum' href='../../glium/glutin/enum.CreationError.html' title='glium::glutin::CreationError'>CreationError</a>&gt;&gt;</code></h4>
+<div class='docblock'><p>Build a context and a facade to draw on it. <a href="../../glium/trait.DisplayBuild.html#tymethod.build_glium_debug">Read more</a></p>
+</div><h4 id='method.build_glium_unchecked_debug' class='method'><code>unsafe fn <a href='../../glium/trait.DisplayBuild.html#tymethod.build_glium_unchecked_debug' class='fnname'>build_glium_unchecked_debug</a>(self, debug: <a class='enum' href='../../glium/debug/enum.DebugCallbackBehavior.html' title='glium::debug::DebugCallbackBehavior'>DebugCallbackBehavior</a>) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a class='struct' href='../../glium/backend/glutin_backend/struct.GlutinFacade.html' title='glium::backend::glutin_backend::GlutinFacade'>GlutinFacade</a>, <a class='enum' href='../../glium/enum.GliumCreationError.html' title='glium::GliumCreationError'>GliumCreationError</a>&lt;<a class='enum' href='../../glium/glutin/enum.CreationError.html' title='glium::glutin::CreationError'>CreationError</a>&gt;&gt;</code></h4>
+<div class='docblock'><p>Build a context and a facade to draw on it <a href="../../glium/trait.DisplayBuild.html#tymethod.build_glium_unchecked_debug">Read more</a></p>
+</div><h4 id='method.rebuild_glium' class='method'><code>fn <a href='../../glium/trait.DisplayBuild.html#tymethod.rebuild_glium' class='fnname'>rebuild_glium</a>(self, display: &amp;<a class='struct' href='../../glium/backend/glutin_backend/struct.GlutinFacade.html' title='glium::backend::glutin_backend::GlutinFacade'>GlutinFacade</a>) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>()</a>, <a class='enum' href='../../glium/enum.GliumCreationError.html' title='glium::GliumCreationError'>GliumCreationError</a>&lt;<a class='enum' href='../../glium/glutin/enum.CreationError.html' title='glium::glutin::CreationError'>CreationError</a>&gt;&gt;</code></h4>
+<div class='docblock'><p>Changes the settings of an existing facade.</p>
+</div><h4 id='method.build_glium' class='method'><code>fn <a href='../../glium/trait.DisplayBuild.html#method.build_glium' class='fnname'>build_glium</a>(self) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;Self::<a class='trait' href='../../glium/trait.DisplayBuild.html' title='glium::DisplayBuild'>Facade</a>, Self::<a class='trait' href='../../glium/trait.DisplayBuild.html' title='glium::DisplayBuild'>Err</a>&gt; <span class='where'>where Self: <a class='trait' href='https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html' title='core::marker::Sized'>Sized</a></span></code></h4>
+<div class='docblock'><p>Build a context and a facade to draw on it. <a href="../../glium/trait.DisplayBuild.html#method.build_glium">Read more</a></p>
+</div><h4 id='method.build_glium_unchecked' class='method'><code>unsafe fn <a href='../../glium/trait.DisplayBuild.html#method.build_glium_unchecked' class='fnname'>build_glium_unchecked</a>(self) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;Self::<a class='trait' href='../../glium/trait.DisplayBuild.html' title='glium::DisplayBuild'>Facade</a>, Self::<a class='trait' href='../../glium/trait.DisplayBuild.html' title='glium::DisplayBuild'>Err</a>&gt; <span class='where'>where Self: <a class='trait' href='https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html' title='core::marker::Sized'>Sized</a></span></code></h4>
+<div class='docblock'><p>Build a context and a facade to draw on it <a href="../../glium/trait.DisplayBuild.html#method.build_glium_unchecked">Read more</a></p>
+</div></div></section>
     <section id='search' class="content hidden"></section>
 
     <section class="footer"></section>
@@ -157,6 +168,8 @@ you what you requested, an <code>Err</code> will be returned.</p>
                     <dd>Move down in search results</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
 
@@ -177,7 +190,7 @@ you what you requested, an <code>Err</code> will be returned.</p>
 
                 <p>
                     Search functions by type signature (e.g.
-                    <code>vec -> usize</code>)
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
                 </p>
             </div>
         </div>

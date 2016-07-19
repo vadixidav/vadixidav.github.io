@@ -4,13 +4,14 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="rustdoc">
-    <meta name="description" content="Source to the Rust file `/home/vadix/.cargo/registry/src/github.com-88ac128001ac3a9a/glutin-0.4.5/src/events.rs`.">
+    <meta name="description" content="Source to the Rust file `/home/vadix/.cargo/registry/src/github.com-1ecc6299db9ec823/glutin-0.5.2/src/events.rs`.">
     <meta name="keywords" content="rust, rustlang, rust-lang">
 
     <title>events.rs.html -- source</title>
 
     <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../main.css">
+    
 
     
     
@@ -337,6 +338,15 @@
 <span id="294">294</span>
 <span id="295">295</span>
 <span id="296">296</span>
+<span id="297">297</span>
+<span id="298">298</span>
+<span id="299">299</span>
+<span id="300">300</span>
+<span id="301">301</span>
+<span id="302">302</span>
+<span id="303">303</span>
+<span id="304">304</span>
+<span id="305">305</span>
 </pre><pre class='rust '>
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>path</span>::<span class='ident'>PathBuf</span>;
 
@@ -368,13 +378,20 @@
     <span class='doccomment'>/// The cursor has moved on the window.</span>
     <span class='doccomment'>///</span>
     <span class='doccomment'>/// The parameter are the (x,y) coords in pixels relative to the top-left corner of the window.</span>
-    <span class='ident'>MouseMoved</span>((<span class='ident'>i32</span>, <span class='ident'>i32</span>)),
+    <span class='ident'>MouseMoved</span>(<span class='ident'>i32</span>, <span class='ident'>i32</span>),
 
     <span class='doccomment'>/// A mouse wheel movement or touchpad scroll occurred.</span>
-    <span class='ident'>MouseWheel</span>(<span class='ident'>MouseScrollDelta</span>),
+    <span class='ident'>MouseWheel</span>(<span class='ident'>MouseScrollDelta</span>, <span class='ident'>TouchPhase</span>),
 
     <span class='doccomment'>/// An event from the mouse has been received.</span>
     <span class='ident'>MouseInput</span>(<span class='ident'>ElementState</span>, <span class='ident'>MouseButton</span>),
+
+    <span class='doccomment'>/// Touchpad pressure event.</span>
+    <span class='doccomment'>///</span>
+    <span class='doccomment'>/// At the moment, only supported on Apple forcetouch-capable macbooks.</span>
+    <span class='doccomment'>/// The parameters are: pressure level (value between 0 and 1 representing how hard the touchpad</span>
+    <span class='doccomment'>/// is being pressed) and stage (integer representing the click level).</span>
+    <span class='ident'>TouchpadPressure</span>(<span class='ident'>f32</span>, <span class='ident'>i64</span>),
 
     <span class='doccomment'>/// The event loop was woken up by another thread.</span>
     <span class='ident'>Awakened</span>,
@@ -597,6 +614,8 @@
     <span class='ident'>Multiply</span>,
     <span class='ident'>Mute</span>,
     <span class='ident'>MyComputer</span>,
+    <span class='ident'>NavigateForward</span>, <span class='comment'>// also called &quot;Prior&quot;</span>
+    <span class='ident'>NavigateBackward</span>, <span class='comment'>// also called &quot;Next&quot;</span>
     <span class='ident'>NextTrack</span>,
     <span class='ident'>NoConvert</span>,
     <span class='ident'>NumpadComma</span>,
@@ -658,6 +677,8 @@
                     <dd>Move down in search results</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
 
@@ -678,7 +699,7 @@
 
                 <p>
                     Search functions by type signature (e.g.
-                    <code>vec -> usize</code>)
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
                 </p>
             </div>
         </div>

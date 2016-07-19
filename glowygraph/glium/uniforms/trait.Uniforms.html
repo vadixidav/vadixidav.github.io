@@ -11,6 +11,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../main.css">
+    
 
     
     
@@ -43,10 +44,10 @@
 
     <section id='main' class="content trait">
 <h1 class='fqn'><span class='in-band'>Trait <a href='../index.html'>glium</a>::<wbr><a href='index.html'>uniforms</a>::<wbr><a class='trait' href=''>Uniforms</a></span><span class='out-of-band'><span id='render-detail'>
-            <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
-                [<span class='inner'>&#x2212;</span>]
-            </a>
-        </span><a id='src-8514' class='srclink' href='../../src/glium/uniforms/mod.rs.html#166-169' title='goto source code'>[src]</a></span></h1>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a id='src-8480' class='srclink' href='../../src/glium/uniforms/mod.rs.html#166-169' title='goto source code'>[src]</a></span></h1>
 <pre class='rust trait'>pub trait Uniforms {
     fn <a href='#tymethod.visit_values' class='fnname'>visit_values</a>&lt;'a, F: <a class='trait' href='https://doc.rust-lang.org/nightly/core/ops/trait.FnMut.html' title='core::ops::FnMut'>FnMut</a>(&amp;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>, <a class='enum' href='../../glium/uniforms/enum.UniformValue.html' title='glium::uniforms::UniformValue'>UniformValue</a>&lt;'a&gt;)&gt;(&amp;'a self, F);
 }</pre><div class='docblock'><p>Object that contains the values of all the uniforms to bind to a program.</p>
@@ -59,11 +60,11 @@
 </div></div>
         <h2 id='implementors'>Implementors</h2>
         <ul class='item-list' id='implementors-list'>
-    <li><code>impl <a class='trait' href='../../glium/uniforms/trait.Uniforms.html' title='glium::uniforms::Uniforms'>Uniforms</a> for <a class='struct' href='../../glium/uniforms/struct.EmptyUniforms.html' title='glium::uniforms::EmptyUniforms'>EmptyUniforms</a></code></li>
-<li><code>impl&lt;'n, T, R&gt; <a class='trait' href='../../glium/uniforms/trait.Uniforms.html' title='glium::uniforms::Uniforms'>Uniforms</a> for <a class='struct' href='../../glium/uniforms/struct.UniformsStorage.html' title='glium::uniforms::UniformsStorage'>UniformsStorage</a>&lt;'n, T, R&gt; <span class='where'>where T: <a class='trait' href='../../glium/uniforms/trait.AsUniformValue.html' title='glium::uniforms::AsUniformValue'>AsUniformValue</a>, R: <a class='trait' href='../../glium/uniforms/trait.Uniforms.html' title='glium::uniforms::Uniforms'>Uniforms</a></span></code></li>
+    <li><code>impl Uniforms for <a class='struct' href='../../glium/uniforms/struct.EmptyUniforms.html' title='glium::uniforms::EmptyUniforms'>EmptyUniforms</a></code></li>
+<li><code>impl&lt;'n, T, R&gt; Uniforms for <a class='struct' href='../../glium/uniforms/struct.UniformsStorage.html' title='glium::uniforms::UniformsStorage'>UniformsStorage</a>&lt;'n, T, R&gt; <span class='where'>where T: <a class='trait' href='../../glium/uniforms/trait.AsUniformValue.html' title='glium::uniforms::AsUniformValue'>AsUniformValue</a>, R: <a class='trait' href='../../glium/uniforms/trait.Uniforms.html' title='glium::uniforms::Uniforms'>Uniforms</a></span></code></li>
 </ul><script type="text/javascript" async
-                              src="../../implementors/glium/uniforms/trait.Uniforms.js">
-                      </script></section>
+                         src="../../implementors/glium/uniforms/trait.Uniforms.js">
+                 </script></section>
     <section id='search' class="content hidden"></section>
 
     <section class="footer"></section>
@@ -86,6 +87,8 @@
                     <dd>Move down in search results</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
 
@@ -106,7 +109,7 @@
 
                 <p>
                     Search functions by type signature (e.g.
-                    <code>vec -> usize</code>)
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
                 </p>
             </div>
         </div>

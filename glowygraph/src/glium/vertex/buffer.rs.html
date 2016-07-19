@@ -4,13 +4,14 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="rustdoc">
-    <meta name="description" content="Source to the Rust file `/home/vadix/.cargo/registry/src/github.com-88ac128001ac3a9a/glium-0.13.4/src/vertex/buffer.rs`.">
+    <meta name="description" content="Source to the Rust file `/home/vadix/.cargo/registry/src/github.com-1ecc6299db9ec823/glium-0.14.0/src/vertex/buffer.rs`.">
     <meta name="keywords" content="rust, rustlang, rust-lang">
 
     <title>buffer.rs.html -- source</title>
 
     <link rel="stylesheet" type="text/css" href="../../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../../main.css">
+    
 
     
     
@@ -542,6 +543,19 @@
 <span id="499">499</span>
 <span id="500">500</span>
 <span id="501">501</span>
+<span id="502">502</span>
+<span id="503">503</span>
+<span id="504">504</span>
+<span id="505">505</span>
+<span id="506">506</span>
+<span id="507">507</span>
+<span id="508">508</span>
+<span id="509">509</span>
+<span id="510">510</span>
+<span id="511">511</span>
+<span id="512">512</span>
+<span id="513">513</span>
+<span id="514">514</span>
 </pre><pre class='rust '>
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>error</span>::<span class='ident'>Error</span>;
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>fmt</span>;
@@ -551,6 +565,10 @@
 <span class='kw'>use</span> <span class='ident'>buffer</span>::{<span class='ident'>Buffer</span>, <span class='ident'>BufferSlice</span>, <span class='ident'>BufferMutSlice</span>, <span class='ident'>BufferAny</span>, <span class='ident'>BufferType</span>, <span class='ident'>BufferMode</span>, <span class='ident'>BufferCreationError</span>, <span class='ident'>Content</span>};
 <span class='kw'>use</span> <span class='ident'>vertex</span>::{<span class='ident'>Vertex</span>, <span class='ident'>VerticesSource</span>, <span class='ident'>IntoVerticesSource</span>, <span class='ident'>PerInstance</span>};
 <span class='kw'>use</span> <span class='ident'>vertex</span>::<span class='ident'>format</span>::<span class='ident'>VertexFormat</span>;
+
+<span class='kw'>use</span> <span class='ident'>gl</span>;
+<span class='kw'>use</span> <span class='ident'>GlObject</span>;
+<span class='kw'>use</span> <span class='ident'>index</span>::<span class='ident'>Index</span>;
 
 <span class='kw'>use</span> <span class='ident'>backend</span>::<span class='ident'>Facade</span>;
 <span class='kw'>use</span> <span class='ident'>version</span>::{<span class='ident'>Api</span>, <span class='ident'>Version</span>};
@@ -596,6 +614,15 @@
             <span class='ident'>BufferCreationError</span>(<span class='kw-2'>ref</span> <span class='ident'>error</span>) <span class='op'>=&gt;</span> <span class='prelude-val'>Some</span>(<span class='ident'>error</span>),
             <span class='ident'>FormatNotSupported</span> <span class='op'>=&gt;</span> <span class='prelude-val'>None</span>,
         }
+    }
+}
+
+<span class='kw'>impl</span><span class='op'>&lt;</span><span class='ident'>T</span>: <span class='ident'>Copy</span><span class='op'>&gt;</span> <span class='ident'>GlObject</span> <span class='kw'>for</span> <span class='ident'>VertexBuffer</span><span class='op'>&lt;</span><span class='ident'>T</span><span class='op'>&gt;</span> {
+    <span class='kw'>type</span> <span class='ident'>Id</span> <span class='op'>=</span> <span class='ident'>gl</span>::<span class='ident'>types</span>::<span class='ident'>GLuint</span>;
+
+    <span class='attribute'>#[<span class='ident'>inline</span>]</span>
+    <span class='kw'>fn</span> <span class='ident'>get_id</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>gl</span>::<span class='ident'>types</span>::<span class='ident'>GLuint</span> {
+        <span class='self'>self</span>.<span class='ident'>buffer</span>.<span class='ident'>get_id</span>()
     }
 }
 
@@ -928,7 +955,7 @@
 <span class='kw'>impl</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span>, <span class='ident'>T</span><span class='op'>&gt;</span> <span class='ident'>IntoVerticesSource</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span><span class='op'>&gt;</span> <span class='kw'>for</span> <span class='kw-2'>&amp;</span><span class='lifetime'>&#39;a</span> <span class='ident'>VertexBuffer</span><span class='op'>&lt;</span><span class='ident'>T</span><span class='op'>&gt;</span> <span class='kw'>where</span> <span class='ident'>T</span>: <span class='ident'>Copy</span> {
     <span class='attribute'>#[<span class='ident'>inline</span>]</span>
     <span class='kw'>fn</span> <span class='ident'>into_vertices_source</span>(<span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>VerticesSource</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span><span class='op'>&gt;</span> {
-        <span class='ident'>VerticesSource</span>::<span class='ident'>VertexBuffer</span>(<span class='self'>self</span>.<span class='ident'>buffer</span>.<span class='ident'>as_slice_any</span>(), <span class='kw-2'>&amp;</span><span class='self'>self</span>.<span class='ident'>bindings</span>, <span class='boolval'>false</span>)
+        <span class='ident'>VerticesSource</span>::<span class='ident'>VertexBuffer</span>(<span class='self'>self</span>.<span class='ident'>buffer</span>.<span class='ident'>as_slice_any</span>(), <span class='kw-2'>&amp;</span><span class='self'>self</span>.<span class='ident'>bindings</span>, <span class='boolvalue'>false</span>)
     }
 }
 
@@ -958,7 +985,7 @@
 <span class='kw'>impl</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span>, <span class='ident'>T</span><span class='op'>&gt;</span> <span class='ident'>IntoVerticesSource</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span><span class='op'>&gt;</span> <span class='kw'>for</span> <span class='ident'>VertexBufferSlice</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span>, <span class='ident'>T</span><span class='op'>&gt;</span> <span class='kw'>where</span> <span class='ident'>T</span>: <span class='ident'>Copy</span> {
     <span class='attribute'>#[<span class='ident'>inline</span>]</span>
     <span class='kw'>fn</span> <span class='ident'>into_vertices_source</span>(<span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>VerticesSource</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span><span class='op'>&gt;</span> {
-        <span class='ident'>VerticesSource</span>::<span class='ident'>VertexBuffer</span>(<span class='self'>self</span>.<span class='ident'>buffer</span>.<span class='ident'>as_slice_any</span>(), <span class='kw-2'>&amp;</span><span class='self'>self</span>.<span class='ident'>bindings</span>, <span class='boolval'>false</span>)
+        <span class='ident'>VerticesSource</span>::<span class='ident'>VertexBuffer</span>(<span class='self'>self</span>.<span class='ident'>buffer</span>.<span class='ident'>as_slice_any</span>(), <span class='kw-2'>&amp;</span><span class='self'>self</span>.<span class='ident'>bindings</span>, <span class='boolvalue'>false</span>)
     }
 }
 
@@ -1037,7 +1064,7 @@
 <span class='kw'>impl</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span><span class='op'>&gt;</span> <span class='ident'>IntoVerticesSource</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span><span class='op'>&gt;</span> <span class='kw'>for</span> <span class='kw-2'>&amp;</span><span class='lifetime'>&#39;a</span> <span class='ident'>VertexBufferAny</span> {
     <span class='attribute'>#[<span class='ident'>inline</span>]</span>
     <span class='kw'>fn</span> <span class='ident'>into_vertices_source</span>(<span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>VerticesSource</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span><span class='op'>&gt;</span> {
-        <span class='ident'>VerticesSource</span>::<span class='ident'>VertexBuffer</span>(<span class='self'>self</span>.<span class='ident'>buffer</span>.<span class='ident'>as_slice_any</span>(), <span class='kw-2'>&amp;</span><span class='self'>self</span>.<span class='ident'>bindings</span>, <span class='boolval'>false</span>)
+        <span class='ident'>VerticesSource</span>::<span class='ident'>VertexBuffer</span>(<span class='self'>self</span>.<span class='ident'>buffer</span>.<span class='ident'>as_slice_any</span>(), <span class='kw-2'>&amp;</span><span class='self'>self</span>.<span class='ident'>bindings</span>, <span class='boolvalue'>false</span>)
     }
 }
 
@@ -1068,6 +1095,8 @@
                     <dd>Move down in search results</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
 
@@ -1088,7 +1117,7 @@
 
                 <p>
                     Search functions by type signature (e.g.
-                    <code>vec -> usize</code>)
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
                 </p>
             </div>
         </div>

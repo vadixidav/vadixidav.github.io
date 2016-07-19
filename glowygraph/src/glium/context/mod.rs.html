@@ -4,13 +4,14 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="rustdoc">
-    <meta name="description" content="Source to the Rust file `/home/vadix/.cargo/registry/src/github.com-88ac128001ac3a9a/glium-0.13.4/src/context/mod.rs`.">
+    <meta name="description" content="Source to the Rust file `/home/vadix/.cargo/registry/src/github.com-1ecc6299db9ec823/glium-0.14.0/src/context/mod.rs`.">
     <meta name="keywords" content="rust, rustlang, rust-lang">
 
     <title>mod.rs.html -- source</title>
 
     <link rel="stylesheet" type="text/css" href="../../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../../main.css">
+    
 
     
     
@@ -1200,7 +1201,7 @@
         <span class='macro'>try</span><span class='macro'>!</span>(<span class='ident'>check_gl_compatibility</span>(<span class='kw-2'>&amp;</span><span class='ident'>version</span>, <span class='kw-2'>&amp;</span><span class='ident'>extensions</span>));
 
         <span class='kw'>let</span> <span class='ident'>capabilities</span> <span class='op'>=</span> <span class='ident'>capabilities</span>::<span class='ident'>get_capabilities</span>(<span class='kw-2'>&amp;</span><span class='ident'>gl</span>, <span class='kw-2'>&amp;</span><span class='ident'>version</span>, <span class='kw-2'>&amp;</span><span class='ident'>extensions</span>);
-        <span class='kw'>let</span> <span class='ident'>report_debug_output_errors</span> <span class='op'>=</span> <span class='ident'>Cell</span>::<span class='ident'>new</span>(<span class='boolval'>true</span>);
+        <span class='kw'>let</span> <span class='ident'>report_debug_output_errors</span> <span class='op'>=</span> <span class='ident'>Cell</span>::<span class='ident'>new</span>(<span class='boolvalue'>true</span>);
 
         <span class='kw'>let</span> <span class='ident'>vertex_array_objects</span> <span class='op'>=</span> <span class='ident'>vertex_array_object</span>::<span class='ident'>VertexAttributesSystem</span>::<span class='ident'>new</span>();
         <span class='kw'>let</span> <span class='ident'>framebuffer_objects</span> <span class='op'>=</span> <span class='ident'>fbo</span>::<span class='ident'>FramebuffersContainer</span>::<span class='ident'>new</span>();
@@ -1209,12 +1210,12 @@
         <span class='kw'>let</span> <span class='ident'>resident_image_handles</span> <span class='op'>=</span> <span class='ident'>RefCell</span>::<span class='ident'>new</span>(<span class='ident'>Vec</span>::<span class='ident'>new</span>());
 
         <span class='kw'>let</span> (<span class='ident'>debug_callback</span>, <span class='ident'>synchronous</span>) <span class='op'>=</span> <span class='kw'>match</span> <span class='ident'>callback_behavior</span> {
-            <span class='ident'>DebugCallbackBehavior</span>::<span class='ident'>Ignore</span> <span class='op'>=&gt;</span> (<span class='prelude-val'>None</span>, <span class='boolval'>false</span>),
+            <span class='ident'>DebugCallbackBehavior</span>::<span class='ident'>Ignore</span> <span class='op'>=&gt;</span> (<span class='prelude-val'>None</span>, <span class='boolvalue'>false</span>),
             <span class='ident'>DebugCallbackBehavior</span>::<span class='ident'>DebugMessageOnError</span> <span class='op'>=&gt;</span> {
-                (<span class='prelude-val'>Some</span>(<span class='ident'>Box</span>::<span class='ident'>new</span>(<span class='ident'>default_debug_callback</span>) <span class='kw'>as</span> <span class='ident'>debug</span>::<span class='ident'>DebugCallback</span>), <span class='boolval'>true</span>)
+                (<span class='prelude-val'>Some</span>(<span class='ident'>Box</span>::<span class='ident'>new</span>(<span class='ident'>default_debug_callback</span>) <span class='kw'>as</span> <span class='ident'>debug</span>::<span class='ident'>DebugCallback</span>), <span class='boolvalue'>true</span>)
             },
             <span class='ident'>DebugCallbackBehavior</span>::<span class='ident'>PrintAll</span> <span class='op'>=&gt;</span> {
-                (<span class='prelude-val'>Some</span>(<span class='ident'>Box</span>::<span class='ident'>new</span>(<span class='ident'>printall_debug_callback</span>) <span class='kw'>as</span> <span class='ident'>debug</span>::<span class='ident'>DebugCallback</span>), <span class='boolval'>false</span>)
+                (<span class='prelude-val'>Some</span>(<span class='ident'>Box</span>::<span class='ident'>new</span>(<span class='ident'>printall_debug_callback</span>) <span class='kw'>as</span> <span class='ident'>debug</span>::<span class='ident'>DebugCallback</span>), <span class='boolvalue'>false</span>)
             },
             <span class='ident'>DebugCallbackBehavior</span>::<span class='ident'>Custom</span> { <span class='ident'>callback</span>, <span class='ident'>synchronous</span> } <span class='op'>=&gt;</span> {
                 (<span class='prelude-val'>Some</span>(<span class='ident'>callback</span>), <span class='ident'>synchronous</span>)
@@ -1341,7 +1342,7 @@
         <span class='comment'>// swapping</span>
         <span class='kw'>let</span> <span class='ident'>err</span> <span class='op'>=</span> <span class='ident'>backend</span>.<span class='ident'>swap_buffers</span>();
         <span class='kw'>if</span> <span class='kw'>let</span> <span class='prelude-val'>Err</span>(<span class='ident'>SwapBuffersError</span>::<span class='ident'>ContextLost</span>) <span class='op'>=</span> <span class='ident'>err</span> {
-            <span class='self'>self</span>.<span class='ident'>state</span>.<span class='ident'>borrow_mut</span>().<span class='ident'>lost_context</span> <span class='op'>=</span> <span class='boolval'>true</span>;
+            <span class='self'>self</span>.<span class='ident'>state</span>.<span class='ident'>borrow_mut</span>().<span class='ident'>lost_context</span> <span class='op'>=</span> <span class='boolvalue'>true</span>;
         }
         <span class='ident'>err</span>
     }
@@ -1439,7 +1440,7 @@
     <span class='doccomment'>/// is not available, returns false.</span>
     <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>is_context_lost</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>bool</span> {
         <span class='kw'>if</span> <span class='self'>self</span>.<span class='ident'>state</span>.<span class='ident'>borrow</span>().<span class='ident'>lost_context</span> {
-            <span class='kw'>return</span> <span class='boolval'>true</span>;
+            <span class='kw'>return</span> <span class='boolvalue'>true</span>;
         }
 
         <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>ctxt</span> <span class='op'>=</span> <span class='self'>self</span>.<span class='ident'>make_current</span>();
@@ -1454,10 +1455,10 @@
         } <span class='kw'>else</span> <span class='kw'>if</span> <span class='ident'>ctxt</span>.<span class='ident'>extensions</span>.<span class='ident'>gl_arb_robustness</span> {
             <span class='kw'>unsafe</span> { <span class='ident'>ctxt</span>.<span class='ident'>gl</span>.<span class='ident'>GetGraphicsResetStatusARB</span>() <span class='op'>!=</span> <span class='ident'>gl</span>::<span class='ident'>NO_ERROR</span> }
         } <span class='kw'>else</span> {
-            <span class='boolval'>false</span>
+            <span class='boolvalue'>false</span>
         };
 
-        <span class='kw'>if</span> <span class='ident'>lost</span> { <span class='ident'>ctxt</span>.<span class='ident'>state</span>.<span class='ident'>lost_context</span> <span class='op'>=</span> <span class='boolval'>true</span>; }
+        <span class='kw'>if</span> <span class='ident'>lost</span> { <span class='ident'>ctxt</span>.<span class='ident'>state</span>.<span class='ident'>lost_context</span> <span class='op'>=</span> <span class='boolvalue'>true</span>; }
         <span class='ident'>lost</span>
     }
 
@@ -1552,7 +1553,7 @@
 
         <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>data</span> <span class='op'>=</span> <span class='ident'>Vec</span>::<span class='ident'>with_capacity</span>(<span class='number'>0</span>);
         <span class='ident'>ops</span>::<span class='ident'>read</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>ctxt</span>, <span class='ident'>ops</span>::<span class='ident'>Source</span>::<span class='ident'>DefaultFramebuffer</span>(<span class='ident'>gl</span>::<span class='ident'>FRONT_LEFT</span>), <span class='kw-2'>&amp;</span><span class='ident'>rect</span>, <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>data</span>,
-                  <span class='boolval'>false</span>);
+                  <span class='boolvalue'>false</span>);
         <span class='ident'>T</span>::<span class='ident'>from_raw</span>(<span class='ident'>Cow</span>::<span class='ident'>Owned</span>(<span class='ident'>data</span>), <span class='ident'>dimensions</span>.<span class='number'>0</span>, <span class='ident'>dimensions</span>.<span class='number'>1</span>)
     }
 
@@ -1746,7 +1747,7 @@
             }
 
             <span class='comment'>// disabling callback</span>
-            <span class='kw'>if</span> <span class='ident'>ctxt</span>.<span class='ident'>state</span>.<span class='ident'>enabled_debug_output</span> <span class='op'>!=</span> <span class='prelude-val'>Some</span>(<span class='boolval'>false</span>) {
+            <span class='kw'>if</span> <span class='ident'>ctxt</span>.<span class='ident'>state</span>.<span class='ident'>enabled_debug_output</span> <span class='op'>!=</span> <span class='prelude-val'>Some</span>(<span class='boolvalue'>false</span>) {
                 <span class='kw'>if</span> <span class='ident'>ctxt</span>.<span class='ident'>version</span> <span class='op'>&gt;=</span> <span class='kw-2'>&amp;</span><span class='ident'>Version</span>(<span class='ident'>Api</span>::<span class='ident'>Gl</span>, <span class='number'>4</span>,<span class='number'>5</span>) <span class='op'>||</span> <span class='ident'>ctxt</span>.<span class='ident'>extensions</span>.<span class='ident'>gl_khr_debug</span> {
                     <span class='ident'>ctxt</span>.<span class='ident'>gl</span>.<span class='ident'>Disable</span>(<span class='ident'>gl</span>::<span class='ident'>DEBUG_OUTPUT</span>);
                 } <span class='kw'>else</span> <span class='kw'>if</span> <span class='ident'>ctxt</span>.<span class='ident'>extensions</span>.<span class='ident'>gl_arb_debug_output</span> {
@@ -1754,7 +1755,7 @@
                                                     <span class='ident'>ptr</span>::<span class='ident'>null</span>());
                 }
 
-                <span class='ident'>ctxt</span>.<span class='ident'>state</span>.<span class='ident'>enabled_debug_output</span> <span class='op'>=</span> <span class='prelude-val'>Some</span>(<span class='boolval'>false</span>);
+                <span class='ident'>ctxt</span>.<span class='ident'>state</span>.<span class='ident'>enabled_debug_output</span> <span class='op'>=</span> <span class='prelude-val'>Some</span>(<span class='boolvalue'>false</span>);
                 <span class='ident'>ctxt</span>.<span class='ident'>gl</span>.<span class='ident'>Finish</span>();
             }
         }
@@ -1895,7 +1896,7 @@
             });
 
             <span class='ident'>frame_id</span> <span class='op'>+=</span> <span class='number'>1</span>;
-            <span class='boolval'>true</span>
+            <span class='boolvalue'>true</span>
         });
 
         <span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;\n&quot;</span>);
@@ -1980,9 +1981,9 @@
            <span class='ident'>ctxt</span>.<span class='ident'>extensions</span>.<span class='ident'>gl_khr_debug</span> <span class='op'>||</span> <span class='ident'>ctxt</span>.<span class='ident'>extensions</span>.<span class='ident'>gl_arb_debug_output</span>
         {
             <span class='kw'>if</span> <span class='ident'>synchronous</span> {
-                <span class='kw'>if</span> <span class='ident'>ctxt</span>.<span class='ident'>state</span>.<span class='ident'>enabled_debug_output_synchronous</span> <span class='op'>!=</span> <span class='boolval'>true</span> {
+                <span class='kw'>if</span> <span class='ident'>ctxt</span>.<span class='ident'>state</span>.<span class='ident'>enabled_debug_output_synchronous</span> <span class='op'>!=</span> <span class='boolvalue'>true</span> {
                     <span class='ident'>ctxt</span>.<span class='ident'>gl</span>.<span class='ident'>Enable</span>(<span class='ident'>gl</span>::<span class='ident'>DEBUG_OUTPUT_SYNCHRONOUS</span>);
-                    <span class='ident'>ctxt</span>.<span class='ident'>state</span>.<span class='ident'>enabled_debug_output_synchronous</span> <span class='op'>=</span> <span class='boolval'>true</span>;
+                    <span class='ident'>ctxt</span>.<span class='ident'>state</span>.<span class='ident'>enabled_debug_output_synchronous</span> <span class='op'>=</span> <span class='boolvalue'>true</span>;
                 }
             }
 
@@ -1995,9 +1996,9 @@
                 <span class='ident'>ctxt</span>.<span class='ident'>gl</span>.<span class='ident'>DebugMessageControl</span>(<span class='ident'>gl</span>::<span class='ident'>DONT_CARE</span>, <span class='ident'>gl</span>::<span class='ident'>DONT_CARE</span>, <span class='ident'>gl</span>::<span class='ident'>DONT_CARE</span>, <span class='number'>0</span>,
                                             <span class='ident'>ptr</span>::<span class='ident'>null</span>(), <span class='ident'>gl</span>::<span class='ident'>TRUE</span>);
 
-                <span class='kw'>if</span> <span class='ident'>ctxt</span>.<span class='ident'>state</span>.<span class='ident'>enabled_debug_output</span> <span class='op'>!=</span> <span class='prelude-val'>Some</span>(<span class='boolval'>true</span>) {
+                <span class='kw'>if</span> <span class='ident'>ctxt</span>.<span class='ident'>state</span>.<span class='ident'>enabled_debug_output</span> <span class='op'>!=</span> <span class='prelude-val'>Some</span>(<span class='boolvalue'>true</span>) {
                     <span class='ident'>ctxt</span>.<span class='ident'>gl</span>.<span class='ident'>Enable</span>(<span class='ident'>gl</span>::<span class='ident'>DEBUG_OUTPUT</span>);
-                    <span class='ident'>ctxt</span>.<span class='ident'>state</span>.<span class='ident'>enabled_debug_output</span> <span class='op'>=</span> <span class='prelude-val'>Some</span>(<span class='boolval'>true</span>);
+                    <span class='ident'>ctxt</span>.<span class='ident'>state</span>.<span class='ident'>enabled_debug_output</span> <span class='op'>=</span> <span class='prelude-val'>Some</span>(<span class='boolvalue'>true</span>);
                 }
 
             } <span class='kw'>else</span> <span class='kw'>if</span> <span class='ident'>ctxt</span>.<span class='ident'>version</span> <span class='op'>&gt;=</span> <span class='kw-2'>&amp;</span><span class='ident'>Version</span>(<span class='ident'>Api</span>::<span class='ident'>GlEs</span>, <span class='number'>2</span>, <span class='number'>0</span>) <span class='op'>&amp;&amp;</span>
@@ -2008,9 +2009,9 @@
                 <span class='ident'>ctxt</span>.<span class='ident'>gl</span>.<span class='ident'>DebugMessageControlKHR</span>(<span class='ident'>gl</span>::<span class='ident'>DONT_CARE</span>, <span class='ident'>gl</span>::<span class='ident'>DONT_CARE</span>, <span class='ident'>gl</span>::<span class='ident'>DONT_CARE</span>, <span class='number'>0</span>,
                                                <span class='ident'>ptr</span>::<span class='ident'>null</span>(), <span class='ident'>gl</span>::<span class='ident'>TRUE</span>);
 
-                <span class='kw'>if</span> <span class='ident'>ctxt</span>.<span class='ident'>state</span>.<span class='ident'>enabled_debug_output</span> <span class='op'>!=</span> <span class='prelude-val'>Some</span>(<span class='boolval'>true</span>) {
+                <span class='kw'>if</span> <span class='ident'>ctxt</span>.<span class='ident'>state</span>.<span class='ident'>enabled_debug_output</span> <span class='op'>!=</span> <span class='prelude-val'>Some</span>(<span class='boolvalue'>true</span>) {
                     <span class='ident'>ctxt</span>.<span class='ident'>gl</span>.<span class='ident'>Enable</span>(<span class='ident'>gl</span>::<span class='ident'>DEBUG_OUTPUT</span>);
-                    <span class='ident'>ctxt</span>.<span class='ident'>state</span>.<span class='ident'>enabled_debug_output</span> <span class='op'>=</span> <span class='prelude-val'>Some</span>(<span class='boolval'>true</span>);
+                    <span class='ident'>ctxt</span>.<span class='ident'>state</span>.<span class='ident'>enabled_debug_output</span> <span class='op'>=</span> <span class='prelude-val'>Some</span>(<span class='boolvalue'>true</span>);
                 }
 
             } <span class='kw'>else</span> {
@@ -2019,7 +2020,7 @@
                 <span class='ident'>ctxt</span>.<span class='ident'>gl</span>.<span class='ident'>DebugMessageControlARB</span>(<span class='ident'>gl</span>::<span class='ident'>DONT_CARE</span>, <span class='ident'>gl</span>::<span class='ident'>DONT_CARE</span>, <span class='ident'>gl</span>::<span class='ident'>DONT_CARE</span>,
                                                <span class='number'>0</span>, <span class='ident'>ptr</span>::<span class='ident'>null</span>(), <span class='ident'>gl</span>::<span class='ident'>TRUE</span>);
 
-                <span class='ident'>ctxt</span>.<span class='ident'>state</span>.<span class='ident'>enabled_debug_output</span> <span class='op'>=</span> <span class='prelude-val'>Some</span>(<span class='boolval'>true</span>);
+                <span class='ident'>ctxt</span>.<span class='ident'>state</span>.<span class='ident'>enabled_debug_output</span> <span class='op'>=</span> <span class='prelude-val'>Some</span>(<span class='boolvalue'>true</span>);
             }
         }
     }
@@ -2048,6 +2049,8 @@
                     <dd>Move down in search results</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
 
@@ -2068,7 +2071,7 @@
 
                 <p>
                     Search functions by type signature (e.g.
-                    <code>vec -> usize</code>)
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
                 </p>
             </div>
         </div>

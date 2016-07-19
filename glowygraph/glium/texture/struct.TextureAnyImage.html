@@ -11,6 +11,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../main.css">
+    
 
     
     
@@ -43,14 +44,15 @@
 
     <section id='main' class="content struct">
 <h1 class='fqn'><span class='in-band'>Struct <a href='../index.html'>glium</a>::<wbr><a href='index.html'>texture</a>::<wbr><a class='struct' href=''>TextureAnyImage</a></span><span class='out-of-band'><span id='render-detail'>
-            <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
-                [<span class='inner'>&#x2212;</span>]
-            </a>
-        </span><a id='src-11024' class='srclink' href='../../src/glium/texture/any.rs.html#1310-1325' title='goto source code'>[src]</a></span></h1>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a id='src-11092' class='srclink' href='../../src/glium/texture/any.rs.html#1319-1334' title='goto source code'>[src]</a></span></h1>
 <pre class='rust struct'>pub struct TextureAnyImage&lt;'a&gt; {
     // some fields omitted
 }</pre><div class='docblock'><p>Represents a specific 2D image of a texture. 1D textures are considered as having a height of 1.</p>
-</div><h2 id='methods'>Methods</h2><h3 class='impl'><code>impl&lt;'a&gt; <a class='struct' href='../../glium/texture/struct.TextureAnyImage.html' title='glium::texture::TextureAnyImage'>TextureAnyImage</a>&lt;'a&gt;</code></h3><div class='impl-items'><h4 id='method.get_texture' class='method'><code>fn <a href='#method.get_texture' class='fnname'>get_texture</a>(&amp;self) -&gt; &amp;'a <a class='struct' href='../../glium/texture/struct.TextureAny.html' title='glium::texture::TextureAny'>TextureAny</a></code></h4>
+</div><h2 id='methods'>Methods</h2><h3 class='impl'><span class='in-band'><code>impl&lt;'a&gt; <a class='struct' href='../../glium/texture/struct.TextureAnyImage.html' title='glium::texture::TextureAnyImage'>TextureAnyImage</a>&lt;'a&gt;</code></span><span class='out-of-band'><div class='ghost'></div><a id='src-11112' class='srclink' href='../../src/glium/texture/any.rs.html#1336-1431' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.get_texture' class='method'><code>fn <a href='#method.get_texture' class='fnname'>get_texture</a>(&amp;self) -&gt; &amp;'a <a class='struct' href='../../glium/texture/struct.TextureAny.html' title='glium::texture::TextureAny'>TextureAny</a></code></h4>
 <div class='docblock'><p>Returns the texture.</p>
 </div><h4 id='method.get_level' class='method'><code>fn <a href='#method.get_level' class='fnname'>get_level</a>(&amp;self) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a></code></h4>
 <div class='docblock'><p>Returns the level of the texture.</p>
@@ -83,9 +85,13 @@
 <h1 id='panic-2' class='section-header'><a href='#panic-2'>Panic</a></h1>
 <p>Panicks if <code>data</code> does not match the kind of texture. For example passing a <code>[i32; 4]</code> when
 using a regular (float) texture.</p>
-</div></div><h2 id='implementations'>Trait Implementations</h2><h3 id='derived_implementations'>Derived Implementations </h3><h3 class='impl'><code>impl&lt;'a&gt; <a class='trait' href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html' title='core::clone::Clone'>Clone</a> for <a class='struct' href='../../glium/texture/struct.TextureAnyImage.html' title='glium::texture::TextureAnyImage'>TextureAnyImage</a>&lt;'a&gt;</code></h3><div class='impl-items'><h4 id='method.clone' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone' class='fnname'>clone</a>(&amp;self) -&gt; <a class='struct' href='../../glium/texture/struct.TextureAnyImage.html' title='glium::texture::TextureAnyImage'>TextureAnyImage</a>&lt;'a&gt;</code></h4>
-<h4 id='method.clone_from' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone_from' class='fnname'>clone_from</a>(&amp;mut self, source: &amp;Self)</code></h4>
-</div><h3 class='impl'><code>impl&lt;'a&gt; <a class='trait' href='https://doc.rust-lang.org/nightly/core/marker/trait.Copy.html' title='core::marker::Copy'>Copy</a> for <a class='struct' href='../../glium/texture/struct.TextureAnyImage.html' title='glium::texture::TextureAnyImage'>TextureAnyImage</a>&lt;'a&gt;</code></h3><div class='impl-items'></div></section>
+</div></div><h2 id='implementations'>Trait Implementations</h2><h3 id='derived_implementations'>Derived Implementations </h3><h3 class='impl'><span class='in-band'><code>impl&lt;'a&gt; <a class='trait' href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html' title='core::clone::Clone'>Clone</a> for <a class='struct' href='../../glium/texture/struct.TextureAnyImage.html' title='glium::texture::TextureAnyImage'>TextureAnyImage</a>&lt;'a&gt;</code></span><span class='out-of-band'><div class='ghost'></div><a id='src-11100' class='srclink' href='../../src/glium/texture/any.rs.html#1318' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.clone' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone' class='fnname'>clone</a>(&amp;self) -&gt; <a class='struct' href='../../glium/texture/struct.TextureAnyImage.html' title='glium::texture::TextureAnyImage'>TextureAnyImage</a>&lt;'a&gt;</code></h4>
+<div class='docblock'><p>Returns a copy of the value. <a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone">Read more</a></p>
+</div><h4 id='method.clone_from' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone_from' class='fnname'>clone_from</a>(&amp;mut self, source: &amp;Self)</code><div class='since' title='Stable since Rust version 1.0.0'>1.0.0</div></h4>
+<div class='docblock'><p>Performs copy-assignment from <code>source</code>. <a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone_from">Read more</a></p>
+</div></div><h3 class='impl'><span class='in-band'><code>impl&lt;'a&gt; <a class='trait' href='https://doc.rust-lang.org/nightly/core/marker/trait.Copy.html' title='core::marker::Copy'>Copy</a> for <a class='struct' href='../../glium/texture/struct.TextureAnyImage.html' title='glium::texture::TextureAnyImage'>TextureAnyImage</a>&lt;'a&gt;</code></span><span class='out-of-band'><div class='ghost'></div><a id='src-11110' class='srclink' href='../../src/glium/texture/any.rs.html#1318' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'></div></section>
     <section id='search' class="content hidden"></section>
 
     <section class="footer"></section>
@@ -108,6 +114,8 @@ using a regular (float) texture.</p>
                     <dd>Move down in search results</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
 
@@ -128,7 +136,7 @@ using a regular (float) texture.</p>
 
                 <p>
                     Search functions by type signature (e.g.
-                    <code>vec -> usize</code>)
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
                 </p>
             </div>
         </div>

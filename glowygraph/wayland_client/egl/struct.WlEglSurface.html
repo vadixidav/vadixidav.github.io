@@ -11,6 +11,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../main.css">
+    
 
     
     
@@ -43,20 +44,21 @@
 
     <section id='main' class="content struct">
 <h1 class='fqn'><span class='in-band'>Struct <a href='../index.html'>wayland_client</a>::<wbr><a href='index.html'>egl</a>::<wbr><a class='struct' href=''>WlEglSurface</a></span><span class='out-of-band'><span id='render-detail'>
-            <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
-                [<span class='inner'>&#x2212;</span>]
-            </a>
-        </span><a id='src-2840' class='srclink' href='../../src/wayland_client/egl.rs.html#19-22' title='goto source code'>[src]</a></span></h1>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a id='src-3157' class='srclink' href='../../src/wayland_client/egl.rs.html#19-22' title='goto source code'>[src]</a></span></h1>
 <pre class='rust struct'>pub struct WlEglSurface {
     // some fields omitted
-}</pre><h2 id='methods'>Methods</h2><h3 class='impl'><code>impl <a class='struct' href='../../wayland_client/egl/struct.WlEglSurface.html' title='wayland_client::egl::WlEglSurface'>WlEglSurface</a></code></h3><div class='impl-items'><h4 id='method.new' class='method'><code>fn <a href='#method.new' class='fnname'>new</a>(surface: <a class='struct' href='../../wayland_client/wayland/compositor/struct.WlSurface.html' title='wayland_client::wayland::compositor::WlSurface'>WlSurface</a>, width: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a>, height: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a>) -&gt; <a class='struct' href='../../wayland_client/egl/struct.WlEglSurface.html' title='wayland_client::egl::WlEglSurface'>WlEglSurface</a></code></h4>
+}</pre><h2 id='methods'>Methods</h2><h3 class='impl'><span class='in-band'><code>impl <a class='struct' href='../../wayland_client/egl/struct.WlEglSurface.html' title='wayland_client::egl::WlEglSurface'>WlEglSurface</a></code></span><span class='out-of-band'><div class='ghost'></div><a id='src-3160' class='srclink' href='../../src/wayland_client/egl.rs.html#24-62' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.new' class='method'><code>fn <a href='#method.new' class='fnname'>new</a>(surface: <a class='struct' href='../../wayland_client/wayland/compositor/struct.WlSurface.html' title='wayland_client::wayland::compositor::WlSurface'>WlSurface</a>, width: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a>, height: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a>) -&gt; <a class='struct' href='../../wayland_client/egl/struct.WlEglSurface.html' title='wayland_client::egl::WlEglSurface'>WlEglSurface</a></code></h4>
 <h4 id='method.destroy' class='method'><code>fn <a href='#method.destroy' class='fnname'>destroy</a>(self) -&gt; <a class='struct' href='../../wayland_client/wayland/compositor/struct.WlSurface.html' title='wayland_client::wayland::compositor::WlSurface'>WlSurface</a></code></h4>
-<h4 id='method.get_size' class='method'><code>fn <a href='#method.get_size' class='fnname'>get_size</a>(&amp;self) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>(<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a>, <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a>)</a></code></h4>
+<h4 id='method.get_size' class='method'><code>fn <a href='#method.get_size' class='fnname'>get_size</a>(&amp;self) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>(</a><a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a>, <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a><a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>)</a></code></h4>
 <h4 id='method.resize' class='method'><code>fn <a href='#method.resize' class='fnname'>resize</a>(&amp;self, width: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a>, height: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a>, dx: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a>, dy: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a>)</code></h4>
-<h4 id='method.egl_surface_ptr' class='method'><code>fn <a href='#method.egl_surface_ptr' class='fnname'>egl_surface_ptr</a>(&amp;self) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.pointer.html'>*const <a class='enum' href='https://doc.rust-lang.org/nightly/std/os/raw/enum.c_void.html' title='std::os::raw::c_void'>c_void</a></a></code></h4>
-<h4 id='method.egl_surfaceptr' class='method'><code>unsafe fn <a href='#method.egl_surfaceptr' class='fnname'>egl_surfaceptr</a>(&amp;self) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.pointer.html'>*mut <a class='enum' href='https://doc.rust-lang.org/nightly/std/os/raw/enum.c_void.html' title='std::os::raw::c_void'>c_void</a></a></code></h4>
+<h4 id='method.egl_surface_ptr' class='method'><code>fn <a href='#method.egl_surface_ptr' class='fnname'>egl_surface_ptr</a>(&amp;self) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.pointer.html'>*const </a><a class='enum' href='https://doc.rust-lang.org/nightly/std/os/raw/enum.c_void.html' title='std::os::raw::c_void'>c_void</a></code></h4>
+<h4 id='method.egl_surfaceptr' class='method'><code>unsafe fn <a href='#method.egl_surfaceptr' class='fnname'>egl_surfaceptr</a>(&amp;self) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.pointer.html'>*mut </a><a class='enum' href='https://doc.rust-lang.org/nightly/std/os/raw/enum.c_void.html' title='std::os::raw::c_void'>c_void</a></code></h4>
 <div class='docblock'><p>DEPRECATED</p>
-</div></div><h2 id='deref-methods'>Methods from <a class='trait' href='https://doc.rust-lang.org/nightly/core/ops/trait.Deref.html' title='core::ops::Deref'>Deref</a>&lt;Target=<a class='struct' href='../../wayland_client/wayland/compositor/struct.WlSurface.html' title='wayland_client::wayland::compositor::WlSurface'>WlSurface</a>&gt;</h2><div class='impl-items'><h4 id='method.destroy-1' class='method'><code>fn <a href='#method.destroy' class='fnname'>destroy</a>(self)</code></h4>
+</div></div><h2 id='deref-methods'>Methods from <a class='trait' href='https://doc.rust-lang.org/nightly/core/ops/trait.Deref.html' title='core::ops::Deref'>Deref</a>&lt;Target=<a class='struct' href='../../wayland_client/wayland/compositor/struct.WlSurface.html' title='wayland_client::wayland::compositor::WlSurface'>WlSurface</a>&gt;</h2><div class='impl-items'><h4 id='method.destroy-1' class='method'><code>fn <a href='#method.destroy-1' class='fnname'>destroy</a>(self)</code></h4>
 <div class='docblock'><p>delete surface</p>
 
 <p>Deletes the surface and invalidates its object ID.</p>
@@ -292,10 +294,17 @@ than the desired surface size.</p>
 raised.</p>
 
 <p>Requires interface version <code>&gt;= 3</code>.</p>
-</div></div><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/marker/trait.Send.html' title='core::marker::Send'>Send</a> for <a class='struct' href='../../wayland_client/egl/struct.WlEglSurface.html' title='wayland_client::egl::WlEglSurface'>WlEglSurface</a></code></h3><div class='impl-items'></div><h3 class='impl'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/marker/trait.Sync.html' title='core::marker::Sync'>Sync</a> for <a class='struct' href='../../wayland_client/egl/struct.WlEglSurface.html' title='wayland_client::egl::WlEglSurface'>WlEglSurface</a></code></h3><div class='impl-items'></div><h3 class='impl'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/ops/trait.Drop.html' title='core::ops::Drop'>Drop</a> for <a class='struct' href='../../wayland_client/egl/struct.WlEglSurface.html' title='wayland_client::egl::WlEglSurface'>WlEglSurface</a></code></h3><div class='impl-items'><h4 id='method.drop' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/ops/trait.Drop.html#method.drop' class='fnname'>drop</a>(&amp;mut self)</code></h4>
-</div><h3 class='impl'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/ops/trait.Deref.html' title='core::ops::Deref'>Deref</a> for <a class='struct' href='../../wayland_client/egl/struct.WlEglSurface.html' title='wayland_client::egl::WlEglSurface'>WlEglSurface</a></code></h3><div class='impl-items'><h4 id='assoc_type.Target' class='type'><code>type Target = <a class='struct' href='../../wayland_client/wayland/compositor/struct.WlSurface.html' title='wayland_client::wayland::compositor::WlSurface'>WlSurface</a></code></h4>
-<h4 id='method.deref' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/ops/trait.Deref.html#method.deref' class='fnname'>deref</a>(&amp;self) -&gt; &amp;<a class='struct' href='../../wayland_client/wayland/compositor/struct.WlSurface.html' title='wayland_client::wayland::compositor::WlSurface'>WlSurface</a></code></h4>
-</div></section>
+</div></div><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><span class='in-band'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/marker/trait.Send.html' title='core::marker::Send'>Send</a> for <a class='struct' href='../../wayland_client/egl/struct.WlEglSurface.html' title='wayland_client::egl::WlEglSurface'>WlEglSurface</a></code></span><span class='out-of-band'><div class='ghost'></div><a id='src-3155' class='srclink' href='../../src/wayland_client/egl.rs.html#16' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'></div><h3 class='impl'><span class='in-band'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/marker/trait.Sync.html' title='core::marker::Sync'>Sync</a> for <a class='struct' href='../../wayland_client/egl/struct.WlEglSurface.html' title='wayland_client::egl::WlEglSurface'>WlEglSurface</a></code></span><span class='out-of-band'><div class='ghost'></div><a id='src-3156' class='srclink' href='../../src/wayland_client/egl.rs.html#17' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'></div><h3 class='impl'><span class='in-band'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/ops/trait.Drop.html' title='core::ops::Drop'>Drop</a> for <a class='struct' href='../../wayland_client/egl/struct.WlEglSurface.html' title='wayland_client::egl::WlEglSurface'>WlEglSurface</a></code></span><span class='out-of-band'><div class='ghost'></div><a id='src-3183' class='srclink' href='../../src/wayland_client/egl.rs.html#64-68' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.drop' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/ops/trait.Drop.html#tymethod.drop' class='fnname'>drop</a>(&amp;mut self)</code></h4>
+<div class='docblock'><p>A method called when the value goes out of scope. <a href="https://doc.rust-lang.org/nightly/core/ops/trait.Drop.html#tymethod.drop">Read more</a></p>
+</div></div><h3 class='impl'><span class='in-band'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/ops/trait.Deref.html' title='core::ops::Deref'>Deref</a> for <a class='struct' href='../../wayland_client/egl/struct.WlEglSurface.html' title='wayland_client::egl::WlEglSurface'>WlEglSurface</a></code></span><span class='out-of-band'><div class='ghost'></div><a id='src-3186' class='srclink' href='../../src/wayland_client/egl.rs.html#70-75' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='associatedtype.Target' class='type'><code>type <a href='https://doc.rust-lang.org/nightly/core/ops/trait.Deref.html#associatedtype.Target' class='type'>Target</a> = <a class='struct' href='../../wayland_client/wayland/compositor/struct.WlSurface.html' title='wayland_client::wayland::compositor::WlSurface'>WlSurface</a></code></h4>
+<div class='docblock'><p>The resulting type after dereferencing</p>
+</div><h4 id='method.deref' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/ops/trait.Deref.html#tymethod.deref' class='fnname'>deref</a>(&amp;self) -&gt; &amp;<a class='struct' href='../../wayland_client/wayland/compositor/struct.WlSurface.html' title='wayland_client::wayland::compositor::WlSurface'>WlSurface</a></code></h4>
+<div class='docblock'><p>The method called to dereference a value</p>
+</div></div></section>
     <section id='search' class="content hidden"></section>
 
     <section class="footer"></section>
@@ -318,6 +327,8 @@ raised.</p>
                     <dd>Move down in search results</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
 
@@ -338,7 +349,7 @@ raised.</p>
 
                 <p>
                     Search functions by type signature (e.g.
-                    <code>vec -> usize</code>)
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
                 </p>
             </div>
         </div>

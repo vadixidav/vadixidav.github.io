@@ -4,13 +4,14 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="rustdoc">
-    <meta name="description" content="Source to the Rust file `/home/vadix/.cargo/registry/src/github.com-88ac128001ac3a9a/wayland-sys-0.5.8/src/client.rs`.">
+    <meta name="description" content="Source to the Rust file `/home/vadix/.cargo/registry/src/github.com-1ecc6299db9ec823/wayland-sys-0.5.11/src/client.rs`.">
     <meta name="keywords" content="rust, rustlang, rust-lang">
 
     <title>client.rs.html -- source</title>
 
     <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../main.css">
+    
 
     
     
@@ -139,7 +140,7 @@
 
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>os</span>::<span class='ident'>raw</span>::{<span class='ident'>c_char</span>, <span class='ident'>c_void</span>, <span class='ident'>c_int</span>};
 
-<span class='kw'>use</span> <span class='ident'>super</span>::<span class='ident'>common</span>::<span class='op'>*</span>;
+<span class='kw'>use</span> <span class='kw'>super</span>::<span class='ident'>common</span>::<span class='op'>*</span>;
 
 <span class='kw'>pub</span> <span class='kw'>enum</span> <span class='ident'>wl_proxy</span> { }
 <span class='kw'>pub</span> <span class='kw'>enum</span> <span class='ident'>wl_display</span> { }
@@ -203,11 +204,11 @@
         <span class='kw'>fn</span> <span class='ident'>wl_array_init</span>(<span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>wl_array</span>) <span class='op'>-&gt;</span> (),
         <span class='kw'>fn</span> <span class='ident'>wl_array_release</span>(<span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>wl_array</span>) <span class='op'>-&gt;</span> (),
         <span class='kw'>fn</span> <span class='ident'>wl_array_add</span>(<span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>wl_array</span>,<span class='ident'>usize</span>) <span class='op'>-&gt;</span> (),
-        <span class='kw'>fn</span> <span class='ident'>wl_array_copy</span>(<span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>wl_array</span>, <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>wl_array</span>) <span class='op'>-&gt;</span> ()
+        <span class='kw'>fn</span> <span class='ident'>wl_array_copy</span>(<span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>wl_array</span>, <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>wl_array</span>) <span class='op'>-&gt;</span> (),
 
     <span class='ident'>varargs</span>:
-        <span class='kw'>fn</span> <span class='ident'>wl_proxy_marshal_constructor</span>(<span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>wl_proxy</span>, <span class='ident'>u32</span>, <span class='op'>*</span><span class='kw'>const</span> <span class='ident'>wl_interface</span> ...) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>wl_proxy</span>,
-        <span class='kw'>fn</span> <span class='ident'>wl_proxy_marshal</span>(<span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>wl_proxy</span>, <span class='ident'>u32</span> ...) <span class='op'>-&gt;</span> ()
+        <span class='kw'>fn</span> <span class='ident'>wl_proxy_marshal_constructor</span>(<span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>wl_proxy</span>, <span class='ident'>u32</span>, <span class='op'>*</span><span class='kw'>const</span> <span class='ident'>wl_interface</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>wl_proxy</span>,
+        <span class='kw'>fn</span> <span class='ident'>wl_proxy_marshal</span>(<span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>wl_proxy</span>, <span class='ident'>u32</span>) <span class='op'>-&gt;</span> (),
 );
 
 <span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>feature</span> <span class='op'>=</span> <span class='string'>&quot;dlopen&quot;</span>)]</span>
@@ -221,7 +222,7 @@
 );
 
 <span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>not</span>(<span class='ident'>feature</span> <span class='op'>=</span> <span class='string'>&quot;dlopen&quot;</span>))]</span>
-<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>is_lib_available</span>() <span class='op'>-&gt;</span> <span class='ident'>bool</span> { <span class='boolval'>true</span> }
+<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>is_lib_available</span>() <span class='op'>-&gt;</span> <span class='ident'>bool</span> { <span class='boolvalue'>true</span> }
 <span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>feature</span> <span class='op'>=</span> <span class='string'>&quot;dlopen&quot;</span>)]</span>
 <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>is_lib_available</span>() <span class='op'>-&gt;</span> <span class='ident'>bool</span> { <span class='ident'>WAYLAND_CLIENT_OPTION</span>.<span class='ident'>is_some</span>() }
 </pre>
@@ -248,6 +249,8 @@
                     <dd>Move down in search results</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
 
@@ -268,7 +271,7 @@
 
                 <p>
                     Search functions by type signature (e.g.
-                    <code>vec -> usize</code>)
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
                 </p>
             </div>
         </div>

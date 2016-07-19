@@ -11,6 +11,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../main.css">
+    
 
     
     
@@ -43,16 +44,17 @@
 
     <section id='main' class="content struct">
 <h1 class='fqn'><span class='in-band'>Struct <a href='../index.html'>glium</a>::<wbr><a href='index.html'>buffer</a>::<wbr><a class='struct' href=''>BufferAny</a></span><span class='out-of-band'><span id='render-detail'>
-            <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
-                [<span class='inner'>&#x2212;</span>]
-            </a>
-        </span><a id='src-1380' class='srclink' href='../../src/glium/buffer/view.rs.html#1076-1081' title='goto source code'>[src]</a></span></h1>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a id='src-1359' class='srclink' href='../../src/glium/buffer/view.rs.html#1074-1079' title='goto source code'>[src]</a></span></h1>
 <pre class='rust struct'>pub struct BufferAny {
     // some fields omitted
 }</pre><div class='docblock'><p>Represents a sub-part of a buffer.</p>
 
 <p>Doesn&#39;t contain any information about the content, contrary to <code>Buffer</code>.</p>
-</div><h2 id='methods'>Methods</h2><h3 class='impl'><code>impl <a class='struct' href='../../glium/buffer/struct.BufferAny.html' title='glium::buffer::BufferAny'>BufferAny</a></code></h3><div class='impl-items'><h4 id='method.as_slice_any' class='method'><code>fn <a href='#method.as_slice_any' class='fnname'>as_slice_any</a>(&amp;self) -&gt; <a class='struct' href='../../glium/buffer/struct.BufferAnySlice.html' title='glium::buffer::BufferAnySlice'>BufferAnySlice</a></code></h4>
+</div><h2 id='methods'>Methods</h2><h3 class='impl'><span class='in-band'><code>impl <a class='struct' href='../../glium/buffer/struct.BufferAny.html' title='glium::buffer::BufferAny'>BufferAny</a></code></span><span class='out-of-band'><div class='ghost'></div><a id='src-1364' class='srclink' href='../../src/glium/buffer/view.rs.html#1081-1144' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.as_slice_any' class='method'><code>fn <a href='#method.as_slice_any' class='fnname'>as_slice_any</a>(&amp;self) -&gt; <a class='struct' href='../../glium/buffer/struct.BufferAnySlice.html' title='glium::buffer::BufferAnySlice'>BufferAnySlice</a></code></h4>
 <div class='docblock'><p>Builds a slice-any containing the whole subbuffer.</p>
 </div><h4 id='method.get_elements_size' class='method'><code>fn <a href='#method.get_elements_size' class='fnname'>get_elements_size</a>(&amp;self) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a></code></h4>
 <div class='docblock'><p>Returns the size in bytes of each element in the buffer.</p>
@@ -75,10 +77,16 @@ buffers.</p>
 <h1 id='panic' class='section-header'><a href='#panic'>Panic</a></h1>
 <p>Panicks if the size of the buffer is not a multiple of the size of the data.
 For example, trying to read some <code>(u8, u8, u8, u8)</code>s from a buffer of 7 bytes will panic.</p>
-</div></div><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><code>impl&lt;T: ?<a class='trait' href='https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html' title='core::marker::Sized'>Sized</a>&gt; <a class='trait' href='https://doc.rust-lang.org/nightly/core/convert/trait.From.html' title='core::convert::From'>From</a>&lt;<a class='struct' href='../../glium/buffer/struct.Buffer.html' title='glium::buffer::Buffer'>Buffer</a>&lt;T&gt;&gt; for <a class='struct' href='../../glium/buffer/struct.BufferAny.html' title='glium::buffer::BufferAny'>BufferAny</a> <span class='where'>where T: <a class='trait' href='../../glium/buffer/trait.Content.html' title='glium::buffer::Content'>Content</a> + <a class='trait' href='../../core/marker/trait.Send.html' title='core::marker::Send'>Send</a> + 'static</span></code></h3><div class='impl-items'><h4 id='method.from' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/convert/trait.From.html#method.from' class='fnname'>from</a>(buffer: <a class='struct' href='../../glium/buffer/struct.Buffer.html' title='glium::buffer::Buffer'>Buffer</a>&lt;T&gt;) -&gt; <a class='struct' href='../../glium/buffer/struct.BufferAny.html' title='glium::buffer::BufferAny'>BufferAny</a></code></h4>
-</div><h3 class='impl'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/ops/trait.Drop.html' title='core::ops::Drop'>Drop</a> for <a class='struct' href='../../glium/buffer/struct.BufferAny.html' title='glium::buffer::BufferAny'>BufferAny</a></code></h3><div class='impl-items'><h4 id='method.drop' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/ops/trait.Drop.html#method.drop' class='fnname'>drop</a>(&amp;mut self)</code></h4>
-</div><h3 class='impl'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html' title='core::fmt::Debug'>Debug</a> for <a class='struct' href='../../glium/buffer/struct.BufferAny.html' title='glium::buffer::BufferAny'>BufferAny</a></code></h3><div class='impl-items'><h4 id='method.fmt' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#method.fmt' class='fnname'>fmt</a>(&amp;self, fmt: &amp;mut <a class='struct' href='https://doc.rust-lang.org/nightly/core/fmt/struct.Formatter.html' title='core::fmt::Formatter'>Formatter</a>) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>()</a>, <a class='struct' href='https://doc.rust-lang.org/nightly/core/fmt/struct.Error.html' title='core::fmt::Error'>Error</a>&gt;</code></h4>
-</div></section>
+</div></div><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><span class='in-band'><code>impl&lt;T: ?<a class='trait' href='https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html' title='core::marker::Sized'>Sized</a>&gt; <a class='trait' href='https://doc.rust-lang.org/nightly/core/convert/trait.From.html' title='core::convert::From'>From</a>&lt;<a class='struct' href='../../glium/buffer/struct.Buffer.html' title='glium::buffer::Buffer'>Buffer</a>&lt;T&gt;&gt; for <a class='struct' href='../../glium/buffer/struct.BufferAny.html' title='glium::buffer::BufferAny'>BufferAny</a> <span class='where'>where T: <a class='trait' href='../../glium/buffer/trait.Content.html' title='glium::buffer::Content'>Content</a> + <a class='trait' href='../../core/marker/trait.Send.html' title='core::marker::Send'>Send</a> + 'static</span></code></span><span class='out-of-band'><div class='ghost'></div><a id='src-1380' class='srclink' href='../../src/glium/buffer/view.rs.html#1146-1158' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.from' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/convert/trait.From.html#tymethod.from' class='fnname'>from</a>(buffer: <a class='struct' href='../../glium/buffer/struct.Buffer.html' title='glium::buffer::Buffer'>Buffer</a>&lt;T&gt;) -&gt; <a class='struct' href='../../glium/buffer/struct.BufferAny.html' title='glium::buffer::BufferAny'>BufferAny</a></code></h4>
+<div class='docblock'><p>Performs the conversion.</p>
+</div></div><h3 class='impl'><span class='in-band'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/ops/trait.Drop.html' title='core::ops::Drop'>Drop</a> for <a class='struct' href='../../glium/buffer/struct.BufferAny.html' title='glium::buffer::BufferAny'>BufferAny</a></code></span><span class='out-of-band'><div class='ghost'></div><a id='src-1385' class='srclink' href='../../src/glium/buffer/view.rs.html#1160-1165' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.drop' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/ops/trait.Drop.html#tymethod.drop' class='fnname'>drop</a>(&amp;mut self)</code></h4>
+<div class='docblock'><p>A method called when the value goes out of scope. <a href="https://doc.rust-lang.org/nightly/core/ops/trait.Drop.html#tymethod.drop">Read more</a></p>
+</div></div><h3 class='impl'><span class='in-band'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html' title='core::fmt::Debug'>Debug</a> for <a class='struct' href='../../glium/buffer/struct.BufferAny.html' title='glium::buffer::BufferAny'>BufferAny</a></code></span><span class='out-of-band'><div class='ghost'></div><a id='src-1388' class='srclink' href='../../src/glium/buffer/view.rs.html#1167-1172' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.fmt' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#tymethod.fmt' class='fnname'>fmt</a>(&amp;self, fmt: &amp;mut <a class='struct' href='https://doc.rust-lang.org/nightly/core/fmt/struct.Formatter.html' title='core::fmt::Formatter'>Formatter</a>) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>()</a>, <a class='struct' href='https://doc.rust-lang.org/nightly/core/fmt/struct.Error.html' title='core::fmt::Error'>Error</a>&gt;</code></h4>
+<div class='docblock'><p>Formats the value using the given formatter.</p>
+</div></div></section>
     <section id='search' class="content hidden"></section>
 
     <section class="footer"></section>
@@ -101,6 +109,8 @@ For example, trying to read some <code>(u8, u8, u8, u8)</code>s from a buffer of
                     <dd>Move down in search results</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
 
@@ -121,7 +131,7 @@ For example, trying to read some <code>(u8, u8, u8, u8)</code>s from a buffer of
 
                 <p>
                     Search functions by type signature (e.g.
-                    <code>vec -> usize</code>)
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
                 </p>
             </div>
         </div>

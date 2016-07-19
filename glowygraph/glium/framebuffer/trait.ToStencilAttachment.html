@@ -11,6 +11,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../main.css">
+    
 
     
     
@@ -43,10 +44,10 @@
 
     <section id='main' class="content trait">
 <h1 class='fqn'><span class='in-band'>Trait <a href='../index.html'>glium</a>::<wbr><a href='index.html'>framebuffer</a>::<wbr><a class='trait' href=''>ToStencilAttachment</a></span><span class='out-of-band'><span id='render-detail'>
-            <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
-                [<span class='inner'>&#x2212;</span>]
-            </a>
-        </span><a id='src-3986' class='srclink' href='../../src/glium/framebuffer/mod.rs.html#852-855' title='goto source code'>[src]</a></span></h1>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a id='src-3933' class='srclink' href='../../src/glium/framebuffer/mod.rs.html#851-854' title='goto source code'>[src]</a></span></h1>
 <pre class='rust trait'>pub trait ToStencilAttachment&lt;'a&gt; {
     fn <a href='#tymethod.to_stencil_attachment' class='fnname'>to_stencil_attachment</a>(self) -&gt; <a class='enum' href='../../glium/framebuffer/enum.StencilAttachment.html' title='glium::framebuffer::StencilAttachment'>StencilAttachment</a>&lt;'a&gt;;
 }</pre><div class='docblock'><p>Trait for objects that can be used as stencil attachments.</p>
@@ -57,22 +58,22 @@
 </div></div>
         <h2 id='implementors'>Implementors</h2>
         <ul class='item-list' id='implementors-list'>
-    <li><code>impl&lt;'a&gt; <a class='trait' href='../../glium/framebuffer/trait.ToStencilAttachment.html' title='glium::framebuffer::ToStencilAttachment'>ToStencilAttachment</a>&lt;'a&gt; for &amp;'a <a class='struct' href='../../glium/framebuffer/struct.StencilRenderBuffer.html' title='glium::framebuffer::StencilRenderBuffer'>StencilRenderBuffer</a></code></li>
-<li><code>impl&lt;'a&gt; <a class='trait' href='../../glium/framebuffer/trait.ToStencilAttachment.html' title='glium::framebuffer::ToStencilAttachment'>ToStencilAttachment</a>&lt;'a&gt; for <a class='enum' href='../../glium/framebuffer/enum.StencilAttachment.html' title='glium::framebuffer::StencilAttachment'>StencilAttachment</a>&lt;'a&gt;</code></li>
-<li><code>impl&lt;'t&gt; <a class='trait' href='../../glium/framebuffer/trait.ToStencilAttachment.html' title='glium::framebuffer::ToStencilAttachment'>ToStencilAttachment</a>&lt;'t&gt; for &amp;'t <a class='struct' href='../../glium/texture/stencil_texture1d/struct.StencilTexture1d.html' title='glium::texture::stencil_texture1d::StencilTexture1d'>StencilTexture1d</a></code></li>
-<li><code>impl&lt;'t&gt; <a class='trait' href='../../glium/framebuffer/trait.ToStencilAttachment.html' title='glium::framebuffer::ToStencilAttachment'>ToStencilAttachment</a>&lt;'t&gt; for <a class='struct' href='../../glium/texture/stencil_texture1d/struct.StencilTexture1dMipmap.html' title='glium::texture::stencil_texture1d::StencilTexture1dMipmap'>StencilTexture1dMipmap</a>&lt;'t&gt;</code></li>
-<li><code>impl&lt;'t&gt; <a class='trait' href='../../glium/framebuffer/trait.ToStencilAttachment.html' title='glium::framebuffer::ToStencilAttachment'>ToStencilAttachment</a>&lt;'t&gt; for &amp;'t <a class='struct' href='../../glium/texture/stencil_texture2d/struct.StencilTexture2d.html' title='glium::texture::stencil_texture2d::StencilTexture2d'>StencilTexture2d</a></code></li>
-<li><code>impl&lt;'t&gt; <a class='trait' href='../../glium/framebuffer/trait.ToStencilAttachment.html' title='glium::framebuffer::ToStencilAttachment'>ToStencilAttachment</a>&lt;'t&gt; for <a class='struct' href='../../glium/texture/stencil_texture2d/struct.StencilTexture2dMipmap.html' title='glium::texture::stencil_texture2d::StencilTexture2dMipmap'>StencilTexture2dMipmap</a>&lt;'t&gt;</code></li>
-<li><code>impl&lt;'t&gt; <a class='trait' href='../../glium/framebuffer/trait.ToStencilAttachment.html' title='glium::framebuffer::ToStencilAttachment'>ToStencilAttachment</a>&lt;'t&gt; for &amp;'t <a class='struct' href='../../glium/texture/stencil_texture2d_multisample/struct.StencilTexture2dMultisample.html' title='glium::texture::stencil_texture2d_multisample::StencilTexture2dMultisample'>StencilTexture2dMultisample</a></code></li>
-<li><code>impl&lt;'t&gt; <a class='trait' href='../../glium/framebuffer/trait.ToStencilAttachment.html' title='glium::framebuffer::ToStencilAttachment'>ToStencilAttachment</a>&lt;'t&gt; for <a class='struct' href='../../glium/texture/stencil_texture2d_multisample/struct.StencilTexture2dMultisampleMipmap.html' title='glium::texture::stencil_texture2d_multisample::StencilTexture2dMultisampleMipmap'>StencilTexture2dMultisampleMipmap</a>&lt;'t&gt;</code></li>
-<li><code>impl&lt;'t&gt; <a class='trait' href='../../glium/framebuffer/trait.ToStencilAttachment.html' title='glium::framebuffer::ToStencilAttachment'>ToStencilAttachment</a>&lt;'t&gt; for <a class='struct' href='../../glium/texture/stencil_texture1d_array/struct.StencilTexture1dArrayLayerMipmap.html' title='glium::texture::stencil_texture1d_array::StencilTexture1dArrayLayerMipmap'>StencilTexture1dArrayLayerMipmap</a>&lt;'t&gt;</code></li>
-<li><code>impl&lt;'t&gt; <a class='trait' href='../../glium/framebuffer/trait.ToStencilAttachment.html' title='glium::framebuffer::ToStencilAttachment'>ToStencilAttachment</a>&lt;'t&gt; for <a class='struct' href='../../glium/texture/stencil_texture2d_array/struct.StencilTexture2dArrayLayerMipmap.html' title='glium::texture::stencil_texture2d_array::StencilTexture2dArrayLayerMipmap'>StencilTexture2dArrayLayerMipmap</a>&lt;'t&gt;</code></li>
-<li><code>impl&lt;'t&gt; <a class='trait' href='../../glium/framebuffer/trait.ToStencilAttachment.html' title='glium::framebuffer::ToStencilAttachment'>ToStencilAttachment</a>&lt;'t&gt; for <a class='struct' href='../../glium/texture/stencil_texture2d_multisample_array/struct.StencilTexture2dMultisampleArrayLayerMipmap.html' title='glium::texture::stencil_texture2d_multisample_array::StencilTexture2dMultisampleArrayLayerMipmap'>StencilTexture2dMultisampleArrayLayerMipmap</a>&lt;'t&gt;</code></li>
-<li><code>impl&lt;'t&gt; <a class='trait' href='../../glium/framebuffer/trait.ToStencilAttachment.html' title='glium::framebuffer::ToStencilAttachment'>ToStencilAttachment</a>&lt;'t&gt; for <a class='struct' href='../../glium/texture/stencil_cubemap/struct.StencilCubemapImage.html' title='glium::texture::stencil_cubemap::StencilCubemapImage'>StencilCubemapImage</a>&lt;'t&gt;</code></li>
-<li><code>impl&lt;'t&gt; <a class='trait' href='../../glium/framebuffer/trait.ToStencilAttachment.html' title='glium::framebuffer::ToStencilAttachment'>ToStencilAttachment</a>&lt;'t&gt; for <a class='struct' href='../../glium/texture/stencil_cubemap_array/struct.StencilCubemapArrayImage.html' title='glium::texture::stencil_cubemap_array::StencilCubemapArrayImage'>StencilCubemapArrayImage</a>&lt;'t&gt;</code></li>
+    <li><code>impl&lt;'a&gt; ToStencilAttachment&lt;'a&gt; for &amp;'a <a class='struct' href='../../glium/framebuffer/struct.StencilRenderBuffer.html' title='glium::framebuffer::StencilRenderBuffer'>StencilRenderBuffer</a></code></li>
+<li><code>impl&lt;'a&gt; ToStencilAttachment&lt;'a&gt; for <a class='enum' href='../../glium/framebuffer/enum.StencilAttachment.html' title='glium::framebuffer::StencilAttachment'>StencilAttachment</a>&lt;'a&gt;</code></li>
+<li><code>impl&lt;'t&gt; ToStencilAttachment&lt;'t&gt; for &amp;'t <a class='struct' href='../../glium/texture/stencil_texture1d/struct.StencilTexture1d.html' title='glium::texture::stencil_texture1d::StencilTexture1d'>StencilTexture1d</a></code></li>
+<li><code>impl&lt;'t&gt; ToStencilAttachment&lt;'t&gt; for <a class='struct' href='../../glium/texture/stencil_texture1d/struct.StencilTexture1dMipmap.html' title='glium::texture::stencil_texture1d::StencilTexture1dMipmap'>StencilTexture1dMipmap</a>&lt;'t&gt;</code></li>
+<li><code>impl&lt;'t&gt; ToStencilAttachment&lt;'t&gt; for &amp;'t <a class='struct' href='../../glium/texture/stencil_texture2d/struct.StencilTexture2d.html' title='glium::texture::stencil_texture2d::StencilTexture2d'>StencilTexture2d</a></code></li>
+<li><code>impl&lt;'t&gt; ToStencilAttachment&lt;'t&gt; for <a class='struct' href='../../glium/texture/stencil_texture2d/struct.StencilTexture2dMipmap.html' title='glium::texture::stencil_texture2d::StencilTexture2dMipmap'>StencilTexture2dMipmap</a>&lt;'t&gt;</code></li>
+<li><code>impl&lt;'t&gt; ToStencilAttachment&lt;'t&gt; for &amp;'t <a class='struct' href='../../glium/texture/stencil_texture2d_multisample/struct.StencilTexture2dMultisample.html' title='glium::texture::stencil_texture2d_multisample::StencilTexture2dMultisample'>StencilTexture2dMultisample</a></code></li>
+<li><code>impl&lt;'t&gt; ToStencilAttachment&lt;'t&gt; for <a class='struct' href='../../glium/texture/stencil_texture2d_multisample/struct.StencilTexture2dMultisampleMipmap.html' title='glium::texture::stencil_texture2d_multisample::StencilTexture2dMultisampleMipmap'>StencilTexture2dMultisampleMipmap</a>&lt;'t&gt;</code></li>
+<li><code>impl&lt;'t&gt; ToStencilAttachment&lt;'t&gt; for <a class='struct' href='../../glium/texture/stencil_texture1d_array/struct.StencilTexture1dArrayLayerMipmap.html' title='glium::texture::stencil_texture1d_array::StencilTexture1dArrayLayerMipmap'>StencilTexture1dArrayLayerMipmap</a>&lt;'t&gt;</code></li>
+<li><code>impl&lt;'t&gt; ToStencilAttachment&lt;'t&gt; for <a class='struct' href='../../glium/texture/stencil_texture2d_array/struct.StencilTexture2dArrayLayerMipmap.html' title='glium::texture::stencil_texture2d_array::StencilTexture2dArrayLayerMipmap'>StencilTexture2dArrayLayerMipmap</a>&lt;'t&gt;</code></li>
+<li><code>impl&lt;'t&gt; ToStencilAttachment&lt;'t&gt; for <a class='struct' href='../../glium/texture/stencil_texture2d_multisample_array/struct.StencilTexture2dMultisampleArrayLayerMipmap.html' title='glium::texture::stencil_texture2d_multisample_array::StencilTexture2dMultisampleArrayLayerMipmap'>StencilTexture2dMultisampleArrayLayerMipmap</a>&lt;'t&gt;</code></li>
+<li><code>impl&lt;'t&gt; ToStencilAttachment&lt;'t&gt; for <a class='struct' href='../../glium/texture/stencil_cubemap/struct.StencilCubemapImage.html' title='glium::texture::stencil_cubemap::StencilCubemapImage'>StencilCubemapImage</a>&lt;'t&gt;</code></li>
+<li><code>impl&lt;'t&gt; ToStencilAttachment&lt;'t&gt; for <a class='struct' href='../../glium/texture/stencil_cubemap_array/struct.StencilCubemapArrayImage.html' title='glium::texture::stencil_cubemap_array::StencilCubemapArrayImage'>StencilCubemapArrayImage</a>&lt;'t&gt;</code></li>
 </ul><script type="text/javascript" async
-                              src="../../implementors/glium/framebuffer/trait.ToStencilAttachment.js">
-                      </script></section>
+                         src="../../implementors/glium/framebuffer/trait.ToStencilAttachment.js">
+                 </script></section>
     <section id='search' class="content hidden"></section>
 
     <section class="footer"></section>
@@ -95,6 +96,8 @@
                     <dd>Move down in search results</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
 
@@ -115,7 +118,7 @@
 
                 <p>
                     Search functions by type signature (e.g.
-                    <code>vec -> usize</code>)
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
                 </p>
             </div>
         </div>

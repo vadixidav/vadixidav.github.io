@@ -11,6 +11,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../main.css">
+    
 
     
     
@@ -43,10 +44,10 @@
 
     <section id='main' class="content mod">
 <h1 class='fqn'><span class='in-band'>Module <a href='../index.html'>glium</a>::<wbr><a class='mod' href=''>uniforms</a></span><span class='out-of-band'><span id='render-detail'>
-            <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
-                [<span class='inner'>&#x2212;</span>]
-            </a>
-        </span><a id='src-6605' class='srclink' href='../../src/glium/uniforms/mod.rs.html#1-448' title='goto source code'>[src]</a></span></h1>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a id='src-6498' class='srclink' href='../../src/glium/uniforms/mod.rs.html#1-448' title='goto source code'>[src]</a></span></h1>
 <div class='docblock'><p>A uniform is a global variable in your program. In order to draw something, you will need to
 give <code>glium</code> the values of all your uniforms. Objects that implement the <code>Uniform</code> trait are
 here to do that.</p>
@@ -55,6 +56,7 @@ here to do that.</p>
 the <code>#[uniforms]</code> attribute on it. See the <code>glium_macros</code> crate for more infos.</p>
 
 <p>The second way is to use the <code>uniform!</code> macro provided by glium:</p>
+
 <pre class='rust rust-example-rendered'>
 <span class='attribute'>#[<span class='ident'>macro_use</span>]</span>
 <span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>glium</span>;
@@ -68,6 +70,7 @@ the <code>#[uniforms]</code> attribute on it. See the <code>glium_macros</code> 
 
 <h2 id='samplers' class='section-header'><a href='#samplers'>Samplers</a></h2>
 <p>In order to customize the way a texture is being sampled, you must use a <code>Sampler</code>.</p>
+
 <pre class='rust rust-example-rendered'>
 <span class='attribute'>#[<span class='ident'>macro_use</span>]</span>
 <span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>glium</span>;
@@ -81,6 +84,7 @@ the <code>#[uniforms]</code> attribute on it. See the <code>glium_macros</code> 
 <p>In GLSL, you can choose to use a uniform <em>block</em>. When you use a block, you first need to
 upload the content of this block in the video memory thanks to a <code>UniformBuffer</code>. Then you
 can link the buffer to the name of the block, just like any other uniform.</p>
+
 <pre class='rust rust-example-rendered'>
 <span class='attribute'>#[<span class='ident'>macro_use</span>]</span>
 <span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>glium</span>;
@@ -121,6 +125,7 @@ to change the functionality of a shader program at runtime. This method is usual
 than using multiple programs that are switched during execution.</p>
 
 <p>A subroutine uniform is unique per shader stage, and not per program.</p>
+
 <pre class='rust rust-example-rendered'>
 <span class='attribute'>#[<span class='ident'>macro_use</span>]</span>
 <span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>glium</span>;
@@ -162,134 +167,106 @@ than using multiple programs that are switched during execution.</p>
     };</pre>
 </div><h2 id='structs' class='section-header'><a href="#structs">Structs</a></h2>
 <table>
-                    <tr class=' module-item'>
-                        <td><a class='struct' href='struct.EmptyUniforms.html'
-                               title='glium::uniforms::EmptyUniforms'>EmptyUniforms</a></td>
-                        <td class='docblock short'>
-                             <p>Object that can be used when you don&#39;t have any uniforms.</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='struct' href='struct.Sampler.html'
-                               title='glium::uniforms::Sampler'>Sampler</a></td>
-                        <td class='docblock short'>
-                             <p>A sampler.</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='struct' href='struct.SamplerBehavior.html'
-                               title='glium::uniforms::SamplerBehavior'>SamplerBehavior</a></td>
-                        <td class='docblock short'>
-                             <p>Behavior of a sampler.</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='struct' href='struct.UniformBuffer.html'
-                               title='glium::uniforms::UniformBuffer'>UniformBuffer</a></td>
-                        <td class='docblock short'>
-                             <p>Buffer that contains a uniform block.</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='struct' href='struct.UniformsStorage.html'
-                               title='glium::uniforms::UniformsStorage'>UniformsStorage</a></td>
-                        <td class='docblock short'>
-                             <p>Stores uniforms.</p>
-
-                        </td>
-                    </tr>
-                </table><h2 id='enums' class='section-header'><a href="#enums">Enums</a></h2>
+                       <tr class=' module-item'>
+                           <td><a class='struct' href='struct.EmptyUniforms.html'
+                                  title='glium::uniforms::EmptyUniforms'>EmptyUniforms</a></td>
+                           <td class='docblock short'>
+                                <p>Object that can be used when you don&#39;t have any uniforms.</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='struct' href='struct.Sampler.html'
+                                  title='glium::uniforms::Sampler'>Sampler</a></td>
+                           <td class='docblock short'>
+                                <p>A sampler.</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='struct' href='struct.SamplerBehavior.html'
+                                  title='glium::uniforms::SamplerBehavior'>SamplerBehavior</a></td>
+                           <td class='docblock short'>
+                                <p>Behavior of a sampler.</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='struct' href='struct.UniformBuffer.html'
+                                  title='glium::uniforms::UniformBuffer'>UniformBuffer</a></td>
+                           <td class='docblock short'>
+                                <p>Buffer that contains a uniform block.</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='struct' href='struct.UniformsStorage.html'
+                                  title='glium::uniforms::UniformsStorage'>UniformsStorage</a></td>
+                           <td class='docblock short'>
+                                <p>Stores uniforms.</p>
+                           </td>
+                       </tr></table><h2 id='enums' class='section-header'><a href="#enums">Enums</a></h2>
 <table>
-                    <tr class=' module-item'>
-                        <td><a class='enum' href='enum.LayoutMismatchError.html'
-                               title='glium::uniforms::LayoutMismatchError'>LayoutMismatchError</a></td>
-                        <td class='docblock short'>
-                             <p>Error about a block layout mismatch.</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='enum' href='enum.MagnifySamplerFilter.html'
-                               title='glium::uniforms::MagnifySamplerFilter'>MagnifySamplerFilter</a></td>
-                        <td class='docblock short'>
-                             <p>The function that the GPU will use when loading the value of a texel.</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='enum' href='enum.MinifySamplerFilter.html'
-                               title='glium::uniforms::MinifySamplerFilter'>MinifySamplerFilter</a></td>
-                        <td class='docblock short'>
-                             <p>The function that the GPU will use when loading the value of a texel.</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='enum' href='enum.SamplerWrapFunction.html'
-                               title='glium::uniforms::SamplerWrapFunction'>SamplerWrapFunction</a></td>
-                        <td class='docblock short'>
-                             <p>Function to use for out-of-bounds samples.</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='enum' href='enum.UniformType.html'
-                               title='glium::uniforms::UniformType'>UniformType</a></td>
-                        <td class='docblock short'>
-                             <p>Type of a uniform in a program.</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='enum' href='enum.UniformValue.html'
-                               title='glium::uniforms::UniformValue'>UniformValue</a></td>
-                        <td class='docblock short'>
-                             <p>Represents a value to bind to a uniform.</p>
-
-                        </td>
-                    </tr>
-                </table><h2 id='traits' class='section-header'><a href="#traits">Traits</a></h2>
+                       <tr class=' module-item'>
+                           <td><a class='enum' href='enum.LayoutMismatchError.html'
+                                  title='glium::uniforms::LayoutMismatchError'>LayoutMismatchError</a></td>
+                           <td class='docblock short'>
+                                <p>Error about a block layout mismatch.</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='enum' href='enum.MagnifySamplerFilter.html'
+                                  title='glium::uniforms::MagnifySamplerFilter'>MagnifySamplerFilter</a></td>
+                           <td class='docblock short'>
+                                <p>The function that the GPU will use when loading the value of a texel.</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='enum' href='enum.MinifySamplerFilter.html'
+                                  title='glium::uniforms::MinifySamplerFilter'>MinifySamplerFilter</a></td>
+                           <td class='docblock short'>
+                                <p>The function that the GPU will use when loading the value of a texel.</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='enum' href='enum.SamplerWrapFunction.html'
+                                  title='glium::uniforms::SamplerWrapFunction'>SamplerWrapFunction</a></td>
+                           <td class='docblock short'>
+                                <p>Function to use for out-of-bounds samples.</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='enum' href='enum.UniformType.html'
+                                  title='glium::uniforms::UniformType'>UniformType</a></td>
+                           <td class='docblock short'>
+                                <p>Type of a uniform in a program.</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='enum' href='enum.UniformValue.html'
+                                  title='glium::uniforms::UniformValue'>UniformValue</a></td>
+                           <td class='docblock short'>
+                                <p>Represents a value to bind to a uniform.</p>
+                           </td>
+                       </tr></table><h2 id='traits' class='section-header'><a href="#traits">Traits</a></h2>
 <table>
-                    <tr class=' module-item'>
-                        <td><a class='trait' href='trait.AsUniformValue.html'
-                               title='glium::uniforms::AsUniformValue'>AsUniformValue</a></td>
-                        <td class='docblock short'>
-                             <p>Value that can be used as the value of a uniform.</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='trait' href='trait.UniformBlock.html'
-                               title='glium::uniforms::UniformBlock'>UniformBlock</a></td>
-                        <td class='docblock short'>
-                             <p>Objects that are suitable for being inside a uniform block or a SSBO.</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='trait' href='trait.Uniforms.html'
-                               title='glium::uniforms::Uniforms'>Uniforms</a></td>
-                        <td class='docblock short'>
-                             <p>Object that contains the values of all the uniforms to bind to a program.</p>
-
-                        </td>
-                    </tr>
-                </table></section>
+                       <tr class=' module-item'>
+                           <td><a class='trait' href='trait.AsUniformValue.html'
+                                  title='glium::uniforms::AsUniformValue'>AsUniformValue</a></td>
+                           <td class='docblock short'>
+                                <p>Value that can be used as the value of a uniform.</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='trait' href='trait.UniformBlock.html'
+                                  title='glium::uniforms::UniformBlock'>UniformBlock</a></td>
+                           <td class='docblock short'>
+                                <p>Objects that are suitable for being inside a uniform block or a SSBO.</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='trait' href='trait.Uniforms.html'
+                                  title='glium::uniforms::Uniforms'>Uniforms</a></td>
+                           <td class='docblock short'>
+                                <p>Object that contains the values of all the uniforms to bind to a program.</p>
+                           </td>
+                       </tr></table></section>
     <section id='search' class="content hidden"></section>
 
     <section class="footer"></section>
@@ -312,6 +289,8 @@ than using multiple programs that are switched during execution.</p>
                     <dd>Move down in search results</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
 
@@ -332,7 +311,7 @@ than using multiple programs that are switched during execution.</p>
 
                 <p>
                     Search functions by type signature (e.g.
-                    <code>vec -> usize</code>)
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
                 </p>
             </div>
         </div>

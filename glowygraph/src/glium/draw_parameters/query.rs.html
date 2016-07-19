@@ -4,13 +4,14 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="rustdoc">
-    <meta name="description" content="Source to the Rust file `/home/vadix/.cargo/registry/src/github.com-88ac128001ac3a9a/glium-0.13.4/src/draw_parameters/query.rs`.">
+    <meta name="description" content="Source to the Rust file `/home/vadix/.cargo/registry/src/github.com-1ecc6299db9ec823/glium-0.14.0/src/draw_parameters/query.rs`.">
     <meta name="keywords" content="rust, rustlang, rust-lang">
 
     <title>query.rs.html -- source</title>
 
     <link rel="stylesheet" type="text/css" href="../../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../../main.css">
+    
 
     
     
@@ -1172,7 +1173,7 @@
             <span class='ident'>context</span>: <span class='ident'>context</span>,
             <span class='ident'>id</span>: <span class='ident'>id</span>,
             <span class='ident'>ty</span>: <span class='ident'>ty</span>,
-            <span class='ident'>has_been_used</span>: <span class='ident'>Cell</span>::<span class='ident'>new</span>(<span class='boolval'>false</span>),
+            <span class='ident'>has_been_used</span>: <span class='ident'>Cell</span>::<span class='ident'>new</span>(<span class='boolvalue'>false</span>),
         })
     }
 
@@ -1182,7 +1183,7 @@
         <span class='self'>self</span>.<span class='ident'>deactivate</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>ctxt</span>);
 
         <span class='kw'>if</span> <span class='op'>!</span><span class='self'>self</span>.<span class='ident'>has_been_used</span>.<span class='ident'>get</span>() {
-            <span class='kw'>return</span> <span class='boolval'>false</span>;
+            <span class='kw'>return</span> <span class='boolvalue'>false</span>;
         }
 
         <span class='ident'>Buffer</span>::<span class='op'>&lt;</span><span class='ident'>u8</span><span class='op'>&gt;</span>::<span class='ident'>unbind_query</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>ctxt</span>);
@@ -1411,7 +1412,7 @@
                         <span class='ident'>raw_begin_query</span>(<span class='ident'>ctxt</span>, <span class='ident'>gl</span>::<span class='ident'>SAMPLES_PASSED</span>, <span class='self'>self</span>.<span class='ident'>id</span>);
                     }
 
-                    <span class='self'>self</span>.<span class='ident'>has_been_used</span>.<span class='ident'>set</span>(<span class='boolval'>true</span>);
+                    <span class='self'>self</span>.<span class='ident'>has_been_used</span>.<span class='ident'>set</span>(<span class='boolvalue'>true</span>);
                     <span class='ident'>ctxt</span>.<span class='ident'>state</span>.<span class='ident'>samples_passed_query</span> <span class='op'>=</span> <span class='self'>self</span>.<span class='ident'>id</span>;
                 }
             },
@@ -1439,7 +1440,7 @@
                         <span class='ident'>raw_begin_query</span>(<span class='ident'>ctxt</span>, <span class='ident'>gl</span>::<span class='ident'>ANY_SAMPLES_PASSED</span>, <span class='self'>self</span>.<span class='ident'>id</span>);
                     }
 
-                    <span class='self'>self</span>.<span class='ident'>has_been_used</span>.<span class='ident'>set</span>(<span class='boolval'>true</span>);
+                    <span class='self'>self</span>.<span class='ident'>has_been_used</span>.<span class='ident'>set</span>(<span class='boolvalue'>true</span>);
                     <span class='ident'>ctxt</span>.<span class='ident'>state</span>.<span class='ident'>any_samples_passed_query</span> <span class='op'>=</span> <span class='self'>self</span>.<span class='ident'>id</span>;
                 }
             },
@@ -1467,7 +1468,7 @@
                         <span class='ident'>raw_begin_query</span>(<span class='ident'>ctxt</span>, <span class='ident'>gl</span>::<span class='ident'>ANY_SAMPLES_PASSED_CONSERVATIVE</span>, <span class='self'>self</span>.<span class='ident'>id</span>);
                     }
 
-                    <span class='self'>self</span>.<span class='ident'>has_been_used</span>.<span class='ident'>set</span>(<span class='boolval'>true</span>);
+                    <span class='self'>self</span>.<span class='ident'>has_been_used</span>.<span class='ident'>set</span>(<span class='boolvalue'>true</span>);
                     <span class='ident'>ctxt</span>.<span class='ident'>state</span>.<span class='ident'>any_samples_passed_conservative_query</span> <span class='op'>=</span> <span class='self'>self</span>.<span class='ident'>id</span>;
                 }
             },
@@ -1485,7 +1486,7 @@
                         <span class='ident'>raw_begin_query</span>(<span class='ident'>ctxt</span>, <span class='ident'>gl</span>::<span class='ident'>TIME_ELAPSED</span>, <span class='self'>self</span>.<span class='ident'>id</span>);
                     }
 
-                    <span class='self'>self</span>.<span class='ident'>has_been_used</span>.<span class='ident'>set</span>(<span class='boolval'>true</span>);
+                    <span class='self'>self</span>.<span class='ident'>has_been_used</span>.<span class='ident'>set</span>(<span class='boolvalue'>true</span>);
                     <span class='ident'>ctxt</span>.<span class='ident'>state</span>.<span class='ident'>time_elapsed_query</span> <span class='op'>=</span> <span class='self'>self</span>.<span class='ident'>id</span>;
                 }
             },
@@ -1505,7 +1506,7 @@
                         <span class='ident'>raw_begin_query</span>(<span class='ident'>ctxt</span>, <span class='ident'>gl</span>::<span class='ident'>PRIMITIVES_GENERATED</span>, <span class='self'>self</span>.<span class='ident'>id</span>);
                     }
 
-                    <span class='self'>self</span>.<span class='ident'>has_been_used</span>.<span class='ident'>set</span>(<span class='boolval'>true</span>);
+                    <span class='self'>self</span>.<span class='ident'>has_been_used</span>.<span class='ident'>set</span>(<span class='boolvalue'>true</span>);
                     <span class='ident'>ctxt</span>.<span class='ident'>state</span>.<span class='ident'>primitives_generated_query</span> <span class='op'>=</span> <span class='self'>self</span>.<span class='ident'>id</span>;
                 }
             },
@@ -1523,7 +1524,7 @@
                         <span class='ident'>raw_begin_query</span>(<span class='ident'>ctxt</span>, <span class='ident'>gl</span>::<span class='ident'>TRANSFORM_FEEDBACK_PRIMITIVES_WRITTEN</span>, <span class='self'>self</span>.<span class='ident'>id</span>);
                     }
 
-                    <span class='self'>self</span>.<span class='ident'>has_been_used</span>.<span class='ident'>set</span>(<span class='boolval'>true</span>);
+                    <span class='self'>self</span>.<span class='ident'>has_been_used</span>.<span class='ident'>set</span>(<span class='boolvalue'>true</span>);
                     <span class='ident'>ctxt</span>.<span class='ident'>state</span>.<span class='ident'>transform_feedback_primitives_written_query</span> <span class='op'>=</span> <span class='self'>self</span>.<span class='ident'>id</span>;
                 }
             },
@@ -1575,10 +1576,10 @@
 
     <span class='kw'>fn</span> <span class='ident'>begin_conditional_render</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>ctxt</span>: <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>CommandContext</span>, <span class='ident'>wait</span>: <span class='ident'>bool</span>, <span class='ident'>per_region</span>: <span class='ident'>bool</span>) {
         <span class='kw'>let</span> <span class='ident'>new_mode</span> <span class='op'>=</span> <span class='kw'>match</span> (<span class='ident'>wait</span>, <span class='ident'>per_region</span>) {
-            (<span class='boolval'>true</span>, <span class='boolval'>true</span>) <span class='op'>=&gt;</span> <span class='ident'>gl</span>::<span class='ident'>QUERY_BY_REGION_WAIT</span>,
-            (<span class='boolval'>true</span>, <span class='boolval'>false</span>) <span class='op'>=&gt;</span> <span class='ident'>gl</span>::<span class='ident'>QUERY_WAIT</span>,
-            (<span class='boolval'>false</span>, <span class='boolval'>true</span>) <span class='op'>=&gt;</span> <span class='ident'>gl</span>::<span class='ident'>QUERY_BY_REGION_NO_WAIT</span>,
-            (<span class='boolval'>false</span>, <span class='boolval'>false</span>) <span class='op'>=&gt;</span> <span class='ident'>gl</span>::<span class='ident'>QUERY_NO_WAIT</span>,
+            (<span class='boolvalue'>true</span>, <span class='boolvalue'>true</span>) <span class='op'>=&gt;</span> <span class='ident'>gl</span>::<span class='ident'>QUERY_BY_REGION_WAIT</span>,
+            (<span class='boolvalue'>true</span>, <span class='boolvalue'>false</span>) <span class='op'>=&gt;</span> <span class='ident'>gl</span>::<span class='ident'>QUERY_WAIT</span>,
+            (<span class='boolvalue'>false</span>, <span class='boolvalue'>true</span>) <span class='op'>=&gt;</span> <span class='ident'>gl</span>::<span class='ident'>QUERY_BY_REGION_NO_WAIT</span>,
+            (<span class='boolvalue'>false</span>, <span class='boolvalue'>false</span>) <span class='op'>=&gt;</span> <span class='ident'>gl</span>::<span class='ident'>QUERY_NO_WAIT</span>,
         };
 
         <span class='comment'>// returning if the active conditional rendering is already good</span>
@@ -1932,6 +1933,8 @@
                     <dd>Move down in search results</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
 
@@ -1952,7 +1955,7 @@
 
                 <p>
                     Search functions by type signature (e.g.
-                    <code>vec -> usize</code>)
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
                 </p>
             </div>
         </div>

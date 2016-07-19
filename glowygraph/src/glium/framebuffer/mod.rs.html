@@ -4,13 +4,14 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="rustdoc">
-    <meta name="description" content="Source to the Rust file `/home/vadix/.cargo/registry/src/github.com-88ac128001ac3a9a/glium-0.13.4/src/framebuffer/mod.rs`.">
+    <meta name="description" content="Source to the Rust file `/home/vadix/.cargo/registry/src/github.com-1ecc6299db9ec823/glium-0.14.0/src/framebuffer/mod.rs`.">
     <meta name="keywords" content="rust, rustlang, rust-lang">
 
     <title>mod.rs.html -- source</title>
 
     <link rel="stylesheet" type="text/css" href="../../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../../main.css">
+    
 
     
     
@@ -924,7 +925,6 @@
 <span id="881">881</span>
 <span id="882">882</span>
 <span id="883">883</span>
-<span id="884">884</span>
 </pre><pre class='rust '>
 <span class='doccomment'>/*!
 Framebuffers allow you to customize the color, depth and stencil buffers you will draw on.
@@ -997,7 +997,6 @@ Not yet supported
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>rc</span>::<span class='ident'>Rc</span>;
 <span class='kw'>use</span> <span class='ident'>smallvec</span>::<span class='ident'>SmallVec</span>;
 
-<span class='kw'>use</span> <span class='ident'>texture</span>::<span class='ident'>Texture2d</span>;
 <span class='kw'>use</span> <span class='ident'>texture</span>::<span class='ident'>TextureAnyImage</span>;
 <span class='kw'>use</span> <span class='ident'>TextureExt</span>;
 
@@ -1834,6 +1833,8 @@ Not yet supported
                     <dd>Move down in search results</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
 
@@ -1854,7 +1855,7 @@ Not yet supported
 
                 <p>
                     Search functions by type signature (e.g.
-                    <code>vec -> usize</code>)
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
                 </p>
             </div>
         </div>

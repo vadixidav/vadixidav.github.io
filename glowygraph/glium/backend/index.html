@@ -11,6 +11,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../main.css">
+    
 
     
     
@@ -43,10 +44,10 @@
 
     <section id='main' class="content mod">
 <h1 class='fqn'><span class='in-band'>Module <a href='../index.html'>glium</a>::<wbr><a class='mod' href=''>backend</a></span><span class='out-of-band'><span id='render-detail'>
-            <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
-                [<span class='inner'>&#x2212;</span>]
-            </a>
-        </span><a id='src-28' class='srclink' href='../../src/glium/backend/mod.rs.html#1-102' title='goto source code'>[src]</a></span></h1>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a id='src-28' class='srclink' href='../../src/glium/backend/mod.rs.html#1-102' title='goto source code'>[src]</a></span></h1>
 <div class='docblock'><p>The <code>backend</code> module allows one to link between glium and the OpenGL context..</p>
 
 <p>There are three concepts in play:</p>
@@ -61,55 +62,45 @@ that implements this trait. It is implemented on <code>Rc&lt;Context&gt;</code>.
 </ul>
 </div><h2 id='modules' class='section-header'><a href="#modules">Modules</a></h2>
 <table>
-                    <tr class=' module-item'>
-                        <td><a class='mod' href='glutin_backend/index.html'
-                               title='glium::backend::glutin_backend'>glutin_backend</a></td>
-                        <td class='docblock short'>
-                             <p>Backend implementation for the glutin library</p>
-
-                        </td>
-                    </tr>
-                </table><h2 id='structs' class='section-header'><a href="#structs">Structs</a></h2>
+                       <tr class=' module-item'>
+                           <td><a class='mod' href='glutin_backend/index.html'
+                                  title='glium::backend::glutin_backend'>glutin_backend</a></td>
+                           <td class='docblock short'>
+                                <p>Backend implementation for the glutin library</p>
+                           </td>
+                       </tr></table><h2 id='structs' class='section-header'><a href="#structs">Structs</a></h2>
 <table>
-                    <tr class=' module-item'>
-                        <td><a class='struct' href='struct.Context.html'
-                               title='glium::backend::Context'>Context</a></td>
-                        <td class='docblock short'>
-                             <p>Stores the state and information required for glium to execute commands. Most public glium
+                       <tr class=' module-item'>
+                           <td><a class='struct' href='struct.Context.html'
+                                  title='glium::backend::Context'>Context</a></td>
+                           <td class='docblock short'>
+                                <p>Stores the state and information required for glium to execute commands. Most public glium
 functions require passing a <code>Rc&lt;Context&gt;</code>.</p>
-
-                        </td>
-                    </tr>
-                </table><h2 id='enums' class='section-header'><a href="#enums">Enums</a></h2>
+                           </td>
+                       </tr></table><h2 id='enums' class='section-header'><a href="#enums">Enums</a></h2>
 <table>
-                    <tr class=' module-item'>
-                        <td><a class='enum' href='enum.ReleaseBehavior.html'
-                               title='glium::backend::ReleaseBehavior'>ReleaseBehavior</a></td>
-                        <td class='docblock short'>
-                             <p>Defines what happens when you change the current context.</p>
-
-                        </td>
-                    </tr>
-                </table><h2 id='traits' class='section-header'><a href="#traits">Traits</a></h2>
+                       <tr class=' module-item'>
+                           <td><a class='enum' href='enum.ReleaseBehavior.html'
+                                  title='glium::backend::ReleaseBehavior'>ReleaseBehavior</a></td>
+                           <td class='docblock short'>
+                                <p>Defines what happens when you change the current context.</p>
+                           </td>
+                       </tr></table><h2 id='traits' class='section-header'><a href="#traits">Traits</a></h2>
 <table>
-                    <tr class=' module-item'>
-                        <td><a class='trait' href='trait.Backend.html'
-                               title='glium::backend::Backend'>Backend</a></td>
-                        <td class='docblock short'>
-                             <p>Trait for types that can be used as a backend for a glium context.</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='trait' href='trait.Facade.html'
-                               title='glium::backend::Facade'>Facade</a></td>
-                        <td class='docblock short'>
-                             <p>Trait for types that provide a safe access for glium functions.</p>
-
-                        </td>
-                    </tr>
-                </table></section>
+                       <tr class=' module-item'>
+                           <td><a class='trait' href='trait.Backend.html'
+                                  title='glium::backend::Backend'>Backend</a></td>
+                           <td class='docblock short'>
+                                <p>Trait for types that can be used as a backend for a glium context.</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='trait' href='trait.Facade.html'
+                                  title='glium::backend::Facade'>Facade</a></td>
+                           <td class='docblock short'>
+                                <p>Trait for types that provide a safe access for glium functions.</p>
+                           </td>
+                       </tr></table></section>
     <section id='search' class="content hidden"></section>
 
     <section class="footer"></section>
@@ -132,6 +123,8 @@ functions require passing a <code>Rc&lt;Context&gt;</code>.</p>
                     <dd>Move down in search results</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
 
@@ -152,7 +145,7 @@ functions require passing a <code>Rc&lt;Context&gt;</code>.</p>
 
                 <p>
                     Search functions by type signature (e.g.
-                    <code>vec -> usize</code>)
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
                 </p>
             </div>
         </div>

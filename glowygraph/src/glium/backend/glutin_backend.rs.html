@@ -4,13 +4,14 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="rustdoc">
-    <meta name="description" content="Source to the Rust file `/home/vadix/.cargo/registry/src/github.com-88ac128001ac3a9a/glium-0.13.4/src/backend/glutin_backend.rs`.">
+    <meta name="description" content="Source to the Rust file `/home/vadix/.cargo/registry/src/github.com-1ecc6299db9ec823/glium-0.14.0/src/backend/glutin_backend.rs`.">
     <meta name="keywords" content="rust, rustlang, rust-lang">
 
     <title>glutin_backend.rs.html -- source</title>
 
     <link rel="stylesheet" type="text/css" href="../../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../../main.css">
+    
 
     
     
@@ -390,7 +391,7 @@ Backend implementation for the glutin library
 Only available if the &#39;glutin&#39; feature is enabled.
 
 */</span>
-<span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>glutin</span>;
+<span class='kw'>pub</span> <span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>glutin</span>;
 
 <span class='kw'>use</span> <span class='ident'>DisplayBuild</span>;
 <span class='kw'>use</span> <span class='ident'>Frame</span>;
@@ -530,7 +531,7 @@ Only available if the &#39;glutin&#39; feature is enabled.
                          <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>GlutinFacade</span>, <span class='ident'>GliumCreationError</span><span class='op'>&lt;</span><span class='ident'>glutin</span>::<span class='ident'>CreationError</span><span class='op'>&gt;&gt;</span>
     {
         <span class='kw'>let</span> <span class='ident'>backend</span> <span class='op'>=</span> <span class='ident'>Rc</span>::<span class='ident'>new</span>(<span class='macro'>try</span><span class='macro'>!</span>(<span class='ident'>backend</span>::<span class='ident'>glutin_backend</span>::<span class='ident'>GlutinWindowBackend</span>::<span class='ident'>new</span>(<span class='self'>self</span>)));
-        <span class='kw'>let</span> <span class='ident'>context</span> <span class='op'>=</span> <span class='macro'>try</span><span class='macro'>!</span>(<span class='kw'>unsafe</span> { <span class='ident'>context</span>::<span class='ident'>Context</span>::<span class='ident'>new</span>(<span class='ident'>backend</span>.<span class='ident'>clone</span>(), <span class='boolval'>true</span>, <span class='ident'>debug</span>) });
+        <span class='kw'>let</span> <span class='ident'>context</span> <span class='op'>=</span> <span class='macro'>try</span><span class='macro'>!</span>(<span class='kw'>unsafe</span> { <span class='ident'>context</span>::<span class='ident'>Context</span>::<span class='ident'>new</span>(<span class='ident'>backend</span>.<span class='ident'>clone</span>(), <span class='boolvalue'>true</span>, <span class='ident'>debug</span>) });
 
         <span class='kw'>let</span> <span class='ident'>display</span> <span class='op'>=</span> <span class='ident'>GlutinFacade</span> {
             <span class='ident'>context</span>: <span class='ident'>context</span>,
@@ -544,7 +545,7 @@ Only available if the &#39;glutin&#39; feature is enabled.
                                           <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>GlutinFacade</span>, <span class='ident'>GliumCreationError</span><span class='op'>&lt;</span><span class='ident'>glutin</span>::<span class='ident'>CreationError</span><span class='op'>&gt;&gt;</span>
     {
         <span class='kw'>let</span> <span class='ident'>backend</span> <span class='op'>=</span> <span class='ident'>Rc</span>::<span class='ident'>new</span>(<span class='macro'>try</span><span class='macro'>!</span>(<span class='ident'>backend</span>::<span class='ident'>glutin_backend</span>::<span class='ident'>GlutinWindowBackend</span>::<span class='ident'>new</span>(<span class='self'>self</span>)));
-        <span class='kw'>let</span> <span class='ident'>context</span> <span class='op'>=</span> <span class='macro'>try</span><span class='macro'>!</span>(<span class='ident'>context</span>::<span class='ident'>Context</span>::<span class='ident'>new</span>(<span class='ident'>backend</span>.<span class='ident'>clone</span>(), <span class='boolval'>false</span>, <span class='ident'>debug</span>));
+        <span class='kw'>let</span> <span class='ident'>context</span> <span class='op'>=</span> <span class='macro'>try</span><span class='macro'>!</span>(<span class='ident'>context</span>::<span class='ident'>Context</span>::<span class='ident'>new</span>(<span class='ident'>backend</span>.<span class='ident'>clone</span>(), <span class='boolvalue'>false</span>, <span class='ident'>debug</span>));
 
         <span class='kw'>let</span> <span class='ident'>display</span> <span class='op'>=</span> <span class='ident'>GlutinFacade</span> {
             <span class='ident'>context</span>: <span class='ident'>context</span>,
@@ -570,7 +571,7 @@ Only available if the &#39;glutin&#39; feature is enabled.
 
     <span class='kw'>fn</span> <span class='ident'>build_glium_debug</span>(<span class='self'>self</span>, <span class='ident'>debug</span>: <span class='ident'>debug</span>::<span class='ident'>DebugCallbackBehavior</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>GlutinFacade</span>, <span class='ident'>GliumCreationError</span><span class='op'>&lt;</span><span class='ident'>glutin</span>::<span class='ident'>CreationError</span><span class='op'>&gt;&gt;</span> {
         <span class='kw'>let</span> <span class='ident'>backend</span> <span class='op'>=</span> <span class='ident'>Rc</span>::<span class='ident'>new</span>(<span class='macro'>try</span><span class='macro'>!</span>(<span class='ident'>backend</span>::<span class='ident'>glutin_backend</span>::<span class='ident'>GlutinHeadlessBackend</span>::<span class='ident'>new</span>(<span class='self'>self</span>)));
-        <span class='kw'>let</span> <span class='ident'>context</span> <span class='op'>=</span> <span class='macro'>try</span><span class='macro'>!</span>(<span class='kw'>unsafe</span> { <span class='ident'>context</span>::<span class='ident'>Context</span>::<span class='ident'>new</span>(<span class='ident'>backend</span>.<span class='ident'>clone</span>(), <span class='boolval'>true</span>, <span class='ident'>Default</span>::<span class='ident'>default</span>()) });
+        <span class='kw'>let</span> <span class='ident'>context</span> <span class='op'>=</span> <span class='macro'>try</span><span class='macro'>!</span>(<span class='kw'>unsafe</span> { <span class='ident'>context</span>::<span class='ident'>Context</span>::<span class='ident'>new</span>(<span class='ident'>backend</span>.<span class='ident'>clone</span>(), <span class='boolvalue'>true</span>, <span class='ident'>Default</span>::<span class='ident'>default</span>()) });
 
         <span class='kw'>let</span> <span class='ident'>display</span> <span class='op'>=</span> <span class='ident'>GlutinFacade</span> {
             <span class='ident'>context</span>: <span class='ident'>context</span>,
@@ -582,7 +583,7 @@ Only available if the &#39;glutin&#39; feature is enabled.
 
     <span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>build_glium_unchecked_debug</span>(<span class='self'>self</span>, <span class='ident'>debug</span>: <span class='ident'>debug</span>::<span class='ident'>DebugCallbackBehavior</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>GlutinFacade</span>, <span class='ident'>GliumCreationError</span><span class='op'>&lt;</span><span class='ident'>glutin</span>::<span class='ident'>CreationError</span><span class='op'>&gt;&gt;</span> {
         <span class='kw'>let</span> <span class='ident'>backend</span> <span class='op'>=</span> <span class='ident'>Rc</span>::<span class='ident'>new</span>(<span class='macro'>try</span><span class='macro'>!</span>(<span class='ident'>backend</span>::<span class='ident'>glutin_backend</span>::<span class='ident'>GlutinHeadlessBackend</span>::<span class='ident'>new</span>(<span class='self'>self</span>)));
-        <span class='kw'>let</span> <span class='ident'>context</span> <span class='op'>=</span> <span class='macro'>try</span><span class='macro'>!</span>(<span class='ident'>context</span>::<span class='ident'>Context</span>::<span class='ident'>new</span>(<span class='ident'>backend</span>.<span class='ident'>clone</span>(), <span class='boolval'>true</span>, <span class='ident'>Default</span>::<span class='ident'>default</span>()));
+        <span class='kw'>let</span> <span class='ident'>context</span> <span class='op'>=</span> <span class='macro'>try</span><span class='macro'>!</span>(<span class='ident'>context</span>::<span class='ident'>Context</span>::<span class='ident'>new</span>(<span class='ident'>backend</span>.<span class='ident'>clone</span>(), <span class='boolvalue'>true</span>, <span class='ident'>Default</span>::<span class='ident'>default</span>()));
 
         <span class='kw'>let</span> <span class='ident'>display</span> <span class='op'>=</span> <span class='ident'>GlutinFacade</span> {
             <span class='ident'>context</span>: <span class='ident'>context</span>,
@@ -742,6 +743,8 @@ Only available if the &#39;glutin&#39; feature is enabled.
                     <dd>Move down in search results</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
 
@@ -762,7 +765,7 @@ Only available if the &#39;glutin&#39; feature is enabled.
 
                 <p>
                     Search functions by type signature (e.g.
-                    <code>vec -> usize</code>)
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
                 </p>
             </div>
         </div>

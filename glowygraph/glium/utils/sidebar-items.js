@@ -1,1 +1,1 @@
-initSidebarItems({"mod":[["range",""]]});
+initSidebarItems({"mod":[["bitsfield",""],["range",""]]});

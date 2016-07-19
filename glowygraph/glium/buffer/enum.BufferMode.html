@@ -11,6 +11,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../main.css">
+    
 
     
     
@@ -43,10 +44,10 @@
 
     <section id='main' class="content enum">
 <h1 class='fqn'><span class='in-band'>Enum <a href='../index.html'>glium</a>::<wbr><a href='index.html'>buffer</a>::<wbr><a class='enum' href=''>BufferMode</a></span><span class='out-of-band'><span id='render-detail'>
-            <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
-                [<span class='inner'>&#x2212;</span>]
-            </a>
-        </span><a id='src-1634' class='srclink' href='../../src/glium/buffer/mod.rs.html#201-271' title='goto source code'>[src]</a></span></h1>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a id='src-1614' class='srclink' href='../../src/glium/buffer/mod.rs.html#201-271' title='goto source code'>[src]</a></span></h1>
 <pre class='rust enum'>pub enum BufferMode {
     Default,
     Dynamic,
@@ -54,7 +55,7 @@
     Immutable,
 }</pre><div class='docblock'><p>How the buffer is created.</p>
 </div><h2 class='variants'>Variants</h2>
-<table><tr><td id='variant.Default'><code>Default</code></td><td><div class='docblock'><p>This is the default mode suitable for any usage. Will never be slow, will never be fast
+<table class='variants_table'><tr><td id='variant.Default'><code>Default</code></td><td><div class='docblock'><p>This is the default mode suitable for any usage. Will never be slow, will never be fast
 either.</p>
 
 <p>Other modes should always be preferred, but you can use this one if you don&#39;t know what
@@ -64,7 +65,7 @@ will happen to the buffer.</p>
 <p>Tries to use <code>glBufferStorage</code> with the <code>GL_DYNAMIC_STORAGE_BIT</code> flag.</p>
 
 <p>If this function is not available, falls back to <code>glBufferData</code> with <code>GL_STATIC_DRAW</code>.</p>
-</div></td></tr><tr><td id='variant.Dynamic'><code>Dynamic</code></td><td><div class='docblock'><p>The mode to use when you modify a buffer multiple times per frame. Simiar to <code>Default</code> in
+</div></td><td></td></tr><tr><td id='variant.Dynamic'><code>Dynamic</code></td><td><div class='docblock'><p>The mode to use when you modify a buffer multiple times per frame. Simiar to <code>Default</code> in
 that it is suitable for most usages.</p>
 
 <p>Use this if you do a quick succession of modify the buffer, draw, modify, draw, etc. This
@@ -79,7 +80,7 @@ too slow, but it won&#39;t be too fast either.</p>
 <code>GL_CLIENT_STORAGE_BIT</code> flags.</p>
 
 <p>If this function is not available, falls back to <code>glBufferData</code> with <code>GL_DYNAMIC_DRAW</code>.</p>
-</div></td></tr><tr><td id='variant.Persistent'><code>Persistent</code></td><td><div class='docblock'><p>Optimized for when you modify a buffer exactly once per frame. You can modify it more than
+</div></td><td></td></tr><tr><td id='variant.Persistent'><code>Persistent</code></td><td><div class='docblock'><p>Optimized for when you modify a buffer exactly once per frame. You can modify it more than
 once per frame, but if you modify it too often things will slow down.</p>
 
 <p>With this mode, glium automatically handles synchronization to prevent the buffer from
@@ -97,7 +98,7 @@ go back to the first third, etc.</p>
 managed by glium.</p>
 
 <p>If this function is not available, falls back to <code>glBufferData</code> with <code>GL_DYNAMIC_DRAW</code>.</p>
-</div></td></tr><tr><td id='variant.Immutable'><code>Immutable</code></td><td><div class='docblock'><p>Optimized when you will never touch the content of the buffer.</p>
+</div></td><td></td></tr><tr><td id='variant.Immutable'><code>Immutable</code></td><td><div class='docblock'><p>Optimized when you will never touch the content of the buffer.</p>
 
 <p>Immutable buffers should be created once and never touched again. Modifying their content
 is permitted, but is very slow.</p>
@@ -108,13 +109,25 @@ temporary buffers and making the GPU copy the data from the temporary buffer to 
 one.</p>
 
 <p>If this function is not available, falls back to <code>glBufferData</code> with <code>GL_STATIC_DRAW</code>.</p>
-</div></td></tr></table><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/default/trait.Default.html' title='core::default::Default'>Default</a> for <a class='enum' href='../../glium/buffer/enum.BufferMode.html' title='glium::buffer::BufferMode'>BufferMode</a></code></h3><div class='impl-items'><h4 id='method.default' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/default/trait.Default.html#method.default' class='fnname'>default</a>() -&gt; <a class='enum' href='../../glium/buffer/enum.BufferMode.html' title='glium::buffer::BufferMode'>BufferMode</a></code></h4>
-</div><h3 id='derived_implementations'>Derived Implementations </h3><h3 class='impl'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/cmp/trait.Eq.html' title='core::cmp::Eq'>Eq</a> for <a class='enum' href='../../glium/buffer/enum.BufferMode.html' title='glium::buffer::BufferMode'>BufferMode</a></code></h3><div class='impl-items'></div><h3 class='impl'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/cmp/trait.PartialEq.html' title='core::cmp::PartialEq'>PartialEq</a> for <a class='enum' href='../../glium/buffer/enum.BufferMode.html' title='glium::buffer::BufferMode'>BufferMode</a></code></h3><div class='impl-items'><h4 id='method.eq' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/cmp/trait.PartialEq.html#method.eq' class='fnname'>eq</a>(&amp;self, __arg_0: &amp;<a class='enum' href='../../glium/buffer/enum.BufferMode.html' title='glium::buffer::BufferMode'>BufferMode</a>) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a></code></h4>
-<h4 id='method.ne' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/cmp/trait.PartialEq.html#method.ne' class='fnname'>ne</a>(&amp;self, __arg_0: &amp;<a class='enum' href='../../glium/buffer/enum.BufferMode.html' title='glium::buffer::BufferMode'>BufferMode</a>) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a></code></h4>
-</div><h3 class='impl'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html' title='core::clone::Clone'>Clone</a> for <a class='enum' href='../../glium/buffer/enum.BufferMode.html' title='glium::buffer::BufferMode'>BufferMode</a></code></h3><div class='impl-items'><h4 id='method.clone' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone' class='fnname'>clone</a>(&amp;self) -&gt; <a class='enum' href='../../glium/buffer/enum.BufferMode.html' title='glium::buffer::BufferMode'>BufferMode</a></code></h4>
-<h4 id='method.clone_from' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone_from' class='fnname'>clone_from</a>(&amp;mut self, source: &amp;Self)</code></h4>
-</div><h3 class='impl'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/marker/trait.Copy.html' title='core::marker::Copy'>Copy</a> for <a class='enum' href='../../glium/buffer/enum.BufferMode.html' title='glium::buffer::BufferMode'>BufferMode</a></code></h3><div class='impl-items'></div><h3 class='impl'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html' title='core::fmt::Debug'>Debug</a> for <a class='enum' href='../../glium/buffer/enum.BufferMode.html' title='glium::buffer::BufferMode'>BufferMode</a></code></h3><div class='impl-items'><h4 id='method.fmt' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#method.fmt' class='fnname'>fmt</a>(&amp;self, __arg_0: &amp;mut <a class='struct' href='https://doc.rust-lang.org/nightly/core/fmt/struct.Formatter.html' title='core::fmt::Formatter'>Formatter</a>) -&gt; <a class='type' href='https://doc.rust-lang.org/nightly/core/fmt/type.Result.html' title='core::fmt::Result'>Result</a></code></h4>
-</div></section>
+</div></td><td></td></tr></table><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><span class='in-band'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/default/trait.Default.html' title='core::default::Default'>Default</a> for <a class='enum' href='../../glium/buffer/enum.BufferMode.html' title='glium::buffer::BufferMode'>BufferMode</a></code></span><span class='out-of-band'><div class='ghost'></div><a id='src-1640' class='srclink' href='../../src/glium/buffer/mod.rs.html#273-277' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.default' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/default/trait.Default.html#tymethod.default' class='fnname'>default</a>() -&gt; <a class='enum' href='../../glium/buffer/enum.BufferMode.html' title='glium::buffer::BufferMode'>BufferMode</a></code></h4>
+<div class='docblock'><p>Returns the &quot;default value&quot; for a type. <a href="https://doc.rust-lang.org/nightly/core/default/trait.Default.html#tymethod.default">Read more</a></p>
+</div></div><h3 id='derived_implementations'>Derived Implementations </h3><h3 class='impl'><span class='in-band'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/cmp/trait.Eq.html' title='core::cmp::Eq'>Eq</a> for <a class='enum' href='../../glium/buffer/enum.BufferMode.html' title='glium::buffer::BufferMode'>BufferMode</a></code></span><span class='out-of-band'><div class='ghost'></div><a id='src-1619' class='srclink' href='../../src/glium/buffer/mod.rs.html#200' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'></div><h3 class='impl'><span class='in-band'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/cmp/trait.PartialEq.html' title='core::cmp::PartialEq'>PartialEq</a> for <a class='enum' href='../../glium/buffer/enum.BufferMode.html' title='glium::buffer::BufferMode'>BufferMode</a></code></span><span class='out-of-band'><div class='ghost'></div><a id='src-1622' class='srclink' href='../../src/glium/buffer/mod.rs.html#200' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.eq' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/cmp/trait.PartialEq.html#tymethod.eq' class='fnname'>eq</a>(&amp;self, __arg_0: &amp;<a class='enum' href='../../glium/buffer/enum.BufferMode.html' title='glium::buffer::BufferMode'>BufferMode</a>) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a></code></h4>
+<div class='docblock'><p>This method tests for <code>self</code> and <code>other</code> values to be equal, and is used by <code>==</code>. <a href="https://doc.rust-lang.org/nightly/core/cmp/trait.PartialEq.html#tymethod.eq">Read more</a></p>
+</div><h4 id='method.ne' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/cmp/trait.PartialEq.html#method.ne' class='fnname'>ne</a>(&amp;self, other: &amp;Rhs) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a></code><div class='since' title='Stable since Rust version 1.0.0'>1.0.0</div></h4>
+<div class='docblock'><p>This method tests for <code>!=</code>.</p>
+</div></div><h3 class='impl'><span class='in-band'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html' title='core::clone::Clone'>Clone</a> for <a class='enum' href='../../glium/buffer/enum.BufferMode.html' title='glium::buffer::BufferMode'>BufferMode</a></code></span><span class='out-of-band'><div class='ghost'></div><a id='src-1628' class='srclink' href='../../src/glium/buffer/mod.rs.html#200' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.clone' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone' class='fnname'>clone</a>(&amp;self) -&gt; <a class='enum' href='../../glium/buffer/enum.BufferMode.html' title='glium::buffer::BufferMode'>BufferMode</a></code></h4>
+<div class='docblock'><p>Returns a copy of the value. <a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone">Read more</a></p>
+</div><h4 id='method.clone_from' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone_from' class='fnname'>clone_from</a>(&amp;mut self, source: &amp;Self)</code><div class='since' title='Stable since Rust version 1.0.0'>1.0.0</div></h4>
+<div class='docblock'><p>Performs copy-assignment from <code>source</code>. <a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone_from">Read more</a></p>
+</div></div><h3 class='impl'><span class='in-band'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/marker/trait.Copy.html' title='core::marker::Copy'>Copy</a> for <a class='enum' href='../../glium/buffer/enum.BufferMode.html' title='glium::buffer::BufferMode'>BufferMode</a></code></span><span class='out-of-band'><div class='ghost'></div><a id='src-1631' class='srclink' href='../../src/glium/buffer/mod.rs.html#200' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'></div><h3 class='impl'><span class='in-band'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html' title='core::fmt::Debug'>Debug</a> for <a class='enum' href='../../glium/buffer/enum.BufferMode.html' title='glium::buffer::BufferMode'>BufferMode</a></code></span><span class='out-of-band'><div class='ghost'></div><a id='src-1632' class='srclink' href='../../src/glium/buffer/mod.rs.html#200' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.fmt' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#tymethod.fmt' class='fnname'>fmt</a>(&amp;self, __arg_0: &amp;mut <a class='struct' href='https://doc.rust-lang.org/nightly/core/fmt/struct.Formatter.html' title='core::fmt::Formatter'>Formatter</a>) -&gt; <a class='type' href='https://doc.rust-lang.org/nightly/core/fmt/type.Result.html' title='core::fmt::Result'>Result</a></code></h4>
+<div class='docblock'><p>Formats the value using the given formatter.</p>
+</div></div></section>
     <section id='search' class="content hidden"></section>
 
     <section class="footer"></section>
@@ -137,6 +150,8 @@ one.</p>
                     <dd>Move down in search results</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
 
@@ -157,7 +172,7 @@ one.</p>
 
                 <p>
                     Search functions by type signature (e.g.
-                    <code>vec -> usize</code>)
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
                 </p>
             </div>
         </div>

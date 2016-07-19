@@ -4,13 +4,14 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="rustdoc">
-    <meta name="description" content="Source to the Rust file `/home/vadix/.cargo/registry/src/github.com-88ac128001ac3a9a/glium-0.13.4/src/program/program.rs`.">
+    <meta name="description" content="Source to the Rust file `/home/vadix/.cargo/registry/src/github.com-1ecc6299db9ec823/glium-0.14.0/src/program/program.rs`.">
     <meta name="keywords" content="rust, rustlang, rust-lang">
 
     <title>program.rs.html -- source</title>
 
     <link rel="stylesheet" type="text/css" href="../../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../../main.css">
+    
 
     
     
@@ -464,7 +465,6 @@
 <span id="421">421</span>
 <span id="422">422</span>
 <span id="423">423</span>
-<span id="424">424</span>
 </pre><pre class='rust '>
 <span class='kw'>use</span> <span class='ident'>gl</span>;
 
@@ -476,7 +476,6 @@
 <span class='kw'>use</span> <span class='ident'>CapabilitiesSource</span>;
 
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>fmt</span>;
-<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>error</span>::<span class='ident'>Error</span>;
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>collections</span>::<span class='ident'>hash_map</span>::{<span class='self'>self</span>, <span class='ident'>HashMap</span>};
 
 <span class='kw'>use</span> <span class='ident'>GlObject</span>;
@@ -516,9 +515,9 @@
                                                <span class='ident'>fragment_shader</span>, <span class='ident'>transform_feedback_varyings</span>,
                                                <span class='ident'>outputs_srgb</span>, <span class='ident'>uses_point_size</span> } <span class='op'>=&gt;</span>
             {
-                <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>has_geometry_shader</span> <span class='op'>=</span> <span class='boolval'>false</span>;
-                <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>has_tessellation_control_shader</span> <span class='op'>=</span> <span class='boolval'>false</span>;
-                <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>has_tessellation_evaluation_shader</span> <span class='op'>=</span> <span class='boolval'>false</span>;
+                <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>has_geometry_shader</span> <span class='op'>=</span> <span class='boolvalue'>false</span>;
+                <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>has_tessellation_control_shader</span> <span class='op'>=</span> <span class='boolvalue'>false</span>;
+                <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>has_tessellation_evaluation_shader</span> <span class='op'>=</span> <span class='boolvalue'>false</span>;
 
                 <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>shaders</span> <span class='op'>=</span> <span class='macro'>vec</span><span class='macro'>!</span>[
                     (<span class='ident'>vertex_shader</span>, <span class='ident'>gl</span>::<span class='ident'>VERTEX_SHADER</span>),
@@ -527,17 +526,17 @@
 
                 <span class='kw'>if</span> <span class='kw'>let</span> <span class='prelude-val'>Some</span>(<span class='ident'>gs</span>) <span class='op'>=</span> <span class='ident'>geometry_shader</span> {
                     <span class='ident'>shaders</span>.<span class='ident'>push</span>((<span class='ident'>gs</span>, <span class='ident'>gl</span>::<span class='ident'>GEOMETRY_SHADER</span>));
-                    <span class='ident'>has_geometry_shader</span> <span class='op'>=</span> <span class='boolval'>true</span>;
+                    <span class='ident'>has_geometry_shader</span> <span class='op'>=</span> <span class='boolvalue'>true</span>;
                 }
 
                 <span class='kw'>if</span> <span class='kw'>let</span> <span class='prelude-val'>Some</span>(<span class='ident'>ts</span>) <span class='op'>=</span> <span class='ident'>tessellation_control_shader</span> {
                     <span class='ident'>shaders</span>.<span class='ident'>push</span>((<span class='ident'>ts</span>, <span class='ident'>gl</span>::<span class='ident'>TESS_CONTROL_SHADER</span>));
-                    <span class='ident'>has_tessellation_control_shader</span> <span class='op'>=</span> <span class='boolval'>true</span>;
+                    <span class='ident'>has_tessellation_control_shader</span> <span class='op'>=</span> <span class='boolvalue'>true</span>;
                 }
 
                 <span class='kw'>if</span> <span class='kw'>let</span> <span class='prelude-val'>Some</span>(<span class='ident'>ts</span>) <span class='op'>=</span> <span class='ident'>tessellation_evaluation_shader</span> {
                     <span class='ident'>shaders</span>.<span class='ident'>push</span>((<span class='ident'>ts</span>, <span class='ident'>gl</span>::<span class='ident'>TESS_EVALUATION_SHADER</span>));
-                    <span class='ident'>has_tessellation_evaluation_shader</span> <span class='op'>=</span> <span class='boolval'>true</span>;
+                    <span class='ident'>has_tessellation_evaluation_shader</span> <span class='op'>=</span> <span class='boolvalue'>true</span>;
                 }
 
                 <span class='comment'>// TODO: move somewhere else</span>
@@ -614,8 +613,8 @@
             <span class='ident'>tessellation_control_shader</span>: <span class='prelude-val'>None</span>,
             <span class='ident'>tessellation_evaluation_shader</span>: <span class='prelude-val'>None</span>,
             <span class='ident'>transform_feedback_varyings</span>: <span class='prelude-val'>None</span>,
-            <span class='ident'>outputs_srgb</span>: <span class='boolval'>false</span>,
-            <span class='ident'>uses_point_size</span>: <span class='boolval'>false</span>,
+            <span class='ident'>outputs_srgb</span>: <span class='boolvalue'>false</span>,
+            <span class='ident'>uses_point_size</span>: <span class='boolvalue'>false</span>,
         })
     }
 
@@ -914,6 +913,8 @@
                     <dd>Move down in search results</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
 
@@ -934,7 +935,7 @@
 
                 <p>
                     Search functions by type signature (e.g.
-                    <code>vec -> usize</code>)
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
                 </p>
             </div>
         </div>
