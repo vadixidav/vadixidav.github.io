@@ -47,7 +47,7 @@
                    <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                        [<span class='inner'>&#x2212;</span>]
                    </a>
-               </span><a id='src-50036' class='srclink' href='../src/glium/lib.rs.html#172-178' title='goto source code'>[src]</a></span></h1>
+               </span><a id='src-50059' class='srclink' href='../src/glium/lib.rs.html#172-178' title='goto source code'>[src]</a></span></h1>
 <pre class='rust trait'>pub trait GlObject {
     type <a href='#associatedtype.Id' class='type'>Id</a>;
     fn <a href='#tymethod.get_id' class='fnname'>get_id</a>(&amp;self) -&gt; Self::<a class='trait' href='../glium/trait.GlObject.html' title='glium::GlObject'>Id</a>;
@@ -78,6 +78,7 @@
 <li><code>impl&lt;T&gt; GlObject for <a class='struct' href='../glium/struct.IndexBuffer.html' title='glium::IndexBuffer'>IndexBuffer</a>&lt;T&gt; <span class='where'>where T: <a class='trait' href='../glium/index/trait.Index.html' title='glium::index::Index'>Index</a></span></code></li>
 <li><code>impl GlObject for <a class='struct' href='../glium/program/struct.ComputeShader.html' title='glium::program::ComputeShader'>ComputeShader</a></code></li>
 <li><code>impl GlObject for <a class='struct' href='../glium/struct.Program.html' title='glium::Program'>Program</a></code></li>
+<li><code>impl&lt;T: ?<a class='trait' href='https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html' title='core::marker::Sized'>Sized</a> + <a class='trait' href='../glium/buffer/trait.Content.html' title='glium::buffer::Content'>Content</a>&gt; GlObject for <a class='struct' href='../glium/uniforms/struct.UniformBuffer.html' title='glium::uniforms::UniformBuffer'>UniformBuffer</a>&lt;T&gt;</code></li>
 <li><code>impl&lt;T: <a class='trait' href='https://doc.rust-lang.org/nightly/core/marker/trait.Copy.html' title='core::marker::Copy'>Copy</a>&gt; GlObject for <a class='struct' href='../glium/struct.VertexBuffer.html' title='glium::VertexBuffer'>VertexBuffer</a>&lt;T&gt;</code></li>
 <li><code>impl&lt;T&gt; GlObject for <a class='struct' href='../glium/texture/pixel_buffer/struct.PixelBuffer.html' title='glium::texture::pixel_buffer::PixelBuffer'>PixelBuffer</a>&lt;T&gt; <span class='where'>where T: <a class='trait' href='../glium/texture/trait.PixelValue.html' title='glium::texture::PixelValue'>PixelValue</a></span></code></li>
 <li><code>impl GlObject for <a class='struct' href='../glium/texture/struct.TextureAny.html' title='glium::texture::TextureAny'>TextureAny</a></code></li>

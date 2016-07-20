@@ -47,17 +47,17 @@
                    <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                        [<span class='inner'>&#x2212;</span>]
                    </a>
-               </span><a id='src-18918' class='srclink' href='../src/nalgebra/lib.rs.html#931-933' title='goto source code'>[src]</a></span></h1>
+               </span><a id='src-22798' class='srclink' href='../src/nalgebra/lib.rs.html#944-946' title='goto source code'>[src]</a></span></h1>
 <pre class='rust fn'>pub fn cast&lt;T, U: <a class='trait' href='../nalgebra/trait.Cast.html' title='nalgebra::Cast'>Cast</a>&lt;T&gt;&gt;(t: T) -&gt; U</pre><div class='docblock'><p>Converts an object from one type to another.</p>
 
 <p>For primitive types, this is the same as the <code>as</code> keywords.
 The following properties are preserved by a cast:</p>
 
 <ul>
-<li>Type-level geometric invariants cannot be broken (eg. a cast from Rot3<f64> to Rot3<i64> is
+<li>Type-level geometric invariants cannot be broken (eg. a cast from Rotation3<f64> to Rotation3<i64> is
 not possible)</li>
-<li>A cast to a type with more type-level invariants cannot be done (eg. a cast from Mat<f64> to
-Rot3<f64> is not possible)</li>
+<li>A cast to a type with more type-level invariants cannot be done (eg. a cast from Matrix<f64> to
+Rotation3<f64> is not possible)</li>
 <li>For primitive types an unbounded cast is done using the <code>as</code> keyword (this is different from
 the standard library which makes bound-checking to ensure eg. that a i64 is not out of the
 range of an i32 when a cast from i64 to i32 is done).</li>
