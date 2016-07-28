@@ -406,6 +406,9 @@
 <span id="362">362</span>
 <span id="363">363</span>
 <span id="364">364</span>
+<span id="365">365</span>
+<span id="366">366</span>
+<span id="367">367</span>
 </pre><pre class='rust '>
 <span class='kw'>pub</span> <span class='kw'>static</span> <span class='ident'>VSHADER_SOURCE</span>: <span class='kw-2'>&amp;</span><span class='lifetime'>&#39;static</span> <span class='ident'>str</span> <span class='op'>=</span> <span class='string'>r#&quot;
     #version 150
@@ -420,14 +423,14 @@
     out float gfalloff;
     out float gfalloff_radius;
     out float ginner_radius;
-    uniform mat3 transform;
+    uniform mat3 modelview;
     void main() {
         ginner_color = inner_color;
         gfalloff_color = falloff_color;
         gfalloff = falloff;
         gfalloff_radius = falloff_radius;
         ginner_radius = inner_radius;
-        gl_Position = vec4(position, 0.0, 1.0);
+        gl_Position = vec4((modelview * vec3(position, 1.0)).xy, 0.0, 1.0);
     }
 &quot;#</span>;
 
@@ -448,6 +451,7 @@
     out float finner_radius;
     out float ffalloff_radius;
     out float ffalloff;
+    uniform mat3 projection;
 
     void main() {
         finner_color = ginner_color[0];
@@ -459,15 +463,15 @@
         float full_radius = finner_radius + ffalloff_radius;
 
         delta = full_radius * vec2(0, 2);
-        gl_Position = vec4(center + delta, 0.0, 1.0);
+        gl_Position = vec4((projection * vec3(center + delta, 1.0)).xy, 0.0, 1.0);
         EmitVertex();
 
         delta = full_radius * vec2(-1.7320508075689, -1);
-        gl_Position = vec4(center + delta, 0.0, 1.0);
+        gl_Position = vec4((projection * vec3(center + delta, 1.0)).xy, 0.0, 1.0);
         EmitVertex();
 
         delta = full_radius * vec2(1.7320508075689, -1);
-        gl_Position = vec4(center + delta, 0.0, 1.0);
+        gl_Position = vec4((projection * vec3(center + delta, 1.0)).xy, 0.0, 1.0);
         EmitVertex();
     }
 &quot;#</span>;
@@ -489,6 +493,7 @@
     out float finner_radius;
     out float ffalloff_radius;
     out float ffalloff;
+    uniform mat3 projection;
 
     void main() {
         vec2 first = gl_in[0].gl_Position.xy;
@@ -508,7 +513,7 @@
         ffalloff = gfalloff[0];
         radius = finner_radius + ffalloff_radius;
         delta = radius * vec2(net_delta.y, -net_delta.x);
-        gl_Position = vec4(first - delta, 0.0, 1.0);
+        gl_Position = vec4((projection * vec3(first - delta, 1.0)).xy, 0.0, 1.0);
         EmitVertex();
 
         //Vertex 1
@@ -519,7 +524,7 @@
         ffalloff = gfalloff[0];
         radius = finner_radius + ffalloff_radius;
         delta = radius * net_delta;
-        gl_Position = vec4(first - delta, 0.0, 1.0);
+        gl_Position = vec4((projection * vec3(first - delta, 1.0)).xy, 0.0, 1.0);
         EmitVertex();
 
         //Vertex 2
@@ -530,7 +535,7 @@
         ffalloff = gfalloff[0];
         radius = finner_radius + ffalloff_radius;
         delta = radius * vec2(-net_delta.y, net_delta.x);
-        gl_Position = vec4(first - delta, 0.0, 1.0);
+        gl_Position = vec4((projection * vec3(first - delta, 1.0)).xy, 0.0, 1.0);
         EmitVertex();
 
         EndPrimitive();
@@ -545,7 +550,7 @@
         ffalloff = gfalloff[0];
         radius = finner_radius + ffalloff_radius;
         delta = radius * vec2(net_delta.y, -net_delta.x);
-        gl_Position = vec4(first - delta, 0.0, 1.0);
+        gl_Position = vec4((projection * vec3(first - delta, 1.0)).xy, 0.0, 1.0);
         EmitVertex();
 
         //Vertex 2
@@ -556,7 +561,7 @@
         ffalloff = gfalloff[0];
         radius = finner_radius + ffalloff_radius;
         delta = radius * vec2(-net_delta.y, net_delta.x);
-        gl_Position = vec4(first - delta, 0.0, 1.0);
+        gl_Position = vec4((projection * vec3(first - delta, 1.0)).xy, 0.0, 1.0);
         EmitVertex();
 
         //Vertex 3
@@ -567,7 +572,7 @@
         ffalloff = gfalloff[1];
         radius = finner_radius + ffalloff_radius;
         delta = radius * vec2(net_delta.y, -net_delta.x);
-        gl_Position = vec4(second - delta, 0.0, 1.0);
+        gl_Position = vec4((projection * vec3(second - delta, 1.0)).xy, 0.0, 1.0);
         EmitVertex();
 
         EndPrimitive();
@@ -582,7 +587,7 @@
         ffalloff = gfalloff[0];
         radius = finner_radius + ffalloff_radius;
         delta = radius * vec2(-net_delta.y, net_delta.x);
-        gl_Position = vec4(first - delta, 0.0, 1.0);
+        gl_Position = vec4((projection * vec3(first - delta, 1.0)).xy, 0.0, 1.0);
         EmitVertex();
 
         //Vertex 4
@@ -593,7 +598,7 @@
         ffalloff = gfalloff[1];
         radius = finner_radius + ffalloff_radius;
         delta = radius * vec2(-net_delta.y, net_delta.x);
-        gl_Position = vec4(second - delta, 0.0, 1.0);
+        gl_Position = vec4((projection * vec3(second - delta, 1.0)).xy, 0.0, 1.0);
         EmitVertex();
 
         //Vertex 3
@@ -604,7 +609,7 @@
         ffalloff = gfalloff[1];
         radius = finner_radius + ffalloff_radius;
         delta = radius * vec2(net_delta.y, -net_delta.x);
-        gl_Position = vec4(second - delta, 0.0, 1.0);
+        gl_Position = vec4((projection * vec3(second - delta, 1.0)).xy, 0.0, 1.0);
         EmitVertex();
 
         EndPrimitive();
@@ -619,7 +624,7 @@
         ffalloff = gfalloff[1];
         radius = finner_radius + ffalloff_radius;
         delta = radius * net_delta;
-        gl_Position = vec4(second + delta, 0.0, 1.0);
+        gl_Position = vec4((projection * vec3(second + delta, 1.0)).xy, 0.0, 1.0);
         EmitVertex();
 
         //Vertex 3
@@ -630,7 +635,7 @@
         ffalloff = gfalloff[1];
         radius = finner_radius + ffalloff_radius;
         delta = radius * vec2(net_delta.y, -net_delta.x);
-        gl_Position = vec4(second - delta, 0.0, 1.0);
+        gl_Position = vec4((projection * vec3(second - delta, 1.0)).xy, 0.0, 1.0);
         EmitVertex();
 
         //Vertex 4
@@ -641,7 +646,7 @@
         ffalloff = gfalloff[1];
         radius = finner_radius + ffalloff_radius;
         delta = radius * vec2(-net_delta.y, net_delta.x);
-        gl_Position = vec4(second - delta, 0.0, 1.0);
+        gl_Position = vec4((projection * vec3(second - delta, 1.0)).xy, 0.0, 1.0);
         EmitVertex();
 
         EndPrimitive();
@@ -665,6 +670,7 @@
     out float finner_radius;
     out float ffalloff_radius;
     out float ffalloff;
+    uniform mat3 projection;
 
     void main() {
         vec2 first = gl_in[0].gl_Position.xy;
@@ -684,7 +690,7 @@
         ffalloff = gfalloff[0];
         radius = finner_radius + ffalloff_radius;
         delta = radius * vec2(net_delta.y, -net_delta.x);
-        gl_Position = vec4(first - delta, 0.0, 1.0);
+        gl_Position = vec4((projection * vec3(first - delta, 1.0)).xy, 0.0, 1.0);
         EmitVertex();
 
         //Vertex 2
@@ -695,7 +701,7 @@
         ffalloff = gfalloff[0];
         radius = finner_radius + ffalloff_radius;
         delta = radius * vec2(-net_delta.y, net_delta.x);
-        gl_Position = vec4(first - delta, 0.0, 1.0);
+        gl_Position = vec4((projection * vec3(first - delta, 1.0)).xy, 0.0, 1.0);
         EmitVertex();
 
         //Vertex 3
@@ -706,7 +712,7 @@
         ffalloff = gfalloff[1];
         radius = finner_radius + ffalloff_radius;
         delta = radius * vec2(net_delta.y, -net_delta.x);
-        gl_Position = vec4(second - delta, 0.0, 1.0);
+        gl_Position = vec4((projection * vec3(second - delta, 1.0)).xy, 0.0, 1.0);
         EmitVertex();
 
         EndPrimitive();
@@ -721,7 +727,7 @@
         ffalloff = gfalloff[0];
         radius = finner_radius + ffalloff_radius;
         delta = radius * vec2(-net_delta.y, net_delta.x);
-        gl_Position = vec4(first - delta, 0.0, 1.0);
+        gl_Position = vec4((projection * vec3(first - delta, 1.0)).xy, 0.0, 1.0);
         EmitVertex();
 
         //Vertex 4
@@ -732,7 +738,7 @@
         ffalloff = gfalloff[1];
         radius = finner_radius + ffalloff_radius;
         delta = radius * vec2(-net_delta.y, net_delta.x);
-        gl_Position = vec4(second - delta, 0.0, 1.0);
+        gl_Position = vec4((projection * vec3(second - delta, 1.0)).xy, 0.0, 1.0);
         EmitVertex();
 
         //Vertex 3
@@ -743,7 +749,7 @@
         ffalloff = gfalloff[1];
         radius = finner_radius + ffalloff_radius;
         delta = radius * vec2(net_delta.y, -net_delta.x);
-        gl_Position = vec4(second - delta, 0.0, 1.0);
+        gl_Position = vec4((projection * vec3(second - delta, 1.0)).xy, 0.0, 1.0);
         EmitVertex();
 
         EndPrimitive();
