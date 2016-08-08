@@ -102,7 +102,7 @@
 </ul>
 <hr />
 <h2><code>csl</code></h2>
-<p><code>a b -- ((a &lt;&lt; b) or (a &gt;&gt; (b - WORD)))</code></p>
+<p><code>a b -- ((a &lt;&lt; b) or (a &gt;&gt; (WORD - b)))</code></p>
 <h4>Description</h4>
 <p><code>csl</code> performs a circular shift left. Only the amount of bits needed are used for the shift amount. For example, with a 32-bit <code>WORD</code>, only the least significant <code>5</code> bits are masked out of <code>b</code>.</p>
 <h4>Examples (with WORD of 32)</h4>
@@ -113,7 +113,7 @@
 </ul>
 <hr />
 <h2><code>csr</code></h2>
-<p><code>a b -- ((a &gt;&gt; b) or (a &lt;&lt; (b - WORD)))</code></p>
+<p><code>a b -- ((a &gt;&gt; b) or (a &lt;&lt; (WORD - b)))</code></p>
 <h4>Description</h4>
 <p><code>csr</code> performs a circular shift right. Only the amount of bits needed are used for the shift amount. For example, with a 32-bit <code>WORD</code>, only the least significant <code>5</code> bits are masked out of <code>b</code>.</p>
 <h4>Examples (with WORD of 32)</h4>
@@ -151,6 +151,71 @@
 <p><code>xor</code> finds the binary XOR of <code>a</code> and <code>b</code>.</p>
 <h4>Examples</h4>
 <pre><code>5 3 xor
+</code></pre>
+<ul>
+<li><code>( -- 6)</code></li>
+</ul>
+<hr />
+<h2><code>lsli</code></h2>
+<p><code>a -- (a &lt;&lt; imm)</code></p>
+<h4>Immediate (WORD)</h4>
+<p>The initial opcode byte is followed by one octet. The octet is signed and represents the shift amount. Since the octet is signed, this makes it possible to perform a right or left shift with this opcode.</p>
+<h4>Description</h4>
+<p><code>lsli</code> performs a logical shift left with a signed immediate shift amount. This operation zero-fills.</p>
+<h4>Examples (with WORD of 32)</h4>
+<pre><code>hFFFFFFFF lsli:1
+</code></pre>
+<ul>
+<li><code>( -- hFFFFFFFE)</code></li>
+</ul>
+<hr />
+<h2><code>csli</code></h2>
+<p><code>a -- ((a &lt;&lt; imm) or (a &gt;&gt; (WORD - imm)))</code></p>
+<h4>Immediate (WORD)</h4>
+<p>The initial opcode byte is followed by one octet. The octet is unsigned and represents the shift amount. A circular right shift can be accomplished by setting the immediate value to <code>-n</code> where <code>n</code> is the right shift amount.</p>
+<h4>Description</h4>
+<p><code>csli</code> performs a circular shift left. Only the amount of bits needed are used for the shift amount. For example, with a 32-bit <code>WORD</code>, only the least significant <code>5</code> bits are masked out of <code>b</code>.</p>
+<h4>Examples (with WORD of 32)</h4>
+<pre><code>hC0000000 csli:1
+</code></pre>
+<ul>
+<li><code>( -- h80000001)</code></li>
+</ul>
+<hr />
+<h2><code>andi</code></h2>
+<p><code>a -- (a &amp; imm)</code></p>
+<h4>Immediate (WORD)</h4>
+<p>The initial opcode byte is followed by a full processor word. This word is unsigned.</p>
+<h4>Description</h4>
+<p><code>andi</code> finds the binary AND of <code>a</code> and <code>imm</code>.</p>
+<h4>Examples</h4>
+<pre><code>5 andi:4
+</code></pre>
+<ul>
+<li><code>( -- 4)</code></li>
+</ul>
+<hr />
+<h2><code>ori</code></h2>
+<p><code>a -- (a or imm)</code></p>
+<h4>Immediate (WORD)</h4>
+<p>The initial opcode byte is followed by a full processor word. This word is unsigned.</p>
+<h4>Description</h4>
+<p><code>ori</code> finds the binary OR of <code>a</code> and <code>imm</code>.</p>
+<h4>Examples</h4>
+<pre><code>5 ori:2
+</code></pre>
+<ul>
+<li><code>( -- 7)</code></li>
+</ul>
+<hr />
+<h2><code>xori</code></h2>
+<p><code>a -- (a ^ imm)</code></p>
+<h4>Immediate (WORD)</h4>
+<p>The initial opcode byte is followed by a full processor word. This word is unsigned.</p>
+<h4>Description</h4>
+<p><code>xori</code> finds the binary XOR of <code>a</code> and <code>imm</code>.</p>
+<h4>Examples</h4>
+<pre><code>5 xori:3
 </code></pre>
 <ul>
 <li><code>( -- 6)</code></li>

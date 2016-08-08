@@ -138,99 +138,151 @@
 <li><code>iflag</code> - Interrupt Flag</li>
 <li><code>i[0-3]</code> - Loop Indices</li>
 <li><code>cv[0-F]</code> - <a href="architecture/conveyor.html">Conveyor Belt</a> Values</li>
-<li><code>ls</code> - <a href="architecture/lstack.html">lstack</a></li>
+<li><code>ls</code> - <a href="architecture/lstack.html">lstack</a>
+<ul>
+<li>Format is (beginning, end, iterations, iterator)</li>
+</ul>
+</li>
 <li><code>if</code> - <a href="architecture/ifile.html">ifile</a></li>
 <li><code>n..</code> - <code>n</code> anonymous words on the stack</li>
+<li><code>imm</code> - Immediate value</li>
 </ul>
 <h2>Instruction Listing By Opcode</h2>
-<table><thead><tr><td>Op</td><td>Instruction</td><td>dstack</td><td>Side Effects</td></tr></thead>
-<tr><td><code>00</code> - <code>03</code></td><td>rread#</td><td><code>a -- mem[dc# + a]</code></td></tr>
-<tr></tr>
-<tr><td><code>04</code> - <code>07</code></td><td>add#</td><td><code>a -- (a + mem[dc#])</code></td><td>dc# advances; <code>c</code>, <code>o</code></td></tr>
-<tr><td><code>08</code></td><td>inc</td><td><code>a -- (a + 1)</code></td><td><code>c</code>, <code>o</code></td></tr>
-<tr><td><code>09</code></td><td>dec</td><td><code>a -- (a - 1)</code></td><td><code>c</code>, <code>o</code></td></tr>
-<tr><td><code>0A</code></td><td>carry</td><td><code>v -- (v + c)</code></td><td><code>c</code>, <code>o</code></td></tr>
-<tr><td><code>0B</code></td><td>borrow</td><td><code>v -- (v + c - 1)</code></td><td><code>c</code>, <code>o</code></td></tr>
-<tr><td><code>0C</code></td><td>inv</td><td><code>v -- ~v</code></td><td> </td></tr>
-<tr><td><code>0D</code></td><td>break</td><td><code>--</code></td><td>Pops the lstack and goes to end of loop</td></tr>
-<tr><td><code>0E</code></td><td>reads</td><td><code>a -- mem[a]</code></td><td>Synchronous read</td></tr>
-<tr><td><code>0F</code></td><td>ret</td><td><code>--</code></td><td>Pops <a href="architecture/cstack.html">cstack</a></td></tr>
-<tr><td><code>10</code></td><td>continue</td><td><code>--</code></td><td>Goes to the next loop iteration</td></tr>
-<tr><td><code>11</code></td><td>ien</td><td><code>--</code></td><td>Enables only selected interrupts</td></tr>
-<tr><td><code>12</code></td><td>recv</td><td><code>--</code></td><td>Interrupt sync; <code>cv &lt;- bus, v</code></td></tr>
-<tr><td><code>13</code></td><td>ld0i</td><td><code>--</code></td><td><code>dc0 = mem[dc0]</code>; preserve dc0; <code>dc0</code> forwards</td></tr>
-<tr><td><code>14</code></td><td>kill</td><td><code>--</code></td><td>Kill all selected cores</td></tr>
-<tr><td><code>15</code></td><td>wait</td><td><code>--</code></td><td>Waits for an interrupt before continuing</td></tr>
-<tr><td><code>16</code></td><td>getbp</td><td><code>b -- perm</code></td><td>Gets the <a href="uarc.md">permission</a> on bus <code>b</code></td></tr>
-<tr><td><code>17</code></td><td>getba</td><td><code>b -- addr</code></td><td>Gets the <a href="uarc.md">address</a> on bus <code>b</code></td></tr>
-<tr><td><code>18</code></td><td>calli</td><td><code>--</code></td><td><code>dc0 -&gt; pc</code>; push <a href="architecture/cstack.html">cstack</a></td></tr>
-<tr><td><code>19</code></td><td>jmpi</td><td><code>--</code></td><td><code>dc0 -&gt; pc</code></td></tr>
-<tr><td><code>1A</code></td><td>jc</td><td><code>--</code></td><td>if <code>c</code> then <code>dc0 -&gt; pc</code></td></tr>
-<tr><td><code>1B</code></td><td>jnc</td><td><code>--</code></td><td>if <code>~c</code> then <code>dc0 -&gt; pc</code></td></tr>
-<tr><td><code>1C</code></td><td>jo</td><td><code>--</code></td><td>if <code>o</code> then <code>dc0 -&gt; pc</code></td></tr>
-<tr><td><code>1D</code></td><td>jno</td><td><code>--</code></td><td>if <code>~o</code> then <code>dc0 -&gt; pc</code></td></tr>
-<tr><td><code>1E</code></td><td>ji</td><td><code>--</code></td><td>if <code>iflag</code> then <code>dc0 -&gt; pc</code></td></tr>
-<tr><td><code>1F</code></td><td>jni</td><td><code>--</code></td><td>if <code>~iflag</code> then <code>dc0 -&gt; pc</code></td></tr>
-<tr><td><code>20</code> - <code>2F</code></td><td>cv#</td><td><code>-- cv#</code></td><td>cv# synchronizes</td></tr>
-<tr><td><code>30</code> - <code>33</code></td><td>read#</td><td><code>-- mem[dc#]</code></td><td>dc# advances</td></tr>
-<tr><td><code>34</code> - <code>37</code></td><td>get#</td><td><code>-- dc#</code></td><td> </td></tr>
-<tr><td><code>38</code> - <code>3B</code></td><td>i#</td><td><code>-- i#</code></td><td> </td></tr>
-<tr><td><code>3C</code></td><td>p0</td><td><code>-- 0</code></td><td> </td></tr>
-<tr><td><code>3D</code></td><td>readi</td><td><code>-- mem[mem[dc0]]</code></td><td> </td></tr>
-<tr><td><code>3E</code></td><td>getp</td><td><code>-- perm</code></td><td>Get UARC permission</td></tr>
-<tr><td><code>3F</code></td><td>geta</td><td><code>-- addr</code></td><td>Get UARC address</td></tr>
-<tr><td><code>40</code> - <code>43</code></td><td>write#</td><td><code>v --</code></td><td><code>mem[dc#] = v</code>; dc# advances</td></tr>
-<tr><td><code>44</code> - <code>47</code></td><td>setf#</td><td><code>a --</code></td><td><code>dc# = a</code>; dc# is write post-inc</td></tr>
-<tr><td><code>48</code> - <code>4B</code></td><td>setb#</td><td><code>a --</code></td><td><code>dc# = a</code>; dc# is write pre-dec</td></tr>
-<tr><td><code>4C</code></td><td>add</td><td><code>a b -- (a + b)</code></td><td><code>c</code>, <code>o</code></td></tr>
-<tr><td><code>4D</code></td><td>sub</td><td><code>a b -- (a - b)</code></td><td><code>c</code>, <code>o</code></td></tr>
-<tr><td><code>4E</code></td><td>lsl</td><td><code>a b -- (a &lt;&lt; b)</code></td></tr>
-<tr></tr>
-<tr><td><code>4F</code></td><td>lsr</td><td><code>a b -- (a &gt;&gt; b)</code></td></tr>
-<tr></tr>
-<tr><td><code>50</code></td><td>csl</td><td><code>a b -- ((a &lt;&lt; b) or (a &gt;&gt; (b - WORD)))</code></td><td> </td></tr>
-<tr><td><code>51</code></td><td>csr</td><td><code>a b -- ((a &gt;&gt; b) or (a &lt;&lt; (b - WORD)))</code></td><td> </td></tr>
-<tr><td><code>52</code></td><td>asr</td><td><code>a b -- (a &gt;&gt;&gt; b)</code></td></tr>
-<tr></tr>
-<tr><td><code>53</code></td><td>and</td><td><code>a b -- (a &amp; b)</code></td><td> </td></tr>
-<tr><td><code>54</code></td><td>or</td><td><code>a b -- (a or b)</code></td><td> </td></tr>
-<tr><td><code>55</code></td><td>xor</td><td><code>a b -- (a ^ b)</code></td><td> </td></tr>
-<tr><td><code>56</code></td><td>reada</td><td><code>a --</code></td><td><code>cv &lt;- mem[a]</code></td></tr>
-<tr><td><code>57</code></td><td>call</td><td><code>a --</code></td><td><code>pc = a</code>; push <a href="architecture/cstack.html">cstack</a></td></tr>
-<tr><td><code>58</code></td><td>jmp</td><td><code>a --</code></td><td><code>pc = a</code></td></tr>
-<tr><td><code>59</code></td><td>iset</td><td><code>d --</code></td><td>Set selected interrupt addresses and dc0s</td></tr>
-<tr><td><code>5A</code></td><td>seb</td><td><code>b --</code></td><td>Set a single bus</td></tr>
-<tr><td><code>5B</code></td><td>slb</td><td><code>b --</code></td><td>Select an additional UARC bus</td></tr>
-<tr><td><code>5C</code></td><td>usb</td><td><code>b --</code></td><td>Unselect a UARC bus</td></tr>
-<tr><td><code>5D</code></td><td>send</td><td><code>v --</code></td><td>Send value to selected buses</td></tr>
-<tr><td><code>5E</code></td><td>writei</td><td><code>v --</code></td><td><code>mem[mem[dc0]] = v</code></td></tr>
-<tr><td><code>5F</code></td><td>loopi</td><td><code>n --</code></td><td><code>ls &lt;- n, dc0, 0</code></td></tr>
-<tr><td><code>60</code> - <code>63</code></td><td>rawrite#</td><td><code>v a --</code></td><td><code>mem[dc# + a] = v</code></td></tr>
-<tr><td><code>64</code> - <code>67</code></td><td>rewrite#</td><td><code>v a --</code></td><td><code>mem[mem[dc#] + a] = v</code></td></tr>
-<tr><td><code>68</code></td><td>write</td><td><code>v a --</code></td><td><code>mem[a] = v</code></td></tr>
-<tr><td><code>69</code></td><td>writep</td><td><code>v a --</code></td><td><code>progmem[a] = v</code></td></tr>
-<tr><td><code>6A</code></td><td>writepi</td><td><code>ins a --</code></td><td><code>progmem[a] = ins</code></td></tr>
-<tr><td><code>6B</code></td><td>jeq</td><td><code>a b --</code></td><td>if <code>a == b</code> then <code>dc0 -&gt; pc</code></td></tr>
-<tr><td><code>6C</code></td><td>jne</td><td><code>a b --</code></td><td>if <code>a != b</code> then <code>dc0 -&gt; pc</code></td></tr>
-<tr><td><code>6D</code></td><td>les</td><td><code>a b --</code></td><td>if <code>a &lt; b</code> then <code>dc0 -&gt; pc</code></td></tr>
-<tr><td><code>6E</code></td><td>leq</td><td><code>a b --</code></td><td>if <code>a &lt;= b</code> then <code>dc0 -&gt; pc</code></td></tr>
-<tr><td><code>6F</code></td><td>lesu</td><td><code>a b --</code></td><td>if <code>a &lt; b</code> then <code>dc0 -&gt; pc</code></td></tr>
-<tr><td><code>70</code></td><td>lequ</td><td><code>a b --</code></td><td>if <code>a &lt;= b</code> then <code>dc0 -&gt; pc</code></td></tr>
-<tr><td><code>71</code></td><td>in</td><td><code>n a --</code></td><td>Stream in to <code>a</code>; <code>cv &lt;- bus</code></td></tr>
-<tr><td><code>72</code></td><td>out</td><td><code>n a --</code></td><td>Stream n words to buses from a</td></tr>
-<tr><td><code>73</code></td><td>incept</td><td><code>n a --</code></td><td>Incept target cores; same as out</td></tr>
-<tr><td><code>74</code></td><td>set</td><td><code>m s --</code></td><td>Clear ifile and set register <code>s</code> to <code>m</code></td></tr>
-<tr><td><code>75</code></td><td>sel</td><td><code>m s --</code></td><td>Ors <code>m</code> with register <code>s</code> of ifile</td></tr>
-<tr><td><code>76</code></td><td>seta</td><td><code>perm addr --</code></td><td>Sets UARC permission and address delegation</td></tr>
-<tr><td><code>77</code></td><td>loop</td><td><code>n e --</code></td><td><code>ls &lt;- n, e, 0</code></td></tr>
-<tr><td><code>78</code></td><td>sef</td><td><code>a f --</code></td><td>Sets fault <code>f</code> handler to <code>a</code></td></tr>
-<tr><td><code>79</code></td><td>mul</td><td><code>a b --</code></td><td><code>cv &lt;- low(a * b), high(a * b)</code></td></tr>
-<tr><td><code>7A</code></td><td>mulu</td><td><code>a b --</code></td><td><code>cv &lt;- low(a * b), high(a * b)</code></td></tr>
-<tr><td><code>7B</code></td><td>div</td><td><code>a b --</code></td><td><code>cv &lt;- a / b, a % b</code></td></tr>
-<tr><td><code>7C</code></td><td>divu</td><td><code>a b --</code></td><td><code>cv &lt;- a / b, a % b</code></td></tr>
-<tr><td><code>7F</code></td><td>reset</td><td><code>d p --</code></td><td><code>pc = p, dc0 = d</code></td></tr>
-<tr><td><code>80</code> - <code>BF</code></td><td>rot#</td><td><code>v #.. -- #.. v</code></td><td> </td></tr>
-<tr><td><code>C0</code> - <code>FF</code></td><td>copy#</td><td><code>v #.. -- v #.. v</code></td><td> </td></tr>
+<table><thead><tr><td>Op</td><td>Instruction</td><td>Octets</td><td>dstack</td><td>Side Effects</td></tr></thead>
+<tr><td><code>00</code> - <code>03</code></td><td>move#</td><td>2</td><td><code>--</code></td><td><code>dc# += imm</code></td></tr>
+<tr><td><code>04</code> - <code>07</code></td><td>raread#</td><td>1</td><td><code>a -- mem[dc# + a]</code></td><td> </td></tr>
+<tr><td><code>08</code> - <code>0B</code></td><td>rereadi#</td><td>2</td><td><code>--</code></td><td><code>cv &lt;- mem[mem[dc#] + imm]</code></td></tr>
+<tr><td><code>0C</code></td><td>inc</td><td>1</td><td><code>a -- (a + 1)</code></td><td><code>c</code>, <code>o</code></td></tr>
+<tr><td><code>0D</code></td><td>dec</td><td>1</td><td><code>a -- (a - 1)</code></td><td><code>c</code>, <code>o</code></td></tr>
+<tr><td><code>0E</code></td><td>carry</td><td>1</td><td><code>v -- (v + c)</code></td><td><code>c</code>, <code>o</code></td></tr>
+<tr><td><code>0F</code></td><td>borrow</td><td>1</td><td><code>v -- (v + c - 1)</code></td><td><code>c</code>, <code>o</code></td></tr>
+<tr><td><code>10</code></td><td>inv</td><td>1</td><td><code>v -- ~v</code></td><td> </td></tr>
+<tr><td><code>11</code></td><td>break</td><td>1</td><td><code>--</code></td><td>Pops the <a href="architecture/lstack.html">lstack</a> and goes to end of loop</td></tr>
+<tr><td><code>12</code></td><td>return</td><td>1</td><td><code>--</code></td><td>pop <a href="architecture/cstack.html">cstack</a></td></tr>
+<tr><td><code>13</code></td><td>continue</td><td>1</td><td><code>--</code></td><td>Goes to the next loop iteration</td></tr>
+<tr><td><code>14</code></td><td>inten</td><td>1</td><td><code>--</code></td><td>Enables only selected interrupts</td></tr>
+<tr><td><code>15</code></td><td>intrecv</td><td>1</td><td><code>--</code></td><td>Interrupt sync; <code>cv &lt;- bus, v</code></td></tr>
+<tr><td><code>16</code></td><td>iloop</td><td>3</td><td><code>--</code></td><td><code>ls &lt;- pc + 1, pc + imm, ∞, 0</code></td></tr>
+<tr><td><code>17</code></td><td>kill</td><td>1</td><td><code>--</code></td><td>Kill all selected cores</td></tr>
+<tr><td><code>18</code></td><td>intwait</td><td>1</td><td><code>--</code></td><td>Waits for an interrupt before continuing</td></tr>
+<tr><td><code>19</code></td><td>getbp</td><td>1</td><td><code>b -- perm</code></td><td>Gets the <a href="uarc.md">permission</a> on bus <code>b</code></td></tr>
+<tr><td><code>1A</code></td><td>getba</td><td>1</td><td><code>b -- addr</code></td><td>Gets the <a href="uarc.md">address</a> on bus <code>b</code></td></tr>
+<tr><td><code>1B</code></td><td>calli</td><td>1 + WORD</td><td><code>--</code></td><td><code>pc = imm</code>; push <a href="architecture/cstack.html">cstack</a></td></tr>
+<tr><td><code>1C</code></td><td>jmpi</td><td>1 + WORD</td><td><code>--</code></td><td><code>pc = imm</code></td></tr>
+<tr><td><code>1D</code></td><td>bra</td><td>3</td><td><code>--</code></td><td><code>pc += imm</code></td></tr>
+<tr><td><code>1E</code></td><td>RESERVED</td><td>1</td><td><code>--</code></td><td> </td></tr>
+<tr><td><code>1F</code></td><td>RESERVED</td><td>1</td><td><code>--</code></td><td> </td></tr>
+<tr><td><code>20</code> - <code>2F</code></td><td>cv#</td><td>1</td><td><code>-- cv#</code></td><td>cv# synchronizes</td></tr>
+<tr><td><code>30</code> - <code>33</code></td><td>read#</td><td>2</td><td><code>-- mem[dc#]</code></td><td><code>dc# += imm</code></td></tr>
+<tr><td><code>34</code> - <code>37</code></td><td>rareadi#</td><td>2</td><td><code>-- mem[dc# + imm]</code></td><td> </td></tr>
+<tr><td><code>38</code> - <code>3B</code></td><td>get#</td><td>1</td><td><code>-- dc#</code></td><td> </td></tr>
+<tr><td><code>3C</code> - <code>3F</code></td><td>i#</td><td>1</td><td><code>-- i#</code></td><td> </td></tr>
+<tr><td><code>40</code> - <code>43</code></td><td>writepre#</td><td>2</td><td><code>v --</code></td><td><code>dc# += imm</code>; <code>mem[dc#] = v</code></td></tr>
+<tr><td><code>44</code> - <code>47</code></td><td>writepst#</td><td>2</td><td><code>v --</code></td><td><code>mem[dc#] = v</code>; <code>dc# += imm</code></td></tr>
+<tr><td><code>48</code> - <code>4B</code></td><td>set#</td><td>1</td><td><code>a --</code></td><td><code>dc# = a</code></td></tr>
+<tr><td><code>4C</code> - <code>4F</code></td><td>rawritei#</td><td>2</td><td><code>v --</code></td><td><code>mem[dc# + imm] = v</code></td></tr>
+<tr><td><code>50</code> - <code>53</code></td><td>rewritei#</td><td>2</td><td><code>v --</code></td><td><code>mem[mem[dc#] + imm] = v</code></td></tr>
+<tr><td><code>54</code> - <code>57</code></td><td>reread#</td><td>2</td><td><code>a --</code></td><td><code>cv &lt;- mem[mem[dc#] + a]</code></td></tr>
+<tr><td><code>58</code></td><td>add</td><td>1</td><td><code>a b -- (a + b)</code></td><td><code>c</code>, <code>o</code></td></tr>
+<tr><td><code>59</code></td><td>sub</td><td>1</td><td><code>a b -- (a - b)</code></td><td><code>c</code>, <code>o</code></td></tr>
+<tr><td><code>5A</code></td><td>lsl</td><td>1</td><td><code>a b -- (a &lt;&lt; b)</code></td><td> </td></tr>
+<tr><td><code>5B</code></td><td>lsr</td><td>1</td><td><code>a b -- (a &gt;&gt; b)</code></td><td> </td></tr>
+<tr><td><code>5C</code></td><td>csl</td><td>1</td><td><code>a b -- ((a &lt;&lt; b) or (a &gt;&gt; (b - WORD)))</code></td><td> </td></tr>
+<tr><td><code>5D</code></td><td>csr</td><td>1</td><td><code>a b -- ((a &gt;&gt; b) or (a &lt;&lt; (b - WORD)))</code></td><td> </td></tr>
+<tr><td><code>5E</code></td><td>asr</td><td>1</td><td><code>a b -- (a &gt;&gt;&gt; b)</code></td><td> </td></tr>
+<tr><td><code>5F</code></td><td>and</td><td>1</td><td><code>a b -- (a &amp; b)</code></td><td> </td></tr>
+<tr><td><code>60</code> - <code>63</code></td><td>rewrite#</td><td>2</td><td><code>v a --</code></td><td><code>mem[mem[dc#] + a] = v</code></td></tr>
+<tr><td><code>64</code> - <code>67</code></td><td>rawrite#</td><td>1</td><td><code>v a --</code></td><td><code>mem[dc# + a] = v</code></td></tr>
+<tr><td><code>68</code></td><td>write</td><td>1</td><td><code>v a --</code></td><td><code>mem[a] = v</code></td></tr>
+<tr><td><code>69</code></td><td>writep</td><td>1</td><td><code>v a --</code></td><td><code>progmem[a] = v</code></td></tr>
+<tr><td><code>6A</code></td><td>writepo</td><td>1</td><td><code>ins a --</code></td><td><code>progmem[a] = ins</code></td></tr>
+<tr><td><code>6B</code></td><td>beq</td><td>3</td><td><code>a b --</code></td><td>if <code>a == b</code> then <code>pc += imm</code></td></tr>
+<tr><td><code>6C</code></td><td>bne</td><td>3</td><td><code>a b --</code></td><td>if <code>a != b</code> then <code>pc += imm</code></td></tr>
+<tr><td><code>6D</code></td><td>bles</td><td>3</td><td><code>a b --</code></td><td>if <code>a &lt; b</code> then <code>pc += imm</code></td></tr>
+<tr><td><code>6E</code></td><td>bleq</td><td>3</td><td><code>a b --</code></td><td>if <code>a &lt;= b</code> then <code>pc += imm</code></td></tr>
+<tr><td><code>6F</code></td><td>blesu</td><td>3</td><td><code>a b --</code></td><td>if <code>a &lt; b</code> then <code>pc += imm</code></td></tr>
+<tr><td><code>70</code></td><td>blequ</td><td>3</td><td><code>a b --</code></td><td>if <code>a &lt;= b</code> then <code>pc += imm</code></td></tr>
+<tr><td><code>71</code></td><td>recv</td><td>1</td><td><code>n a --</code></td><td>Stream in to <code>a</code>; <code>cv &lt;- bus</code></td></tr>
+<tr><td><code>72</code></td><td>send</td><td>1</td><td><code>n a --</code></td><td>Stream <code>n</code> words to buses from <code>a</code></td></tr>
+<tr><td><code>73</code></td><td>incept</td><td>1</td><td><code>n a --</code></td><td>Incept target cores; see send</td></tr>
+<tr><td><code>74</code></td><td>set</td><td>1</td><td><code>m s --</code></td><td>Clear ifile and set register <code>s</code> to <code>m</code></td></tr>
+<tr><td><code>75</code></td><td>sel</td><td>1</td><td><code>m s --</code></td><td>Ors <code>m</code> with register <code>s</code> of ifile</td></tr>
+<tr><td><code>76</code></td><td>setpa</td><td>1</td><td><code>perm addr --</code></td><td>Sets UARC permission and address delegation</td></tr>
+<tr><td><code>77</code></td><td>expect</td><td>3</td><td><code>v b --</code></td><td>Send <code>v</code> to bus <code>b</code>; <code>cv &lt;- response</code></td></tr>
+<tr><td><code>78</code></td><td>sef</td><td>1</td><td><code>a f --</code></td><td>Sets fault <code>f</code> handler to <code>a</code></td></tr>
+<tr><td><code>79</code></td><td>reset</td><td>1</td><td><code>p _ --</code></td><td><code>pc = p</code></td></tr>
+<tr><td><code>7A</code></td><td>ddrop</td><td>1</td><td><code>_ _ --</code></td><td>Drops two elements from the stack</td></tr>
+<tr><td><code>7B</code></td><td>RESERVED</td><td>1</td><td><code>_ _ --</code></td><td> </td></tr>
+<tr><td><code>7C</code></td><td>RESERVED</td><td>1</td><td><code>_ _ --</code></td><td> </td></tr>
+<tr><td><code>7D</code></td><td>RESERVED</td><td>1</td><td><code>_ _ --</code></td><td> </td></tr>
+<tr><td><code>7E</code></td><td>RESERVED</td><td>1</td><td><code>_ _ --</code></td><td> </td></tr>
+<tr><td><code>7F</code></td><td>RESERVED</td><td>1</td><td><code>_ _ --</code></td><td> </td></tr>
+<tr><td><code>80</code></td><td>addi</td><td>1 + WORD</td><td><code>a -- (a + imm)</code></td><td><code>c</code>, <code>o</code></td></tr>
+<tr><td><code>81</code></td><td>subi</td><td>1 + WORD</td><td><code>a -- (imm - a)</code></td><td><code>c</code>, <code>o</code></td></tr>
+<tr><td><code>82</code></td><td>lsli</td><td>2</td><td><code>a -- (a &lt;&lt; imm)</code></td><td> </td></tr>
+<tr><td><code>83</code></td><td>csli</td><td>2</td><td><code>a -- ((a &lt;&lt; imm) or (a &gt;&gt; (imm - WORD)))</code></td><td> </td></tr>
+<tr><td><code>84</code></td><td>asri</td><td>2</td><td><code>a -- (a &gt;&gt;&gt; imm)</code></td><td> </td></tr>
+<tr><td><code>85</code></td><td>andi</td><td>1 + WORD</td><td><code>a -- (a &amp; b)</code></td><td> </td></tr>
+<tr><td><code>86</code></td><td>ori</td><td>1 + WORD</td><td><code>a -- (a or b)</code></td><td> </td></tr>
+<tr><td><code>87</code></td><td>xori</td><td>1 + WORD</td><td><code>a -- (a ^ b)</code></td><td> </td></tr>
+<tr><td><code>88</code></td><td>RESERVED</td><td>1</td><td><code>--</code></td><td> </td></tr>
+<tr><td><code>89</code></td><td>RESERVED</td><td>1</td><td><code>--</code></td><td> </td></tr>
+<tr><td><code>8A</code></td><td>bc</td><td>3</td><td><code>--</code></td><td>if <code>c</code> then <code>pc += imm</code></td></tr>
+<tr><td><code>8B</code></td><td>bnc</td><td>3</td><td><code>--</code></td><td>if <code>~c</code> then <code>pc += imm</code></td></tr>
+<tr><td><code>8C</code></td><td>bo</td><td>3</td><td><code>--</code></td><td>if <code>o</code> then <code>pc += imm</code></td></tr>
+<tr><td><code>8D</code></td><td>bno</td><td>3</td><td><code>--</code></td><td>if <code>~o</code> then <code>pc += imm</code></td></tr>
+<tr><td><code>8E</code></td><td>bi</td><td>3</td><td><code>--</code></td><td>if <code>i</code> then <code>pc += imm</code>; <code>i = 0</code></td></tr>
+<tr><td><code>8F</code></td><td>bni</td><td>3</td><td><code>--</code></td><td>if <code>~i</code> then <code>pc += imm</code>; <code>i = 0</code></td></tr>
+<tr><td><code>90</code></td><td>imm8</td><td>2</td><td><code>-- imm</code></td><td> </td></tr>
+<tr><td><code>91</code></td><td>imm16</td><td>3</td><td><code>-- imm</code></td><td> </td></tr>
+<tr><td><code>92</code></td><td>imm32</td><td>5</td><td><code>-- imm</code></td><td> </td></tr>
+<tr><td><code>93</code></td><td>imm64</td><td>9</td><td><code>-- imm</code></td><td>Only supported on u0-64</td></tr>
+<tr><td><code>94</code></td><td>getp</td><td>1</td><td><code>-- perm</code></td><td>Get UARC permission</td></tr>
+<tr><td><code>95</code></td><td>geta</td><td>1</td><td><code>-- addr</code></td><td>Get UARC address</td></tr>
+<tr><td><code>96</code></td><td>RESERVED</td><td>1</td><td><code>-- _</code></td><td> </td></tr>
+<tr><td><code>97</code></td><td>RESERVED</td><td>1</td><td><code>-- _</code></td><td> </td></tr>
+<tr><td><code>98</code></td><td>RESERVED</td><td>1</td><td><code>-- _</code></td><td> </td></tr>
+<tr><td><code>99</code></td><td>RESERVED</td><td>1</td><td><code>-- _</code></td><td> </td></tr>
+<tr><td><code>9A</code></td><td>RESERVED</td><td>1</td><td><code>-- _</code></td><td> </td></tr>
+<tr><td><code>9B</code></td><td>RESERVED</td><td>1</td><td><code>-- _</code></td><td> </td></tr>
+<tr><td><code>9C</code></td><td>RESERVED</td><td>1</td><td><code>-- _</code></td><td> </td></tr>
+<tr><td><code>9D</code></td><td>RESERVED</td><td>1</td><td><code>-- _</code></td><td> </td></tr>
+<tr><td><code>9E</code></td><td>RESERVED</td><td>1</td><td><code>-- _</code></td><td> </td></tr>
+<tr><td><code>9F</code></td><td>RESERVED</td><td>1</td><td><code>-- _</code></td><td> </td></tr>
+<tr><td><code>A0</code></td><td>or</td><td>1</td><td><code>a b -- (a or b)</code></td><td> </td></tr>
+<tr><td><code>A1</code></td><td>xor</td><td>1</td><td><code>a b -- (a ^ b)</code></td><td> </td></tr>
+<tr><td><code>A2</code></td><td>reada</td><td>1</td><td><code>a --</code></td><td><code>cv &lt;- mem[a]</code></td></tr>
+<tr><td><code>A3</code></td><td>call</td><td>1</td><td><code>a --</code></td><td><code>pc = a</code>; push <a href="architecture/cstack.html">cstack</a></td></tr>
+<tr><td><code>A4</code></td><td>jmp</td><td>1</td><td><code>a --</code></td><td><code>pc = a</code></td></tr>
+<tr><td><code>A5</code></td><td>intset</td><td>1</td><td><code>p --</code></td><td>Set selected interrupt addresses to <code>p</code></td></tr>
+<tr><td><code>A6</code></td><td>seb</td><td>1</td><td><code>b --</code></td><td>Set a single bus</td></tr>
+<tr><td><code>A7</code></td><td>slb</td><td>1</td><td><code>b --</code></td><td>Select an additional UARC bus</td></tr>
+<tr><td><code>A8</code></td><td>usb</td><td>1</td><td><code>b --</code></td><td>Unselect a UARC bus</td></tr>
+<tr><td><code>A9</code></td><td>intsend</td><td>1</td><td><code>v --</code></td><td>Send value to selected buses</td></tr>
+<tr><td><code>AA</code></td><td>loop</td><td>3</td><td><code>n --</code></td><td><code>ls &lt;- pc + 1, pc + imm, n, 0</code></td></tr>
+<tr><td><code>AB</code></td><td>bz</td><td>3</td><td><code>n --</code></td><td>if <code>n == 0</code> then <code>pc += imm</code></td></tr>
+<tr><td><code>AC</code></td><td>bnz</td><td>3</td><td><code>n --</code></td><td>if <code>n != 0</code> then <code>pc += imm</code></td></tr>
+<tr><td><code>AD</code></td><td>writepi</td><td>1 + WORD</td><td><code>v --</code></td><td>Writes <code>v</code> to instruction memory at <code>imm</code></td></tr>
+<tr><td><code>AE</code></td><td>writepri</td><td>3</td><td><code>v --</code></td><td>Writes <code>v</code> to instruction memory at <code>pc + imm</code></td></tr>
+<tr><td><code>AF</code></td><td>drop</td><td>1</td><td><code>_ --</code></td><td>Drops one element from the stack</td></tr>
+<tr><td><code>B0</code></td><td>RESERVED</td><td>1</td><td><code>_ _ --</code></td><td> </td></tr>
+<tr><td><code>B1</code></td><td>RESERVED</td><td>1</td><td><code>_ _ --</code></td><td> </td></tr>
+<tr><td><code>B2</code></td><td>RESERVED</td><td>1</td><td><code>_ _ --</code></td><td> </td></tr>
+<tr><td><code>B3</code></td><td>RESERVED</td><td>1</td><td><code>_ _ --</code></td><td> </td></tr>
+<tr><td><code>B4</code></td><td>RESERVED</td><td>1</td><td><code>_ _ --</code></td><td> </td></tr>
+<tr><td><code>B5</code></td><td>RESERVED</td><td>1</td><td><code>_ _ --</code></td><td> </td></tr>
+<tr><td><code>B6</code></td><td>RESERVED</td><td>1</td><td><code>_ _ --</code></td><td> </td></tr>
+<tr><td><code>B7</code></td><td>RESERVED</td><td>1</td><td><code>_ _ --</code></td><td> </td></tr>
+<tr><td><code>B8</code></td><td>RESERVED</td><td>1</td><td><code>_ _ --</code></td><td> </td></tr>
+<tr><td><code>B9</code></td><td>RESERVED</td><td>1</td><td><code>_ _ --</code></td><td> </td></tr>
+<tr><td><code>BA</code></td><td>RESERVED</td><td>1</td><td><code>_ _ --</code></td><td> </td></tr>
+<tr><td><code>BB</code></td><td>RESERVED</td><td>1</td><td><code>_ _ --</code></td><td> </td></tr>
+<tr><td><code>BC</code></td><td>RESERVED</td><td>1</td><td><code>_ _ --</code></td><td> </td></tr>
+<tr><td><code>BD</code></td><td>RESERVED</td><td>1</td><td><code>_ _ --</code></td><td> </td></tr>
+<tr><td><code>BE</code></td><td>RESERVED</td><td>1</td><td><code>_ _ --</code></td><td> </td></tr>
+<tr><td><code>BF</code></td><td>RESERVED</td><td>1</td><td><code>_ _ --</code></td><td> </td></tr>
+<tr><td><code>C0</code> - <code>DF</code></td><td>rot#</td><td><code>v #.. -- #.. v</code></td><td> </td></tr>
+<tr><td><code>E0</code> - <code>FF</code></td><td>copy#</td><td><code>v #.. -- v #.. v</code></td><td> </td></tr>
 </table>
 
                 </div>

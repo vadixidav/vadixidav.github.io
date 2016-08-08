@@ -68,15 +68,89 @@
 
                 <div id="content" class="content">
                     <h1>Stack Manipulation Instructions</h1>
-<h2><code>p0</code></h2>
-<p><code>-- 0</code></p>
+<h2><code>i#</code></h2>
+<p><code>-- i#</code></p>
 <h4>Description</h4>
-<p><code>p0</code> pushes a <code>0</code> onto the top of the stack. This doesn't theoretically need to exist, but it makes it practically easy for the processor to add a <code>0</code> to the stack on inception to receive the data stream from the inceptor. It also has other uses, such as initializing an accumulator value and comparisons with <code>0</code>.</p>
+<p><code>i#</code> places the index of a hardware controlled loop on the top of the stack. The inner-most loop index is <code>i0</code>.</p>
+<h4>Examples</h4>
+<pre><code>3 loop:+
+i0
+:+
+</code></pre>
+<ul>
+<li><code>( -- 0 1 2)</code></li>
+</ul>
+<hr />
+<h2><code>ddrop</code></h2>
+<p><code>_ _ --</code></p>
+<h4>Description</h4>
+<p><code>ddrop</code> drops two elements off the stack. Since the stack can be popped twice, this is a situational use of removing two values that reduces two drops into one.</p>
+<h4>Examples</h4>
+<pre><code>8 3 2 ddrop
+</code></pre>
+<ul>
+<li><code>( -- 8)</code></li>
+</ul>
+<hr />
+<h2><code>imm8</code></h2>
+<p><code>-- imm</code></p>
+<h4>Description</h4>
+<p><code>imm8</code> places the immediate 8-bit value on the stack.</p>
+<h4>Examples</h4>
+<pre><code>8
+</code></pre>
+<ul>
+<li><code>( -- 8)</code></li>
+</ul>
+<hr />
+<h2><code>imm16</code></h2>
+<p><code>-- imm</code></p>
+<h4>Description</h4>
+<p><code>imm16</code> places the immediate 16-bit value on the stack.</p>
+<h4>Examples</h4>
+<pre><code>30131
+</code></pre>
+<ul>
+<li><code>( -- 30131)</code></li>
+</ul>
+<hr />
+<h2><code>imm32</code></h2>
+<p><code>-- imm</code></p>
+<h4>Description</h4>
+<p><code>imm32</code> places the immediate 32-bit value on the stack.</p>
+<h4>Examples</h4>
+<pre><code>1202303404
+</code></pre>
+<ul>
+<li><code>( -- 1202303404)</code></li>
+</ul>
+<hr />
+<h2><code>imm64</code></h2>
+<p><code>-- imm</code></p>
+<h4>Description</h4>
+<p><code>imm64</code> places the immediate 64-bit value on the stack. This is only supported on u0-64. On u0-32, this has undefined behavior.</p>
+<h4>Examples</h4>
+<pre><code>1202303404505606
+</code></pre>
+<ul>
+<li><code>( -- 1202303404505606)</code></li>
+</ul>
+<hr />
+<h2><code>drop</code></h2>
+<p><code>_ --</code></p>
+<h4>Description</h4>
+<p><code>drop</code> drops one element off the stack. This is useful after loops with accumulators where the accumulator is no longer required and in other niche situations where excess data is left on the stack.</p>
+<h4>Examples</h4>
+<pre><code>8 3 2 drop
+</code></pre>
+<ul>
+<li><code>( -- 8 3)</code></li>
+</ul>
 <hr />
 <h2><code>rot#</code></h2>
 <p><code>v #.. -- #.. v</code></p>
 <h4>Description</h4>
-<p><code>rot#</code> rotates a value <code>0</code> to <code>63</code> elements deep in the stack to the top of the stack. The value is removed from that location and elements under that value are not shifted in the stack. <code>rot0</code> has no effect and uses a cycle doing nothing.</p>
+<p><code>rot#</code> rotates a value <code>0</code> to <code>31</code> elements deep in the stack to the top of the stack. The value is removed from that location and elements under that value are not shifted in the stack. <code>rot0</code> has no effect and uses a cycle doing nothing, and it is the recommended form of doing a NOP because it only consumes one octet.</p>
 <h4>Examples</h4>
 <pre><code>1 2 3 rot2
 </code></pre>
@@ -87,7 +161,7 @@
 <h2><code>copy#</code></h2>
 <p><code>v #.. -- v #.. v</code></p>
 <h4>Description</h4>
-<p><code>copy#</code> copies a value <code>0</code> to <code>63</code> elements deep in the stack to the top of the stack. This pushes all elements down on the stack. <code>copy0</code> is a duplicate operation.</p>
+<p><code>copy#</code> copies a value <code>0</code> to <code>31</code> elements deep in the stack to the top of the stack. This pushes all elements down on the stack. <code>copy0</code> is a duplicate operation.</p>
 <h4>Examples</h4>
 <pre><code>1 2 3 copy2
 </code></pre>

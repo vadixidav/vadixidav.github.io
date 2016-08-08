@@ -68,20 +68,20 @@
 
                 <div id="content" class="content">
                     <h1>UARC Instructions</h1>
-<h2><code>ien</code></h2>
+<h2><code>intien</code></h2>
 <p><code>--</code></p>
 <h4>Description</h4>
-<p><code>ien</code> enables interrupts in the <a href="architecture/ifile.html">ifile</a> only for buses which are presently selected.</p>
+<p><code>intien</code> enables interrupts in the <a href="architecture/ifile.html">ifile</a> only for buses which are presently selected.</p>
 <h4>Side Effects</h4>
 <ul>
 <li>All selected buses now have interrupts enabled.</li>
 <li>All non-selected buses now have interrupts disabled.</li>
 </ul>
 <hr />
-<h2><code>recv</code></h2>
+<h2><code>intrecv</code></h2>
 <p><code>--</code></p>
 <h4>Description</h4>
-<p><code>recv</code> accepts any interrupt synchronously without an interrupt handler from any selected bus. The bus ID (<code>bus</code>) and the interrupt value (<code>v</code>) are added to the <a href="architecture/conveyor.html">conveyor</a> in that order.</p>
+<p><code>intrecv</code> accepts any interrupt synchronously without an interrupt handler from any selected bus. The bus ID (<code>bus</code>) and the interrupt value (<code>v</code>) are added to the <a href="architecture/conveyor.html">conveyor</a> in that order.</p>
 <h4>Side Effects</h4>
 <ul>
 <li><code>cv &lt;- bus, v</code></li>
@@ -98,98 +98,40 @@
 <li>All selected cores for which this core has permission will be stopped before this instruction finishes.</li>
 </ul>
 <hr />
-<h2><code>wait</code></h2>
+<h2><code>intwait</code></h2>
 <p><code>--</code></p>
 <h4>Description</h4>
-<p><code>wait</code> allows the code to synchronously handle interrupts by waiting the core until the next interrupt. If an interrupt had already been received, the <code>i</code> will already be <code>1</code>, thus this will immediately continue.</p>
+<p><code>intwait</code> allows the code to synchronously handle interrupts by waiting the core until the next interrupt. If an interrupt had already been received, the <code>i</code> will already be <code>1</code>, thus this will immediately continue.</p>
 <h4>Side Effects</h4>
 <ul>
 <li>Synchronizes with the first received interrupt or continues if <code>i</code> is already set.</li>
+<li><code>i</code> is cleared by this instruction to indicate that the interrupt is known to be handled.</li>
 </ul>
 <hr />
 <h2><code>getbp</code></h2>
 <p><code>b -- perm</code></p>
 <h4>Description</h4>
-<p><code>getbp</code> places the <a href="uarc.html">permission</a> of the core on bus <code>b</code> onto the stack.</p>
+<p><code>getbp</code> places the <a href="uarc.html">permission</a> of bus <code>b</code> onto the stack.</p>
 <hr />
 <h2><code>getba</code></h2>
 <p><code>b -- addr</code></p>
 <h4>Description</h4>
-<p><code>getba</code> places the <a href="uarc.html">address</a> of the core on bus <code>b</code> onto the stack. If the <code>AND</code> of <code>addr</code> with this core's <a href="uarc.html">permission</a> is equal to this core's <a href="uarc.html">address</a> with the <a href="uarc.html">permission</a> then this core has <a href="uarc.html">privilege</a> over the core on this bus. This check shouldn't need to be performed manually, but that is the process.</p>
+<p><code>getba</code> places the <a href="uarc.html">address</a> of bus <code>b</code> onto the stack. If the <code>AND</code> of <code>addr</code> with this core's <a href="uarc.html">permission</a> is equal to this core's <a href="uarc.html">address</a> with the <a href="uarc.html">permission</a> then this core has <a href="uarc.html">privilege</a> over the core on this bus.</p>
 <hr />
-<h2><code>getp</code></h2>
-<p><code>-- perm</code></p>
-<h4>Description</h4>
-<p><code>getp</code> places the <a href="uarc.html">permission</a> of the current core on the stack. This value is a mask of the <a href="uarc.html">address</a>. The core cannot delegate a <a href="uarc.html">permission</a> on a child core which has any bits unset from its own <a href="uarc.html">permission</a>. Any delegated <a href="uarc.html">address</a> must have the same <a href="uarc.html">address</a> bits which are masked by the delegating core's <a href="uarc.html">permission</a>.</p>
-<hr />
-<h2><code>geta</code></h2>
-<p><code>-- addr</code></p>
-<h4>Description</h4>
-<p><code>geta</code> places the <a href="uarc.html">address</a> of the current core on the stack. This value is 31 bits and will be placed in the least significant bits of the word. The bits of the <a href="uarc.html">address</a> masked by the <a href="uarc.html">permission</a> must be the same in all child cores.</p>
-<h4>Notes</h4>
-<ul>
-<li>This instruction is not supported for a <code>WORD</code> that is less than 32 bits.</li>
-</ul>
-<hr />
-<h2><code>iset</code></h2>
-<p><code>d --</code></p>
-<h4>Description</h4>
-<p><code>iset</code> sets the interrupt address of all selected UARC buses to the value at <code>mem[dc0]</code> while incrementing the current <code>dc0</code> and also sets the corresponding <code>dc0</code> which is to be immediately set when the interrupt is handled to <code>d</code>. This DC will not be set on a <code>recv</code> instruction.</p>
-<h4>Side Effects</h4>
-<ul>
-<li>Any further interrupts on the selected UARC buses now call the routine at <code>mem[dc0]</code> with a <code>dc0 = d</code>.</li>
-</ul>
-<hr />
-<h2><code>seb</code></h2>
-<p><code>b --</code></p>
-<h4>Description</h4>
-<p><code>seb</code> sets the only UARC bus to be selected as <code>b</code>.</p>
-<h4>Side Effects</h4>
-<ul>
-<li>All UARC calls now affect only <code>b</code>.</li>
-</ul>
-<hr />
-<h2><code>slb</code></h2>
-<p><code>b --</code></p>
-<h4>Description</h4>
-<p><code>slb</code> adds the UARC bus <code>b</code> to the selected cores.</p>
-<h4>Side Effects</h4>
-<ul>
-<li>All UARC calls now also affect <code>b</code>.</li>
-</ul>
-<hr />
-<h2><code>usb</code></h2>
-<p><code>b --</code></p>
-<h4>Description</h4>
-<p><code>usb</code> removes the UARC bus <code>b</code> from the selected cores.</p>
-<h4>Side Effects</h4>
-<ul>
-<li>All UARC calls no longer affect <code>b</code>.</li>
-</ul>
-<hr />
-<h2><code>send</code></h2>
-<p><code>v --</code></p>
-<h4>Description</h4>
-<p><code>send</code> sends a value to all selected UARC buses, and waits for all buses to accept the interrupt before continuing.</p>
-<h4>Side Effects</h4>
-<ul>
-<li>Execution is synchronized with the acceptance of all interrupts sent.</li>
-</ul>
-<hr />
-<h2><code>in</code></h2>
+<h2><code>recv</code></h2>
 <p><code>n a --</code></p>
 <h4>Description</h4>
-<p><code>in</code> receives a stream from any selected UARC bus. <code>a</code> is the address at which up to <code>n</code> words are to be streamed to. The bus ID of the core that streamed to this core is placed on the conveyor.</p>
+<p><code>recv</code> receives a stream from any selected UARC bus. <code>a</code> is the address at which up to <code>n</code> words are to be streamed to. The bus ID of the core that streamed to this core is placed on the conveyor.</p>
 <h4>Side Effects</h4>
 <ul>
 <li>Execution is synchronized with the completion of the stream operation.</li>
-<li>The bus ID of the sending core is added to the conveyor.</li>
+<li><code>cv &lt;- bus</code></li>
 </ul>
 <hr />
-<h2><code>out</code></h2>
+<h2><code>send</code></h2>
 <p><code>n a --</code></p>
 <h4>Description</h4>
-<p><code>out</code> sends a stream to all selected UARC buses. <code>n</code> is the number of words able to be streamed out and <code>a</code> is the address at which those words are to be streamed from.</p>
+<p><code>send</code> sends a stream to all selected UARC buses. <code>n</code> is the number of words able to be streamed out and <code>a</code> is the address at which those words are to be streamed from.</p>
 <h4>Side Effects</h4>
 <ul>
 <li>Execution is synchronized with the completion of the stream operation.</li>
@@ -222,13 +164,84 @@
 <li>Specific UARC buses are now added to the selection.</li>
 </ul>
 <hr />
-<h2><code>setp</code></h2>
+<h2><code>setpa</code></h2>
 <p><code>perm addr --</code></p>
 <h4>Description</h4>
-<p><code>setp</code> sets the <a href="uarc.html">permission</a> that is to be delegated to all incepted UARC cores. This value defaults to the same <a href="uarc.html">permission</a> and <a href="uarc.html">address</a> that this core receives on inception. This instruction will only <code>OR</code> the bits of the old <a href="uarc.html">permission</a> with <code>perm</code>, so it can only restrict the <a href="uarc.html">permission</a>. Any bits from this core's <a href="uarc.html">address</a> which are masked by the <a href="uarc.html">permission</a> will be automatically set the same in the delegation address, while the only bits that will be changed are the ones in <code>addr</code> masked by the inverse of the <a href="uarc.html">permission</a>.</p>
+<p><code>setpa</code> sets the <a href="uarc.html">permission</a> that is to be delegated to all incepted UARC cores. This value defaults to the same <a href="uarc.html">permission</a> and <a href="uarc.html">address</a> that this core receives on inception. This instruction will only <code>OR</code> the bits of this core's <a href="uarc.html">permission</a> with <code>perm</code>, so it can only restrict the <a href="uarc.html">permission</a>. Any bits from this core's <a href="uarc.html">address</a> which are masked by the <a href="uarc.html">permission</a> will be automatically set the same in the delegation address, while the only bits that will be changed are the ones in <code>addr</code> masked by the inverse of the <a href="uarc.html">permission</a>.</p>
 <h4>Side Effects</h4>
 <ul>
 <li>All cores incepted after this instruction is executed will have the set <a href="uarc.html">permission</a> and <a href="uarc.html">address</a>.</li>
+</ul>
+<hr />
+<h2><code>expect</code></h2>
+<p><code>v b --</code></p>
+<h4>Description</h4>
+<p><code>expect</code> sends the value <code>v</code> to bus <code>b</code> and expects a response. This instruction does not complete until <code>v</code> is received. A location is allocated on the conveyor for the response of the target core. When the conveyor location is accessed, it will synchronize with the interrupt sent back on bus <code>b</code>. This can be used to efficiently implement coprocessors, even at the software level from another u0-x. This instruction can receive the value and handle the interrupt asynchronously while in an interrupt handler.</p>
+<p>This can be used for all multi-cycle operations, such as square root, multiply, divide, floating point operations, external memory operations, etc. It is expected that multiply is provided over at least one bus in this way.</p>
+<h4>Side Effects</h4>
+<ul>
+<li>Bus <code>b</code> is sent <code>v</code>.</li>
+<li>Execution is synchronized with the completion of sending <code>v</code>.</li>
+<li><code>cv &lt;- response</code></li>
+</ul>
+<hr />
+<h2><code>getp</code></h2>
+<p><code>-- perm</code></p>
+<h4>Description</h4>
+<p><code>getp</code> places the <a href="uarc.html">permission</a> of the current core on the stack. This value is a mask of the <a href="uarc.html">address</a>. The core cannot delegate a <a href="uarc.html">permission</a> on a child core which has any bits unset from its own <a href="uarc.html">permission</a>. Any delegated <a href="uarc.html">address</a> must have the same <a href="uarc.html">address</a> bits which are masked by the delegating core's <a href="uarc.html">permission</a>.</p>
+<hr />
+<h2><code>geta</code></h2>
+<p><code>-- addr</code></p>
+<h4>Description</h4>
+<p><code>geta</code> places the <a href="uarc.html">address</a> of the current core on the stack. This value is 32 bits and will be placed in the least significant bits of the word. The bits of the <a href="uarc.html">address</a> masked by the <a href="uarc.html">permission</a> must be the same in all child cores.</p>
+<h4>Notes</h4>
+<ul>
+<li>This instruction is supported for u0-32 and up.</li>
+</ul>
+<hr />
+<h2><code>intset</code></h2>
+<p><code>p --</code></p>
+<h4>Description</h4>
+<p><code>intset</code> sets the interrupt address of all selected buses to <code>p</code>.</p>
+<h4>Side Effects</h4>
+<ul>
+<li>Any further interrupts on the selected UARC buses now call the routine at <code>p</code>.</li>
+</ul>
+<hr />
+<h2><code>seb</code></h2>
+<p><code>b --</code></p>
+<h4>Description</h4>
+<p><code>seb</code> sets the only UARC bus to be selected as <code>b</code>.</p>
+<h4>Side Effects</h4>
+<ul>
+<li>All UARC calls now affect only <code>b</code>.</li>
+</ul>
+<hr />
+<h2><code>slb</code></h2>
+<p><code>b --</code></p>
+<h4>Description</h4>
+<p><code>slb</code> adds the UARC bus <code>b</code> to the selected cores.</p>
+<h4>Side Effects</h4>
+<ul>
+<li>All UARC calls now also affect <code>b</code>.</li>
+</ul>
+<hr />
+<h2><code>usb</code></h2>
+<p><code>b --</code></p>
+<h4>Description</h4>
+<p><code>usb</code> removes the UARC bus <code>b</code> from the selected cores.</p>
+<h4>Side Effects</h4>
+<ul>
+<li>All UARC calls no longer affect <code>b</code>.</li>
+</ul>
+<hr />
+<h2><code>intsend</code></h2>
+<p><code>v --</code></p>
+<h4>Description</h4>
+<p><code>intsend</code> sends a value to all selected UARC buses, and waits for all buses to accept the interrupt before continuing.</p>
+<h4>Side Effects</h4>
+<ul>
+<li>Execution is synchronized with the acceptance of all interrupts sent.</li>
 </ul>
 
                 </div>

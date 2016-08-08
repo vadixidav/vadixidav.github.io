@@ -77,28 +77,14 @@
 <li><a href="architecture/lstack.html">lstack</a> is popped unconditionally</li>
 </ul>
 <hr />
-<h2><code>continue</code></h2>
+<h2><code>return</code></h2>
 <p><code>--</code></p>
 <h4>Description</h4>
-<p><code>continue</code> immediately goes to the next loop iteration and moves the PC to the beginning of the loop. If this is the last iteration it goes to the end of the loop.</p>
-<h4>Side Effects</h4>
-<ul>
-<li>Moves PC to beginning of loop normally or after the loop if this is the last iteration</li>
-</ul>
-<hr />
-<h2><code>ret</code></h2>
-<p><code>--</code></p>
-<h4>Description</h4>
-<p><code>ret</code> returns from a subroutine call. It pops the <a href="architecture/cstack.html">cstack</a>, moving the PC and DCs back to the position it was at in the caller to continue execution. This instruction returns from interrupts as well as normal subroutines, since an interrupt is a simulated subroutine call. Using <code>ret</code> in an interrupt also allows more interrupts to be serviced unless they are explicitly disabled in the interrupt.</p>
+<p><code>return</code> returns from a subroutine call. It pops the <a href="architecture/cstack.html">cstack</a>, moving the PC and DCs back to the position it was at in the caller to continue execution. This instruction returns from interrupts as well as normal subroutines, since an interrupt is a simulated subroutine call. Using <code>return</code> in an interrupt also allows more interrupts to be serviced unless they are explicitly disabled in the interrupt.</p>
 <h4>Side Effects</h4>
 <ul>
 <li><a href="architecture/cstack.html">cstack</a> is popped
 <ul>
-<li>DCs are returned to their previous values
-<ul>
-<li>DCs can be modified individually if subroutine doesnt set a new DC, but uses the old one</li>
-</ul>
-</li>
 <li>PC is returned to its previous value</li>
 <li>If this is the initial subroutine of an interrupt
 <ul>
@@ -115,50 +101,84 @@
 <li>The <a href="architecture/lstack.html">lstack</a> is NOT returned to its previous state.</li>
 </ul>
 <h4>Examples</h4>
-<pre><code>subr calli
-ret
+<pre><code>calli:subr
+return
 
-subr:
-  ret
+:subr
+  return
 </code></pre>
 <ul>
 <li><code>( -- )</code></li>
 <li>The example calls <code>subr</code> before returning to the original caller</li>
 </ul>
-<pre><code>subr jumpi
+<pre><code>jumpi:subr
 
 subr:
-  ret
+  return
 </code></pre>
 <ul>
 <li><code>( -- )</code></li>
 <li>A more efficient version of the previous example by utilizing tail-call elimination</li>
 </ul>
 <hr />
-<h2><code>calli</code></h2>
+<h2><code>continue</code></h2>
 <p><code>--</code></p>
 <h4>Description</h4>
-<p><code>calli</code> is an immediate call. In this situation, immediate means that the PC to jump to is taken from <code>dc0</code>. This also increments <code>dc0</code> and puts the incremented copy of <code>dc0</code> onto the <a href="architecture/cstack.html">cstack</a>, along with the other state elements preserved in a call.</p>
+<p><code>continue</code> immediately goes to the next loop iteration and moves the PC to the beginning of the loop. If this is the last iteration it goes to the end of the loop.</p>
+<h4>Side Effects</h4>
+<ul>
+<li>Moves PC to beginning of loop normally or after the loop if this is the last iteration.</li>
+</ul>
+<hr />
+<h2><code>cv#</code></h2>
+<p><code>-- cv#</code></p>
+<h4>Description</h4>
+<p><code>cv#</code> waits until the asynchronous operation that produces the value <code>cv#</code> completes, synchronizing with its completion, and placing the result on the stack.</p>
+<h4>Side Effects</h4>
+<ul>
+<li>Execution is synchronized with the completion of operation that produced <code>cv#</code>.</li>
+</ul>
+<hr />
+<h2><code>iloop</code></h2>
+<p><code>--</code></p>
+<h4>Immediate (WORD)</h4>
+<p>The initial opcode byte is followed by two octets. The immediate value is unsigned and is added to the PC to find the relative position of the end of the loop.</p>
+<h4>Description</h4>
+<p><code>iloop</code> pushes a new infinite loop into onto the <a href="architecture/lstack.html">lstack</a>. This loop, being infinite, will never end until the break instruction is issued. The loop index (<code>i0</code>) begins at <code>0</code> and will wrap around indefinitely.</p>
+<h4>Side Effects</h4>
+<ul>
+<li><a href="architecture/lstack.html">lstack</a> is pushed.</li>
+</ul>
+<h4>Examples</h4>
+<pre><code>iloop:+
+rot:0
+:+
+</code></pre>
+<ul>
+<li>Enters an infinite loop with a NOP.</li>
+</ul>
+<hr />
+<h2><code>calli</code></h2>
+<p><code>--</code></p>
+<h4>Immediate (WORD)</h4>
+<p>The initial opcode byte is followed by a processor word. This word is the address of the function that is being called.</p>
+<h4>Description</h4>
+<p><code>calli</code> is an immediate call. The immediate value is the address to call into.</p>
 <h4>Side Effects</h4>
 <ul>
 <li><a href="architecture/cstack.html">cstack</a> is pushed
 <ul>
-<li>DCs are preserved
-<ul>
-<li>DCs can be modified individually if subroutine doesnt set a new DC, but uses the old one</li>
-</ul>
-</li>
-<li>PC is preserved</li>
-<li>Whether an interrupt is being serviced or not is preserved</li>
+<li>Old PC is preserved.</li>
+<li>Whether an interrupt is being serviced or not is preserved.</li>
 </ul>
 </li>
 </ul>
 <h4>Examples</h4>
-<pre><code>subr calli
-ret
+<pre><code>calli:subr
+return
 
 subr:
-  ret
+  return
 </code></pre>
 <ul>
 <li><code>( -- )</code></li>
@@ -167,74 +187,24 @@ subr:
 <hr />
 <h2><code>jmpi</code></h2>
 <p><code>--</code></p>
+<h4>Immediate (WORD)</h4>
+<p>The initial opcode byte is followed by a processor word. This word is the address to execute next.</p>
 <h4>Description</h4>
-<p><code>jmpi</code> jumps to an immediate value stored at <code>dc0</code>. This also increments <code>dc0</code> in the process.</p>
+<p><code>jmpi</code> jumps to the immediate address <code>imm</code>.</p>
 <h4>Side Effects</h4>
 <ul>
-<li>PC is moved to immediate value</li>
-<li><code>dc0</code> is incremented</li>
+<li>PC is moved to immediate value.</li>
 </ul>
 <hr />
-<h2><code>jc</code></h2>
+<h2><code>bra</code></h2>
 <p><code>--</code></p>
+<h4>Immediate (WORD)</h4>
+<p>The initial opcode byte is followed by two octets. The immediate value is signed and is the relative offset to branch by.</p>
 <h4>Description</h4>
-<p><code>jc</code> jumps to an immediate value stored at <code>dc0</code> if the <code>c</code> bit is <code>1</code>. This also increments <code>dc0</code> by <code>1</code> if the branch is successful and <code>2</code> otherwise so that an alternate <code>dc0</code> can be loaded by the alternate path.</p>
+<p><code>bra</code> performs a relative branch to address <code>pc + imm</code>.</p>
 <h4>Side Effects</h4>
 <ul>
-<li>PC is moved to immediate value if <code>c</code> is <code>1</code></li>
-<li><code>dc0</code> is incremented by <code>1</code> or <code>2</code></li>
-</ul>
-<hr />
-<h2><code>jnc</code></h2>
-<p><code>--</code></p>
-<h4>Description</h4>
-<p><code>jnc</code> jumps to an immediate value stored at <code>dc0</code> if the <code>c</code> bit is <code>0</code>. This also increments <code>dc0</code> by <code>1</code> if the branch is successful and <code>2</code> otherwise so that an alternate <code>dc0</code> can be loaded by the alternate path.</p>
-<h4>Side Effects</h4>
-<ul>
-<li>PC is moved to immediate value if <code>c</code> is <code>0</code></li>
-<li><code>dc0</code> is incremented by <code>1</code> or <code>2</code></li>
-</ul>
-<hr />
-<h2><code>jo</code></h2>
-<p><code>--</code></p>
-<h4>Description</h4>
-<p><code>jo</code> jumps to an immediate value stored at <code>dc0</code> if the <code>o</code> bit is <code>1</code>. This also increments <code>dc0</code> by <code>1</code> if the branch is successful and <code>2</code> otherwise so that an alternate <code>dc0</code> can be loaded by the alternate path.</p>
-<h4>Side Effects</h4>
-<ul>
-<li>PC is moved to immediate value if <code>o</code> is <code>1</code></li>
-<li><code>dc0</code> is incremented by <code>1</code> or <code>2</code></li>
-</ul>
-<hr />
-<h2><code>jno</code></h2>
-<p><code>--</code></p>
-<h4>Description</h4>
-<p><code>jno</code> jumps to an immediate value stored at <code>dc0</code> if the <code>o</code> bit is <code>0</code>. This also increments <code>dc0</code> by <code>1</code> if the branch is successful and <code>2</code> otherwise so that an alternate <code>dc0</code> can be loaded by the alternate path.</p>
-<h4>Side Effects</h4>
-<ul>
-<li>PC is moved to immediate value if <code>o</code> is <code>0</code></li>
-<li><code>dc0</code> is incremented by <code>1</code> or <code>2</code></li>
-</ul>
-<hr />
-<h2><code>ji</code></h2>
-<p><code>--</code></p>
-<h4>Description</h4>
-<p><code>ji</code> jumps to an immediate value stored at <code>dc0</code> if the <code>iflag</code> bit is <code>1</code>. This also increments <code>dc0</code> by <code>1</code> if the branch is successful and <code>2</code> otherwise so that an alternate <code>dc0</code> can be loaded by the alternate path. To indicate that the interrupt has been seen, <code>iflag</code> is set to <code>0</code>.</p>
-<h4>Side Effects</h4>
-<ul>
-<li>PC is moved to immediate value if <code>iflag</code> is <code>1</code></li>
-<li><code>dc0</code> is incremented by <code>1</code> or <code>2</code></li>
-<li><code>iflag</code> is set to <code>0</code></li>
-</ul>
-<hr />
-<h2><code>jni</code></h2>
-<p><code>--</code></p>
-<h4>Description</h4>
-<p><code>jni</code> jumps to an immediate value stored at <code>dc0</code> if the <code>iflag</code> bit is <code>0</code>. This also increments <code>dc0</code> by <code>1</code> if the branch is successful and <code>2</code> otherwise so that an alternate <code>dc0</code> can be loaded by the alternate path. To indicate that the interrupt has been seen, <code>iflag</code> is set to <code>0</code>.</p>
-<h4>Side Effects</h4>
-<ul>
-<li>PC is moved to immediate value if <code>iflag</code> is <code>0</code></li>
-<li><code>dc0</code> is incremented by <code>1</code> or <code>2</code></li>
-<li><code>iflag</code> is set to <code>0</code></li>
+<li>PC is moved to <code>pc + imm</code>.</li>
 </ul>
 <hr />
 <h2><code>call</code></h2>
@@ -245,116 +215,21 @@ subr:
 <ul>
 <li><a href="architecture/cstack.html">cstack</a> is pushed
 <ul>
-<li>DCs are preserved
-<ul>
-<li>DCs can be modified individually if subroutine doesnt set a new DC, but uses the old one</li>
-</ul>
-</li>
-<li>PC is preserved</li>
-<li>Whether an interrupt is being serviced or not is preserved</li>
+<li>Old PC is preserved.</li>
+<li>Indicates whether an interrupt is being serviced or not is preserved.</li>
 </ul>
 </li>
 </ul>
 <h4>Examples</h4>
-<pre><code>subr read0 call
-ret
+<pre><code>.subr call
+return
 
 subr:
-  ret
+  return
 </code></pre>
 <ul>
 <li><code>( -- )</code></li>
-<li>The example calls <code>subr</code> before returning to the original caller</li>
-</ul>
-<hr />
-<h2><code>jmp</code></h2>
-<p><code>a --</code></p>
-<h4>Description</h4>
-<p><code>jmp</code> jumps to the address <code>a</code>.</p>
-<h4>Side Effects</h4>
-<ul>
-<li>PC is moved to <code>a</code></li>
-</ul>
-<hr />
-<h2><code>jeq</code></h2>
-<p><code>a b --</code></p>
-<h4>Description</h4>
-<p><code>jeq</code> jumps to an immediate value stored at <code>dc0</code> if <code>a</code> and <code>b</code> are equal. This also increments <code>dc0</code> by <code>1</code> if the branch is successful and <code>2</code> otherwise so that an alternate <code>dc0</code> can be loaded by the alternate path.</p>
-<h4>Side Effects</h4>
-<ul>
-<li>PC is moved to immediate value if <code>a == b</code></li>
-<li><code>dc0</code> is incremented by <code>1</code> or <code>2</code></li>
-</ul>
-<hr />
-<h2><code>jne</code></h2>
-<p><code>a b --</code></p>
-<h4>Description</h4>
-<p><code>jne</code> jumps to an immediate value stored at <code>dc0</code> if <code>a</code> and <code>b</code> are not equal. This also increments <code>dc0</code> by <code>1</code> if the branch is successful and <code>2</code> otherwise so that an alternate <code>dc0</code> can be loaded by the alternate path.</p>
-<h4>Side Effects</h4>
-<ul>
-<li>PC is moved to immediate value if <code>a != b</code></li>
-<li><code>dc0</code> is incremented by <code>1</code> or <code>2</code></li>
-</ul>
-<hr />
-<h2><code>les</code></h2>
-<p><code>a b --</code></p>
-<h4>Description</h4>
-<p><code>les</code> jumps to an immediate value stored at <code>dc0</code> if <code>a</code> is less than <code>b</code> in a signed comparison. This also increments <code>dc0</code> by <code>1</code> if the branch is successful and <code>2</code> otherwise so that an alternate <code>dc0</code> can be loaded by the alternate path.</p>
-<h4>Side Effects</h4>
-<ul>
-<li>PC is moved to immediate value if <code>a &lt; b</code></li>
-<li><code>dc0</code> is incremented by <code>1</code> or <code>2</code></li>
-</ul>
-<hr />
-<h2><code>leq</code></h2>
-<p><code>a b --</code></p>
-<h4>Description</h4>
-<p><code>leq</code> jumps to an immediate value stored at <code>dc0</code> if <code>a</code> is less than or equal to <code>b</code> in a signed comparison. This also increments <code>dc0</code> by <code>1</code> if the branch is successful and <code>2</code> otherwise so that an alternate <code>dc0</code> can be loaded by the alternate path.</p>
-<h4>Side Effects</h4>
-<ul>
-<li>PC is moved to immediate value if <code>a &lt;= b</code></li>
-<li><code>dc0</code> is incremented by <code>1</code> or <code>2</code></li>
-</ul>
-<hr />
-<h2><code>lesu</code></h2>
-<p><code>a b --</code></p>
-<h4>Description</h4>
-<p><code>lesu</code> jumps to an immediate value stored at <code>dc0</code> if <code>a</code> is less than <code>b</code> in an unsigned comparison. This also increments <code>dc0</code> by <code>1</code> if the branch is successful and <code>2</code> otherwise so that an alternate <code>dc0</code> can be loaded by the alternate path.</p>
-<h4>Side Effects</h4>
-<ul>
-<li>PC is moved to immediate value if <code>a &lt; b</code></li>
-<li><code>dc0</code> is incremented by <code>1</code> or <code>2</code></li>
-</ul>
-<hr />
-<h2><code>lequ</code></h2>
-<p><code>a b --</code></p>
-<h4>Description</h4>
-<p><code>lequ</code> jumps to an immediate value stored at <code>dc0</code> if <code>a</code> is less than or equal to <code>b</code> in an unsigned comparison. This also increments <code>dc0</code> by <code>1</code> if the branch is successful and <code>2</code> otherwise so that an alternate <code>dc0</code> can be loaded by the alternate path.</p>
-<h4>Side Effects</h4>
-<ul>
-<li>PC is moved to immediate value if <code>a &lt;= b</code></li>
-<li><code>dc0</code> is incremented by <code>1</code> or <code>2</code></li>
-</ul>
-<hr />
-<h2><code>loop</code></h2>
-<p><code>n e --</code></p>
-<h4>Description</h4>
-<p><code>loop</code> pushes a new loop into onto the <a href="architecture/lstack.html">lstack</a>. <code>n</code> represents the number of iterations of the loop, while <code>e</code> represents the end address of the loop. The loop index (<code>i0</code>) begins at <code>0</code>. The loop will also track only <code>dc0</code> and restore it on each iteration, but on a break <code>dc0</code> will not be set to after the loop.</p>
-<h4>Side Effects</h4>
-<ul>
-<li><a href="architecture/lstack.html">lstack</a> is pushed</li>
-<li><code>dc0</code> is preserved on each iteration</li>
-</ul>
-<hr />
-<h2><code>loopi</code></h2>
-<p><code>n --</code></p>
-<h4>Description</h4>
-<p><code>loopi</code> pushes a new loop into onto the <a href="architecture/lstack.html">lstack</a>. <code>n</code> represents the number of iterations of the loop. The end address is taken from <code>dc0</code> and <code>dc0</code> is incremented. The loop index (<code>i0</code>) begins at <code>0</code>. The loop will also track only <code>dc0</code> and restore it on each iteration, but on a break <code>dc0</code> will not be set to after the loop.</p>
-<h4>Side Effects</h4>
-<ul>
-<li><a href="architecture/lstack.html">lstack</a> is pushed</li>
-<li><code>dc0</code> is incremented</li>
-<li><code>dc0</code> is preserved on each iteration</li>
+<li>The example calls <code>subr</code> before returning to the original caller.</li>
 </ul>
 <hr />
 <h2><code>sef</code></h2>
@@ -374,10 +249,190 @@ subr:
 <tr><td><code>04</code></td><td>Segfault</td><td>Triggers when an operation attempts to read from an invalid memory address and places it on the stack</td></tr>
 </table>
 <hr />
-<h2><code>reset</code></h2>
-<p><code>d p --</code></p>
+<h2><code>beq</code></h2>
+<p><code>a b --</code></p>
+<h4>Immediate (WORD)</h4>
+<p>The initial opcode byte is followed by two octets. The immediate value is signed and is the relative offset to branch by.</p>
 <h4>Description</h4>
-<p>Resets the whole processor, setting <code>d</code> as the new DC0 and <code>p</code> as the new PC. Everything is reinitialized, such as stack depth.</p>
+<p><code>beq</code> performs a relative branch if <code>a == b</code>. The <code>pc</code> to branch to is <code>pc + imm</code>.</p>
+<h4>Side Effects</h4>
+<ul>
+<li>PC is moved to <code>pc + imm</code> value if <code>a == b</code>.</li>
+</ul>
+<hr />
+<h2><code>bne</code></h2>
+<p><code>a b --</code></p>
+<h4>Immediate (WORD)</h4>
+<p>The initial opcode byte is followed by two octets. The immediate value is signed and is the relative offset to branch by.</p>
+<h4>Description</h4>
+<p><code>bne</code> performs a relative branch if <code>a != b</code>. The <code>pc</code> to branch to is <code>pc + imm</code>.</p>
+<h4>Side Effects</h4>
+<ul>
+<li>PC is moved to <code>pc + imm</code> value if <code>a != b</code>.</li>
+</ul>
+<hr />
+<h2><code>bles</code></h2>
+<p><code>a b --</code></p>
+<h4>Immediate (WORD)</h4>
+<p>The initial opcode byte is followed by two octets. The immediate value is signed and is the relative offset to branch by.</p>
+<h4>Description</h4>
+<p><code>bles</code> performs a relative branch if <code>a &lt; b</code> where both operands are signed. The <code>pc</code> to branch to is <code>pc + imm</code>.</p>
+<h4>Side Effects</h4>
+<ul>
+<li>PC is moved to <code>pc + imm</code> value if <code>a &lt; b</code>.</li>
+</ul>
+<hr />
+<h2><code>bleq</code></h2>
+<p><code>a b --</code></p>
+<h4>Immediate (WORD)</h4>
+<p>The initial opcode byte is followed by two octets. The immediate value is signed and is the relative offset to branch by.</p>
+<h4>Description</h4>
+<p><code>bleq</code> performs a relative branch if <code>a &lt;= b</code> where both operands are signed. The <code>pc</code> to branch to is <code>pc + imm</code>.</p>
+<h4>Side Effects</h4>
+<ul>
+<li>PC is moved to <code>pc + imm</code> value if <code>a &lt;= b</code>.</li>
+</ul>
+<hr />
+<h2><code>blesu</code></h2>
+<p><code>a b --</code></p>
+<h4>Immediate (WORD)</h4>
+<p>The initial opcode byte is followed by two octets. The immediate value is signed and is the relative offset to branch by.</p>
+<h4>Description</h4>
+<p><code>blesu</code> performs a relative branch if <code>a &lt; b</code> where both operands are unsigned. The <code>pc</code> to branch to is <code>pc + imm</code>.</p>
+<h4>Side Effects</h4>
+<ul>
+<li>PC is moved to <code>pc + imm</code> value if <code>a &lt; b</code>.</li>
+</ul>
+<hr />
+<h2><code>blequ</code></h2>
+<p><code>a b --</code></p>
+<h4>Immediate (WORD)</h4>
+<p>The initial opcode byte is followed by two octets. The immediate value is signed and is the relative offset to branch by.</p>
+<h4>Description</h4>
+<p><code>blequ</code> performs a relative branch if <code>a &lt;= b</code> where both operands are unsigned. The <code>pc</code> to branch to is <code>pc + imm</code>.</p>
+<h4>Side Effects</h4>
+<ul>
+<li>PC is moved to <code>pc + imm</code> value if <code>a &lt;= b</code>.</li>
+</ul>
+<hr />
+<h2><code>bc</code></h2>
+<p><code>--</code></p>
+<h4>Immediate (WORD)</h4>
+<p>The initial opcode byte is followed by two octets. The immediate value is signed and is the relative offset to branch by.</p>
+<h4>Description</h4>
+<p><code>bc</code> performs a relative branch if the <code>c</code> bit is <code>1</code>. The <code>pc</code> to branch to is <code>pc + imm</code>.</p>
+<h4>Side Effects</h4>
+<ul>
+<li>PC is moved to <code>pc + imm</code> value if <code>c</code> is <code>1</code>.</li>
+</ul>
+<hr />
+<h2><code>bnc</code></h2>
+<p><code>--</code></p>
+<h4>Immediate (WORD)</h4>
+<p>The initial opcode byte is followed by two octets. The immediate value is signed and is the relative offset to branch by.</p>
+<h4>Description</h4>
+<p><code>bnc</code> performs a relative branch if the <code>c</code> bit is <code>0</code>. The <code>pc</code> to branch to is <code>pc + imm</code>.</p>
+<h4>Side Effects</h4>
+<ul>
+<li>PC is moved to <code>pc + imm</code> value if <code>c</code> is <code>0</code>.</li>
+</ul>
+<hr />
+<h2><code>bo</code></h2>
+<p><code>--</code></p>
+<h4>Immediate (WORD)</h4>
+<p>The initial opcode byte is followed by two octets. The immediate value is signed and is the relative offset to branch by.</p>
+<h4>Description</h4>
+<p><code>bo</code> performs a relative branch if the <code>o</code> bit is <code>1</code>. The <code>pc</code> to branch to is <code>pc + imm</code>.</p>
+<h4>Side Effects</h4>
+<ul>
+<li>PC is moved to <code>pc + imm</code> value if <code>o</code> is <code>1</code>.</li>
+</ul>
+<hr />
+<h2><code>bno</code></h2>
+<p><code>--</code></p>
+<h4>Immediate (WORD)</h4>
+<p>The initial opcode byte is followed by two octets. The immediate value is signed and is the relative offset to branch by.</p>
+<h4>Description</h4>
+<p><code>bno</code> performs a relative branch if the <code>o</code> bit is <code>0</code>. The <code>pc</code> to branch to is <code>pc + imm</code>.</p>
+<h4>Side Effects</h4>
+<ul>
+<li>PC is moved to <code>pc + imm</code> value if <code>o</code> is <code>0</code>.</li>
+</ul>
+<hr />
+<h2><code>bi</code></h2>
+<p><code>--</code></p>
+<h4>Immediate (WORD)</h4>
+<p>The initial opcode byte is followed by two octets. The immediate value is signed and is the relative offset to branch by.</p>
+<h4>Description</h4>
+<p><code>bi</code> performs a relative branch if the <code>i</code> bit is <code>1</code>. The <code>pc</code> to branch to is <code>pc + imm</code>.</p>
+<h4>Side Effects</h4>
+<ul>
+<li>PC is moved to <code>pc + imm</code> value if <code>i</code> is <code>1</code>.</li>
+</ul>
+<hr />
+<h2><code>bni</code></h2>
+<p><code>--</code></p>
+<h4>Immediate (WORD)</h4>
+<p>The initial opcode byte is followed by two octets. The immediate value is signed and is the relative offset to branch by.</p>
+<h4>Description</h4>
+<p><code>bni</code> performs a relative branch if the <code>i</code> bit is <code>0</code>. The <code>pc</code> to branch to is <code>pc + imm</code>.</p>
+<h4>Side Effects</h4>
+<ul>
+<li>PC is moved to <code>pc + imm</code> value if <code>i</code> is <code>0</code>.</li>
+</ul>
+<hr />
+<h2><code>jmp</code></h2>
+<p><code>a --</code></p>
+<h4>Description</h4>
+<p><code>jmp</code> jumps to an address. The address <code>a</code> is the destination the PC is set to.</p>
+<h4>Examples</h4>
+<pre><code>.subr jmp
+
+subr:
+  return
+</code></pre>
+<ul>
+<li><code>( -- )</code></li>
+<li>The example calls <code>subr</code> with a tail call optimization to return to the original caller.</li>
+</ul>
+<hr />
+<h2><code>loop</code></h2>
+<p><code>n --</code></p>
+<h4>Immediate (WORD)</h4>
+<p>The initial opcode byte is followed by two octets. The immediate value is unsigned and is the relative offset of the end of the loop.</p>
+<h4>Description</h4>
+<p><code>loop</code> pushes a new loop into onto the <a href="architecture/lstack.html">lstack</a>. <code>n</code> represents the number of iterations of the loop, while the immediate value <code>imm</code> is the unsigned relative position of the end of the loop. The loop index (<code>i0</code>) begins at <code>0</code>.</p>
+<h4>Side Effects</h4>
+<ul>
+<li><a href="architecture/lstack.html">lstack</a> is pushed.</li>
+</ul>
+<hr />
+<h2><code>reset</code></h2>
+<p><code>p --</code></p>
+<h4>Description</h4>
+<p>Resets the whole processor, setting <code>p</code> as the new PC. Everything is reinitialized, such as stack depth.</p>
+<hr />
+<h2><code>bz</code></h2>
+<p><code>a --</code></p>
+<h4>Immediate (WORD)</h4>
+<p>The initial opcode byte is followed by two octets. The immediate value is signed and is the relative offset to branch by.</p>
+<h4>Description</h4>
+<p><code>bz</code> performs a relative branch if <code>a == 0</code>. The <code>pc</code> to branch to is <code>pc + imm</code>.</p>
+<h4>Side Effects</h4>
+<ul>
+<li>PC is moved to <code>pc + imm</code> value if <code>a == 0</code>.</li>
+</ul>
+<hr />
+<h2><code>bnz</code></h2>
+<p><code>a --</code></p>
+<h4>Immediate (WORD)</h4>
+<p>The initial opcode byte is followed by two octets. The immediate value is signed and is the relative offset to branch by.</p>
+<h4>Description</h4>
+<p><code>bnz</code> performs a relative branch if <code>a != 0</code>. The <code>pc</code> to branch to is <code>pc + imm</code>.</p>
+<h4>Side Effects</h4>
+<ul>
+<li>PC is moved to <code>pc + imm</code> value if <code>a != 0</code>.</li>
+</ul>
 
                 </div>
 

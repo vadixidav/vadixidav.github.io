@@ -68,16 +68,6 @@
 
                 <div id="content" class="content">
                     <h1>Arithmetic Instructions</h1>
-<h2><code>add#</code></h2>
-<p><code>a -- (a + mem[dc#])</code></p>
-<h4>Description</h4>
-<p><code>add#</code> adds the top of the <a href="architecture/dstack.html">dstack</a> with the immediate value from <code>dc#</code>. The <code>o</code> and <code>c</code> bits are set, but not consumed. <code>dc#</code> is incremented.</p>
-<h4>Side Effects</h4>
-<ul>
-<li><code>c = (a + mem[dc#])[WORD]</code></li>
-<li><code>o = (a[WORD - 1] ^ mem[dc#][WORD - 1]) ? 0 : a[WORD - 1] ^ (a + mem[dc#])[WORD - 1]</code></li>
-</ul>
-<hr />
 <h2><code>inc</code></h2>
 <p><code>a -- (a + 1)</code></p>
 <h4>Description</h4>
@@ -198,65 +188,56 @@
 <li><code>( -- hC000000)</code></li>
 </ul>
 <hr />
-<h2><code>mul</code></h2>
-<p><code>a b -- (a * b)</code></p>
+<h2><code>addi</code></h2>
+<p><code>a -- (a + imm)</code></p>
+<h4>Immediate (WORD)</h4>
+<p>The initial opcode byte is followed by a full processor word. This word is signed.</p>
 <h4>Description</h4>
-<p><code>mul</code> multiplies two signed numbers (<code>a</code> and <code>b</code>) with width <code>WORD</code> and produces a result with width <code>2 * WORD</code>. The lower <code>WORD</code> and the higher <code>WORD</code> bits (both including a sign bit) are placed on the <a href="architecture/conveyor.html">conveyor</a>.</p>
+<p><code>addi</code> takes parameter <code>a</code> from the stack and adds it with the immediate value <code>imm</code>. The carry bit is set by this instruction, but is not consumed.</p>
 <h4>Side Effects</h4>
 <ul>
-<li>The lowest <code>WORD</code> and highest <code>WORD</code> bits are placed onto the <a href="architecture/conveyor.html">conveyor</a> in that order</li>
-<li><code>o</code> is <code>1</code> if any significant bits are placed into the conveyor</li>
-</ul>
-<h4>Examples (with WORD of 32)</h4>
-<pre><code>h80000000 2 mul cv1 cv0
-</code></pre>
-<ul>
-<li><code>( -- h80000000 hFFFFFFFE)</code></li>
-</ul>
-<hr />
-<h2><code>mulu</code></h2>
-<p><code>a b -- (a * b)</code></p>
-<h4>Description</h4>
-<p><code>mulu</code> multiplies two unsigned numbers (<code>a</code> and <code>b</code>) with width <code>WORD</code> and produces a result with width <code>2 * WORD</code>. The lower <code>WORD</code> and higher <code>WORD</code> bits of the result are placed on the <a href="architecture/conveyor.html">conveyor</a>.</p>
-<h4>Side Effects</h4>
-<ul>
-<li>The lowest <code>WORD</code> and highest <code>WORD</code> bits are placed onto the <a href="architecture/conveyor.html">conveyor</a> in that order</li>
+<li><code>c = (a + imm)[WORD]</code></li>
+<li><code>o = (a[WORD - 1] ^ imm[WORD - 1]) ? 0 : a[WORD - 1] ^ (a + imm)[WORD - 1]</code></li>
 </ul>
 <h4>Examples</h4>
-<pre><code>~0 2 mul cv1 cv0
+<pre><code>2 add:3
 </code></pre>
 <ul>
-<li><code>( -- ~0 1)</code></li>
+<li><code>( -- 5)</code></li>
+<li>Carry is set to 0</li>
 </ul>
 <hr />
-<h2><code>div</code></h2>
-<p><code>a b --</code></p>
+<h2><code>subi</code></h2>
+<p><code>a -- (imm - a)</code></p>
+<h4>Immediate (WORD)</h4>
+<p>The initial opcode byte is followed by a full processor word. This word is signed.</p>
 <h4>Description</h4>
-<p><code>div</code> divides two signed numbers (<code>a</code> and <code>b</code>) with width <code>WORD</code> and produces a result with width <code>2 * WORD</code>. The higher/whole <code>WORD</code> and the lower/fractional <code>WORD</code> bits of the result are placed on the <a href="architecture/conveyor.html">conveyor</a>. Both the higher and the lower results are signed.</p>
+<p><code>subi</code> subtracts the immediate value <code>imm</code> from <code>a</code>. This instruction can simultaneously be called 'immediate' and 'inverse'. It would be redundant to have an actual immediate subtract, since an immediate add of the negative number accomplishes the same thing, but there are situations where a number needs to be subtracted from an immediate value. This instruction can be used to negate a number in one instruction. The carry bit is set by this instruction to <code>1</code> when no borrow occurs. The carry bit is not consumed by this instruction.</p>
 <h4>Side Effects</h4>
-<ul>
-<li>The higher/whole <code>WORD</code> and lower/fractional <code>WORD</code> bits are placed onto the <a href="architecture/conveyor.html">conveyor</a> in that order</li>
-</ul>
-<h4>Examples (with WORD of 32)</h4>
-<pre><code>h80000000 2 div cv1 cv0
+<p><code>c = (imm - a)[WORD]</code></p>
+<h4>Examples</h4>
+<pre><code>3 subi:2
 </code></pre>
 <ul>
-<li><code>( -- hC0000000 hBFFFFFFF)</code></li>
+<li><code>( -- -1)</code></li>
+<li>Carry is set to 0
+<ul>
+<li>Which indicates a borrow</li>
 </ul>
 <hr />
-<h2><code>divu</code></h2>
-<p><code>a b --</code></p>
-<h4>Description</h4>
-<p><code>divu</code> divides two unsigned numbers (<code>a</code> and <code>b</code>) with width <code>WORD</code> and produces a result with width <code>2 * WORD</code>. The higher/whole <code>WORD</code> and the lower/fractional <code>WORD</code> bits of the result are placed on the <a href="architecture/conveyor.html">conveyor</a>.</p>
-<h4>Side Effects</h4>
-<ul>
-<li>The higher/whole <code>WORD</code> and lower/fractional <code>WORD</code> bits are placed onto the <a href="architecture/conveyor.html">conveyor</a> in that order</li>
+</li>
 </ul>
+<h2><code>asri</code></h2>
+<p><code>a -- (a &gt;&gt;&gt; imm)</code></p>
+<h4>Immediate (WORD)</h4>
+<p>The initial opcode byte is followed by one octet. The octet is unsigned and represents the shift amount.</p>
+<h4>Description</h4>
+<p><code>asri</code> shifts <code>a</code> by <code>imm</code> bits and sign extends the result. If <code>-1</code> is shifted right, it will continue to stay <code>-1</code>.</p>
 <h4>Examples (with WORD of 32)</h4>
-<pre><code>~0 2 divu cv1 cv0
+<pre><code>h80000000 asri:1
 </code></pre>
 <ul>
-<li><code>( -- h7FFFFFFF h80000000)</code></li>
+<li><code>( -- hC000000)</code></li>
 </ul>
 
                 </div>

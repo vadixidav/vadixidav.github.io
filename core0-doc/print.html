@@ -68,10 +68,9 @@
 
                 <div id="content" class="content">
                     <h1>Overview</h1>
-<p>UARC core0 (c0) is the primary general purpose ISA for the UARC standardized core collection. Although it is an ISA, a reference implementation is provided via emulator and SystemVerilog.</p>
-<p>This architecture is targeted towards small size and efficiency in shuffling data around across the UARC bus. No floating point instructions are included since it is expected that such algorithms will not run on core0, but will instead be offloaded to another UARC compatible core with floating point support. Due to the nature of UARC, it is possible to implement floating point operations using a coprocessor that connects over the UARC bus if desired.</p>
-<p>It is important to note that although this core can be used for an OS that spreads across multiple UARC cores, it is not intended to be the target of user space applications, except where those applications need to shuffle data around between UARC cores or only require integer arithmetic. c0 demonstrates the UARC principle while simultaneously acting as a mediator of data between UARC cores.</p>
-<p>c0's ISA is designed to use whatever word size is required, but it is intended to be used as a 32-bit architecture.</p>
+<p>UARC core0 (u0-x) is the primary general purpose ISA for the UARC standardized core collection. Although it is an ISA, a reference implementation is provided via emulator and SystemVerilog. The 'x' in the name refers to the bit width (e.g. u0-32 (32-bit implementation)).</p>
+<p>This architecture is targeted towards small size and efficiency in shuffling data around across the UARC bus. No floating point instructions are included since it is expected that such algorithms will not run on u0-x, but will instead be offloaded to another UARC compatible core with floating point support. Due to the nature of UARC, it is possible to implement floating point operations using a coprocessor that connects over the UARC bus and provides support to multiple cores at once.</p>
+<p>u0-x's ISA is designed to use whatever word size is required, but it is primarily intended to be used as a 32-bit architecture (u0-32). Currently, it provides no virtual memory system, and isn't compatible with SMP operating systems. A 64-bit implementation might be useful if &gt;16GB of memory (4G words) is in use per core or if 64-bit data is used often, though both of these cases seem unlikely (except in scientific applications).</p>
 <h1>Architecture</h1>
 <h3>Status</h3>
 <table><thead><tr><td>Symbol</td><td>Purpose</td></tr></thead>
@@ -79,9 +78,9 @@
 <tr><td><code>o</code></td><td>Overflow bit</td></tr>
 <tr><td><code>i</code></td><td>Interrupt bit</td></tr>
 </table>
-<p>c0 is a stack machine, meaning that all parameters are implicit and all destinations are implicit except for stack manipulation and memory access. For comparison, belt machines have an implicit destination and register machines (the most common) have explicit parameters and destination. This means that for many instructions, a stack machine's instruction is entirely composed of an opcode with no extra fields.</p>
-<p>Since no task switching is required in c0, it is not necessary to be concerned with the amount of state elements in the architecture, except where those elements require random access. Due to this, several stacks are present in the architecture aside from the main stack on which most of the processing occurs: the <a href="architecture/dstack.html">dstack</a>. For instance, the architecture also has a dedicated <a href="architecture/cstack.html">call stack</a> so that parameters can be passed on the <a href="architecture/dstack.html">dstack</a> orderly to a called routine and be consumed without worrying about the return address. A zero-overhead loop unit is also present that allows automatic conditional branching back to the beginning of the inner-most loop. The stack that contains the various loop parameters is called the <a href="architecture/lstack.html">loop stack</a>.</p>
-<p>Not all stacks present in c0 are Last-In First-Out (LIFO). The <a href="architecture/dstack.html">dstack</a> itself has dedicated copy and rotate instructions so that it is possible to copy or move things to the top of the stack. The <a href="architecture/dstack.html">dstack</a> copy instruction is intended to allow variables to be computed once and copied into place on the stack however many additional times they are required before the final value is consumed. The rotate instruction is used when it cannot be satisfied that an accumulator will be on the top of the stack when it must be accumulated to during a loop. Rotate may also need to be used in conditional branching when different branch paths do not consume values from the stack in the same order. Branch paths that are more likely to be taken should avoid the rotate instruction and rotates should be added to the less-likely path.</p>
+<p>u0-x is a stack machine, meaning that all parameters are implicit and all destinations are implicit except for stack manipulation and memory access. For comparison, belt machines have an implicit destination and register machines (the most common) have explicit parameters and destination. This means that for many instructions, a stack machine's instruction is entirely composed of an opcode with no extra fields.</p>
+<p>Since no task switching is required in u0-x, it is not necessary to be concerned with the amount of state elements in the architecture, except where those elements require random access. Due to this, several stacks are present in the architecture aside from the main stack on which most of the processing occurs: the <a href="architecture/dstack.html">dstack</a>. For instance, the architecture also has a dedicated <a href="architecture/cstack.html">call stack</a> so that parameters can be passed and returned on the <a href="architecture/dstack.html">dstack</a> orderly to a called routine and be consumed without worrying about the return address. A zero-overhead loop unit, called the <a href="architecture/lstack.html">lstack</a>, is also present, which allows automatic conditional branching back to the beginning of the inner-most loop, tracking of the iteration index, and single-instruction continue/break.</p>
+<p>Not all stacks present in u0-x are Last-In First-Out (LIFO). The <a href="architecture/dstack.html">dstack</a> itself has dedicated copy and rotate instructions so that it is possible to copy or move things to the top of the stack. The <a href="architecture/dstack.html">dstack</a> copy instruction is intended to allow variables to be computed once and copied into place on the stack however many additional times they are required before the final value is consumed. This can also be useful in loops, though it is technically more efficient to write the constants used in a loop to the immediate value in instruction memory to avoid the stack allocation at all. The rotate instruction is used when it cannot be satisfied that an accumulator will be on the top of the stack when it must be accumulated to during a loop. Rotate may also need to be used in conditional branching when different branch paths do not consume values from the stack in the same order, though this can be avoided by producing the values in the branch path. Rotate is also necessary in a few situations where operations cannot be reordered due to communications with an external system.</p>
 <p>Finally, the <a href="architecture/ifile.html">ifile</a> is a register file containing the interrupt address, enable bit, and selection bit that corresponds to each UARC bus present on the core. Each of the interrupts can be individually enabled, disabled, and set. Using the selection mechanism, several addresses can be enabled, disabled, and set simultaneously to avoid wasting time setting up interrupts or sending/receiving messages to/from multiple targets.</p>
 <h1>Registers</h1>
 <table><thead><tr><td>Name</td><td>Purpose</td></tr></thead>
@@ -93,23 +92,21 @@
 </table>
 <h1>dstack</h1>
 <p>The <strong>dstack</strong> is the primary stack on which all operations take place. This stack is the only stack that can be rotated and copied in one cycle. If the <strong>dstack</strong> is rotated, all elements below the selected element will not shift down, but all elements above it will shift down and the selected element will be placed on the top. If the <strong>dstack</strong> is copied, all elements move down and the copied element is moved to the top.</p>
-<p>All elements on the <strong>dstack</strong> are capable of being pushed once, doing nothing, popping once, or popping twice. What happens to the <strong>dstack</strong> is explicitly encoded in the <code>[6:5]</code> bits of the instruction for all instructions for which the <code>[7]</code> bit is <code>0</code>. More importantly, when the stack is rotated or copied, the <code>[5:0]</code> bits are used to encode the location to perform the operation on, which makes it quick for the instruction to be decoded.</p>
-<p>The <strong>dstack</strong> is where almost all parameters should be passed into functions and where almost all parameters should be returned from functions. Should a function need to access a loop index explicitly as a constant parameter, it can safely use loop index instructions. Information may also be passed into functions via the status bits. Except when programming manually using assembly, the compiler should not generate code that passes information using any method described above. If the compiler wishes to achieve a speed-up by preserving the DCs across the call, it should be implemented as an inline expansion of the function.</p>
+<p>All elements on the <strong>dstack</strong> are capable of being pushed once, doing nothing, popping once, or popping twice. What happens to the <strong>dstack</strong> is explicitly encoded in the <code>[6:5]</code> bits of the instruction for all instructions for which the <code>[7]</code> bit is <code>0</code> and in bits <code>[5:4]</code> for which bits <code>[7:6]</code> are <code>10</code>. More importantly, when the stack is rotated or copied, the <code>[4:0]</code> bits are used to encode the location to perform the operation on, which makes the critical path for determining how the <strong>dstack</strong> is affected by the instruction as short as possible.</p>
+<p>The <strong>dstack</strong> is where almost all parameters should be passed into functions and where almost all parameters should be returned from functions. Should a function need to access a loop index explicitly as a constant parameter, it can safely use loop index instructions. Information may also be passed into functions via the status bits. A compiler should focus on passing information purely on the stack.</p>
+<p>Inline expansion of functions is easily possible by the compiler since the inlined function consumes the parameters in the same already-optimized fashion. On a register-machine, the compiler could perform optimization passes to avoid moving registers before passing them to the function, but since the stack machine already passes parameters in the correct order, functions can be inlined efficiently after compilation without any drawbacks.</p>
 <h1>cstack</h1>
 <table><thead><tr><td>State</td><td>Result on Pop</td></tr></thead>
 <tr><td>PC</td><td>Moves PC back to location in caller after the jump/call</td></tr>
-<tr><td>DCs</td><td>Restores all DCs to previous locations</td></tr>
-<tr><td>DC modifications</td><td>Tracks if the DCs were set in the previous call</td></tr>
-<tr><td>DC directions</td><td>The direction the DCs move when written</td></tr>
 <tr><td>interrupt</td><td>Set the <code>i</code> flag to allow checks for interrupt handling</td></tr>
 </table>
-<p>The cstack is a call stack that contains state information required to return from a subroutine call. This includes things such as the PC, the DCs, and if the last call was to an interrupt. The status bits are not preserved in a call. If an interrupt is issued and accepted or either of the call instructions are executed, the cstack will be pushed. Any time a return instruction is executed, the cstack is popped. The cstack should be accessable on a single-cycle notice and thus should exist in processor memory. Because it is only pushed and popped in regular amounts, it deserves a place on-die as its own processor element, though this is not absolutely necessary, and the stack can be spilled into main memory if the need arises.</p>
-<p>If the cstack is pushed due to an interrupt, the interrupt bit is set on the cstack so that the interrupt flag can be appropriately set on a return from the interrupt and so that the processor can internally switch the mode back for the <a href="conveyor.html">conveyor</a>. The cstack also tracks if new DCs are set by this subroutine. If any particular DC is set in the subroutine, a flag is set which indicates this, and on returning from the subroutine the previous DC is restored. However, if the flag is not set, then the DC is not restored. The purpose of this is to allow a subroutine to use the DC of the parent caller and upon returning to the parent continue where the child left off. This is important for inlining functions and allowing a child to consume part of a vector pointed to by a DC. In all other cases, if the child sets its own DC, it is necessary to restore the DCs to their previous locations.</p>
+<p>The <strong>cstack</strong> is a call stack that contains state information required to return from a subroutine call. This includes the PC and if the last call was to an interrupt. The status bits are not preserved in a call. If an interrupt is issued and accepted or either of the call instructions are executed, the <strong>cstack</strong> will be pushed. Any time a return instruction is executed, the <strong>cstack</strong> is popped. The <strong>cstack</strong> should be accessable on a single-cycle notice and thus should exist in processor memory. Because it is only pushed and popped in regular amounts, it deserves a place on-die as its own processor element, though this is not absolutely necessary.</p>
+<p>The reason for including a dedicated call stack is because parameters need to be passed on the <a href="dstack.html">dstack</a>. If the return address was passed on the <a href="dstack.html">dstack</a>, it would need to be pushed before the parameters so that after the parameters are used the user can return and it would require that nothing be returned from the function. The first requirement disallows the return address to be infered when calling, while the second requirement is simply absurd, because returning things from a function is essential. The dedicated call stack ensures that returning from functions is always a trivial matter and no instruction overhead is incured dealing with return addresses (aside from the return instruction itself).</p>
+<p>If the <strong>cstack</strong> is pushed due to an interrupt, the interrupt bit is set on the <strong>cstack</strong> so that the interrupt flag can be appropriately set on a return from the interrupt and so that the processor can internally switch the mode back for the <a href="conveyor.html">conveyor</a>. The interrupt bit allows the main program to poll for if an interrupt has been handled in a loop, which can reduce the overhead of the polling in the loop to a single branch instruction.</p>
 <h1>lstack</h1>
-<p>The <strong>lstack</strong> is a stack with architecture-dependent depth which allows the initialization of loops with zero-overhead. This means that no instruction is wasted checking for loop bounds and no hardware is needed to do branch prediction for loop bounds. Additionally, for the stack processor it means that the loop index is easily obtainable in one instruction for the top four loops. Only the very top loop is checked for its bounds, so the end of a loop that is not on top of the stack should never be encountered.</p>
-<p>This stack also preserves <code>dc0</code> on each iteration so that immediate values can be consumed every loop instead of needing to load everything onto the stack. The other DCs are not preserved so that they can be used for vector operations. In this situation <code>dc0</code> is treated specially.</p>
+<p>The <strong>lstack</strong> is a stack with architecture-dependent depth which allows the initialization of loops with zero-overhead. This means that no instruction is wasted checking for loop bounds and no hardware is needed to do branch prediction for loop bounds. Additionally, for the stack processor it means that the loop index is obtainable in one instruction for the top four loops. Only the top loop is checked for its bounds, so the end of a loop that is not on top of the stack should never be encountered.</p>
 <h1>ifile</h1>
-<p>The ifile is a register file present in c0 that holds state information about each UARC bus connected to the core. The most important thing the ifile holds is if a given port is enabled, has interrupts enabled, the interrupt address, and the <code>dc0</code> to set on an interrupt to that bus. These things can all be accessed through the <a href="instruction_reference/uarc.html">UARC instructions</a> on the c0.</p>
+<p>The <strong>ifile</strong> is a register file present in c0 that holds state information about each UARC bus connected to the core. The <strong>ifile</strong> holds is if a given bus is selected, if a bus has interrupts enabled, and the bus' interrupt address. These things can all be accessed through the <a href="instruction_reference/uarc.html">UARC instructions</a> on the u0-x.</p>
 <h1>conveyor</h1>
 <p>The conveyor is a processor element found in belt machines in which the destination register does not need to be specified, but the parameters do. Since we are embedding the conveyor into a stack processor, operations occasionally consume parameters from the stack in defined positions and place the result on the conveyor so that it can be retrieved when desired. This allows for two things: It allows asynchronous operations to be synchronized when desired and it allows operations that have multiple outputs to provide their results on the stack in the correct positions.</p>
 <p>As was stated, the conveyor is capable of synchronizing asynchronous operations. For instance, if a division is executed, the result will be placed onto the conveyor, but that doesn't mean it is completed. If the programmer attempts to read the value from the conveyor, it will trigger a synchronization that waits until the division is complete before reading the value from the conveyor.</p>
@@ -185,111 +182,153 @@
 <li><code>iflag</code> - Interrupt Flag</li>
 <li><code>i[0-3]</code> - Loop Indices</li>
 <li><code>cv[0-F]</code> - <a href="architecture/conveyor.html">Conveyor Belt</a> Values</li>
-<li><code>ls</code> - <a href="architecture/lstack.html">lstack</a></li>
+<li><code>ls</code> - <a href="architecture/lstack.html">lstack</a>
+<ul>
+<li>Format is (beginning, end, iterations, iterator)</li>
+</ul>
+</li>
 <li><code>if</code> - <a href="architecture/ifile.html">ifile</a></li>
 <li><code>n..</code> - <code>n</code> anonymous words on the stack</li>
+<li><code>imm</code> - Immediate value</li>
 </ul>
 <h2>Instruction Listing By Opcode</h2>
-<table><thead><tr><td>Op</td><td>Instruction</td><td>dstack</td><td>Side Effects</td></tr></thead>
-<tr><td><code>00</code> - <code>03</code></td><td>rread#</td><td><code>a -- mem[dc# + a]</code></td></tr>
-<tr></tr>
-<tr><td><code>04</code> - <code>07</code></td><td>add#</td><td><code>a -- (a + mem[dc#])</code></td><td>dc# advances; <code>c</code>, <code>o</code></td></tr>
-<tr><td><code>08</code></td><td>inc</td><td><code>a -- (a + 1)</code></td><td><code>c</code>, <code>o</code></td></tr>
-<tr><td><code>09</code></td><td>dec</td><td><code>a -- (a - 1)</code></td><td><code>c</code>, <code>o</code></td></tr>
-<tr><td><code>0A</code></td><td>carry</td><td><code>v -- (v + c)</code></td><td><code>c</code>, <code>o</code></td></tr>
-<tr><td><code>0B</code></td><td>borrow</td><td><code>v -- (v + c - 1)</code></td><td><code>c</code>, <code>o</code></td></tr>
-<tr><td><code>0C</code></td><td>inv</td><td><code>v -- ~v</code></td><td> </td></tr>
-<tr><td><code>0D</code></td><td>break</td><td><code>--</code></td><td>Pops the lstack and goes to end of loop</td></tr>
-<tr><td><code>0E</code></td><td>reads</td><td><code>a -- mem[a]</code></td><td>Synchronous read</td></tr>
-<tr><td><code>0F</code></td><td>ret</td><td><code>--</code></td><td>Pops <a href="architecture/cstack.html">cstack</a></td></tr>
-<tr><td><code>10</code></td><td>continue</td><td><code>--</code></td><td>Goes to the next loop iteration</td></tr>
-<tr><td><code>11</code></td><td>ien</td><td><code>--</code></td><td>Enables only selected interrupts</td></tr>
-<tr><td><code>12</code></td><td>recv</td><td><code>--</code></td><td>Interrupt sync; <code>cv &lt;- bus, v</code></td></tr>
-<tr><td><code>13</code></td><td>ld0i</td><td><code>--</code></td><td><code>dc0 = mem[dc0]</code>; preserve dc0; <code>dc0</code> forwards</td></tr>
-<tr><td><code>14</code></td><td>kill</td><td><code>--</code></td><td>Kill all selected cores</td></tr>
-<tr><td><code>15</code></td><td>wait</td><td><code>--</code></td><td>Waits for an interrupt before continuing</td></tr>
-<tr><td><code>16</code></td><td>getbp</td><td><code>b -- perm</code></td><td>Gets the <a href="uarc.md">permission</a> on bus <code>b</code></td></tr>
-<tr><td><code>17</code></td><td>getba</td><td><code>b -- addr</code></td><td>Gets the <a href="uarc.md">address</a> on bus <code>b</code></td></tr>
-<tr><td><code>18</code></td><td>calli</td><td><code>--</code></td><td><code>dc0 -&gt; pc</code>; push <a href="architecture/cstack.html">cstack</a></td></tr>
-<tr><td><code>19</code></td><td>jmpi</td><td><code>--</code></td><td><code>dc0 -&gt; pc</code></td></tr>
-<tr><td><code>1A</code></td><td>jc</td><td><code>--</code></td><td>if <code>c</code> then <code>dc0 -&gt; pc</code></td></tr>
-<tr><td><code>1B</code></td><td>jnc</td><td><code>--</code></td><td>if <code>~c</code> then <code>dc0 -&gt; pc</code></td></tr>
-<tr><td><code>1C</code></td><td>jo</td><td><code>--</code></td><td>if <code>o</code> then <code>dc0 -&gt; pc</code></td></tr>
-<tr><td><code>1D</code></td><td>jno</td><td><code>--</code></td><td>if <code>~o</code> then <code>dc0 -&gt; pc</code></td></tr>
-<tr><td><code>1E</code></td><td>ji</td><td><code>--</code></td><td>if <code>iflag</code> then <code>dc0 -&gt; pc</code></td></tr>
-<tr><td><code>1F</code></td><td>jni</td><td><code>--</code></td><td>if <code>~iflag</code> then <code>dc0 -&gt; pc</code></td></tr>
-<tr><td><code>20</code> - <code>2F</code></td><td>cv#</td><td><code>-- cv#</code></td><td>cv# synchronizes</td></tr>
-<tr><td><code>30</code> - <code>33</code></td><td>read#</td><td><code>-- mem[dc#]</code></td><td>dc# advances</td></tr>
-<tr><td><code>34</code> - <code>37</code></td><td>get#</td><td><code>-- dc#</code></td><td> </td></tr>
-<tr><td><code>38</code> - <code>3B</code></td><td>i#</td><td><code>-- i#</code></td><td> </td></tr>
-<tr><td><code>3C</code></td><td>p0</td><td><code>-- 0</code></td><td> </td></tr>
-<tr><td><code>3D</code></td><td>readi</td><td><code>-- mem[mem[dc0]]</code></td><td> </td></tr>
-<tr><td><code>3E</code></td><td>getp</td><td><code>-- perm</code></td><td>Get UARC permission</td></tr>
-<tr><td><code>3F</code></td><td>geta</td><td><code>-- addr</code></td><td>Get UARC address</td></tr>
-<tr><td><code>40</code> - <code>43</code></td><td>write#</td><td><code>v --</code></td><td><code>mem[dc#] = v</code>; dc# advances</td></tr>
-<tr><td><code>44</code> - <code>47</code></td><td>setf#</td><td><code>a --</code></td><td><code>dc# = a</code>; dc# is write post-inc</td></tr>
-<tr><td><code>48</code> - <code>4B</code></td><td>setb#</td><td><code>a --</code></td><td><code>dc# = a</code>; dc# is write pre-dec</td></tr>
-<tr><td><code>4C</code></td><td>add</td><td><code>a b -- (a + b)</code></td><td><code>c</code>, <code>o</code></td></tr>
-<tr><td><code>4D</code></td><td>sub</td><td><code>a b -- (a - b)</code></td><td><code>c</code>, <code>o</code></td></tr>
-<tr><td><code>4E</code></td><td>lsl</td><td><code>a b -- (a &lt;&lt; b)</code></td></tr>
-<tr></tr>
-<tr><td><code>4F</code></td><td>lsr</td><td><code>a b -- (a &gt;&gt; b)</code></td></tr>
-<tr></tr>
-<tr><td><code>50</code></td><td>csl</td><td><code>a b -- ((a &lt;&lt; b) or (a &gt;&gt; (b - WORD)))</code></td><td> </td></tr>
-<tr><td><code>51</code></td><td>csr</td><td><code>a b -- ((a &gt;&gt; b) or (a &lt;&lt; (b - WORD)))</code></td><td> </td></tr>
-<tr><td><code>52</code></td><td>asr</td><td><code>a b -- (a &gt;&gt;&gt; b)</code></td></tr>
-<tr></tr>
-<tr><td><code>53</code></td><td>and</td><td><code>a b -- (a &amp; b)</code></td><td> </td></tr>
-<tr><td><code>54</code></td><td>or</td><td><code>a b -- (a or b)</code></td><td> </td></tr>
-<tr><td><code>55</code></td><td>xor</td><td><code>a b -- (a ^ b)</code></td><td> </td></tr>
-<tr><td><code>56</code></td><td>reada</td><td><code>a --</code></td><td><code>cv &lt;- mem[a]</code></td></tr>
-<tr><td><code>57</code></td><td>call</td><td><code>a --</code></td><td><code>pc = a</code>; push <a href="architecture/cstack.html">cstack</a></td></tr>
-<tr><td><code>58</code></td><td>jmp</td><td><code>a --</code></td><td><code>pc = a</code></td></tr>
-<tr><td><code>59</code></td><td>iset</td><td><code>d --</code></td><td>Set selected interrupt addresses and dc0s</td></tr>
-<tr><td><code>5A</code></td><td>seb</td><td><code>b --</code></td><td>Set a single bus</td></tr>
-<tr><td><code>5B</code></td><td>slb</td><td><code>b --</code></td><td>Select an additional UARC bus</td></tr>
-<tr><td><code>5C</code></td><td>usb</td><td><code>b --</code></td><td>Unselect a UARC bus</td></tr>
-<tr><td><code>5D</code></td><td>send</td><td><code>v --</code></td><td>Send value to selected buses</td></tr>
-<tr><td><code>5E</code></td><td>writei</td><td><code>v --</code></td><td><code>mem[mem[dc0]] = v</code></td></tr>
-<tr><td><code>5F</code></td><td>loopi</td><td><code>n --</code></td><td><code>ls &lt;- n, dc0, 0</code></td></tr>
-<tr><td><code>60</code> - <code>63</code></td><td>rawrite#</td><td><code>v a --</code></td><td><code>mem[dc# + a] = v</code></td></tr>
-<tr><td><code>64</code> - <code>67</code></td><td>rewrite#</td><td><code>v a --</code></td><td><code>mem[mem[dc#] + a] = v</code></td></tr>
-<tr><td><code>68</code></td><td>write</td><td><code>v a --</code></td><td><code>mem[a] = v</code></td></tr>
-<tr><td><code>69</code></td><td>writep</td><td><code>v a --</code></td><td><code>progmem[a] = v</code></td></tr>
-<tr><td><code>6A</code></td><td>writepi</td><td><code>ins a --</code></td><td><code>progmem[a] = ins</code></td></tr>
-<tr><td><code>6B</code></td><td>jeq</td><td><code>a b --</code></td><td>if <code>a == b</code> then <code>dc0 -&gt; pc</code></td></tr>
-<tr><td><code>6C</code></td><td>jne</td><td><code>a b --</code></td><td>if <code>a != b</code> then <code>dc0 -&gt; pc</code></td></tr>
-<tr><td><code>6D</code></td><td>les</td><td><code>a b --</code></td><td>if <code>a &lt; b</code> then <code>dc0 -&gt; pc</code></td></tr>
-<tr><td><code>6E</code></td><td>leq</td><td><code>a b --</code></td><td>if <code>a &lt;= b</code> then <code>dc0 -&gt; pc</code></td></tr>
-<tr><td><code>6F</code></td><td>lesu</td><td><code>a b --</code></td><td>if <code>a &lt; b</code> then <code>dc0 -&gt; pc</code></td></tr>
-<tr><td><code>70</code></td><td>lequ</td><td><code>a b --</code></td><td>if <code>a &lt;= b</code> then <code>dc0 -&gt; pc</code></td></tr>
-<tr><td><code>71</code></td><td>in</td><td><code>n a --</code></td><td>Stream in to <code>a</code>; <code>cv &lt;- bus</code></td></tr>
-<tr><td><code>72</code></td><td>out</td><td><code>n a --</code></td><td>Stream n words to buses from a</td></tr>
-<tr><td><code>73</code></td><td>incept</td><td><code>n a --</code></td><td>Incept target cores; same as out</td></tr>
-<tr><td><code>74</code></td><td>set</td><td><code>m s --</code></td><td>Clear ifile and set register <code>s</code> to <code>m</code></td></tr>
-<tr><td><code>75</code></td><td>sel</td><td><code>m s --</code></td><td>Ors <code>m</code> with register <code>s</code> of ifile</td></tr>
-<tr><td><code>76</code></td><td>seta</td><td><code>perm addr --</code></td><td>Sets UARC permission and address delegation</td></tr>
-<tr><td><code>77</code></td><td>loop</td><td><code>n e --</code></td><td><code>ls &lt;- n, e, 0</code></td></tr>
-<tr><td><code>78</code></td><td>sef</td><td><code>a f --</code></td><td>Sets fault <code>f</code> handler to <code>a</code></td></tr>
-<tr><td><code>79</code></td><td>mul</td><td><code>a b --</code></td><td><code>cv &lt;- low(a * b), high(a * b)</code></td></tr>
-<tr><td><code>7A</code></td><td>mulu</td><td><code>a b --</code></td><td><code>cv &lt;- low(a * b), high(a * b)</code></td></tr>
-<tr><td><code>7B</code></td><td>div</td><td><code>a b --</code></td><td><code>cv &lt;- a / b, a % b</code></td></tr>
-<tr><td><code>7C</code></td><td>divu</td><td><code>a b --</code></td><td><code>cv &lt;- a / b, a % b</code></td></tr>
-<tr><td><code>7F</code></td><td>reset</td><td><code>d p --</code></td><td><code>pc = p, dc0 = d</code></td></tr>
-<tr><td><code>80</code> - <code>BF</code></td><td>rot#</td><td><code>v #.. -- #.. v</code></td><td> </td></tr>
-<tr><td><code>C0</code> - <code>FF</code></td><td>copy#</td><td><code>v #.. -- v #.. v</code></td><td> </td></tr>
+<table><thead><tr><td>Op</td><td>Instruction</td><td>Octets</td><td>dstack</td><td>Side Effects</td></tr></thead>
+<tr><td><code>00</code> - <code>03</code></td><td>move#</td><td>2</td><td><code>--</code></td><td><code>dc# += imm</code></td></tr>
+<tr><td><code>04</code> - <code>07</code></td><td>raread#</td><td>1</td><td><code>a -- mem[dc# + a]</code></td><td> </td></tr>
+<tr><td><code>08</code> - <code>0B</code></td><td>rereadi#</td><td>2</td><td><code>--</code></td><td><code>cv &lt;- mem[mem[dc#] + imm]</code></td></tr>
+<tr><td><code>0C</code></td><td>inc</td><td>1</td><td><code>a -- (a + 1)</code></td><td><code>c</code>, <code>o</code></td></tr>
+<tr><td><code>0D</code></td><td>dec</td><td>1</td><td><code>a -- (a - 1)</code></td><td><code>c</code>, <code>o</code></td></tr>
+<tr><td><code>0E</code></td><td>carry</td><td>1</td><td><code>v -- (v + c)</code></td><td><code>c</code>, <code>o</code></td></tr>
+<tr><td><code>0F</code></td><td>borrow</td><td>1</td><td><code>v -- (v + c - 1)</code></td><td><code>c</code>, <code>o</code></td></tr>
+<tr><td><code>10</code></td><td>inv</td><td>1</td><td><code>v -- ~v</code></td><td> </td></tr>
+<tr><td><code>11</code></td><td>break</td><td>1</td><td><code>--</code></td><td>Pops the <a href="architecture/lstack.html">lstack</a> and goes to end of loop</td></tr>
+<tr><td><code>12</code></td><td>return</td><td>1</td><td><code>--</code></td><td>pop <a href="architecture/cstack.html">cstack</a></td></tr>
+<tr><td><code>13</code></td><td>continue</td><td>1</td><td><code>--</code></td><td>Goes to the next loop iteration</td></tr>
+<tr><td><code>14</code></td><td>inten</td><td>1</td><td><code>--</code></td><td>Enables only selected interrupts</td></tr>
+<tr><td><code>15</code></td><td>intrecv</td><td>1</td><td><code>--</code></td><td>Interrupt sync; <code>cv &lt;- bus, v</code></td></tr>
+<tr><td><code>16</code></td><td>iloop</td><td>3</td><td><code>--</code></td><td><code>ls &lt;- pc + 1, pc + imm, ∞, 0</code></td></tr>
+<tr><td><code>17</code></td><td>kill</td><td>1</td><td><code>--</code></td><td>Kill all selected cores</td></tr>
+<tr><td><code>18</code></td><td>intwait</td><td>1</td><td><code>--</code></td><td>Waits for an interrupt before continuing</td></tr>
+<tr><td><code>19</code></td><td>getbp</td><td>1</td><td><code>b -- perm</code></td><td>Gets the <a href="uarc.md">permission</a> on bus <code>b</code></td></tr>
+<tr><td><code>1A</code></td><td>getba</td><td>1</td><td><code>b -- addr</code></td><td>Gets the <a href="uarc.md">address</a> on bus <code>b</code></td></tr>
+<tr><td><code>1B</code></td><td>calli</td><td>1 + WORD</td><td><code>--</code></td><td><code>pc = imm</code>; push <a href="architecture/cstack.html">cstack</a></td></tr>
+<tr><td><code>1C</code></td><td>jmpi</td><td>1 + WORD</td><td><code>--</code></td><td><code>pc = imm</code></td></tr>
+<tr><td><code>1D</code></td><td>bra</td><td>3</td><td><code>--</code></td><td><code>pc += imm</code></td></tr>
+<tr><td><code>1E</code></td><td>RESERVED</td><td>1</td><td><code>--</code></td><td> </td></tr>
+<tr><td><code>1F</code></td><td>RESERVED</td><td>1</td><td><code>--</code></td><td> </td></tr>
+<tr><td><code>20</code> - <code>2F</code></td><td>cv#</td><td>1</td><td><code>-- cv#</code></td><td>cv# synchronizes</td></tr>
+<tr><td><code>30</code> - <code>33</code></td><td>read#</td><td>2</td><td><code>-- mem[dc#]</code></td><td><code>dc# += imm</code></td></tr>
+<tr><td><code>34</code> - <code>37</code></td><td>rareadi#</td><td>2</td><td><code>-- mem[dc# + imm]</code></td><td> </td></tr>
+<tr><td><code>38</code> - <code>3B</code></td><td>get#</td><td>1</td><td><code>-- dc#</code></td><td> </td></tr>
+<tr><td><code>3C</code> - <code>3F</code></td><td>i#</td><td>1</td><td><code>-- i#</code></td><td> </td></tr>
+<tr><td><code>40</code> - <code>43</code></td><td>writepre#</td><td>2</td><td><code>v --</code></td><td><code>dc# += imm</code>; <code>mem[dc#] = v</code></td></tr>
+<tr><td><code>44</code> - <code>47</code></td><td>writepst#</td><td>2</td><td><code>v --</code></td><td><code>mem[dc#] = v</code>; <code>dc# += imm</code></td></tr>
+<tr><td><code>48</code> - <code>4B</code></td><td>set#</td><td>1</td><td><code>a --</code></td><td><code>dc# = a</code></td></tr>
+<tr><td><code>4C</code> - <code>4F</code></td><td>rawritei#</td><td>2</td><td><code>v --</code></td><td><code>mem[dc# + imm] = v</code></td></tr>
+<tr><td><code>50</code> - <code>53</code></td><td>rewritei#</td><td>2</td><td><code>v --</code></td><td><code>mem[mem[dc#] + imm] = v</code></td></tr>
+<tr><td><code>54</code> - <code>57</code></td><td>reread#</td><td>2</td><td><code>a --</code></td><td><code>cv &lt;- mem[mem[dc#] + a]</code></td></tr>
+<tr><td><code>58</code></td><td>add</td><td>1</td><td><code>a b -- (a + b)</code></td><td><code>c</code>, <code>o</code></td></tr>
+<tr><td><code>59</code></td><td>sub</td><td>1</td><td><code>a b -- (a - b)</code></td><td><code>c</code>, <code>o</code></td></tr>
+<tr><td><code>5A</code></td><td>lsl</td><td>1</td><td><code>a b -- (a &lt;&lt; b)</code></td><td> </td></tr>
+<tr><td><code>5B</code></td><td>lsr</td><td>1</td><td><code>a b -- (a &gt;&gt; b)</code></td><td> </td></tr>
+<tr><td><code>5C</code></td><td>csl</td><td>1</td><td><code>a b -- ((a &lt;&lt; b) or (a &gt;&gt; (b - WORD)))</code></td><td> </td></tr>
+<tr><td><code>5D</code></td><td>csr</td><td>1</td><td><code>a b -- ((a &gt;&gt; b) or (a &lt;&lt; (b - WORD)))</code></td><td> </td></tr>
+<tr><td><code>5E</code></td><td>asr</td><td>1</td><td><code>a b -- (a &gt;&gt;&gt; b)</code></td><td> </td></tr>
+<tr><td><code>5F</code></td><td>and</td><td>1</td><td><code>a b -- (a &amp; b)</code></td><td> </td></tr>
+<tr><td><code>60</code> - <code>63</code></td><td>rewrite#</td><td>2</td><td><code>v a --</code></td><td><code>mem[mem[dc#] + a] = v</code></td></tr>
+<tr><td><code>64</code> - <code>67</code></td><td>rawrite#</td><td>1</td><td><code>v a --</code></td><td><code>mem[dc# + a] = v</code></td></tr>
+<tr><td><code>68</code></td><td>write</td><td>1</td><td><code>v a --</code></td><td><code>mem[a] = v</code></td></tr>
+<tr><td><code>69</code></td><td>writep</td><td>1</td><td><code>v a --</code></td><td><code>progmem[a] = v</code></td></tr>
+<tr><td><code>6A</code></td><td>writepo</td><td>1</td><td><code>ins a --</code></td><td><code>progmem[a] = ins</code></td></tr>
+<tr><td><code>6B</code></td><td>beq</td><td>3</td><td><code>a b --</code></td><td>if <code>a == b</code> then <code>pc += imm</code></td></tr>
+<tr><td><code>6C</code></td><td>bne</td><td>3</td><td><code>a b --</code></td><td>if <code>a != b</code> then <code>pc += imm</code></td></tr>
+<tr><td><code>6D</code></td><td>bles</td><td>3</td><td><code>a b --</code></td><td>if <code>a &lt; b</code> then <code>pc += imm</code></td></tr>
+<tr><td><code>6E</code></td><td>bleq</td><td>3</td><td><code>a b --</code></td><td>if <code>a &lt;= b</code> then <code>pc += imm</code></td></tr>
+<tr><td><code>6F</code></td><td>blesu</td><td>3</td><td><code>a b --</code></td><td>if <code>a &lt; b</code> then <code>pc += imm</code></td></tr>
+<tr><td><code>70</code></td><td>blequ</td><td>3</td><td><code>a b --</code></td><td>if <code>a &lt;= b</code> then <code>pc += imm</code></td></tr>
+<tr><td><code>71</code></td><td>recv</td><td>1</td><td><code>n a --</code></td><td>Stream in to <code>a</code>; <code>cv &lt;- bus</code></td></tr>
+<tr><td><code>72</code></td><td>send</td><td>1</td><td><code>n a --</code></td><td>Stream <code>n</code> words to buses from <code>a</code></td></tr>
+<tr><td><code>73</code></td><td>incept</td><td>1</td><td><code>n a --</code></td><td>Incept target cores; see send</td></tr>
+<tr><td><code>74</code></td><td>set</td><td>1</td><td><code>m s --</code></td><td>Clear ifile and set register <code>s</code> to <code>m</code></td></tr>
+<tr><td><code>75</code></td><td>sel</td><td>1</td><td><code>m s --</code></td><td>Ors <code>m</code> with register <code>s</code> of ifile</td></tr>
+<tr><td><code>76</code></td><td>setpa</td><td>1</td><td><code>perm addr --</code></td><td>Sets UARC permission and address delegation</td></tr>
+<tr><td><code>77</code></td><td>expect</td><td>3</td><td><code>v b --</code></td><td>Send <code>v</code> to bus <code>b</code>; <code>cv &lt;- response</code></td></tr>
+<tr><td><code>78</code></td><td>sef</td><td>1</td><td><code>a f --</code></td><td>Sets fault <code>f</code> handler to <code>a</code></td></tr>
+<tr><td><code>79</code></td><td>reset</td><td>1</td><td><code>p _ --</code></td><td><code>pc = p</code></td></tr>
+<tr><td><code>7A</code></td><td>ddrop</td><td>1</td><td><code>_ _ --</code></td><td>Drops two elements from the stack</td></tr>
+<tr><td><code>7B</code></td><td>RESERVED</td><td>1</td><td><code>_ _ --</code></td><td> </td></tr>
+<tr><td><code>7C</code></td><td>RESERVED</td><td>1</td><td><code>_ _ --</code></td><td> </td></tr>
+<tr><td><code>7D</code></td><td>RESERVED</td><td>1</td><td><code>_ _ --</code></td><td> </td></tr>
+<tr><td><code>7E</code></td><td>RESERVED</td><td>1</td><td><code>_ _ --</code></td><td> </td></tr>
+<tr><td><code>7F</code></td><td>RESERVED</td><td>1</td><td><code>_ _ --</code></td><td> </td></tr>
+<tr><td><code>80</code></td><td>addi</td><td>1 + WORD</td><td><code>a -- (a + imm)</code></td><td><code>c</code>, <code>o</code></td></tr>
+<tr><td><code>81</code></td><td>subi</td><td>1 + WORD</td><td><code>a -- (imm - a)</code></td><td><code>c</code>, <code>o</code></td></tr>
+<tr><td><code>82</code></td><td>lsli</td><td>2</td><td><code>a -- (a &lt;&lt; imm)</code></td><td> </td></tr>
+<tr><td><code>83</code></td><td>csli</td><td>2</td><td><code>a -- ((a &lt;&lt; imm) or (a &gt;&gt; (imm - WORD)))</code></td><td> </td></tr>
+<tr><td><code>84</code></td><td>asri</td><td>2</td><td><code>a -- (a &gt;&gt;&gt; imm)</code></td><td> </td></tr>
+<tr><td><code>85</code></td><td>andi</td><td>1 + WORD</td><td><code>a -- (a &amp; b)</code></td><td> </td></tr>
+<tr><td><code>86</code></td><td>ori</td><td>1 + WORD</td><td><code>a -- (a or b)</code></td><td> </td></tr>
+<tr><td><code>87</code></td><td>xori</td><td>1 + WORD</td><td><code>a -- (a ^ b)</code></td><td> </td></tr>
+<tr><td><code>88</code></td><td>RESERVED</td><td>1</td><td><code>--</code></td><td> </td></tr>
+<tr><td><code>89</code></td><td>RESERVED</td><td>1</td><td><code>--</code></td><td> </td></tr>
+<tr><td><code>8A</code></td><td>bc</td><td>3</td><td><code>--</code></td><td>if <code>c</code> then <code>pc += imm</code></td></tr>
+<tr><td><code>8B</code></td><td>bnc</td><td>3</td><td><code>--</code></td><td>if <code>~c</code> then <code>pc += imm</code></td></tr>
+<tr><td><code>8C</code></td><td>bo</td><td>3</td><td><code>--</code></td><td>if <code>o</code> then <code>pc += imm</code></td></tr>
+<tr><td><code>8D</code></td><td>bno</td><td>3</td><td><code>--</code></td><td>if <code>~o</code> then <code>pc += imm</code></td></tr>
+<tr><td><code>8E</code></td><td>bi</td><td>3</td><td><code>--</code></td><td>if <code>i</code> then <code>pc += imm</code>; <code>i = 0</code></td></tr>
+<tr><td><code>8F</code></td><td>bni</td><td>3</td><td><code>--</code></td><td>if <code>~i</code> then <code>pc += imm</code>; <code>i = 0</code></td></tr>
+<tr><td><code>90</code></td><td>imm8</td><td>2</td><td><code>-- imm</code></td><td> </td></tr>
+<tr><td><code>91</code></td><td>imm16</td><td>3</td><td><code>-- imm</code></td><td> </td></tr>
+<tr><td><code>92</code></td><td>imm32</td><td>5</td><td><code>-- imm</code></td><td> </td></tr>
+<tr><td><code>93</code></td><td>imm64</td><td>9</td><td><code>-- imm</code></td><td>Only supported on u0-64</td></tr>
+<tr><td><code>94</code></td><td>getp</td><td>1</td><td><code>-- perm</code></td><td>Get UARC permission</td></tr>
+<tr><td><code>95</code></td><td>geta</td><td>1</td><td><code>-- addr</code></td><td>Get UARC address</td></tr>
+<tr><td><code>96</code></td><td>RESERVED</td><td>1</td><td><code>-- _</code></td><td> </td></tr>
+<tr><td><code>97</code></td><td>RESERVED</td><td>1</td><td><code>-- _</code></td><td> </td></tr>
+<tr><td><code>98</code></td><td>RESERVED</td><td>1</td><td><code>-- _</code></td><td> </td></tr>
+<tr><td><code>99</code></td><td>RESERVED</td><td>1</td><td><code>-- _</code></td><td> </td></tr>
+<tr><td><code>9A</code></td><td>RESERVED</td><td>1</td><td><code>-- _</code></td><td> </td></tr>
+<tr><td><code>9B</code></td><td>RESERVED</td><td>1</td><td><code>-- _</code></td><td> </td></tr>
+<tr><td><code>9C</code></td><td>RESERVED</td><td>1</td><td><code>-- _</code></td><td> </td></tr>
+<tr><td><code>9D</code></td><td>RESERVED</td><td>1</td><td><code>-- _</code></td><td> </td></tr>
+<tr><td><code>9E</code></td><td>RESERVED</td><td>1</td><td><code>-- _</code></td><td> </td></tr>
+<tr><td><code>9F</code></td><td>RESERVED</td><td>1</td><td><code>-- _</code></td><td> </td></tr>
+<tr><td><code>A0</code></td><td>or</td><td>1</td><td><code>a b -- (a or b)</code></td><td> </td></tr>
+<tr><td><code>A1</code></td><td>xor</td><td>1</td><td><code>a b -- (a ^ b)</code></td><td> </td></tr>
+<tr><td><code>A2</code></td><td>reada</td><td>1</td><td><code>a --</code></td><td><code>cv &lt;- mem[a]</code></td></tr>
+<tr><td><code>A3</code></td><td>call</td><td>1</td><td><code>a --</code></td><td><code>pc = a</code>; push <a href="architecture/cstack.html">cstack</a></td></tr>
+<tr><td><code>A4</code></td><td>jmp</td><td>1</td><td><code>a --</code></td><td><code>pc = a</code></td></tr>
+<tr><td><code>A5</code></td><td>intset</td><td>1</td><td><code>p --</code></td><td>Set selected interrupt addresses to <code>p</code></td></tr>
+<tr><td><code>A6</code></td><td>seb</td><td>1</td><td><code>b --</code></td><td>Set a single bus</td></tr>
+<tr><td><code>A7</code></td><td>slb</td><td>1</td><td><code>b --</code></td><td>Select an additional UARC bus</td></tr>
+<tr><td><code>A8</code></td><td>usb</td><td>1</td><td><code>b --</code></td><td>Unselect a UARC bus</td></tr>
+<tr><td><code>A9</code></td><td>intsend</td><td>1</td><td><code>v --</code></td><td>Send value to selected buses</td></tr>
+<tr><td><code>AA</code></td><td>loop</td><td>3</td><td><code>n --</code></td><td><code>ls &lt;- pc + 1, pc + imm, n, 0</code></td></tr>
+<tr><td><code>AB</code></td><td>bz</td><td>3</td><td><code>n --</code></td><td>if <code>n == 0</code> then <code>pc += imm</code></td></tr>
+<tr><td><code>AC</code></td><td>bnz</td><td>3</td><td><code>n --</code></td><td>if <code>n != 0</code> then <code>pc += imm</code></td></tr>
+<tr><td><code>AD</code></td><td>writepi</td><td>1 + WORD</td><td><code>v --</code></td><td>Writes <code>v</code> to instruction memory at <code>imm</code></td></tr>
+<tr><td><code>AE</code></td><td>writepri</td><td>3</td><td><code>v --</code></td><td>Writes <code>v</code> to instruction memory at <code>pc + imm</code></td></tr>
+<tr><td><code>AF</code></td><td>drop</td><td>1</td><td><code>_ --</code></td><td>Drops one element from the stack</td></tr>
+<tr><td><code>B0</code></td><td>RESERVED</td><td>1</td><td><code>_ _ --</code></td><td> </td></tr>
+<tr><td><code>B1</code></td><td>RESERVED</td><td>1</td><td><code>_ _ --</code></td><td> </td></tr>
+<tr><td><code>B2</code></td><td>RESERVED</td><td>1</td><td><code>_ _ --</code></td><td> </td></tr>
+<tr><td><code>B3</code></td><td>RESERVED</td><td>1</td><td><code>_ _ --</code></td><td> </td></tr>
+<tr><td><code>B4</code></td><td>RESERVED</td><td>1</td><td><code>_ _ --</code></td><td> </td></tr>
+<tr><td><code>B5</code></td><td>RESERVED</td><td>1</td><td><code>_ _ --</code></td><td> </td></tr>
+<tr><td><code>B6</code></td><td>RESERVED</td><td>1</td><td><code>_ _ --</code></td><td> </td></tr>
+<tr><td><code>B7</code></td><td>RESERVED</td><td>1</td><td><code>_ _ --</code></td><td> </td></tr>
+<tr><td><code>B8</code></td><td>RESERVED</td><td>1</td><td><code>_ _ --</code></td><td> </td></tr>
+<tr><td><code>B9</code></td><td>RESERVED</td><td>1</td><td><code>_ _ --</code></td><td> </td></tr>
+<tr><td><code>BA</code></td><td>RESERVED</td><td>1</td><td><code>_ _ --</code></td><td> </td></tr>
+<tr><td><code>BB</code></td><td>RESERVED</td><td>1</td><td><code>_ _ --</code></td><td> </td></tr>
+<tr><td><code>BC</code></td><td>RESERVED</td><td>1</td><td><code>_ _ --</code></td><td> </td></tr>
+<tr><td><code>BD</code></td><td>RESERVED</td><td>1</td><td><code>_ _ --</code></td><td> </td></tr>
+<tr><td><code>BE</code></td><td>RESERVED</td><td>1</td><td><code>_ _ --</code></td><td> </td></tr>
+<tr><td><code>BF</code></td><td>RESERVED</td><td>1</td><td><code>_ _ --</code></td><td> </td></tr>
+<tr><td><code>C0</code> - <code>DF</code></td><td>rot#</td><td><code>v #.. -- #.. v</code></td><td> </td></tr>
+<tr><td><code>E0</code> - <code>FF</code></td><td>copy#</td><td><code>v #.. -- v #.. v</code></td><td> </td></tr>
 </table>
 <h1>Arithmetic Instructions</h1>
-<h2><code>add#</code></h2>
-<p><code>a -- (a + mem[dc#])</code></p>
-<h4>Description</h4>
-<p><code>add#</code> adds the top of the <a href="architecture/dstack.html">dstack</a> with the immediate value from <code>dc#</code>. The <code>o</code> and <code>c</code> bits are set, but not consumed. <code>dc#</code> is incremented.</p>
-<h4>Side Effects</h4>
-<ul>
-<li><code>c = (a + mem[dc#])[WORD]</code></li>
-<li><code>o = (a[WORD - 1] ^ mem[dc#][WORD - 1]) ? 0 : a[WORD - 1] ^ (a + mem[dc#])[WORD - 1]</code></li>
-</ul>
-<hr />
 <h2><code>inc</code></h2>
 <p><code>a -- (a + 1)</code></p>
 <h4>Description</h4>
@@ -410,65 +449,56 @@
 <li><code>( -- hC000000)</code></li>
 </ul>
 <hr />
-<h2><code>mul</code></h2>
-<p><code>a b -- (a * b)</code></p>
+<h2><code>addi</code></h2>
+<p><code>a -- (a + imm)</code></p>
+<h4>Immediate (WORD)</h4>
+<p>The initial opcode byte is followed by a full processor word. This word is signed.</p>
 <h4>Description</h4>
-<p><code>mul</code> multiplies two signed numbers (<code>a</code> and <code>b</code>) with width <code>WORD</code> and produces a result with width <code>2 * WORD</code>. The lower <code>WORD</code> and the higher <code>WORD</code> bits (both including a sign bit) are placed on the <a href="architecture/conveyor.html">conveyor</a>.</p>
+<p><code>addi</code> takes parameter <code>a</code> from the stack and adds it with the immediate value <code>imm</code>. The carry bit is set by this instruction, but is not consumed.</p>
 <h4>Side Effects</h4>
 <ul>
-<li>The lowest <code>WORD</code> and highest <code>WORD</code> bits are placed onto the <a href="architecture/conveyor.html">conveyor</a> in that order</li>
-<li><code>o</code> is <code>1</code> if any significant bits are placed into the conveyor</li>
-</ul>
-<h4>Examples (with WORD of 32)</h4>
-<pre><code>h80000000 2 mul cv1 cv0
-</code></pre>
-<ul>
-<li><code>( -- h80000000 hFFFFFFFE)</code></li>
-</ul>
-<hr />
-<h2><code>mulu</code></h2>
-<p><code>a b -- (a * b)</code></p>
-<h4>Description</h4>
-<p><code>mulu</code> multiplies two unsigned numbers (<code>a</code> and <code>b</code>) with width <code>WORD</code> and produces a result with width <code>2 * WORD</code>. The lower <code>WORD</code> and higher <code>WORD</code> bits of the result are placed on the <a href="architecture/conveyor.html">conveyor</a>.</p>
-<h4>Side Effects</h4>
-<ul>
-<li>The lowest <code>WORD</code> and highest <code>WORD</code> bits are placed onto the <a href="architecture/conveyor.html">conveyor</a> in that order</li>
+<li><code>c = (a + imm)[WORD]</code></li>
+<li><code>o = (a[WORD - 1] ^ imm[WORD - 1]) ? 0 : a[WORD - 1] ^ (a + imm)[WORD - 1]</code></li>
 </ul>
 <h4>Examples</h4>
-<pre><code>~0 2 mul cv1 cv0
+<pre><code>2 add:3
 </code></pre>
 <ul>
-<li><code>( -- ~0 1)</code></li>
+<li><code>( -- 5)</code></li>
+<li>Carry is set to 0</li>
 </ul>
 <hr />
-<h2><code>div</code></h2>
-<p><code>a b --</code></p>
+<h2><code>subi</code></h2>
+<p><code>a -- (imm - a)</code></p>
+<h4>Immediate (WORD)</h4>
+<p>The initial opcode byte is followed by a full processor word. This word is signed.</p>
 <h4>Description</h4>
-<p><code>div</code> divides two signed numbers (<code>a</code> and <code>b</code>) with width <code>WORD</code> and produces a result with width <code>2 * WORD</code>. The higher/whole <code>WORD</code> and the lower/fractional <code>WORD</code> bits of the result are placed on the <a href="architecture/conveyor.html">conveyor</a>. Both the higher and the lower results are signed.</p>
+<p><code>subi</code> subtracts the immediate value <code>imm</code> from <code>a</code>. This instruction can simultaneously be called 'immediate' and 'inverse'. It would be redundant to have an actual immediate subtract, since an immediate add of the negative number accomplishes the same thing, but there are situations where a number needs to be subtracted from an immediate value. This instruction can be used to negate a number in one instruction. The carry bit is set by this instruction to <code>1</code> when no borrow occurs. The carry bit is not consumed by this instruction.</p>
 <h4>Side Effects</h4>
-<ul>
-<li>The higher/whole <code>WORD</code> and lower/fractional <code>WORD</code> bits are placed onto the <a href="architecture/conveyor.html">conveyor</a> in that order</li>
-</ul>
-<h4>Examples (with WORD of 32)</h4>
-<pre><code>h80000000 2 div cv1 cv0
+<p><code>c = (imm - a)[WORD]</code></p>
+<h4>Examples</h4>
+<pre><code>3 subi:2
 </code></pre>
 <ul>
-<li><code>( -- hC0000000 hBFFFFFFF)</code></li>
+<li><code>( -- -1)</code></li>
+<li>Carry is set to 0
+<ul>
+<li>Which indicates a borrow</li>
 </ul>
 <hr />
-<h2><code>divu</code></h2>
-<p><code>a b --</code></p>
-<h4>Description</h4>
-<p><code>divu</code> divides two unsigned numbers (<code>a</code> and <code>b</code>) with width <code>WORD</code> and produces a result with width <code>2 * WORD</code>. The higher/whole <code>WORD</code> and the lower/fractional <code>WORD</code> bits of the result are placed on the <a href="architecture/conveyor.html">conveyor</a>.</p>
-<h4>Side Effects</h4>
-<ul>
-<li>The higher/whole <code>WORD</code> and lower/fractional <code>WORD</code> bits are placed onto the <a href="architecture/conveyor.html">conveyor</a> in that order</li>
+</li>
 </ul>
+<h2><code>asri</code></h2>
+<p><code>a -- (a &gt;&gt;&gt; imm)</code></p>
+<h4>Immediate (WORD)</h4>
+<p>The initial opcode byte is followed by one octet. The octet is unsigned and represents the shift amount.</p>
+<h4>Description</h4>
+<p><code>asri</code> shifts <code>a</code> by <code>imm</code> bits and sign extends the result. If <code>-1</code> is shifted right, it will continue to stay <code>-1</code>.</p>
 <h4>Examples (with WORD of 32)</h4>
-<pre><code>~0 2 divu cv1 cv0
+<pre><code>h80000000 asri:1
 </code></pre>
 <ul>
-<li><code>( -- h7FFFFFFF h80000000)</code></li>
+<li><code>( -- hC000000)</code></li>
 </ul>
 <h1>Bit Manipulation</h1>
 <h2><code>inv</code></h2>
@@ -505,7 +535,7 @@
 </ul>
 <hr />
 <h2><code>csl</code></h2>
-<p><code>a b -- ((a &lt;&lt; b) or (a &gt;&gt; (b - WORD)))</code></p>
+<p><code>a b -- ((a &lt;&lt; b) or (a &gt;&gt; (WORD - b)))</code></p>
 <h4>Description</h4>
 <p><code>csl</code> performs a circular shift left. Only the amount of bits needed are used for the shift amount. For example, with a 32-bit <code>WORD</code>, only the least significant <code>5</code> bits are masked out of <code>b</code>.</p>
 <h4>Examples (with WORD of 32)</h4>
@@ -516,7 +546,7 @@
 </ul>
 <hr />
 <h2><code>csr</code></h2>
-<p><code>a b -- ((a &gt;&gt; b) or (a &lt;&lt; (b - WORD)))</code></p>
+<p><code>a b -- ((a &gt;&gt; b) or (a &lt;&lt; (WORD - b)))</code></p>
 <h4>Description</h4>
 <p><code>csr</code> performs a circular shift right. Only the amount of bits needed are used for the shift amount. For example, with a 32-bit <code>WORD</code>, only the least significant <code>5</code> bits are masked out of <code>b</code>.</p>
 <h4>Examples (with WORD of 32)</h4>
@@ -558,16 +588,155 @@
 <ul>
 <li><code>( -- 6)</code></li>
 </ul>
-<h1>Stack Manipulation Instructions</h1>
-<h2><code>p0</code></h2>
-<p><code>-- 0</code></p>
+<hr />
+<h2><code>lsli</code></h2>
+<p><code>a -- (a &lt;&lt; imm)</code></p>
+<h4>Immediate (WORD)</h4>
+<p>The initial opcode byte is followed by one octet. The octet is signed and represents the shift amount. Since the octet is signed, this makes it possible to perform a right or left shift with this opcode.</p>
 <h4>Description</h4>
-<p><code>p0</code> pushes a <code>0</code> onto the top of the stack. This doesn't theoretically need to exist, but it makes it practically easy for the processor to add a <code>0</code> to the stack on inception to receive the data stream from the inceptor. It also has other uses, such as initializing an accumulator value and comparisons with <code>0</code>.</p>
+<p><code>lsli</code> performs a logical shift left with a signed immediate shift amount. This operation zero-fills.</p>
+<h4>Examples (with WORD of 32)</h4>
+<pre><code>hFFFFFFFF lsli:1
+</code></pre>
+<ul>
+<li><code>( -- hFFFFFFFE)</code></li>
+</ul>
+<hr />
+<h2><code>csli</code></h2>
+<p><code>a -- ((a &lt;&lt; imm) or (a &gt;&gt; (WORD - imm)))</code></p>
+<h4>Immediate (WORD)</h4>
+<p>The initial opcode byte is followed by one octet. The octet is unsigned and represents the shift amount. A circular right shift can be accomplished by setting the immediate value to <code>-n</code> where <code>n</code> is the right shift amount.</p>
+<h4>Description</h4>
+<p><code>csli</code> performs a circular shift left. Only the amount of bits needed are used for the shift amount. For example, with a 32-bit <code>WORD</code>, only the least significant <code>5</code> bits are masked out of <code>b</code>.</p>
+<h4>Examples (with WORD of 32)</h4>
+<pre><code>hC0000000 csli:1
+</code></pre>
+<ul>
+<li><code>( -- h80000001)</code></li>
+</ul>
+<hr />
+<h2><code>andi</code></h2>
+<p><code>a -- (a &amp; imm)</code></p>
+<h4>Immediate (WORD)</h4>
+<p>The initial opcode byte is followed by a full processor word. This word is unsigned.</p>
+<h4>Description</h4>
+<p><code>andi</code> finds the binary AND of <code>a</code> and <code>imm</code>.</p>
+<h4>Examples</h4>
+<pre><code>5 andi:4
+</code></pre>
+<ul>
+<li><code>( -- 4)</code></li>
+</ul>
+<hr />
+<h2><code>ori</code></h2>
+<p><code>a -- (a or imm)</code></p>
+<h4>Immediate (WORD)</h4>
+<p>The initial opcode byte is followed by a full processor word. This word is unsigned.</p>
+<h4>Description</h4>
+<p><code>ori</code> finds the binary OR of <code>a</code> and <code>imm</code>.</p>
+<h4>Examples</h4>
+<pre><code>5 ori:2
+</code></pre>
+<ul>
+<li><code>( -- 7)</code></li>
+</ul>
+<hr />
+<h2><code>xori</code></h2>
+<p><code>a -- (a ^ imm)</code></p>
+<h4>Immediate (WORD)</h4>
+<p>The initial opcode byte is followed by a full processor word. This word is unsigned.</p>
+<h4>Description</h4>
+<p><code>xori</code> finds the binary XOR of <code>a</code> and <code>imm</code>.</p>
+<h4>Examples</h4>
+<pre><code>5 xori:3
+</code></pre>
+<ul>
+<li><code>( -- 6)</code></li>
+</ul>
+<h1>Stack Manipulation Instructions</h1>
+<h2><code>i#</code></h2>
+<p><code>-- i#</code></p>
+<h4>Description</h4>
+<p><code>i#</code> places the index of a hardware controlled loop on the top of the stack. The inner-most loop index is <code>i0</code>.</p>
+<h4>Examples</h4>
+<pre><code>3 loop:+
+i0
+:+
+</code></pre>
+<ul>
+<li><code>( -- 0 1 2)</code></li>
+</ul>
+<hr />
+<h2><code>ddrop</code></h2>
+<p><code>_ _ --</code></p>
+<h4>Description</h4>
+<p><code>ddrop</code> drops two elements off the stack. Since the stack can be popped twice, this is a situational use of removing two values that reduces two drops into one.</p>
+<h4>Examples</h4>
+<pre><code>8 3 2 ddrop
+</code></pre>
+<ul>
+<li><code>( -- 8)</code></li>
+</ul>
+<hr />
+<h2><code>imm8</code></h2>
+<p><code>-- imm</code></p>
+<h4>Description</h4>
+<p><code>imm8</code> places the immediate 8-bit value on the stack.</p>
+<h4>Examples</h4>
+<pre><code>8
+</code></pre>
+<ul>
+<li><code>( -- 8)</code></li>
+</ul>
+<hr />
+<h2><code>imm16</code></h2>
+<p><code>-- imm</code></p>
+<h4>Description</h4>
+<p><code>imm16</code> places the immediate 16-bit value on the stack.</p>
+<h4>Examples</h4>
+<pre><code>30131
+</code></pre>
+<ul>
+<li><code>( -- 30131)</code></li>
+</ul>
+<hr />
+<h2><code>imm32</code></h2>
+<p><code>-- imm</code></p>
+<h4>Description</h4>
+<p><code>imm32</code> places the immediate 32-bit value on the stack.</p>
+<h4>Examples</h4>
+<pre><code>1202303404
+</code></pre>
+<ul>
+<li><code>( -- 1202303404)</code></li>
+</ul>
+<hr />
+<h2><code>imm64</code></h2>
+<p><code>-- imm</code></p>
+<h4>Description</h4>
+<p><code>imm64</code> places the immediate 64-bit value on the stack. This is only supported on u0-64. On u0-32, this has undefined behavior.</p>
+<h4>Examples</h4>
+<pre><code>1202303404505606
+</code></pre>
+<ul>
+<li><code>( -- 1202303404505606)</code></li>
+</ul>
+<hr />
+<h2><code>drop</code></h2>
+<p><code>_ --</code></p>
+<h4>Description</h4>
+<p><code>drop</code> drops one element off the stack. This is useful after loops with accumulators where the accumulator is no longer required and in other niche situations where excess data is left on the stack.</p>
+<h4>Examples</h4>
+<pre><code>8 3 2 drop
+</code></pre>
+<ul>
+<li><code>( -- 8 3)</code></li>
+</ul>
 <hr />
 <h2><code>rot#</code></h2>
 <p><code>v #.. -- #.. v</code></p>
 <h4>Description</h4>
-<p><code>rot#</code> rotates a value <code>0</code> to <code>63</code> elements deep in the stack to the top of the stack. The value is removed from that location and elements under that value are not shifted in the stack. <code>rot0</code> has no effect and uses a cycle doing nothing.</p>
+<p><code>rot#</code> rotates a value <code>0</code> to <code>31</code> elements deep in the stack to the top of the stack. The value is removed from that location and elements under that value are not shifted in the stack. <code>rot0</code> has no effect and uses a cycle doing nothing, and it is the recommended form of doing a NOP because it only consumes one octet.</p>
 <h4>Examples</h4>
 <pre><code>1 2 3 rot2
 </code></pre>
@@ -578,7 +747,7 @@
 <h2><code>copy#</code></h2>
 <p><code>v #.. -- v #.. v</code></p>
 <h4>Description</h4>
-<p><code>copy#</code> copies a value <code>0</code> to <code>63</code> elements deep in the stack to the top of the stack. This pushes all elements down on the stack. <code>copy0</code> is a duplicate operation.</p>
+<p><code>copy#</code> copies a value <code>0</code> to <code>31</code> elements deep in the stack to the top of the stack. This pushes all elements down on the stack. <code>copy0</code> is a duplicate operation.</p>
 <h4>Examples</h4>
 <pre><code>1 2 3 copy2
 </code></pre>
@@ -586,50 +755,99 @@
 <li><code>( -- 1 2 3 1)</code></li>
 </ul>
 <h1>Memory Instructions</h1>
-<h2><code>ld0i</code></h2>
+<h2><code>move#</code></h2>
 <p><code>--</code></p>
+<h4>Immediate (WORD)</h4>
+<p>The initial opcode byte is followed by an octet. The immediate value is signed.</p>
 <h4>Description</h4>
-<p><code>ld0i</code> loads dc0 from the location pointed to by the current dc0. The old dc0 is incremented before being changed and the restored dc0 when returning from this call will be that value. This means that this instruction can be the first instruction of a function which needs a unique dc0.</p>
+<p><code>move#</code> advances <code>dc#</code> by <code>imm</code> bytes, where <code>imm</code> can be negative, thus it can go backwards.</p>
 <hr />
-<h2><code>rread#</code></h2>
+<h2><code>raread#</code></h2>
 <p><code>a -- mem[dc# + a]</code></p>
 <h4>Description</h4>
-<p><code>rread#</code> performs a random read starting from <code>dc#</code> and indexing by <code>a</code>. The result is returned synchronously to the stack because it is assumed that this value is held in the cache, since memory at a dc is generally cached.</p>
+<p><code>raread#</code> performs a random read starting from <code>dc#</code> and indexing by <code>a</code>. The result is returned synchronously to the stack because it is assumed that this value is held in the cache, since memory at a DC is generally cached.</p>
 <hr />
-<h2><code>reads</code></h2>
-<p><code>a -- mem[a]</code></p>
+<h2><code>rereadi#</code></h2>
+<p><code>--</code></p>
+<h4>Immediate (WORD)</h4>
+<p>The initial opcode byte is followed by an octet. The immediate value is unsigned.</p>
 <h4>Description</h4>
-<p><code>reads</code> performs a synchronous read, meaning that this operation does not complete until the value is on the stack. <code>a</code> is an absolute address.</p>
+<p><code>rereadi#</code> performs a random read starting from <code>mem[dc#]</code> and indexing by <code>imm</code>. The result is placed on the conveyor because only the memory at the DC itself is cached.</p>
+<h4>Side Effects</h4>
+<ul>
+<li>Word is asynchronously put on the conveyor.</li>
+</ul>
 <hr />
 <h2><code>read#</code></h2>
 <p><code>-- mem[dc#]</code></p>
+<h4>Immediate (WORD)</h4>
+<p>The initial opcode byte is followed by an octet. The immediate value is signed and is biased by <code>+1</code>.</p>
 <h4>Description</h4>
-<p><code>read#</code> performs a read directly at <code>dc#</code>. Doing this increments <code>dc#</code> after the read.</p>
+<p><code>read#</code> performs a read directly at <code>dc#</code>. <code>dc#</code> is then advanced by the signed immediate value <code>imm</code>.</p>
 <hr />
-<h2><code>readi</code></h2>
-<p><code>-- mem[mem[dc#]]</code></p>
+<h2><code>rareadi#</code></h2>
+<p><code>-- mem[dc# + imm]</code></p>
+<h4>Immediate (WORD)</h4>
+<p>The initial opcode byte is followed by an octet. The immediate value is unsigned.</p>
 <h4>Description</h4>
-<p><code>readi</code> performs an indirect, immediate read using the address at <code>dc0</code>. Doing this increments <code>dc0</code> after the read.</p>
+<p><code>raread#</code> performs a random read starting from <code>dc#</code> and indexing by <code>imm</code>. The result is returned synchronously to the stack because it is assumed that this value is held in the cache, since memory at a DC is generally cached.</p>
 <hr />
 <h2><code>get#</code></h2>
 <p><code>-- dc#</code></p>
 <h4>Description</h4>
-<p><code>get#</code> places the address dc# is currently pointing to onto the stack. This allows the programmer to manipulate the dc for allocating memory on a stack or advancing the dc between elements in a vector for use with <code>rread#</code>.</p>
+<p><code>get#</code> places the address <code>dc#</code> onto the stack. This allows the programmer to manipulate the DC for dynamically allocating memory on a stack or performing pointer arithmetic for optimization problems.</p>
 <hr />
-<h2><code>write#</code></h2>
+<h2><code>writepre#</code></h2>
 <p><code>v --</code></p>
+<h4>Immediate (WORD)</h4>
+<p>The initial opcode byte is followed by an octet. The immediate value is signed and is not biased.</p>
 <h4>Description</h4>
-<p><code>write#</code> performs a write directly at <code>dc#</code>. Doing this advances <code>dc#</code> depending on how it was set. If it was set with <code>setf</code>, then <code>dc#</code> will write and then increment. If it was set with <code>setb</code>, then <code>dc#</code> will decrement and then write. Due to this behavior, using setb allows a dc to be set up as a pushdown stack.</p>
+<p><code>writepre#</code> performs a write directly at <code>dc#</code>. Doing this advances <code>dc#</code> by the signed immediate value <code>imm</code> before the write. This allows the DC to be set up as a stack.</p>
 <hr />
-<h2><code>setf#</code></h2>
+<h2><code>writepst#</code></h2>
+<p><code>v --</code></p>
+<h4>Immediate (WORD)</h4>
+<p>The initial opcode byte is followed by an octet. The immediate value is signed and is biased by <code>+1</code>.</p>
+<h4>Description</h4>
+<p><code>writepst#</code> performs a write directly at <code>dc#</code>. Doing this advances <code>dc#</code> by the signed immediate value <code>imm</code> after the write.</p>
+<hr />
+<h2><code>set#</code></h2>
 <p><code>a --</code></p>
 <h4>Description</h4>
-<p><code>setf#</code> sets <code>dc#</code> to <code>a</code>. It also sets <code>dc#</code> to be in post-increment write mode.</p>
+<p><code>set#</code> sets <code>dc#</code> to <code>a</code>.</p>
 <hr />
-<h2><code>setb#</code></h2>
-<p><code>a --</code></p>
+<h2><code>rawritei#</code></h2>
+<p><code>v --</code></p>
+<h4>Immediate (WORD)</h4>
+<p>The initial opcode byte is followed by an octet. The immediate value is unsigned.</p>
 <h4>Description</h4>
-<p><code>setf#</code> sets <code>dc#</code> to <code>a</code>. It also sets <code>dc#</code> to be in pre-decrement write mode.</p>
+<p><code>rawritei#</code> performs a random write relative to <code>dc#</code>. This means that <code>mem[dc# + imm] = v</code>. This may be cached.</p>
+<h4>Side Effects</h4>
+<ul>
+<li><code>mem[dc# + imm] = v</code></li>
+</ul>
+<hr />
+<h2><code>rewritei#</code></h2>
+<p><code>v --</code></p>
+<h4>Immediate (WORD)</h4>
+<p>The initial opcode byte is followed by an octet. The immediate value is unsigned.</p>
+<h4>Description</h4>
+<p><code>rewritei#</code> performs a random write relative to <code>mem[dc#]</code>. This means that <code>mem[mem[dc#] + imm] = v</code>. This may be cached.</p>
+<h4>Side Effects</h4>
+<ul>
+<li><code>mem[mem[dc#] + imm] = v</code></li>
+</ul>
+<hr />
+<h2><code>reread#</code></h2>
+<p><code>a --</code></p>
+<h4>Immediate (WORD)</h4>
+<p>The initial opcode byte is followed by an octet. The immediate value is signed and biased by <code>+1</code>.</p>
+<h4>Description</h4>
+<p><code>reread#</code> performs a random read relative to <code>mem[dc#]</code> or <code>a</code> depending on perspective. <code>dc#</code> is advanced by <code>imm</code>. The result is placed on the conveyor because only the memory at the DC itself is cached.</p>
+<h4>Side Effects</h4>
+<ul>
+<li><code>mem[mem[dc#] + a]</code> is asynchronously put on the conveyor.</li>
+</ul>
 <hr />
 <h2><code>reada</code></h2>
 <p><code>a --</code></p>
@@ -649,10 +867,16 @@ cv0
 <li>Between <code>reada</code> and <code>cv0</code>, any operations happen while the read is occurring.</li>
 </ul>
 <hr />
-<h2><code>writei</code></h2>
-<p><code>v --</code></p>
+<h2><code>rewrite#</code></h2>
+<p><code>v a --</code></p>
+<h4>Immediate (WORD)</h4>
+<p>The initial opcode byte is followed by an octet. The immediate value is signed and biased by <code>+1</code>.</p>
 <h4>Description</h4>
-<p><code>writei</code> performs an indirect, immediate write directly at the location <code>dc0</code>. Doing this always increments <code>dc0</code>. This is treated as an immediate read, despite the name, since an address is read from <code>dc0</code>.</p>
+<p><code>rewrite#</code> performs a random write relative to <code>a</code> or <code>dc#</code> depending on perspective. This means that <code>mem[mem[dc#] + a] = v</code>. <code>dc#</code> is advanced by the immediate value. This may be cached.</p>
+<h4>Side Effects</h4>
+<ul>
+<li><code>mem[mem[dc#] + a] = v</code></li>
+</ul>
 <hr />
 <h2><code>rawrite#</code></h2>
 <p><code>v a --</code></p>
@@ -661,15 +885,6 @@ cv0
 <h4>Side Effects</h4>
 <ul>
 <li><code>mem[dc# + a] = v</code></li>
-</ul>
-<hr />
-<h2><code>rewrite#</code></h2>
-<p><code>v a --</code></p>
-<h4>Description</h4>
-<p><code>rewrite#</code> performs a random write relative to <code>a</code>. This means that <code>mem[mem[dc#] + a] = v</code>. This is treated as an immediate read, thus <code>dc#</code> will be incremented. This may be cached.</p>
-<h4>Side Effects</h4>
-<ul>
-<li><code>mem[mem[dc#] + a] = v</code></li>
 </ul>
 <hr />
 <h2><code>write</code></h2>
@@ -684,19 +899,41 @@ cv0
 <h2><code>writep</code></h2>
 <p><code>v a --</code></p>
 <h4>Description</h4>
-<p><code>writep</code> performs a random write to program memory in little-endian byte-order. This means that <code>progmem[a] = v</code>. This may be cached. Program memory is ordered into octets, but this instruction can write several octets in one word, therefore the word byte-order is little-endian.</p>
+<p><code>writep</code> performs a random write to program memory in little-endian byte-order. This means that <code>progmem[a] = v</code>. Program memory is ordered into octets, but this instruction can write several octets in one word, therefore the word byte-order is little-endian. The addresses are aligned to octets. This operation may not influence the instruction executed next.</p>
 <h4>Side Effects</h4>
 <ul>
 <li><code>progmem[a] = v</code></li>
 </ul>
 <hr />
-<h2><code>writepi</code></h2>
+<h2><code>writepo</code></h2>
 <p><code>ins a --</code></p>
 <h4>Description</h4>
-<p><code>writepi</code> performs a random write of an instruction to program memory using a program address. This means that <code>progmem[a] = ins</code>, but only the lowest 8 bits of <code>ins</code> are written. This may be cached. Program memory is ordered into octets, which are written and addressed individually by this word.</p>
+<p><code>writepo</code> performs a random write of an octet to program memory using a program address. This means that <code>progmem[a] = ins</code>, but only the lowest 8 bits of <code>ins</code> are written. Program memory is ordered into octets, which are written and addressed individually by this word. The addresses are aligned to octets. This operation may not influence the instruction executed next.</p>
 <h4>Side Effects</h4>
 <ul>
 <li><code>progmem[a] = ins</code></li>
+</ul>
+<hr />
+<h2><code>writepi</code></h2>
+<p><code>v --</code></p>
+<h4>Immediate (WORD)</h4>
+<p>The initial opcode byte is followed by a word. The immediate value is a program address.</p>
+<h4>Description</h4>
+<p><code>writepi</code> performs a random write to program memory in little-endian byte-order at the address specified by the immediate value <code>imm</code>. This means that <code>progmem[imm] = v</code>. Program memory is ordered into octets, but this instruction can write several octets in one word, therefore the word byte-order is little-endian. The addresses are aligned to octets. This operation may not influence the instruction executed next.</p>
+<h4>Side Effects</h4>
+<ul>
+<li><code>progmem[imm] = v</code></li>
+</ul>
+<hr />
+<h2><code>writepri</code></h2>
+<p><code>v --</code></p>
+<h4>Immediate (WORD)</h4>
+<p>The initial opcode byte is followed by two octets. The immediate value is a signed relative offset.</p>
+<h4>Description</h4>
+<p><code>writepri</code> performs a random write to program memory in little-endian byte-order at the address <code>pc + imm</code>. This means that <code>progmem[pc + imm] = v</code>. Program memory is ordered into octets, but this instruction can write several octets in one word, therefore the word byte-order is little-endian. The addresses are aligned to octets. This operation may not influence the instruction executed next.</p>
+<h4>Side Effects</h4>
+<ul>
+<li><code>progmem[pc + imm] = v</code></li>
 </ul>
 <h1>Control Flow</h1>
 <h2><code>break</code></h2>
@@ -708,28 +945,14 @@ cv0
 <li><a href="architecture/lstack.html">lstack</a> is popped unconditionally</li>
 </ul>
 <hr />
-<h2><code>continue</code></h2>
+<h2><code>return</code></h2>
 <p><code>--</code></p>
 <h4>Description</h4>
-<p><code>continue</code> immediately goes to the next loop iteration and moves the PC to the beginning of the loop. If this is the last iteration it goes to the end of the loop.</p>
-<h4>Side Effects</h4>
-<ul>
-<li>Moves PC to beginning of loop normally or after the loop if this is the last iteration</li>
-</ul>
-<hr />
-<h2><code>ret</code></h2>
-<p><code>--</code></p>
-<h4>Description</h4>
-<p><code>ret</code> returns from a subroutine call. It pops the <a href="architecture/cstack.html">cstack</a>, moving the PC and DCs back to the position it was at in the caller to continue execution. This instruction returns from interrupts as well as normal subroutines, since an interrupt is a simulated subroutine call. Using <code>ret</code> in an interrupt also allows more interrupts to be serviced unless they are explicitly disabled in the interrupt.</p>
+<p><code>return</code> returns from a subroutine call. It pops the <a href="architecture/cstack.html">cstack</a>, moving the PC and DCs back to the position it was at in the caller to continue execution. This instruction returns from interrupts as well as normal subroutines, since an interrupt is a simulated subroutine call. Using <code>return</code> in an interrupt also allows more interrupts to be serviced unless they are explicitly disabled in the interrupt.</p>
 <h4>Side Effects</h4>
 <ul>
 <li><a href="architecture/cstack.html">cstack</a> is popped
 <ul>
-<li>DCs are returned to their previous values
-<ul>
-<li>DCs can be modified individually if subroutine doesnt set a new DC, but uses the old one</li>
-</ul>
-</li>
 <li>PC is returned to its previous value</li>
 <li>If this is the initial subroutine of an interrupt
 <ul>
@@ -746,50 +969,84 @@ cv0
 <li>The <a href="architecture/lstack.html">lstack</a> is NOT returned to its previous state.</li>
 </ul>
 <h4>Examples</h4>
-<pre><code>subr calli
-ret
+<pre><code>calli:subr
+return
 
-subr:
-  ret
+:subr
+  return
 </code></pre>
 <ul>
 <li><code>( -- )</code></li>
 <li>The example calls <code>subr</code> before returning to the original caller</li>
 </ul>
-<pre><code>subr jumpi
+<pre><code>jumpi:subr
 
 subr:
-  ret
+  return
 </code></pre>
 <ul>
 <li><code>( -- )</code></li>
 <li>A more efficient version of the previous example by utilizing tail-call elimination</li>
 </ul>
 <hr />
-<h2><code>calli</code></h2>
+<h2><code>continue</code></h2>
 <p><code>--</code></p>
 <h4>Description</h4>
-<p><code>calli</code> is an immediate call. In this situation, immediate means that the PC to jump to is taken from <code>dc0</code>. This also increments <code>dc0</code> and puts the incremented copy of <code>dc0</code> onto the <a href="architecture/cstack.html">cstack</a>, along with the other state elements preserved in a call.</p>
+<p><code>continue</code> immediately goes to the next loop iteration and moves the PC to the beginning of the loop. If this is the last iteration it goes to the end of the loop.</p>
+<h4>Side Effects</h4>
+<ul>
+<li>Moves PC to beginning of loop normally or after the loop if this is the last iteration.</li>
+</ul>
+<hr />
+<h2><code>cv#</code></h2>
+<p><code>-- cv#</code></p>
+<h4>Description</h4>
+<p><code>cv#</code> waits until the asynchronous operation that produces the value <code>cv#</code> completes, synchronizing with its completion, and placing the result on the stack.</p>
+<h4>Side Effects</h4>
+<ul>
+<li>Execution is synchronized with the completion of operation that produced <code>cv#</code>.</li>
+</ul>
+<hr />
+<h2><code>iloop</code></h2>
+<p><code>--</code></p>
+<h4>Immediate (WORD)</h4>
+<p>The initial opcode byte is followed by two octets. The immediate value is unsigned and is added to the PC to find the relative position of the end of the loop.</p>
+<h4>Description</h4>
+<p><code>iloop</code> pushes a new infinite loop into onto the <a href="architecture/lstack.html">lstack</a>. This loop, being infinite, will never end until the break instruction is issued. The loop index (<code>i0</code>) begins at <code>0</code> and will wrap around indefinitely.</p>
+<h4>Side Effects</h4>
+<ul>
+<li><a href="architecture/lstack.html">lstack</a> is pushed.</li>
+</ul>
+<h4>Examples</h4>
+<pre><code>iloop:+
+rot:0
+:+
+</code></pre>
+<ul>
+<li>Enters an infinite loop with a NOP.</li>
+</ul>
+<hr />
+<h2><code>calli</code></h2>
+<p><code>--</code></p>
+<h4>Immediate (WORD)</h4>
+<p>The initial opcode byte is followed by a processor word. This word is the address of the function that is being called.</p>
+<h4>Description</h4>
+<p><code>calli</code> is an immediate call. The immediate value is the address to call into.</p>
 <h4>Side Effects</h4>
 <ul>
 <li><a href="architecture/cstack.html">cstack</a> is pushed
 <ul>
-<li>DCs are preserved
-<ul>
-<li>DCs can be modified individually if subroutine doesnt set a new DC, but uses the old one</li>
-</ul>
-</li>
-<li>PC is preserved</li>
-<li>Whether an interrupt is being serviced or not is preserved</li>
+<li>Old PC is preserved.</li>
+<li>Whether an interrupt is being serviced or not is preserved.</li>
 </ul>
 </li>
 </ul>
 <h4>Examples</h4>
-<pre><code>subr calli
-ret
+<pre><code>calli:subr
+return
 
 subr:
-  ret
+  return
 </code></pre>
 <ul>
 <li><code>( -- )</code></li>
@@ -798,74 +1055,24 @@ subr:
 <hr />
 <h2><code>jmpi</code></h2>
 <p><code>--</code></p>
+<h4>Immediate (WORD)</h4>
+<p>The initial opcode byte is followed by a processor word. This word is the address to execute next.</p>
 <h4>Description</h4>
-<p><code>jmpi</code> jumps to an immediate value stored at <code>dc0</code>. This also increments <code>dc0</code> in the process.</p>
+<p><code>jmpi</code> jumps to the immediate address <code>imm</code>.</p>
 <h4>Side Effects</h4>
 <ul>
-<li>PC is moved to immediate value</li>
-<li><code>dc0</code> is incremented</li>
+<li>PC is moved to immediate value.</li>
 </ul>
 <hr />
-<h2><code>jc</code></h2>
+<h2><code>bra</code></h2>
 <p><code>--</code></p>
+<h4>Immediate (WORD)</h4>
+<p>The initial opcode byte is followed by two octets. The immediate value is signed and is the relative offset to branch by.</p>
 <h4>Description</h4>
-<p><code>jc</code> jumps to an immediate value stored at <code>dc0</code> if the <code>c</code> bit is <code>1</code>. This also increments <code>dc0</code> by <code>1</code> if the branch is successful and <code>2</code> otherwise so that an alternate <code>dc0</code> can be loaded by the alternate path.</p>
+<p><code>bra</code> performs a relative branch to address <code>pc + imm</code>.</p>
 <h4>Side Effects</h4>
 <ul>
-<li>PC is moved to immediate value if <code>c</code> is <code>1</code></li>
-<li><code>dc0</code> is incremented by <code>1</code> or <code>2</code></li>
-</ul>
-<hr />
-<h2><code>jnc</code></h2>
-<p><code>--</code></p>
-<h4>Description</h4>
-<p><code>jnc</code> jumps to an immediate value stored at <code>dc0</code> if the <code>c</code> bit is <code>0</code>. This also increments <code>dc0</code> by <code>1</code> if the branch is successful and <code>2</code> otherwise so that an alternate <code>dc0</code> can be loaded by the alternate path.</p>
-<h4>Side Effects</h4>
-<ul>
-<li>PC is moved to immediate value if <code>c</code> is <code>0</code></li>
-<li><code>dc0</code> is incremented by <code>1</code> or <code>2</code></li>
-</ul>
-<hr />
-<h2><code>jo</code></h2>
-<p><code>--</code></p>
-<h4>Description</h4>
-<p><code>jo</code> jumps to an immediate value stored at <code>dc0</code> if the <code>o</code> bit is <code>1</code>. This also increments <code>dc0</code> by <code>1</code> if the branch is successful and <code>2</code> otherwise so that an alternate <code>dc0</code> can be loaded by the alternate path.</p>
-<h4>Side Effects</h4>
-<ul>
-<li>PC is moved to immediate value if <code>o</code> is <code>1</code></li>
-<li><code>dc0</code> is incremented by <code>1</code> or <code>2</code></li>
-</ul>
-<hr />
-<h2><code>jno</code></h2>
-<p><code>--</code></p>
-<h4>Description</h4>
-<p><code>jno</code> jumps to an immediate value stored at <code>dc0</code> if the <code>o</code> bit is <code>0</code>. This also increments <code>dc0</code> by <code>1</code> if the branch is successful and <code>2</code> otherwise so that an alternate <code>dc0</code> can be loaded by the alternate path.</p>
-<h4>Side Effects</h4>
-<ul>
-<li>PC is moved to immediate value if <code>o</code> is <code>0</code></li>
-<li><code>dc0</code> is incremented by <code>1</code> or <code>2</code></li>
-</ul>
-<hr />
-<h2><code>ji</code></h2>
-<p><code>--</code></p>
-<h4>Description</h4>
-<p><code>ji</code> jumps to an immediate value stored at <code>dc0</code> if the <code>iflag</code> bit is <code>1</code>. This also increments <code>dc0</code> by <code>1</code> if the branch is successful and <code>2</code> otherwise so that an alternate <code>dc0</code> can be loaded by the alternate path. To indicate that the interrupt has been seen, <code>iflag</code> is set to <code>0</code>.</p>
-<h4>Side Effects</h4>
-<ul>
-<li>PC is moved to immediate value if <code>iflag</code> is <code>1</code></li>
-<li><code>dc0</code> is incremented by <code>1</code> or <code>2</code></li>
-<li><code>iflag</code> is set to <code>0</code></li>
-</ul>
-<hr />
-<h2><code>jni</code></h2>
-<p><code>--</code></p>
-<h4>Description</h4>
-<p><code>jni</code> jumps to an immediate value stored at <code>dc0</code> if the <code>iflag</code> bit is <code>0</code>. This also increments <code>dc0</code> by <code>1</code> if the branch is successful and <code>2</code> otherwise so that an alternate <code>dc0</code> can be loaded by the alternate path. To indicate that the interrupt has been seen, <code>iflag</code> is set to <code>0</code>.</p>
-<h4>Side Effects</h4>
-<ul>
-<li>PC is moved to immediate value if <code>iflag</code> is <code>0</code></li>
-<li><code>dc0</code> is incremented by <code>1</code> or <code>2</code></li>
-<li><code>iflag</code> is set to <code>0</code></li>
+<li>PC is moved to <code>pc + imm</code>.</li>
 </ul>
 <hr />
 <h2><code>call</code></h2>
@@ -876,116 +1083,21 @@ subr:
 <ul>
 <li><a href="architecture/cstack.html">cstack</a> is pushed
 <ul>
-<li>DCs are preserved
-<ul>
-<li>DCs can be modified individually if subroutine doesnt set a new DC, but uses the old one</li>
-</ul>
-</li>
-<li>PC is preserved</li>
-<li>Whether an interrupt is being serviced or not is preserved</li>
+<li>Old PC is preserved.</li>
+<li>Indicates whether an interrupt is being serviced or not is preserved.</li>
 </ul>
 </li>
 </ul>
 <h4>Examples</h4>
-<pre><code>subr read0 call
-ret
+<pre><code>.subr call
+return
 
 subr:
-  ret
+  return
 </code></pre>
 <ul>
 <li><code>( -- )</code></li>
-<li>The example calls <code>subr</code> before returning to the original caller</li>
-</ul>
-<hr />
-<h2><code>jmp</code></h2>
-<p><code>a --</code></p>
-<h4>Description</h4>
-<p><code>jmp</code> jumps to the address <code>a</code>.</p>
-<h4>Side Effects</h4>
-<ul>
-<li>PC is moved to <code>a</code></li>
-</ul>
-<hr />
-<h2><code>jeq</code></h2>
-<p><code>a b --</code></p>
-<h4>Description</h4>
-<p><code>jeq</code> jumps to an immediate value stored at <code>dc0</code> if <code>a</code> and <code>b</code> are equal. This also increments <code>dc0</code> by <code>1</code> if the branch is successful and <code>2</code> otherwise so that an alternate <code>dc0</code> can be loaded by the alternate path.</p>
-<h4>Side Effects</h4>
-<ul>
-<li>PC is moved to immediate value if <code>a == b</code></li>
-<li><code>dc0</code> is incremented by <code>1</code> or <code>2</code></li>
-</ul>
-<hr />
-<h2><code>jne</code></h2>
-<p><code>a b --</code></p>
-<h4>Description</h4>
-<p><code>jne</code> jumps to an immediate value stored at <code>dc0</code> if <code>a</code> and <code>b</code> are not equal. This also increments <code>dc0</code> by <code>1</code> if the branch is successful and <code>2</code> otherwise so that an alternate <code>dc0</code> can be loaded by the alternate path.</p>
-<h4>Side Effects</h4>
-<ul>
-<li>PC is moved to immediate value if <code>a != b</code></li>
-<li><code>dc0</code> is incremented by <code>1</code> or <code>2</code></li>
-</ul>
-<hr />
-<h2><code>les</code></h2>
-<p><code>a b --</code></p>
-<h4>Description</h4>
-<p><code>les</code> jumps to an immediate value stored at <code>dc0</code> if <code>a</code> is less than <code>b</code> in a signed comparison. This also increments <code>dc0</code> by <code>1</code> if the branch is successful and <code>2</code> otherwise so that an alternate <code>dc0</code> can be loaded by the alternate path.</p>
-<h4>Side Effects</h4>
-<ul>
-<li>PC is moved to immediate value if <code>a &lt; b</code></li>
-<li><code>dc0</code> is incremented by <code>1</code> or <code>2</code></li>
-</ul>
-<hr />
-<h2><code>leq</code></h2>
-<p><code>a b --</code></p>
-<h4>Description</h4>
-<p><code>leq</code> jumps to an immediate value stored at <code>dc0</code> if <code>a</code> is less than or equal to <code>b</code> in a signed comparison. This also increments <code>dc0</code> by <code>1</code> if the branch is successful and <code>2</code> otherwise so that an alternate <code>dc0</code> can be loaded by the alternate path.</p>
-<h4>Side Effects</h4>
-<ul>
-<li>PC is moved to immediate value if <code>a &lt;= b</code></li>
-<li><code>dc0</code> is incremented by <code>1</code> or <code>2</code></li>
-</ul>
-<hr />
-<h2><code>lesu</code></h2>
-<p><code>a b --</code></p>
-<h4>Description</h4>
-<p><code>lesu</code> jumps to an immediate value stored at <code>dc0</code> if <code>a</code> is less than <code>b</code> in an unsigned comparison. This also increments <code>dc0</code> by <code>1</code> if the branch is successful and <code>2</code> otherwise so that an alternate <code>dc0</code> can be loaded by the alternate path.</p>
-<h4>Side Effects</h4>
-<ul>
-<li>PC is moved to immediate value if <code>a &lt; b</code></li>
-<li><code>dc0</code> is incremented by <code>1</code> or <code>2</code></li>
-</ul>
-<hr />
-<h2><code>lequ</code></h2>
-<p><code>a b --</code></p>
-<h4>Description</h4>
-<p><code>lequ</code> jumps to an immediate value stored at <code>dc0</code> if <code>a</code> is less than or equal to <code>b</code> in an unsigned comparison. This also increments <code>dc0</code> by <code>1</code> if the branch is successful and <code>2</code> otherwise so that an alternate <code>dc0</code> can be loaded by the alternate path.</p>
-<h4>Side Effects</h4>
-<ul>
-<li>PC is moved to immediate value if <code>a &lt;= b</code></li>
-<li><code>dc0</code> is incremented by <code>1</code> or <code>2</code></li>
-</ul>
-<hr />
-<h2><code>loop</code></h2>
-<p><code>n e --</code></p>
-<h4>Description</h4>
-<p><code>loop</code> pushes a new loop into onto the <a href="architecture/lstack.html">lstack</a>. <code>n</code> represents the number of iterations of the loop, while <code>e</code> represents the end address of the loop. The loop index (<code>i0</code>) begins at <code>0</code>. The loop will also track only <code>dc0</code> and restore it on each iteration, but on a break <code>dc0</code> will not be set to after the loop.</p>
-<h4>Side Effects</h4>
-<ul>
-<li><a href="architecture/lstack.html">lstack</a> is pushed</li>
-<li><code>dc0</code> is preserved on each iteration</li>
-</ul>
-<hr />
-<h2><code>loopi</code></h2>
-<p><code>n --</code></p>
-<h4>Description</h4>
-<p><code>loopi</code> pushes a new loop into onto the <a href="architecture/lstack.html">lstack</a>. <code>n</code> represents the number of iterations of the loop. The end address is taken from <code>dc0</code> and <code>dc0</code> is incremented. The loop index (<code>i0</code>) begins at <code>0</code>. The loop will also track only <code>dc0</code> and restore it on each iteration, but on a break <code>dc0</code> will not be set to after the loop.</p>
-<h4>Side Effects</h4>
-<ul>
-<li><a href="architecture/lstack.html">lstack</a> is pushed</li>
-<li><code>dc0</code> is incremented</li>
-<li><code>dc0</code> is preserved on each iteration</li>
+<li>The example calls <code>subr</code> before returning to the original caller.</li>
 </ul>
 <hr />
 <h2><code>sef</code></h2>
@@ -1005,25 +1117,205 @@ subr:
 <tr><td><code>04</code></td><td>Segfault</td><td>Triggers when an operation attempts to read from an invalid memory address and places it on the stack</td></tr>
 </table>
 <hr />
-<h2><code>reset</code></h2>
-<p><code>d p --</code></p>
+<h2><code>beq</code></h2>
+<p><code>a b --</code></p>
+<h4>Immediate (WORD)</h4>
+<p>The initial opcode byte is followed by two octets. The immediate value is signed and is the relative offset to branch by.</p>
 <h4>Description</h4>
-<p>Resets the whole processor, setting <code>d</code> as the new DC0 and <code>p</code> as the new PC. Everything is reinitialized, such as stack depth.</p>
+<p><code>beq</code> performs a relative branch if <code>a == b</code>. The <code>pc</code> to branch to is <code>pc + imm</code>.</p>
+<h4>Side Effects</h4>
+<ul>
+<li>PC is moved to <code>pc + imm</code> value if <code>a == b</code>.</li>
+</ul>
+<hr />
+<h2><code>bne</code></h2>
+<p><code>a b --</code></p>
+<h4>Immediate (WORD)</h4>
+<p>The initial opcode byte is followed by two octets. The immediate value is signed and is the relative offset to branch by.</p>
+<h4>Description</h4>
+<p><code>bne</code> performs a relative branch if <code>a != b</code>. The <code>pc</code> to branch to is <code>pc + imm</code>.</p>
+<h4>Side Effects</h4>
+<ul>
+<li>PC is moved to <code>pc + imm</code> value if <code>a != b</code>.</li>
+</ul>
+<hr />
+<h2><code>bles</code></h2>
+<p><code>a b --</code></p>
+<h4>Immediate (WORD)</h4>
+<p>The initial opcode byte is followed by two octets. The immediate value is signed and is the relative offset to branch by.</p>
+<h4>Description</h4>
+<p><code>bles</code> performs a relative branch if <code>a &lt; b</code> where both operands are signed. The <code>pc</code> to branch to is <code>pc + imm</code>.</p>
+<h4>Side Effects</h4>
+<ul>
+<li>PC is moved to <code>pc + imm</code> value if <code>a &lt; b</code>.</li>
+</ul>
+<hr />
+<h2><code>bleq</code></h2>
+<p><code>a b --</code></p>
+<h4>Immediate (WORD)</h4>
+<p>The initial opcode byte is followed by two octets. The immediate value is signed and is the relative offset to branch by.</p>
+<h4>Description</h4>
+<p><code>bleq</code> performs a relative branch if <code>a &lt;= b</code> where both operands are signed. The <code>pc</code> to branch to is <code>pc + imm</code>.</p>
+<h4>Side Effects</h4>
+<ul>
+<li>PC is moved to <code>pc + imm</code> value if <code>a &lt;= b</code>.</li>
+</ul>
+<hr />
+<h2><code>blesu</code></h2>
+<p><code>a b --</code></p>
+<h4>Immediate (WORD)</h4>
+<p>The initial opcode byte is followed by two octets. The immediate value is signed and is the relative offset to branch by.</p>
+<h4>Description</h4>
+<p><code>blesu</code> performs a relative branch if <code>a &lt; b</code> where both operands are unsigned. The <code>pc</code> to branch to is <code>pc + imm</code>.</p>
+<h4>Side Effects</h4>
+<ul>
+<li>PC is moved to <code>pc + imm</code> value if <code>a &lt; b</code>.</li>
+</ul>
+<hr />
+<h2><code>blequ</code></h2>
+<p><code>a b --</code></p>
+<h4>Immediate (WORD)</h4>
+<p>The initial opcode byte is followed by two octets. The immediate value is signed and is the relative offset to branch by.</p>
+<h4>Description</h4>
+<p><code>blequ</code> performs a relative branch if <code>a &lt;= b</code> where both operands are unsigned. The <code>pc</code> to branch to is <code>pc + imm</code>.</p>
+<h4>Side Effects</h4>
+<ul>
+<li>PC is moved to <code>pc + imm</code> value if <code>a &lt;= b</code>.</li>
+</ul>
+<hr />
+<h2><code>bc</code></h2>
+<p><code>--</code></p>
+<h4>Immediate (WORD)</h4>
+<p>The initial opcode byte is followed by two octets. The immediate value is signed and is the relative offset to branch by.</p>
+<h4>Description</h4>
+<p><code>bc</code> performs a relative branch if the <code>c</code> bit is <code>1</code>. The <code>pc</code> to branch to is <code>pc + imm</code>.</p>
+<h4>Side Effects</h4>
+<ul>
+<li>PC is moved to <code>pc + imm</code> value if <code>c</code> is <code>1</code>.</li>
+</ul>
+<hr />
+<h2><code>bnc</code></h2>
+<p><code>--</code></p>
+<h4>Immediate (WORD)</h4>
+<p>The initial opcode byte is followed by two octets. The immediate value is signed and is the relative offset to branch by.</p>
+<h4>Description</h4>
+<p><code>bnc</code> performs a relative branch if the <code>c</code> bit is <code>0</code>. The <code>pc</code> to branch to is <code>pc + imm</code>.</p>
+<h4>Side Effects</h4>
+<ul>
+<li>PC is moved to <code>pc + imm</code> value if <code>c</code> is <code>0</code>.</li>
+</ul>
+<hr />
+<h2><code>bo</code></h2>
+<p><code>--</code></p>
+<h4>Immediate (WORD)</h4>
+<p>The initial opcode byte is followed by two octets. The immediate value is signed and is the relative offset to branch by.</p>
+<h4>Description</h4>
+<p><code>bo</code> performs a relative branch if the <code>o</code> bit is <code>1</code>. The <code>pc</code> to branch to is <code>pc + imm</code>.</p>
+<h4>Side Effects</h4>
+<ul>
+<li>PC is moved to <code>pc + imm</code> value if <code>o</code> is <code>1</code>.</li>
+</ul>
+<hr />
+<h2><code>bno</code></h2>
+<p><code>--</code></p>
+<h4>Immediate (WORD)</h4>
+<p>The initial opcode byte is followed by two octets. The immediate value is signed and is the relative offset to branch by.</p>
+<h4>Description</h4>
+<p><code>bno</code> performs a relative branch if the <code>o</code> bit is <code>0</code>. The <code>pc</code> to branch to is <code>pc + imm</code>.</p>
+<h4>Side Effects</h4>
+<ul>
+<li>PC is moved to <code>pc + imm</code> value if <code>o</code> is <code>0</code>.</li>
+</ul>
+<hr />
+<h2><code>bi</code></h2>
+<p><code>--</code></p>
+<h4>Immediate (WORD)</h4>
+<p>The initial opcode byte is followed by two octets. The immediate value is signed and is the relative offset to branch by.</p>
+<h4>Description</h4>
+<p><code>bi</code> performs a relative branch if the <code>i</code> bit is <code>1</code>. The <code>pc</code> to branch to is <code>pc + imm</code>.</p>
+<h4>Side Effects</h4>
+<ul>
+<li>PC is moved to <code>pc + imm</code> value if <code>i</code> is <code>1</code>.</li>
+</ul>
+<hr />
+<h2><code>bni</code></h2>
+<p><code>--</code></p>
+<h4>Immediate (WORD)</h4>
+<p>The initial opcode byte is followed by two octets. The immediate value is signed and is the relative offset to branch by.</p>
+<h4>Description</h4>
+<p><code>bni</code> performs a relative branch if the <code>i</code> bit is <code>0</code>. The <code>pc</code> to branch to is <code>pc + imm</code>.</p>
+<h4>Side Effects</h4>
+<ul>
+<li>PC is moved to <code>pc + imm</code> value if <code>i</code> is <code>0</code>.</li>
+</ul>
+<hr />
+<h2><code>jmp</code></h2>
+<p><code>a --</code></p>
+<h4>Description</h4>
+<p><code>jmp</code> jumps to an address. The address <code>a</code> is the destination the PC is set to.</p>
+<h4>Examples</h4>
+<pre><code>.subr jmp
+
+subr:
+  return
+</code></pre>
+<ul>
+<li><code>( -- )</code></li>
+<li>The example calls <code>subr</code> with a tail call optimization to return to the original caller.</li>
+</ul>
+<hr />
+<h2><code>loop</code></h2>
+<p><code>n --</code></p>
+<h4>Immediate (WORD)</h4>
+<p>The initial opcode byte is followed by two octets. The immediate value is unsigned and is the relative offset of the end of the loop.</p>
+<h4>Description</h4>
+<p><code>loop</code> pushes a new loop into onto the <a href="architecture/lstack.html">lstack</a>. <code>n</code> represents the number of iterations of the loop, while the immediate value <code>imm</code> is the unsigned relative position of the end of the loop. The loop index (<code>i0</code>) begins at <code>0</code>.</p>
+<h4>Side Effects</h4>
+<ul>
+<li><a href="architecture/lstack.html">lstack</a> is pushed.</li>
+</ul>
+<hr />
+<h2><code>reset</code></h2>
+<p><code>p --</code></p>
+<h4>Description</h4>
+<p>Resets the whole processor, setting <code>p</code> as the new PC. Everything is reinitialized, such as stack depth.</p>
+<hr />
+<h2><code>bz</code></h2>
+<p><code>a --</code></p>
+<h4>Immediate (WORD)</h4>
+<p>The initial opcode byte is followed by two octets. The immediate value is signed and is the relative offset to branch by.</p>
+<h4>Description</h4>
+<p><code>bz</code> performs a relative branch if <code>a == 0</code>. The <code>pc</code> to branch to is <code>pc + imm</code>.</p>
+<h4>Side Effects</h4>
+<ul>
+<li>PC is moved to <code>pc + imm</code> value if <code>a == 0</code>.</li>
+</ul>
+<hr />
+<h2><code>bnz</code></h2>
+<p><code>a --</code></p>
+<h4>Immediate (WORD)</h4>
+<p>The initial opcode byte is followed by two octets. The immediate value is signed and is the relative offset to branch by.</p>
+<h4>Description</h4>
+<p><code>bnz</code> performs a relative branch if <code>a != 0</code>. The <code>pc</code> to branch to is <code>pc + imm</code>.</p>
+<h4>Side Effects</h4>
+<ul>
+<li>PC is moved to <code>pc + imm</code> value if <code>a != 0</code>.</li>
+</ul>
 <h1>UARC Instructions</h1>
-<h2><code>ien</code></h2>
+<h2><code>intien</code></h2>
 <p><code>--</code></p>
 <h4>Description</h4>
-<p><code>ien</code> enables interrupts in the <a href="architecture/ifile.html">ifile</a> only for buses which are presently selected.</p>
+<p><code>intien</code> enables interrupts in the <a href="architecture/ifile.html">ifile</a> only for buses which are presently selected.</p>
 <h4>Side Effects</h4>
 <ul>
 <li>All selected buses now have interrupts enabled.</li>
 <li>All non-selected buses now have interrupts disabled.</li>
 </ul>
 <hr />
-<h2><code>recv</code></h2>
+<h2><code>intrecv</code></h2>
 <p><code>--</code></p>
 <h4>Description</h4>
-<p><code>recv</code> accepts any interrupt synchronously without an interrupt handler from any selected bus. The bus ID (<code>bus</code>) and the interrupt value (<code>v</code>) are added to the <a href="architecture/conveyor.html">conveyor</a> in that order.</p>
+<p><code>intrecv</code> accepts any interrupt synchronously without an interrupt handler from any selected bus. The bus ID (<code>bus</code>) and the interrupt value (<code>v</code>) are added to the <a href="architecture/conveyor.html">conveyor</a> in that order.</p>
 <h4>Side Effects</h4>
 <ul>
 <li><code>cv &lt;- bus, v</code></li>
@@ -1040,98 +1332,40 @@ subr:
 <li>All selected cores for which this core has permission will be stopped before this instruction finishes.</li>
 </ul>
 <hr />
-<h2><code>wait</code></h2>
+<h2><code>intwait</code></h2>
 <p><code>--</code></p>
 <h4>Description</h4>
-<p><code>wait</code> allows the code to synchronously handle interrupts by waiting the core until the next interrupt. If an interrupt had already been received, the <code>i</code> will already be <code>1</code>, thus this will immediately continue.</p>
+<p><code>intwait</code> allows the code to synchronously handle interrupts by waiting the core until the next interrupt. If an interrupt had already been received, the <code>i</code> will already be <code>1</code>, thus this will immediately continue.</p>
 <h4>Side Effects</h4>
 <ul>
 <li>Synchronizes with the first received interrupt or continues if <code>i</code> is already set.</li>
+<li><code>i</code> is cleared by this instruction to indicate that the interrupt is known to be handled.</li>
 </ul>
 <hr />
 <h2><code>getbp</code></h2>
 <p><code>b -- perm</code></p>
 <h4>Description</h4>
-<p><code>getbp</code> places the <a href="uarc.html">permission</a> of the core on bus <code>b</code> onto the stack.</p>
+<p><code>getbp</code> places the <a href="uarc.html">permission</a> of bus <code>b</code> onto the stack.</p>
 <hr />
 <h2><code>getba</code></h2>
 <p><code>b -- addr</code></p>
 <h4>Description</h4>
-<p><code>getba</code> places the <a href="uarc.html">address</a> of the core on bus <code>b</code> onto the stack. If the <code>AND</code> of <code>addr</code> with this core's <a href="uarc.html">permission</a> is equal to this core's <a href="uarc.html">address</a> with the <a href="uarc.html">permission</a> then this core has <a href="uarc.html">privilege</a> over the core on this bus. This check shouldn't need to be performed manually, but that is the process.</p>
+<p><code>getba</code> places the <a href="uarc.html">address</a> of bus <code>b</code> onto the stack. If the <code>AND</code> of <code>addr</code> with this core's <a href="uarc.html">permission</a> is equal to this core's <a href="uarc.html">address</a> with the <a href="uarc.html">permission</a> then this core has <a href="uarc.html">privilege</a> over the core on this bus.</p>
 <hr />
-<h2><code>getp</code></h2>
-<p><code>-- perm</code></p>
-<h4>Description</h4>
-<p><code>getp</code> places the <a href="uarc.html">permission</a> of the current core on the stack. This value is a mask of the <a href="uarc.html">address</a>. The core cannot delegate a <a href="uarc.html">permission</a> on a child core which has any bits unset from its own <a href="uarc.html">permission</a>. Any delegated <a href="uarc.html">address</a> must have the same <a href="uarc.html">address</a> bits which are masked by the delegating core's <a href="uarc.html">permission</a>.</p>
-<hr />
-<h2><code>geta</code></h2>
-<p><code>-- addr</code></p>
-<h4>Description</h4>
-<p><code>geta</code> places the <a href="uarc.html">address</a> of the current core on the stack. This value is 31 bits and will be placed in the least significant bits of the word. The bits of the <a href="uarc.html">address</a> masked by the <a href="uarc.html">permission</a> must be the same in all child cores.</p>
-<h4>Notes</h4>
-<ul>
-<li>This instruction is not supported for a <code>WORD</code> that is less than 32 bits.</li>
-</ul>
-<hr />
-<h2><code>iset</code></h2>
-<p><code>d --</code></p>
-<h4>Description</h4>
-<p><code>iset</code> sets the interrupt address of all selected UARC buses to the value at <code>mem[dc0]</code> while incrementing the current <code>dc0</code> and also sets the corresponding <code>dc0</code> which is to be immediately set when the interrupt is handled to <code>d</code>. This DC will not be set on a <code>recv</code> instruction.</p>
-<h4>Side Effects</h4>
-<ul>
-<li>Any further interrupts on the selected UARC buses now call the routine at <code>mem[dc0]</code> with a <code>dc0 = d</code>.</li>
-</ul>
-<hr />
-<h2><code>seb</code></h2>
-<p><code>b --</code></p>
-<h4>Description</h4>
-<p><code>seb</code> sets the only UARC bus to be selected as <code>b</code>.</p>
-<h4>Side Effects</h4>
-<ul>
-<li>All UARC calls now affect only <code>b</code>.</li>
-</ul>
-<hr />
-<h2><code>slb</code></h2>
-<p><code>b --</code></p>
-<h4>Description</h4>
-<p><code>slb</code> adds the UARC bus <code>b</code> to the selected cores.</p>
-<h4>Side Effects</h4>
-<ul>
-<li>All UARC calls now also affect <code>b</code>.</li>
-</ul>
-<hr />
-<h2><code>usb</code></h2>
-<p><code>b --</code></p>
-<h4>Description</h4>
-<p><code>usb</code> removes the UARC bus <code>b</code> from the selected cores.</p>
-<h4>Side Effects</h4>
-<ul>
-<li>All UARC calls no longer affect <code>b</code>.</li>
-</ul>
-<hr />
-<h2><code>send</code></h2>
-<p><code>v --</code></p>
-<h4>Description</h4>
-<p><code>send</code> sends a value to all selected UARC buses, and waits for all buses to accept the interrupt before continuing.</p>
-<h4>Side Effects</h4>
-<ul>
-<li>Execution is synchronized with the acceptance of all interrupts sent.</li>
-</ul>
-<hr />
-<h2><code>in</code></h2>
+<h2><code>recv</code></h2>
 <p><code>n a --</code></p>
 <h4>Description</h4>
-<p><code>in</code> receives a stream from any selected UARC bus. <code>a</code> is the address at which up to <code>n</code> words are to be streamed to. The bus ID of the core that streamed to this core is placed on the conveyor.</p>
+<p><code>recv</code> receives a stream from any selected UARC bus. <code>a</code> is the address at which up to <code>n</code> words are to be streamed to. The bus ID of the core that streamed to this core is placed on the conveyor.</p>
 <h4>Side Effects</h4>
 <ul>
 <li>Execution is synchronized with the completion of the stream operation.</li>
-<li>The bus ID of the sending core is added to the conveyor.</li>
+<li><code>cv &lt;- bus</code></li>
 </ul>
 <hr />
-<h2><code>out</code></h2>
+<h2><code>send</code></h2>
 <p><code>n a --</code></p>
 <h4>Description</h4>
-<p><code>out</code> sends a stream to all selected UARC buses. <code>n</code> is the number of words able to be streamed out and <code>a</code> is the address at which those words are to be streamed from.</p>
+<p><code>send</code> sends a stream to all selected UARC buses. <code>n</code> is the number of words able to be streamed out and <code>a</code> is the address at which those words are to be streamed from.</p>
 <h4>Side Effects</h4>
 <ul>
 <li>Execution is synchronized with the completion of the stream operation.</li>
@@ -1164,13 +1398,84 @@ subr:
 <li>Specific UARC buses are now added to the selection.</li>
 </ul>
 <hr />
-<h2><code>setp</code></h2>
+<h2><code>setpa</code></h2>
 <p><code>perm addr --</code></p>
 <h4>Description</h4>
-<p><code>setp</code> sets the <a href="uarc.html">permission</a> that is to be delegated to all incepted UARC cores. This value defaults to the same <a href="uarc.html">permission</a> and <a href="uarc.html">address</a> that this core receives on inception. This instruction will only <code>OR</code> the bits of the old <a href="uarc.html">permission</a> with <code>perm</code>, so it can only restrict the <a href="uarc.html">permission</a>. Any bits from this core's <a href="uarc.html">address</a> which are masked by the <a href="uarc.html">permission</a> will be automatically set the same in the delegation address, while the only bits that will be changed are the ones in <code>addr</code> masked by the inverse of the <a href="uarc.html">permission</a>.</p>
+<p><code>setpa</code> sets the <a href="uarc.html">permission</a> that is to be delegated to all incepted UARC cores. This value defaults to the same <a href="uarc.html">permission</a> and <a href="uarc.html">address</a> that this core receives on inception. This instruction will only <code>OR</code> the bits of this core's <a href="uarc.html">permission</a> with <code>perm</code>, so it can only restrict the <a href="uarc.html">permission</a>. Any bits from this core's <a href="uarc.html">address</a> which are masked by the <a href="uarc.html">permission</a> will be automatically set the same in the delegation address, while the only bits that will be changed are the ones in <code>addr</code> masked by the inverse of the <a href="uarc.html">permission</a>.</p>
 <h4>Side Effects</h4>
 <ul>
 <li>All cores incepted after this instruction is executed will have the set <a href="uarc.html">permission</a> and <a href="uarc.html">address</a>.</li>
+</ul>
+<hr />
+<h2><code>expect</code></h2>
+<p><code>v b --</code></p>
+<h4>Description</h4>
+<p><code>expect</code> sends the value <code>v</code> to bus <code>b</code> and expects a response. This instruction does not complete until <code>v</code> is received. A location is allocated on the conveyor for the response of the target core. When the conveyor location is accessed, it will synchronize with the interrupt sent back on bus <code>b</code>. This can be used to efficiently implement coprocessors, even at the software level from another u0-x. This instruction can receive the value and handle the interrupt asynchronously while in an interrupt handler.</p>
+<p>This can be used for all multi-cycle operations, such as square root, multiply, divide, floating point operations, external memory operations, etc. It is expected that multiply is provided over at least one bus in this way.</p>
+<h4>Side Effects</h4>
+<ul>
+<li>Bus <code>b</code> is sent <code>v</code>.</li>
+<li>Execution is synchronized with the completion of sending <code>v</code>.</li>
+<li><code>cv &lt;- response</code></li>
+</ul>
+<hr />
+<h2><code>getp</code></h2>
+<p><code>-- perm</code></p>
+<h4>Description</h4>
+<p><code>getp</code> places the <a href="uarc.html">permission</a> of the current core on the stack. This value is a mask of the <a href="uarc.html">address</a>. The core cannot delegate a <a href="uarc.html">permission</a> on a child core which has any bits unset from its own <a href="uarc.html">permission</a>. Any delegated <a href="uarc.html">address</a> must have the same <a href="uarc.html">address</a> bits which are masked by the delegating core's <a href="uarc.html">permission</a>.</p>
+<hr />
+<h2><code>geta</code></h2>
+<p><code>-- addr</code></p>
+<h4>Description</h4>
+<p><code>geta</code> places the <a href="uarc.html">address</a> of the current core on the stack. This value is 32 bits and will be placed in the least significant bits of the word. The bits of the <a href="uarc.html">address</a> masked by the <a href="uarc.html">permission</a> must be the same in all child cores.</p>
+<h4>Notes</h4>
+<ul>
+<li>This instruction is supported for u0-32 and up.</li>
+</ul>
+<hr />
+<h2><code>intset</code></h2>
+<p><code>p --</code></p>
+<h4>Description</h4>
+<p><code>intset</code> sets the interrupt address of all selected buses to <code>p</code>.</p>
+<h4>Side Effects</h4>
+<ul>
+<li>Any further interrupts on the selected UARC buses now call the routine at <code>p</code>.</li>
+</ul>
+<hr />
+<h2><code>seb</code></h2>
+<p><code>b --</code></p>
+<h4>Description</h4>
+<p><code>seb</code> sets the only UARC bus to be selected as <code>b</code>.</p>
+<h4>Side Effects</h4>
+<ul>
+<li>All UARC calls now affect only <code>b</code>.</li>
+</ul>
+<hr />
+<h2><code>slb</code></h2>
+<p><code>b --</code></p>
+<h4>Description</h4>
+<p><code>slb</code> adds the UARC bus <code>b</code> to the selected cores.</p>
+<h4>Side Effects</h4>
+<ul>
+<li>All UARC calls now also affect <code>b</code>.</li>
+</ul>
+<hr />
+<h2><code>usb</code></h2>
+<p><code>b --</code></p>
+<h4>Description</h4>
+<p><code>usb</code> removes the UARC bus <code>b</code> from the selected cores.</p>
+<h4>Side Effects</h4>
+<ul>
+<li>All UARC calls no longer affect <code>b</code>.</li>
+</ul>
+<hr />
+<h2><code>intsend</code></h2>
+<p><code>v --</code></p>
+<h4>Description</h4>
+<p><code>intsend</code> sends a value to all selected UARC buses, and waits for all buses to accept the interrupt before continuing.</p>
+<h4>Side Effects</h4>
+<ul>
+<li>Execution is synchronized with the acceptance of all interrupts sent.</li>
 </ul>
 <h1>UARC</h1>
 <p>c0 is an official UARC ISA. The purpose of UARC is to make it trivial to combine cores that are specialized at performing their function, so as to alleviate the process of providing backwards compatibility and to provide better utilization. The purpose of c0 is somewhat counter to the purpose of UARC: to provide a general purpose architecture. c0 is designed to be an architecture with high instruction density and the capability to quickly respond to communications from other more-specialized cores. To this end its entire architecture is designed, down to the stack architecture that lets it immediately respond to interrupts.</p>
