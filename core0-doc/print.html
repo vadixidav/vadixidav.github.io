@@ -758,7 +758,7 @@ i0
 <h2><code>move#</code></h2>
 <p><code>--</code></p>
 <h4>Immediate (WORD)</h4>
-<p>The initial opcode byte is followed by an octet. The immediate value is signed.</p>
+<p>The initial opcode byte is followed by an octet. The immediate value is signed and biased by <code>+1</code>.</p>
 <h4>Description</h4>
 <p><code>move#</code> advances <code>dc#</code> by <code>imm</code> bytes, where <code>imm</code> can be negative, thus it can go backwards.</p>
 <hr />
