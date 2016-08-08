@@ -681,7 +681,7 @@ i0
 <h2><code>imm8</code></h2>
 <p><code>-- imm</code></p>
 <h4>Description</h4>
-<p><code>imm8</code> places the immediate 8-bit value on the stack.</p>
+<p><code>imm8</code> places the immediate signed 8-bit value on the stack.</p>
 <h4>Examples</h4>
 <pre><code>8
 </code></pre>
@@ -692,18 +692,18 @@ i0
 <h2><code>imm16</code></h2>
 <p><code>-- imm</code></p>
 <h4>Description</h4>
-<p><code>imm16</code> places the immediate 16-bit value on the stack.</p>
+<p><code>imm16</code> places the immediate signed 16-bit value on the stack.</p>
 <h4>Examples</h4>
-<pre><code>30131
+<pre><code>-30131
 </code></pre>
 <ul>
-<li><code>( -- 30131)</code></li>
+<li><code>( -- -30131)</code></li>
 </ul>
 <hr />
 <h2><code>imm32</code></h2>
 <p><code>-- imm</code></p>
 <h4>Description</h4>
-<p><code>imm32</code> places the immediate 32-bit value on the stack.</p>
+<p><code>imm32</code> places the immediate signed 32-bit value on the stack.</p>
 <h4>Examples</h4>
 <pre><code>1202303404
 </code></pre>
@@ -714,7 +714,7 @@ i0
 <h2><code>imm64</code></h2>
 <p><code>-- imm</code></p>
 <h4>Description</h4>
-<p><code>imm64</code> places the immediate 64-bit value on the stack. This is only supported on u0-64. On u0-32, this has undefined behavior.</p>
+<p><code>imm64</code> places the immediate signed 64-bit value on the stack. This is only supported on u0-64. On u0-32, this has undefined behavior.</p>
 <h4>Examples</h4>
 <pre><code>1202303404505606
 </code></pre>
