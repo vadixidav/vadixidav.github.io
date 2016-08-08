@@ -182,10 +182,8 @@ cv0
 <hr />
 <h2><code>rewrite#</code></h2>
 <p><code>v a --</code></p>
-<h4>Immediate (WORD)</h4>
-<p>The initial opcode byte is followed by an octet. The immediate value is signed and biased by <code>+1</code>.</p>
 <h4>Description</h4>
-<p><code>rewrite#</code> performs a random write relative to <code>a</code> or <code>dc#</code> depending on perspective. This means that <code>mem[mem[dc#] + a] = v</code>. <code>dc#</code> is advanced by the immediate value. This may be cached.</p>
+<p><code>rewrite#</code> performs a random write relative to <code>a</code> or <code>dc#</code> depending on perspective. This means that <code>mem[mem[dc#] + a] = v</code>. This may be cached.</p>
 <h4>Side Effects</h4>
 <ul>
 <li><code>mem[mem[dc#] + a] = v</code></li>

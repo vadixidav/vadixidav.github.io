@@ -191,7 +191,7 @@
 <tr><td><code>5D</code></td><td>csr</td><td>1</td><td><code>a b -- ((a &gt;&gt; b) or (a &lt;&lt; (b - WORD)))</code></td><td> </td></tr>
 <tr><td><code>5E</code></td><td>asr</td><td>1</td><td><code>a b -- (a &gt;&gt;&gt; b)</code></td><td> </td></tr>
 <tr><td><code>5F</code></td><td>and</td><td>1</td><td><code>a b -- (a &amp; b)</code></td><td> </td></tr>
-<tr><td><code>60</code> - <code>63</code></td><td>rewrite#</td><td>2</td><td><code>v a --</code></td><td><code>mem[mem[dc#] + a] = v</code></td></tr>
+<tr><td><code>60</code> - <code>63</code></td><td>rewrite#</td><td>1</td><td><code>v a --</code></td><td><code>mem[mem[dc#] + a] = v</code></td></tr>
 <tr><td><code>64</code> - <code>67</code></td><td>rawrite#</td><td>1</td><td><code>v a --</code></td><td><code>mem[dc# + a] = v</code></td></tr>
 <tr><td><code>68</code></td><td>write</td><td>1</td><td><code>v a --</code></td><td><code>mem[a] = v</code></td></tr>
 <tr><td><code>69</code></td><td>writep</td><td>1</td><td><code>v a --</code></td><td><code>progmem[a] = v</code></td></tr>
