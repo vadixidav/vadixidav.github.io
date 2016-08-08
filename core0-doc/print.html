@@ -117,7 +117,7 @@
 <li>
 <p><code>OOOO OOOO</code> (All instructions)</p>
 <ul>
-<li><code>0SSO OOOO</code> (Normal instructions)
+<li><code>0SSO OOOO</code> / <code>10SS OOOO</code> (Normal instructions)
 <ul>
 <li>All normal instructions affect the entire stack according to the <code>S</code> bits</li>
 <li><code>0010 LLLL</code> (Conveyor instruction)
@@ -137,15 +137,15 @@
 </li>
 </ul>
 </li>
-<li><code>1OLL LLLL</code> (Random access instructions)
+<li><code>11OL LLLL</code> (Random access instructions)
 <ul>
-<li><code>10LL LLLL</code> (Rotate)
+<li><code>110L LLLL</code> (Rotate)
 <ul>
 <li><a href="architecture/dstack.html">dstack</a> item of depth <code>location + 1</code> rotated to top of <a href="architecture/dstack.html">dstack</a></li>
 <li>Only elements above the rotate are pushed down</li>
 </ul>
 </li>
-<li><code>11LL LLLL</code> (Copy)
+<li><code>111L LLLL</code> (Copy)
 <ul>
 <li><a href="architecture/dstack.html">dstack</a> item of depth <code>location + 1</code> copied to top of <a href="architecture/dstack.html">dstack</a></li>
 <li>Entire stack is pushed down</li>
@@ -167,10 +167,10 @@
 </ul>
 <h3>Stack bits</h3>
 <ul>
-<li><code>00</code> - The stack is not popped or pushed.</li>
-<li><code>01</code> - The stack is pushed once.</li>
-<li><code>10</code> - The stack is popped once.</li>
-<li><code>11</code> - The stack is popped twice.</li>
+<li><code>00</code> - The <a href="architecture/dstack.html">dstack</a> is not popped or pushed.</li>
+<li><code>01</code> - The <a href="architecture/dstack.html">dstack</a> is pushed once.</li>
+<li><code>10</code> - The <a href="architecture/dstack.html">dstack</a> is popped once.</li>
+<li><code>11</code> - The <a href="architecture/dstack.html">dstack</a> is popped twice.</li>
 </ul>
 <h2>Key</h2>
 <ul>
