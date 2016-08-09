@@ -218,15 +218,15 @@
 <tr><td><code>7E</code></td><td>RESERVED</td><td>1</td><td><code>_ _ --</code></td><td> </td></tr>
 <tr><td><code>7F</code></td><td>RESERVED</td><td>1</td><td><code>_ _ --</code></td><td> </td></tr>
 <tr><td><code>80</code></td><td>addi</td><td>1 + WORD</td><td><code>a -- (a + imm)</code></td><td><code>c</code>, <code>o</code></td></tr>
-<tr><td><code>81</code></td><td>subi</td><td>1 + WORD</td><td><code>a -- (imm - a)</code></td><td><code>c</code>, <code>o</code></td></tr>
-<tr><td><code>82</code></td><td>lsli</td><td>2</td><td><code>a -- (a &lt;&lt; imm)</code></td><td> </td></tr>
-<tr><td><code>83</code></td><td>csli</td><td>2</td><td><code>a -- ((a &lt;&lt; imm) or (a &gt;&gt; (imm - WORD)))</code></td><td> </td></tr>
-<tr><td><code>84</code></td><td>asri</td><td>2</td><td><code>a -- (a &gt;&gt;&gt; imm)</code></td><td> </td></tr>
-<tr><td><code>85</code></td><td>andi</td><td>1 + WORD</td><td><code>a -- (a &amp; b)</code></td><td> </td></tr>
-<tr><td><code>86</code></td><td>ori</td><td>1 + WORD</td><td><code>a -- (a or b)</code></td><td> </td></tr>
-<tr><td><code>87</code></td><td>xori</td><td>1 + WORD</td><td><code>a -- (a ^ b)</code></td><td> </td></tr>
-<tr><td><code>88</code></td><td>RESERVED</td><td>1</td><td><code>--</code></td><td> </td></tr>
-<tr><td><code>89</code></td><td>RESERVED</td><td>1</td><td><code>--</code></td><td> </td></tr>
+<tr><td><code>81</code></td><td>addi8</td><td>2</td><td><code>a -- (a + imm)</code></td><td><code>c</code>, <code>o</code></td></tr>
+<tr><td><code>82</code></td><td>addi16</td><td>3</td><td><code>a -- (a + imm)</code></td><td><code>c</code>, <code>o</code></td></tr>
+<tr><td><code>83</code></td><td>subi</td><td>1 + WORD</td><td><code>a -- (imm - a)</code></td><td><code>c</code>, <code>o</code></td></tr>
+<tr><td><code>84</code></td><td>lsli</td><td>2</td><td><code>a -- (a &lt;&lt; imm)</code></td><td> </td></tr>
+<tr><td><code>85</code></td><td>csli</td><td>2</td><td><code>a -- ((a &lt;&lt; imm) or (a &gt;&gt; (imm - WORD)))</code></td><td> </td></tr>
+<tr><td><code>86</code></td><td>asri</td><td>2</td><td><code>a -- (a &gt;&gt;&gt; imm)</code></td><td> </td></tr>
+<tr><td><code>87</code></td><td>andi</td><td>1 + WORD</td><td><code>a -- (a &amp; b)</code></td><td> </td></tr>
+<tr><td><code>88</code></td><td>ori</td><td>1 + WORD</td><td><code>a -- (a or b)</code></td><td> </td></tr>
+<tr><td><code>89</code></td><td>xori</td><td>1 + WORD</td><td><code>a -- (a ^ b)</code></td><td> </td></tr>
 <tr><td><code>8A</code></td><td>bc</td><td>3</td><td><code>--</code></td><td>if <code>c</code> then <code>pc += imm</code></td></tr>
 <tr><td><code>8B</code></td><td>bnc</td><td>3</td><td><code>--</code></td><td>if <code>~c</code> then <code>pc += imm</code></td></tr>
 <tr><td><code>8C</code></td><td>bo</td><td>3</td><td><code>--</code></td><td>if <code>o</code> then <code>pc += imm</code></td></tr>

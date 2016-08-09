@@ -200,7 +200,45 @@
 <li><code>o = (a[WORD - 1] ^ imm[WORD - 1]) ? 0 : a[WORD - 1] ^ (a + imm)[WORD - 1]</code></li>
 </ul>
 <h4>Examples</h4>
-<pre><code>2 add:3
+<pre><code>2 addi:3
+</code></pre>
+<ul>
+<li><code>( -- 5)</code></li>
+<li>Carry is set to 0</li>
+</ul>
+<hr />
+<h2><code>addi8</code></h2>
+<p><code>a -- (a + imm)</code></p>
+<h4>Immediate (WORD)</h4>
+<p>The initial opcode byte is followed by one octet. This octet is signed.</p>
+<h4>Description</h4>
+<p><code>addi8</code> takes parameter <code>a</code> from the stack and adds it with the immediate value <code>imm</code>. The carry bit is set by this instruction, but is not consumed.</p>
+<h4>Side Effects</h4>
+<ul>
+<li><code>c = (a + imm)[WORD]</code></li>
+<li><code>o = (a[WORD - 1] ^ imm[WORD - 1]) ? 0 : a[WORD - 1] ^ (a + imm)[WORD - 1]</code></li>
+</ul>
+<h4>Examples</h4>
+<pre><code>2 addi8:3
+</code></pre>
+<ul>
+<li><code>( -- 5)</code></li>
+<li>Carry is set to 0</li>
+</ul>
+<hr />
+<h2><code>addi16</code></h2>
+<p><code>a -- (a + imm)</code></p>
+<h4>Immediate (WORD)</h4>
+<p>The initial opcode byte is followed by two octets. This immediate value is signed.</p>
+<h4>Description</h4>
+<p><code>addi16</code> takes parameter <code>a</code> from the stack and adds it with the immediate value <code>imm</code>. The carry bit is set by this instruction, but is not consumed.</p>
+<h4>Side Effects</h4>
+<ul>
+<li><code>c = (a + imm)[WORD]</code></li>
+<li><code>o = (a[WORD - 1] ^ imm[WORD - 1]) ? 0 : a[WORD - 1] ^ (a + imm)[WORD - 1]</code></li>
+</ul>
+<h4>Examples</h4>
+<pre><code>2 addi16:3
 </code></pre>
 <ul>
 <li><code>( -- 5)</code></li>
