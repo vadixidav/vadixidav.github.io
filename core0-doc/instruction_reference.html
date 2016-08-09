@@ -182,7 +182,7 @@
 <tr><td><code>48</code> - <code>4B</code></td><td>set#</td><td>1</td><td><code>a --</code></td><td><code>dc# = a</code></td></tr>
 <tr><td><code>4C</code> - <code>4F</code></td><td>rawritei#</td><td>2</td><td><code>v --</code></td><td><code>mem[dc# + imm] = v</code></td></tr>
 <tr><td><code>50</code> - <code>53</code></td><td>rewritei#</td><td>2</td><td><code>v --</code></td><td><code>mem[mem[dc#] + imm] = v</code></td></tr>
-<tr><td><code>54</code> - <code>57</code></td><td>reread#</td><td>2</td><td><code>a --</code></td><td><code>cv &lt;- mem[mem[dc#] + a]</code></td></tr>
+<tr><td><code>54</code> - <code>57</code></td><td>reread#</td><td>1</td><td><code>a --</code></td><td><code>cv &lt;- mem[mem[dc#] + a]</code></td></tr>
 <tr><td><code>58</code></td><td>add</td><td>1</td><td><code>a b -- (a + b)</code></td><td><code>c</code>, <code>o</code></td></tr>
 <tr><td><code>59</code></td><td>sub</td><td>1</td><td><code>a b -- (a - b)</code></td><td><code>c</code>, <code>o</code></td></tr>
 <tr><td><code>5A</code></td><td>lsl</td><td>1</td><td><code>a b -- (a &lt;&lt; b)</code></td><td> </td></tr>

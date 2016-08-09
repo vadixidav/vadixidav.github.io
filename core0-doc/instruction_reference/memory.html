@@ -153,13 +153,11 @@
 <hr />
 <h2><code>reread#</code></h2>
 <p><code>a --</code></p>
-<h4>Immediate (WORD)</h4>
-<p>The initial opcode byte is followed by an octet. The immediate value is signed and biased by <code>+1</code>.</p>
 <h4>Description</h4>
-<p><code>reread#</code> performs a random read relative to <code>mem[dc#]</code> or <code>a</code> depending on perspective. <code>dc#</code> is advanced by <code>imm</code>. The result is placed on the conveyor because only the memory at the DC itself is cached.</p>
+<p><code>reread#</code> performs a random read relative to <code>mem[dc#]</code> or <code>a</code> depending on perspective. The result is placed on the conveyor because only the memory at the DC itself is cached.</p>
 <h4>Side Effects</h4>
 <ul>
-<li><code>mem[mem[dc#] + a]</code> is asynchronously put on the conveyor.</li>
+<li><code>cv &lt;- mem[mem[dc#] + a]</code></li>
 </ul>
 <hr />
 <h2><code>reada</code></h2>

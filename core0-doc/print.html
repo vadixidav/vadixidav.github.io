@@ -226,7 +226,7 @@
 <tr><td><code>48</code> - <code>4B</code></td><td>set#</td><td>1</td><td><code>a --</code></td><td><code>dc# = a</code></td></tr>
 <tr><td><code>4C</code> - <code>4F</code></td><td>rawritei#</td><td>2</td><td><code>v --</code></td><td><code>mem[dc# + imm] = v</code></td></tr>
 <tr><td><code>50</code> - <code>53</code></td><td>rewritei#</td><td>2</td><td><code>v --</code></td><td><code>mem[mem[dc#] + imm] = v</code></td></tr>
-<tr><td><code>54</code> - <code>57</code></td><td>reread#</td><td>2</td><td><code>a --</code></td><td><code>cv &lt;- mem[mem[dc#] + a]</code></td></tr>
+<tr><td><code>54</code> - <code>57</code></td><td>reread#</td><td>1</td><td><code>a --</code></td><td><code>cv &lt;- mem[mem[dc#] + a]</code></td></tr>
 <tr><td><code>58</code></td><td>add</td><td>1</td><td><code>a b -- (a + b)</code></td><td><code>c</code>, <code>o</code></td></tr>
 <tr><td><code>59</code></td><td>sub</td><td>1</td><td><code>a b -- (a - b)</code></td><td><code>c</code>, <code>o</code></td></tr>
 <tr><td><code>5A</code></td><td>lsl</td><td>1</td><td><code>a b -- (a &lt;&lt; b)</code></td><td> </td></tr>
@@ -736,7 +736,7 @@ i0
 <h2><code>rot#</code></h2>
 <p><code>v #.. -- #.. v</code></p>
 <h4>Description</h4>
-<p><code>rot#</code> rotates a value <code>0</code> to <code>31</code> elements deep in the stack to the top of the stack. The value is removed from that location and elements under that value are not shifted in the stack. <code>rot0</code> has no effect and uses a cycle doing nothing, and it is the recommended form of doing a NOP because it only consumes one octet.</p>
+<p><code>rot#</code> rotates a value <code>0</code> to <code>31</code> elements deep in the stack to the top of the stack. The value is removed from that location and elements under that value are not shifted in the stack. <code>rot0</code> has no effect and uses a cycle doing nothing, but this is not the recommended method of performing a NOP, since significant power may be consumed internally due to the stack random access MUX.</p>
 <h4>Examples</h4>
 <pre><code>1 2 3 rot2
 </code></pre>
@@ -840,13 +840,11 @@ i0
 <hr />
 <h2><code>reread#</code></h2>
 <p><code>a --</code></p>
-<h4>Immediate (WORD)</h4>
-<p>The initial opcode byte is followed by an octet. The immediate value is signed and biased by <code>+1</code>.</p>
 <h4>Description</h4>
-<p><code>reread#</code> performs a random read relative to <code>mem[dc#]</code> or <code>a</code> depending on perspective. <code>dc#</code> is advanced by <code>imm</code>. The result is placed on the conveyor because only the memory at the DC itself is cached.</p>
+<p><code>reread#</code> performs a random read relative to <code>mem[dc#]</code> or <code>a</code> depending on perspective. The result is placed on the conveyor because only the memory at the DC itself is cached.</p>
 <h4>Side Effects</h4>
 <ul>
-<li><code>mem[mem[dc#] + a]</code> is asynchronously put on the conveyor.</li>
+<li><code>cv &lt;- mem[mem[dc#] + a]</code></li>
 </ul>
 <hr />
 <h2><code>reada</code></h2>
