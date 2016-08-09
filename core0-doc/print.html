@@ -295,7 +295,7 @@
 <tr><td><code>9F</code></td><td>RESERVED</td><td>1</td><td><code>-- _</code></td><td> </td></tr>
 <tr><td><code>A0</code></td><td>or</td><td>1</td><td><code>a b -- (a or b)</code></td><td> </td></tr>
 <tr><td><code>A1</code></td><td>xor</td><td>1</td><td><code>a b -- (a ^ b)</code></td><td> </td></tr>
-<tr><td><code>A2</code></td><td>reada</td><td>1</td><td><code>a --</code></td><td><code>cv &lt;- mem[a]</code></td></tr>
+<tr><td><code>A2</code></td><td>read</td><td>1</td><td><code>a --</code></td><td><code>cv &lt;- mem[a]</code></td></tr>
 <tr><td><code>A3</code></td><td>call</td><td>1</td><td><code>a --</code></td><td><code>pc = a</code>; push <a href="architecture/cstack.html">cstack</a></td></tr>
 <tr><td><code>A4</code></td><td>jmp</td><td>1</td><td><code>a --</code></td><td><code>pc = a</code></td></tr>
 <tr><td><code>A5</code></td><td>intset</td><td>1</td><td><code>p --</code></td><td>Set selected interrupt addresses to <code>p</code></td></tr>
@@ -847,22 +847,22 @@ i0
 <li><code>cv &lt;- mem[mem[dc#] + a]</code></li>
 </ul>
 <hr />
-<h2><code>reada</code></h2>
+<h2><code>read</code></h2>
 <p><code>a --</code></p>
 <h4>Description</h4>
-<p><code>reada</code> performs an asynchronous read. This means that the value read will not necessarily complete before the next instruction and the result is not put on the stack. Instead, the value is promised in a slot on the <a href="architecture/conveyor.html">conveyor</a>. When this slot is read from, the read is synchronized and the result is placed on the stack.</p>
+<p><code>read</code> performs an asynchronous read. This means that the value read will not necessarily complete before the next instruction and the result is not put on the stack. Instead, the value is promised in a slot on the <a href="architecture/conveyor.html">conveyor</a>. When this slot is read from, the read is synchronized and the result is placed on the stack.</p>
 <h4>Side Effects</h4>
 <ul>
 <li><code>cv &lt;- mem[a]</code></li>
 </ul>
 <h4>Examples</h4>
-<pre><code>0 reada
+<pre><code>0 read
 # Do other stuff here
 cv0
 </code></pre>
 <ul>
 <li><code>( -- mem[0])</code></li>
-<li>Between <code>reada</code> and <code>cv0</code>, any operations happen while the read is occurring.</li>
+<li>Between <code>read</code> and <code>cv0</code>, any operations happen while the read is occurring.</li>
 </ul>
 <hr />
 <h2><code>rewrite#</code></h2>
