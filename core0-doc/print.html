@@ -1044,7 +1044,7 @@ subr:
 <h2><code>iloop</code></h2>
 <p><code>--</code></p>
 <h4>Immediate (WORD)</h4>
-<p>The initial opcode byte is followed by two octets. The immediate value is unsigned and is added to the PC to find the relative position of the end of the loop.</p>
+<p>The initial opcode byte is followed by two octets. The immediate value is unsigned with a bias of <code>+4</code> and is added to the PC to find the relative position of the end of the loop.</p>
 <h4>Description</h4>
 <p><code>iloop</code> pushes a new infinite loop into onto the <a href="architecture/lstack.html">lstack</a>. This loop, being infinite, will never end until the break instruction is issued. The loop index (<code>i0</code>) begins at <code>0</code> and will wrap around indefinitely.</p>
 <h4>Side Effects</h4>
@@ -1301,7 +1301,7 @@ subr:
 <h2><code>loop</code></h2>
 <p><code>n --</code></p>
 <h4>Immediate (WORD)</h4>
-<p>The initial opcode byte is followed by two octets. The immediate value is unsigned and is the relative offset of the end of the loop.</p>
+<p>The initial opcode byte is followed by two octets. The immediate value is unsigned a bias of <code>+4</code> and is the relative offset of the end of the loop.</p>
 <h4>Description</h4>
 <p><code>loop</code> pushes a new loop into onto the <a href="architecture/lstack.html">lstack</a>. <code>n</code> represents the number of iterations of the loop, while the immediate value <code>imm</code> is the unsigned relative position of the end of the loop. The loop index (<code>i0</code>) begins at <code>0</code>.</p>
 <h4>Side Effects</h4>
