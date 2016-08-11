@@ -160,6 +160,13 @@
 <li><code>cv &lt;- mem[mem[dc#] + a]</code></li>
 </ul>
 <hr />
+<h2><code>index#</code></h2>
+<p><code>-- (dc# + imm)</code></p>
+<h4>Immediate (WORD)</h4>
+<p>The initial opcode byte is followed by an octet. The immediate value is unsigned.</p>
+<h4>Description</h4>
+<p><code>index#</code> computes a relative address to <code>dc#</code>. This is useful for computing a pointer to something on the stack before passing it into another function. If the offset is greater than 256, use <code>get# addi16</code>, a two instruction combo.</p>
+<hr />
 <h2><code>read</code></h2>
 <p><code>a --</code></p>
 <h4>Description</h4>

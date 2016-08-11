@@ -233,16 +233,13 @@
 <tr><td><code>8D</code></td><td>bno</td><td>3</td><td><code>--</code></td><td>if <code>~o</code> then <code>pc += imm</code></td></tr>
 <tr><td><code>8E</code></td><td>bi</td><td>3</td><td><code>--</code></td><td>if <code>i</code> then <code>pc += imm</code>; <code>i = 0</code></td></tr>
 <tr><td><code>8F</code></td><td>bni</td><td>3</td><td><code>--</code></td><td>if <code>~i</code> then <code>pc += imm</code>; <code>i = 0</code></td></tr>
-<tr><td><code>90</code></td><td>imm8</td><td>2</td><td><code>-- imm</code></td><td> </td></tr>
-<tr><td><code>91</code></td><td>imm16</td><td>3</td><td><code>-- imm</code></td><td> </td></tr>
-<tr><td><code>92</code></td><td>imm32</td><td>5</td><td><code>-- imm</code></td><td> </td></tr>
-<tr><td><code>93</code></td><td>imm64</td><td>9</td><td><code>-- imm</code></td><td>Only supported on u0-64</td></tr>
-<tr><td><code>94</code></td><td>getp</td><td>1</td><td><code>-- perm</code></td><td>Get UARC permission</td></tr>
-<tr><td><code>95</code></td><td>geta</td><td>1</td><td><code>-- addr</code></td><td>Get UARC address</td></tr>
-<tr><td><code>96</code></td><td>RESERVED</td><td>1</td><td><code>-- _</code></td><td> </td></tr>
-<tr><td><code>97</code></td><td>RESERVED</td><td>1</td><td><code>-- _</code></td><td> </td></tr>
-<tr><td><code>98</code></td><td>RESERVED</td><td>1</td><td><code>-- _</code></td><td> </td></tr>
-<tr><td><code>99</code></td><td>RESERVED</td><td>1</td><td><code>-- _</code></td><td> </td></tr>
+<tr><td><code>90</code> - <code>93</code></td><td>index#</td><td>2</td><td><code>-- (dc# + imm)</code></td><td> </td></tr>
+<tr><td><code>94</code></td><td>imm8</td><td>2</td><td><code>-- imm</code></td><td> </td></tr>
+<tr><td><code>95</code></td><td>imm16</td><td>3</td><td><code>-- imm</code></td><td> </td></tr>
+<tr><td><code>96</code></td><td>imm32</td><td>5</td><td><code>-- imm</code></td><td> </td></tr>
+<tr><td><code>97</code></td><td>imm64</td><td>9</td><td><code>-- imm</code></td><td>Only supported on u0-64</td></tr>
+<tr><td><code>98</code></td><td>getp</td><td>1</td><td><code>-- perm</code></td><td>Get UARC permission</td></tr>
+<tr><td><code>99</code></td><td>geta</td><td>1</td><td><code>-- addr</code></td><td>Get UARC address</td></tr>
 <tr><td><code>9A</code></td><td>RESERVED</td><td>1</td><td><code>-- _</code></td><td> </td></tr>
 <tr><td><code>9B</code></td><td>RESERVED</td><td>1</td><td><code>-- _</code></td><td> </td></tr>
 <tr><td><code>9C</code></td><td>RESERVED</td><td>1</td><td><code>-- _</code></td><td> </td></tr>
