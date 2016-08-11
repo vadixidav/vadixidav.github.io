@@ -433,6 +433,28 @@ subr:
 <ul>
 <li>PC is moved to <code>pc + imm</code> value if <code>a != 0</code>.</li>
 </ul>
+<hr />
+<h2><code>ba</code></h2>
+<p><code>b --</code></p>
+<h4>Immediate (WORD)</h4>
+<p>The initial opcode byte is followed by two octets. The immediate value is signed and is the relative offset to branch by.</p>
+<h4>Description</h4>
+<p><code>ba</code> performs a relative branch if an interrupt is available on bus <code>b</code>. The <code>pc</code> to branch to is <code>pc + imm</code>.</p>
+<h4>Side Effects</h4>
+<ul>
+<li>PC is moved to <code>pc + imm</code> value if an interrupt is available on bus <code>b</code>.</li>
+</ul>
+<hr />
+<h2><code>bna</code></h2>
+<p><code>b --</code></p>
+<h4>Immediate (WORD)</h4>
+<p>The initial opcode byte is followed by two octets. The immediate value is signed and is the relative offset to branch by.</p>
+<h4>Description</h4>
+<p><code>bna</code> performs a relative branch if an interrupt is not available on bus <code>b</code>. The <code>pc</code> to branch to is <code>pc + imm</code>.</p>
+<h4>Side Effects</h4>
+<ul>
+<li>PC is moved to <code>pc + imm</code> value if an interrupt is not available on bus <code>b</code>.</li>
+</ul>
 
                 </div>
 

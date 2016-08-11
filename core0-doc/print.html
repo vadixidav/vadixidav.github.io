@@ -119,7 +119,16 @@
 <ul>
 <li><code>0SSO OOOO</code> / <code>10SS OOOO</code> (Normal instructions)
 <ul>
-<li>All normal instructions affect the entire stack according to the <code>S</code> bits</li>
+<li>All normal instructions affect the entire stack according to the <code>S</code> bits
+<ul>
+<li>Instructions <code>1011 0000</code> - <code>1011 0111</code> have an <code>SS</code> of <code>00</code>.
+<ul>
+<li>These are used for preserving DCs between calls.</li>
+</ul>
+</li>
+<li>Instructions <code>1011 1000</code> - <code>1011 1111</code> have an <code>SS</code> of <code>10</code>.</li>
+</ul>
+</li>
 <li><code>0010 LLLL</code> (Conveyor instruction)
 <ul>
 <li>Reads and synchronizes with conveyor index <code>location</code></li>
@@ -239,7 +248,7 @@
 <tr><td><code>64</code> - <code>67</code></td><td>rawrite#</td><td>1</td><td><code>v a --</code></td><td><code>mem[dc# + a] = v</code></td></tr>
 <tr><td><code>68</code></td><td>write</td><td>1</td><td><code>v a --</code></td><td><code>mem[a] = v</code></td></tr>
 <tr><td><code>69</code></td><td>writep</td><td>1</td><td><code>v a --</code></td><td><code>progmem[a] = v</code></td></tr>
-<tr><td><code>6A</code></td><td>writepo</td><td>1</td><td><code>ins a --</code></td><td><code>progmem[a] = ins</code></td></tr>
+<tr><td><code>6A</code></td><td>writepo</td><td>1</td><td><code>o a --</code></td><td><code>progmem[a] = o</code></td></tr>
 <tr><td><code>6B</code></td><td>beq</td><td>3</td><td><code>a b --</code></td><td>if <code>a == b</code> then <code>pc += imm</code></td></tr>
 <tr><td><code>6C</code></td><td>bne</td><td>3</td><td><code>a b --</code></td><td>if <code>a != b</code> then <code>pc += imm</code></td></tr>
 <tr><td><code>6D</code></td><td>bles</td><td>3</td><td><code>a b --</code></td><td>if <code>a &lt; b</code> then <code>pc += imm</code></td></tr>
@@ -304,24 +313,18 @@
 <tr><td><code>AB</code></td><td>bz</td><td>3</td><td><code>n --</code></td><td>if <code>n == 0</code> then <code>pc += imm</code></td></tr>
 <tr><td><code>AC</code></td><td>bnz</td><td>3</td><td><code>n --</code></td><td>if <code>n != 0</code> then <code>pc += imm</code></td></tr>
 <tr><td><code>AD</code></td><td>writepi</td><td>1 + WORD</td><td><code>v --</code></td><td>Writes <code>v</code> to instruction memory at <code>imm</code></td></tr>
-<tr><td><code>AE</code></td><td>writepri</td><td>3</td><td><code>v --</code></td><td>Writes <code>v</code> to instruction memory at <code>pc + imm</code></td></tr>
+<tr><td><code>AE</code></td><td>writepri</td><td>3</td><td><code>v --</code></td><td><code>progmem[pc + imm] = v</code></td></tr>
 <tr><td><code>AF</code></td><td>drop</td><td>1</td><td><code>_ --</code></td><td>Drops one element from the stack</td></tr>
-<tr><td><code>B0</code></td><td>RESERVED</td><td>1</td><td><code>_ _ --</code></td><td> </td></tr>
-<tr><td><code>B1</code></td><td>RESERVED</td><td>1</td><td><code>_ _ --</code></td><td> </td></tr>
-<tr><td><code>B2</code></td><td>RESERVED</td><td>1</td><td><code>_ _ --</code></td><td> </td></tr>
-<tr><td><code>B3</code></td><td>RESERVED</td><td>1</td><td><code>_ _ --</code></td><td> </td></tr>
-<tr><td><code>B4</code></td><td>RESERVED</td><td>1</td><td><code>_ _ --</code></td><td> </td></tr>
-<tr><td><code>B5</code></td><td>RESERVED</td><td>1</td><td><code>_ _ --</code></td><td> </td></tr>
-<tr><td><code>B6</code></td><td>RESERVED</td><td>1</td><td><code>_ _ --</code></td><td> </td></tr>
-<tr><td><code>B7</code></td><td>RESERVED</td><td>1</td><td><code>_ _ --</code></td><td> </td></tr>
-<tr><td><code>B8</code></td><td>RESERVED</td><td>1</td><td><code>_ _ --</code></td><td> </td></tr>
-<tr><td><code>B9</code></td><td>RESERVED</td><td>1</td><td><code>_ _ --</code></td><td> </td></tr>
-<tr><td><code>BA</code></td><td>RESERVED</td><td>1</td><td><code>_ _ --</code></td><td> </td></tr>
-<tr><td><code>BB</code></td><td>RESERVED</td><td>1</td><td><code>_ _ --</code></td><td> </td></tr>
-<tr><td><code>BC</code></td><td>RESERVED</td><td>1</td><td><code>_ _ --</code></td><td> </td></tr>
-<tr><td><code>BD</code></td><td>RESERVED</td><td>1</td><td><code>_ _ --</code></td><td> </td></tr>
-<tr><td><code>BE</code></td><td>RESERVED</td><td>1</td><td><code>_ _ --</code></td><td> </td></tr>
-<tr><td><code>BF</code></td><td>RESERVED</td><td>1</td><td><code>_ _ --</code></td><td> </td></tr>
+<tr><td><code>B0</code> - <code>B3</code></td><td>push#</td><td>1</td><td><code>--</code></td><td>Pushes <code>dc#</code> onto the astack</td></tr>
+<tr><td><code>B4</code> - <code>B7</code></td><td>pop#</td><td>1</td><td><code>--</code></td><td>Pops <code>dc#</code> from the astack</td></tr>
+<tr><td><code>B8</code></td><td>ba</td><td>3</td><td><code>b --</code></td><td>Branch if an interrupt is available on bus <code>b</code></td></tr>
+<tr><td><code>B9</code></td><td>bna</td><td>3</td><td><code>b --</code></td><td>Branch if an interrupt is not available on bus <code>b</code></td></tr>
+<tr><td><code>BA</code></td><td>writepori</td><td>3</td><td><code>o --</code></td><td><code>progmem[pc + imm] = o</code></td></tr>
+<tr><td><code>BB</code></td><td>RESERVED</td><td>1</td><td><code>_ --</code></td><td> </td></tr>
+<tr><td><code>BC</code></td><td>RESERVED</td><td>1</td><td><code>_ --</code></td><td> </td></tr>
+<tr><td><code>BD</code></td><td>RESERVED</td><td>1</td><td><code>_ --</code></td><td> </td></tr>
+<tr><td><code>BE</code></td><td>RESERVED</td><td>1</td><td><code>_ --</code></td><td> </td></tr>
+<tr><td><code>BF</code></td><td>RESERVED</td><td>1</td><td><code>_ --</code></td><td> </td></tr>
 <tr><td><code>C0</code> - <code>DF</code></td><td>rot#</td><td><code>v #.. -- #.. v</code></td><td> </td></tr>
 <tr><td><code>E0</code> - <code>FF</code></td><td>copy#</td><td><code>v #.. -- v #.. v</code></td><td> </td></tr>
 </table>
@@ -937,19 +940,19 @@ cv0
 <h2><code>writep</code></h2>
 <p><code>v a --</code></p>
 <h4>Description</h4>
-<p><code>writep</code> performs a random write to program memory in little-endian byte-order. This means that <code>progmem[a] = v</code>. Program memory is ordered into octets, but this instruction can write several octets in one word, therefore the word byte-order is little-endian. The addresses are aligned to octets. This operation may not influence the instruction executed next.</p>
+<p><code>writep</code> performs a random write to program memory in little-endian byte-order. This means that <code>progmem[a] = v</code>. Program memory is ordered into octets, but multiple octets may be written at once, therefore the word byte-order is little-endian. The addresses are aligned to octets. This operation may not influence the instruction executed next.</p>
 <h4>Side Effects</h4>
 <ul>
 <li><code>progmem[a] = v</code></li>
 </ul>
 <hr />
 <h2><code>writepo</code></h2>
-<p><code>ins a --</code></p>
+<p><code>o a --</code></p>
 <h4>Description</h4>
-<p><code>writepo</code> performs a random write of an octet to program memory using a program address. This means that <code>progmem[a] = ins</code>, but only the lowest 8 bits of <code>ins</code> are written. Program memory is ordered into octets, which are written and addressed individually by this word. The addresses are aligned to octets. This operation may not influence the instruction executed next.</p>
+<p><code>writepo</code> performs a random write of an octet to program memory using a program address. This means that <code>progmem[a] = o</code>, but only the lowest 8 bits of <code>o</code> are written. Program memory is ordered into octets, which are written and addressed individually by this word. The addresses are aligned to octets. This operation may not influence the instruction executed next.</p>
 <h4>Side Effects</h4>
 <ul>
-<li><code>progmem[a] = ins</code></li>
+<li><code>progmem[a] = o</code></li>
 </ul>
 <hr />
 <h2><code>writepi</code></h2>
@@ -957,7 +960,7 @@ cv0
 <h4>Immediate (WORD)</h4>
 <p>The initial opcode byte is followed by a word. The immediate value is a program address.</p>
 <h4>Description</h4>
-<p><code>writepi</code> performs a random write to program memory in little-endian byte-order at the address specified by the immediate value <code>imm</code>. This means that <code>progmem[imm] = v</code>. Program memory is ordered into octets, but this instruction can write several octets in one word, therefore the word byte-order is little-endian. The addresses are aligned to octets. This operation may not influence the instruction executed next.</p>
+<p><code>writepi</code> performs a random write to program memory in little-endian byte-order at the address specified by the immediate value <code>imm</code>. This means that <code>progmem[imm] = v</code>. Program memory is ordered into octets, but multiple octets may be written at once, therefore the word byte-order is little-endian. The addresses are aligned to octets. This operation may not influence the instruction executed next.</p>
 <h4>Side Effects</h4>
 <ul>
 <li><code>progmem[imm] = v</code></li>
@@ -968,10 +971,39 @@ cv0
 <h4>Immediate (WORD)</h4>
 <p>The initial opcode byte is followed by two octets. The immediate value is a signed relative offset.</p>
 <h4>Description</h4>
-<p><code>writepri</code> performs a random write to program memory in little-endian byte-order at the address <code>pc + imm</code>. This means that <code>progmem[pc + imm] = v</code>. Program memory is ordered into octets, but this instruction can write several octets in one word, therefore the word byte-order is little-endian. The addresses are aligned to octets. This operation may not influence the instruction executed next.</p>
+<p><code>writepri</code> performs a random write to program memory in little-endian byte-order at the address <code>pc + imm</code>. This means that <code>progmem[pc + imm] = v</code>. Program memory is ordered into octets, but multiple octets may be written at once, therefore the word byte-order is little-endian. The addresses are aligned to octets. This operation may not influence the instruction executed next.</p>
 <h4>Side Effects</h4>
 <ul>
 <li><code>progmem[pc + imm] = v</code></li>
+</ul>
+<hr />
+<h2><code>push#</code></h2>
+<p><code>--</code></p>
+<h4>Description</h4>
+<p><code>push#</code> pushes <code>dc#</code> to the astack. It remains in the register but can be popped with <code>pop#</code>.</p>
+<h4>Side Effects</h4>
+<ul>
+<li><code>as &lt;- dc#</code></li>
+</ul>
+<hr />
+<h2><code>pop#</code></h2>
+<p><code>--</code></p>
+<h4>Description</h4>
+<p><code>pop#</code> pops <code>dc#</code> from the astack. The value <code>dc#</code> is filled with is the last thing which was put onto the astack with <code>pop#</code>. If the astack is empty, the behavior is undefined.</p>
+<h4>Side Effects</h4>
+<ul>
+<li><code>as -&gt; dc#</code></li>
+</ul>
+<hr />
+<h2><code>writepori</code></h2>
+<p><code>o --</code></p>
+<h4>Immediate (WORD)</h4>
+<p>The initial opcode byte is followed by two octets. The immediate value is a signed relative offset.</p>
+<h4>Description</h4>
+<p><code>writepori</code> performs a random write of a single octet to program memory in little-endian byte-order at the address <code>pc + imm</code>. This means that <code>progmem[pc + imm] = o</code>, but only the lowest octet of the word is written. Program memory is ordered into octets, but multiple octets may be written at once, therefore the word byte-order is little-endian. The addresses are aligned to octets. This operation may not influence the instruction executed next.</p>
+<h4>Side Effects</h4>
+<ul>
+<li><code>progmem[pc + imm] = o</code></li>
 </ul>
 <h1>Control Flow</h1>
 <h2><code>break</code></h2>
@@ -1338,6 +1370,28 @@ subr:
 <h4>Side Effects</h4>
 <ul>
 <li>PC is moved to <code>pc + imm</code> value if <code>a != 0</code>.</li>
+</ul>
+<hr />
+<h2><code>ba</code></h2>
+<p><code>b --</code></p>
+<h4>Immediate (WORD)</h4>
+<p>The initial opcode byte is followed by two octets. The immediate value is signed and is the relative offset to branch by.</p>
+<h4>Description</h4>
+<p><code>ba</code> performs a relative branch if an interrupt is available on bus <code>b</code>. The <code>pc</code> to branch to is <code>pc + imm</code>.</p>
+<h4>Side Effects</h4>
+<ul>
+<li>PC is moved to <code>pc + imm</code> value if an interrupt is available on bus <code>b</code>.</li>
+</ul>
+<hr />
+<h2><code>bna</code></h2>
+<p><code>b --</code></p>
+<h4>Immediate (WORD)</h4>
+<p>The initial opcode byte is followed by two octets. The immediate value is signed and is the relative offset to branch by.</p>
+<h4>Description</h4>
+<p><code>bna</code> performs a relative branch if an interrupt is not available on bus <code>b</code>. The <code>pc</code> to branch to is <code>pc + imm</code>.</p>
+<h4>Side Effects</h4>
+<ul>
+<li>PC is moved to <code>pc + imm</code> value if an interrupt is not available on bus <code>b</code>.</li>
 </ul>
 <h1>UARC Instructions</h1>
 <h2><code>intien</code></h2>

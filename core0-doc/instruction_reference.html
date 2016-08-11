@@ -75,7 +75,16 @@
 <ul>
 <li><code>0SSO OOOO</code> / <code>10SS OOOO</code> (Normal instructions)
 <ul>
-<li>All normal instructions affect the entire stack according to the <code>S</code> bits</li>
+<li>All normal instructions affect the entire stack according to the <code>S</code> bits
+<ul>
+<li>Instructions <code>1011 0000</code> - <code>1011 0111</code> have an <code>SS</code> of <code>00</code>.
+<ul>
+<li>These are used for preserving DCs between calls.</li>
+</ul>
+</li>
+<li>Instructions <code>1011 1000</code> - <code>1011 1111</code> have an <code>SS</code> of <code>10</code>.</li>
+</ul>
+</li>
 <li><code>0010 LLLL</code> (Conveyor instruction)
 <ul>
 <li>Reads and synchronizes with conveyor index <code>location</code></li>
@@ -195,7 +204,7 @@
 <tr><td><code>64</code> - <code>67</code></td><td>rawrite#</td><td>1</td><td><code>v a --</code></td><td><code>mem[dc# + a] = v</code></td></tr>
 <tr><td><code>68</code></td><td>write</td><td>1</td><td><code>v a --</code></td><td><code>mem[a] = v</code></td></tr>
 <tr><td><code>69</code></td><td>writep</td><td>1</td><td><code>v a --</code></td><td><code>progmem[a] = v</code></td></tr>
-<tr><td><code>6A</code></td><td>writepo</td><td>1</td><td><code>ins a --</code></td><td><code>progmem[a] = ins</code></td></tr>
+<tr><td><code>6A</code></td><td>writepo</td><td>1</td><td><code>o a --</code></td><td><code>progmem[a] = o</code></td></tr>
 <tr><td><code>6B</code></td><td>beq</td><td>3</td><td><code>a b --</code></td><td>if <code>a == b</code> then <code>pc += imm</code></td></tr>
 <tr><td><code>6C</code></td><td>bne</td><td>3</td><td><code>a b --</code></td><td>if <code>a != b</code> then <code>pc += imm</code></td></tr>
 <tr><td><code>6D</code></td><td>bles</td><td>3</td><td><code>a b --</code></td><td>if <code>a &lt; b</code> then <code>pc += imm</code></td></tr>
@@ -260,24 +269,18 @@
 <tr><td><code>AB</code></td><td>bz</td><td>3</td><td><code>n --</code></td><td>if <code>n == 0</code> then <code>pc += imm</code></td></tr>
 <tr><td><code>AC</code></td><td>bnz</td><td>3</td><td><code>n --</code></td><td>if <code>n != 0</code> then <code>pc += imm</code></td></tr>
 <tr><td><code>AD</code></td><td>writepi</td><td>1 + WORD</td><td><code>v --</code></td><td>Writes <code>v</code> to instruction memory at <code>imm</code></td></tr>
-<tr><td><code>AE</code></td><td>writepri</td><td>3</td><td><code>v --</code></td><td>Writes <code>v</code> to instruction memory at <code>pc + imm</code></td></tr>
+<tr><td><code>AE</code></td><td>writepri</td><td>3</td><td><code>v --</code></td><td><code>progmem[pc + imm] = v</code></td></tr>
 <tr><td><code>AF</code></td><td>drop</td><td>1</td><td><code>_ --</code></td><td>Drops one element from the stack</td></tr>
-<tr><td><code>B0</code></td><td>RESERVED</td><td>1</td><td><code>_ _ --</code></td><td> </td></tr>
-<tr><td><code>B1</code></td><td>RESERVED</td><td>1</td><td><code>_ _ --</code></td><td> </td></tr>
-<tr><td><code>B2</code></td><td>RESERVED</td><td>1</td><td><code>_ _ --</code></td><td> </td></tr>
-<tr><td><code>B3</code></td><td>RESERVED</td><td>1</td><td><code>_ _ --</code></td><td> </td></tr>
-<tr><td><code>B4</code></td><td>RESERVED</td><td>1</td><td><code>_ _ --</code></td><td> </td></tr>
-<tr><td><code>B5</code></td><td>RESERVED</td><td>1</td><td><code>_ _ --</code></td><td> </td></tr>
-<tr><td><code>B6</code></td><td>RESERVED</td><td>1</td><td><code>_ _ --</code></td><td> </td></tr>
-<tr><td><code>B7</code></td><td>RESERVED</td><td>1</td><td><code>_ _ --</code></td><td> </td></tr>
-<tr><td><code>B8</code></td><td>RESERVED</td><td>1</td><td><code>_ _ --</code></td><td> </td></tr>
-<tr><td><code>B9</code></td><td>RESERVED</td><td>1</td><td><code>_ _ --</code></td><td> </td></tr>
-<tr><td><code>BA</code></td><td>RESERVED</td><td>1</td><td><code>_ _ --</code></td><td> </td></tr>
-<tr><td><code>BB</code></td><td>RESERVED</td><td>1</td><td><code>_ _ --</code></td><td> </td></tr>
-<tr><td><code>BC</code></td><td>RESERVED</td><td>1</td><td><code>_ _ --</code></td><td> </td></tr>
-<tr><td><code>BD</code></td><td>RESERVED</td><td>1</td><td><code>_ _ --</code></td><td> </td></tr>
-<tr><td><code>BE</code></td><td>RESERVED</td><td>1</td><td><code>_ _ --</code></td><td> </td></tr>
-<tr><td><code>BF</code></td><td>RESERVED</td><td>1</td><td><code>_ _ --</code></td><td> </td></tr>
+<tr><td><code>B0</code> - <code>B3</code></td><td>push#</td><td>1</td><td><code>--</code></td><td>Pushes <code>dc#</code> onto the astack</td></tr>
+<tr><td><code>B4</code> - <code>B7</code></td><td>pop#</td><td>1</td><td><code>--</code></td><td>Pops <code>dc#</code> from the astack</td></tr>
+<tr><td><code>B8</code></td><td>ba</td><td>3</td><td><code>b --</code></td><td>Branch if an interrupt is available on bus <code>b</code></td></tr>
+<tr><td><code>B9</code></td><td>bna</td><td>3</td><td><code>b --</code></td><td>Branch if an interrupt is not available on bus <code>b</code></td></tr>
+<tr><td><code>BA</code></td><td>writepori</td><td>3</td><td><code>o --</code></td><td><code>progmem[pc + imm] = o</code></td></tr>
+<tr><td><code>BB</code></td><td>RESERVED</td><td>1</td><td><code>_ --</code></td><td> </td></tr>
+<tr><td><code>BC</code></td><td>RESERVED</td><td>1</td><td><code>_ --</code></td><td> </td></tr>
+<tr><td><code>BD</code></td><td>RESERVED</td><td>1</td><td><code>_ --</code></td><td> </td></tr>
+<tr><td><code>BE</code></td><td>RESERVED</td><td>1</td><td><code>_ --</code></td><td> </td></tr>
+<tr><td><code>BF</code></td><td>RESERVED</td><td>1</td><td><code>_ --</code></td><td> </td></tr>
 <tr><td><code>C0</code> - <code>DF</code></td><td>rot#</td><td><code>v #.. -- #.. v</code></td><td> </td></tr>
 <tr><td><code>E0</code> - <code>FF</code></td><td>copy#</td><td><code>v #.. -- v #.. v</code></td><td> </td></tr>
 </table>
