@@ -92,7 +92,7 @@
 </table>
 <h1>dstack</h1>
 <p>The <strong>dstack</strong> is the primary stack on which all operations take place. This stack is the only stack that can be rotated and copied in one cycle. If the <strong>dstack</strong> is rotated, all elements below the selected element will not shift down, but all elements above it will shift down and the selected element will be placed on the top. If the <strong>dstack</strong> is copied, all elements move down and the copied element is moved to the top.</p>
-<p>All elements on the <strong>dstack</strong> are capable of being pushed once, doing nothing, popping once, or popping twice. What happens to the <strong>dstack</strong> is explicitly encoded in the <code>[6:5]</code> bits of the instruction for all instructions for which the <code>[7]</code> bit is <code>0</code> and in bits <code>[5:4]</code> for which bits <code>[7:6]</code> are <code>10</code>. More importantly, when the stack is rotated or copied, the <code>[4:0]</code> bits are used to encode the location to perform the operation on, which makes the critical path for determining how the <strong>dstack</strong> is affected by the instruction as short as possible.</p>
+<p>All elements on the <strong>dstack</strong> are capable of being pushed once, doing nothing, popping once, or popping twice. When the stack is rotated or copied, the <code>[4:0]</code> bits are used to encode the location to perform the operation on, which makes the critical path for determining how the <strong>dstack</strong> is affected by the instruction as short as possible.</p>
 <p>The <strong>dstack</strong> is where almost all parameters should be passed into functions and where almost all parameters should be returned from functions. Should a function need to access a loop index explicitly as a constant parameter, it can safely use loop index instructions. Information may also be passed into functions via the status bits. A compiler should focus on passing information purely on the stack.</p>
 <p>Inline expansion of functions is easily possible by the compiler since the inlined function consumes the parameters in the same already-optimized fashion. On a register-machine, the compiler could perform optimization passes to avoid moving registers before passing them to the function, but since the stack machine already passes parameters in the correct order, functions can be inlined efficiently after compilation without any drawbacks.</p>
 <h1>cstack</h1>
@@ -223,7 +223,7 @@
 <tr><td><code>1B</code></td><td>calli</td><td>1 + WORD</td><td><code>--</code></td><td><code>pc = imm</code>; push <a href="architecture/cstack.html">cstack</a></td></tr>
 <tr><td><code>1C</code></td><td>jmpi</td><td>1 + WORD</td><td><code>--</code></td><td><code>pc = imm</code></td></tr>
 <tr><td><code>1D</code></td><td>bra</td><td>3</td><td><code>--</code></td><td><code>pc += imm</code></td></tr>
-<tr><td><code>1E</code></td><td>RESERVED</td><td>1</td><td><code>--</code></td><td> </td></tr>
+<tr><td><code>1E</code></td><td>discard</td><td>1</td><td><code>--</code></td><td>Discard the top loop without going to the end</td></tr>
 <tr><td><code>1F</code></td><td>RESERVED</td><td>1</td><td><code>--</code></td><td> </td></tr>
 <tr><td><code>20</code> - <code>2F</code></td><td>cv#</td><td>1</td><td><code>-- cv#</code></td><td>cv# synchronizes</td></tr>
 <tr><td><code>30</code> - <code>33</code></td><td>read#</td><td>2</td><td><code>-- mem[dc#]</code></td><td><code>dc# += imm</code></td></tr>
@@ -1143,6 +1143,15 @@ subr:
 <h4>Side Effects</h4>
 <ul>
 <li>PC is moved to <code>pc + imm</code>.</li>
+</ul>
+<hr />
+<h2><code>discard</code></h2>
+<p><code>--</code></p>
+<h4>Description</h4>
+<p><code>discard</code> pops the <a href="../architecture/lstack.html">lstack</a> without going to the end like with break. This permits returning inside of a loop, but it must be called for every loop.</p>
+<h4>Side Effects</h4>
+<ul>
+<li>lstack is popped.</li>
 </ul>
 <hr />
 <h2><code>call</code></h2>

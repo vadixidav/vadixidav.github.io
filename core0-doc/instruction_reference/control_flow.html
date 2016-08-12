@@ -207,6 +207,15 @@ subr:
 <li>PC is moved to <code>pc + imm</code>.</li>
 </ul>
 <hr />
+<h2><code>discard</code></h2>
+<p><code>--</code></p>
+<h4>Description</h4>
+<p><code>discard</code> pops the <a href="../architecture/lstack.html">lstack</a> without going to the end like with break. This permits returning inside of a loop, but it must be called for every loop.</p>
+<h4>Side Effects</h4>
+<ul>
+<li>lstack is popped.</li>
+</ul>
+<hr />
 <h2><code>call</code></h2>
 <p><code>a --</code></p>
 <h4>Description</h4>
