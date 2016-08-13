@@ -224,7 +224,7 @@
 <tr><td><code>1C</code></td><td>jmpi</td><td>1 + WORD</td><td><code>--</code></td><td><code>pc = imm</code></td></tr>
 <tr><td><code>1D</code></td><td>bra</td><td>3</td><td><code>--</code></td><td><code>pc += imm</code></td></tr>
 <tr><td><code>1E</code></td><td>discard</td><td>1</td><td><code>--</code></td><td>Discard the top loop without going to the end</td></tr>
-<tr><td><code>1F</code></td><td>RESERVED</td><td>1</td><td><code>--</code></td><td> </td></tr>
+<tr><td><code>1F</code></td><td>callri</td><td>3</td><td><code>--</code></td><td><code>pc += imm</code>; push <a href="architecture/cstack.html">cstack</a></td></tr>
 <tr><td><code>20</code> - <code>2F</code></td><td>cv#</td><td>1</td><td><code>-- cv#</code></td><td>cv# synchronizes</td></tr>
 <tr><td><code>30</code> - <code>33</code></td><td>read#</td><td>2</td><td><code>-- mem[dc#]</code></td><td><code>dc# += imm</code></td></tr>
 <tr><td><code>34</code> - <code>37</code></td><td>rareadi#</td><td>2</td><td><code>-- mem[dc# + imm]</code></td><td> </td></tr>
@@ -1152,6 +1152,33 @@ subr:
 <h4>Side Effects</h4>
 <ul>
 <li>lstack is popped.</li>
+</ul>
+<hr />
+<h2><code>callri</code></h2>
+<p><code>--</code></p>
+<h4>Immediate (WORD)</h4>
+<p>The initial opcode byte is followed by two octets. This value is the signed offset to branch by.</p>
+<h4>Description</h4>
+<p><code>callri</code> is an immediate relative call. The immediate value is the offset to branch by.</p>
+<h4>Side Effects</h4>
+<ul>
+<li><a href="architecture/cstack.html">cstack</a> is pushed
+<ul>
+<li>Old PC is preserved.</li>
+<li>Whether an interrupt is being serviced or not is preserved.</li>
+</ul>
+</li>
+</ul>
+<h4>Examples</h4>
+<pre><code>callri:subr
+return
+
+subr:
+  return
+</code></pre>
+<ul>
+<li><code>( -- )</code></li>
+<li>The example calls <code>subr</code> before returning to the original caller</li>
 </ul>
 <hr />
 <h2><code>call</code></h2>
