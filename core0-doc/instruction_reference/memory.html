@@ -230,6 +230,15 @@ cv0
 <li><code>progmem[a] = o</code></li>
 </ul>
 <hr />
+<h2><code>writeps</code></h2>
+<p><code>s a --</code></p>
+<h4>Description</h4>
+<p><code>writeps</code> performs a random write of two octets <code>s</code> to program memory using a program address. This means that <code>progmem[a] = s</code>, but only the lowest 16 bits of <code>s</code> are written. Program memory is ordered into octets, which are written and addressed individually by this word. The addresses are aligned to octets. This writes in little-endian byte-order. This operation may not influence the instruction executed next.</p>
+<h4>Side Effects</h4>
+<ul>
+<li><code>progmem[a] = s</code></li>
+</ul>
+<hr />
 <h2><code>writepi</code></h2>
 <p><code>v --</code></p>
 <h4>Immediate (WORD)</h4>
@@ -279,6 +288,17 @@ cv0
 <h4>Side Effects</h4>
 <ul>
 <li><code>progmem[pc + imm] = o</code></li>
+</ul>
+<hr />
+<h2><code>writepsri</code></h2>
+<p><code>s --</code></p>
+<h4>Immediate (WORD)</h4>
+<p>The initial opcode byte is followed by two octets. The immediate value is a signed relative offset.</p>
+<h4>Description</h4>
+<p><code>writepsri</code> performs a random write of a single octet to program memory in little-endian byte-order at the address <code>pc + imm</code>. This means that <code>progmem[pc + imm] = s</code>, but only the lowest 16 bits of the word is written. Program memory is ordered into octets, but multiple octets may be written at once, therefore the word byte-order is little-endian. The addresses are aligned to octets. This operation may not influence the instruction executed next.</p>
+<h4>Side Effects</h4>
+<ul>
+<li><code>progmem[pc + imm] = s</code></li>
 </ul>
 
                 </div>
