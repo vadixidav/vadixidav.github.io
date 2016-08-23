@@ -264,7 +264,7 @@
 <tr><td><code>77</code></td><td>setpa</td><td>1</td><td><code>perm addr --</code></td><td>Sets UARC permission and address delegation</td></tr>
 <tr><td><code>78</code></td><td>expect</td><td>1</td><td><code>v b --</code></td><td>Send <code>v</code> to bus <code>b</code>; <code>cv &lt;- response</code></td></tr>
 <tr><td><code>79</code></td><td>sef</td><td>1</td><td><code>a f --</code></td><td>Sets fault <code>f</code> handler to <code>a</code></td></tr>
-<tr><td><code>7A</code></td><td>reset</td><td>1</td><td><code>p _ --</code></td><td><code>pc = p</code></td></tr>
+<tr><td><code>7A</code></td><td>reset</td><td>1</td><td><code>_ _ --</code></td><td>Resets the core</td></tr>
 <tr><td><code>7B</code></td><td>ddrop</td><td>1</td><td><code>_ _ --</code></td><td>Drops two elements from the stack</td></tr>
 <tr><td><code>7C</code></td><td>RESERVED</td><td>1</td><td><code>_ _ --</code></td><td> </td></tr>
 <tr><td><code>7D</code></td><td>RESERVED</td><td>1</td><td><code>_ _ --</code></td><td> </td></tr>
@@ -1402,9 +1402,9 @@ subr:
 </ul>
 <hr />
 <h2><code>reset</code></h2>
-<p><code>p --</code></p>
+<p><code>0 0 --</code></p>
 <h4>Description</h4>
-<p>Resets the whole processor, setting <code>p</code> as the new PC. Everything is reinitialized, such as stack depth.</p>
+<p>Resets the whole processor, setting <code>0</code> as the new PC. Everything is reinitialized, such as stack depth. Set both parameters to <code>0</code> to ensure forwards compatibility if the parameters are altered.</p>
 <hr />
 <h2><code>bz</code></h2>
 <p><code>a --</code></p>
