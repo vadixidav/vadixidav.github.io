@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `post_expansion` crate.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, post_expansion">
+
+    <title>post_expansion - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../rustdoc.css">
+    <link rel="stylesheet" type="text/css" href="../main.css">
+    
+
+    
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <nav class="sidebar">
+        
+        <p class='location'></p><script>window.sidebarCurrent = {name: 'post_expansion', ty: 'mod', relpath: '../'};</script>
+    </nav>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press ‘S’ to search, ‘?’ for more options…"
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content mod">
+<h1 class='fqn'><span class='in-band'>Crate <a class='mod' href=''>post_expansion</a></span><span class='out-of-band'><span id='render-detail'>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a id='src-0' class='srclink' href='../src/post_expansion/lib.rs.html#1-433' title='goto source code'>[src]</a></span></h1>
+<div class='docblock'>
+<h1 id='why' class='section-header'><a href='#why'>Why?</a></h1>
+<p>Custom derives commonly use <a href="https://doc.rust-lang.org/book/attributes.html">attributes</a> to customize the behavior of
+generated code. For example to control the name of a field when serialized
+as JSON:</p>
+
+<pre class='rust rust-example-rendered'>
+<span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Serialize</span>, <span class='ident'>Deserialize</span>)]</span>
+<span class='kw'>struct</span> <span class='ident'>Person</span> {
+    <span class='attribute'>#[<span class='ident'>serde</span>(<span class='ident'>rename</span> <span class='op'>=</span> <span class='string'>&quot;firstName&quot;</span>)]</span>
+    <span class='ident'>first_name</span>: <span class='ident'>String</span>,
+    <span class='attribute'>#[<span class='ident'>serde</span>(<span class='ident'>rename</span> <span class='op'>=</span> <span class='string'>&quot;lastName&quot;</span>)]</span>
+    <span class='ident'>last_name</span>: <span class='ident'>String</span>,
+}</pre>
+
+<p>In the old compiler plugin infrastructure, plugins were provided with a
+mechanism to mark attributes as &quot;used&quot; so the compiler would know to ignore
+them after running the plugin. The new Macros 1.1 infrastructure is
+deliberately minimal and does not provide this mechanism. Instead, proc
+macros are expected to strip away attributes after using them. Any
+unrecognized attributes that remain after proc macro expansion are turned
+into errors.</p>
+
+<p>This approach causes problems when multiple custom derives want to process
+the same attributes. For example multiple crates (for JSON, Postgres, and
+Elasticsearch code generation) may want to standardize on a common rename
+attribute. If each custom derive is stripping away attributes after using
+them, subsequent custom derives on the same struct will not see the
+attributes they should.</p>
+
+<p>This crate provides a way to strip attributes (and possibly other cleanup
+tasks in the future) in a post-expansion pass that happens after other
+custom derives have been run.</p>
+
+<h1 id='how' class='section-header'><a href='#how'>How?</a></h1>
+<p>Suppose <code>#[derive(ElasticType)]</code> wants to piggy-back on Serde&#39;s <code>rename</code>
+attributes for types that are serializable by both Serde and Elasticsearch:</p>
+
+<pre class='rust rust-example-rendered'>
+<span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Serialize</span>, <span class='ident'>Deserialize</span>, <span class='ident'>ElasticType</span>)]</span>
+<span class='kw'>struct</span> <span class='ident'>Point</span> {
+    <span class='attribute'>#[<span class='ident'>serde</span>(<span class='ident'>rename</span> <span class='op'>=</span> <span class='string'>&quot;xCoord&quot;</span>)]</span>
+    <span class='ident'>x</span>: <span class='ident'>f64</span>,
+    <span class='attribute'>#[<span class='ident'>serde</span>(<span class='ident'>rename</span> <span class='op'>=</span> <span class='string'>&quot;yCoord&quot;</span>)]</span>
+    <span class='ident'>y</span>: <span class='ident'>f64</span>,
+}</pre>
+
+<p>A workable but poor solution would be to have Serde&#39;s code generation know
+that ElasticType expects to read the same attributes, so it should not strip
+attributes when ElasticType is present in the list of derives. An ideal
+solution would not require Serde&#39;s code generation to know anything about
+other custom derives.</p>
+
+<p>We can handle this by having the Serialize and Deserialize derives register
+a post-expansion pass to strip the attributes after all other custom derives
+have been executed. Serde should expand the above code into:</p>
+
+<pre class='rust rust-example-rendered'>
+<span class='kw'>impl</span> <span class='ident'>Serialize</span> <span class='kw'>for</span> <span class='ident'>Point</span> { <span class='comment'>/* ... */</span> }
+<span class='kw'>impl</span> <span class='ident'>Deserialize</span> <span class='kw'>for</span> <span class='ident'>Point</span> { <span class='comment'>/* ... */</span> }
+
+<span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>ElasticType</span>)]</span>
+<span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>PostExpansion</span>)]</span> <span class='comment'>// insert a post-expansion pass after all other derives</span>
+<span class='attribute'>#[<span class='ident'>post_expansion</span>(<span class='ident'>strip</span> <span class='op'>=</span> <span class='string'>&quot;serde&quot;</span>)]</span> <span class='comment'>// during post-expansion, strip &quot;serde&quot; attributes</span>
+<span class='kw'>struct</span> <span class='ident'>Point</span> {
+    <span class='attribute'>#[<span class='ident'>serde</span>(<span class='ident'>rename</span> <span class='op'>=</span> <span class='string'>&quot;xCoord&quot;</span>)]</span>
+    <span class='ident'>x</span>: <span class='ident'>f64</span>,
+    <span class='attribute'>#[<span class='ident'>serde</span>(<span class='ident'>rename</span> <span class='op'>=</span> <span class='string'>&quot;yCoord&quot;</span>)]</span>
+    <span class='ident'>y</span>: <span class='ident'>f64</span>,
+}</pre>
+
+<p>Now the ElasticType custom derive can run and see all the right attributes.</p>
+
+<pre class='rust rust-example-rendered'>
+<span class='kw'>impl</span> <span class='ident'>Serialize</span> <span class='kw'>for</span> <span class='ident'>Point</span> { <span class='comment'>/* ... */</span> }
+<span class='kw'>impl</span> <span class='ident'>Deserialize</span> <span class='kw'>for</span> <span class='ident'>Point</span> { <span class='comment'>/* ... */</span> }
+<span class='kw'>impl</span> <span class='ident'>ElasticType</span> <span class='kw'>for</span> <span class='ident'>Point</span> { <span class='comment'>/* ... */</span> }
+
+<span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>PostExpansion</span>)]</span>
+<span class='attribute'>#[<span class='ident'>post_expansion</span>(<span class='ident'>strip</span> <span class='op'>=</span> <span class='string'>&quot;serde&quot;</span>)]</span>
+<span class='kw'>struct</span> <span class='ident'>Point</span> {
+    <span class='attribute'>#[<span class='ident'>serde</span>(<span class='ident'>rename</span> <span class='op'>=</span> <span class='string'>&quot;xCoord&quot;</span>)]</span>
+    <span class='ident'>x</span>: <span class='ident'>f64</span>,
+    <span class='attribute'>#[<span class='ident'>serde</span>(<span class='ident'>rename</span> <span class='op'>=</span> <span class='string'>&quot;yCoord&quot;</span>)]</span>
+    <span class='ident'>y</span>: <span class='ident'>f64</span>,
+}</pre>
+
+<p>Once all other derives have been expanded the <code>PostExpansion</code> pass strips
+the attributes.</p>
+
+<pre class='rust rust-example-rendered'>
+<span class='kw'>impl</span> <span class='ident'>Serialize</span> <span class='kw'>for</span> <span class='ident'>Point</span> { <span class='comment'>/* ... */</span> }
+<span class='kw'>impl</span> <span class='ident'>Deserialize</span> <span class='kw'>for</span> <span class='ident'>Point</span> { <span class='comment'>/* ... */</span> }
+<span class='kw'>impl</span> <span class='ident'>ElasticType</span> <span class='kw'>for</span> <span class='ident'>Point</span> { <span class='comment'>/* ... */</span> }
+
+<span class='kw'>struct</span> <span class='ident'>Point</span> {
+    <span class='ident'>x</span>: <span class='ident'>f64</span>,
+    <span class='ident'>y</span>: <span class='ident'>f64</span>,
+}</pre>
+
+<p>There are some complications beyond what is shown in the example. For one,
+ElasticType needs to register its own post-expansion pass in case somebody
+does <code>#[derive(ElasticType, Serialize)]</code>. The post-expansion passes from
+Serde and ElasticType cannot both be called &quot;PostExpansion&quot; because that
+would be a conflict.</p>
+
+<p>There are also performance considerations. Stripping attributes in a
+post-expansion pass requires an extra round trip of syn -&gt; tokenstream -&gt;
+libsyntax -&gt; tokenstream -&gt; syn, which can be avoided if the current custom
+derive knows that it is the last custom derive.</p>
+
+<p>This crate provides helpers to make the whole process <strong>easy, correct, and
+performant</strong>.</p>
+
+<h1 id='how-exactly' class='section-header'><a href='#how-exactly'>How Exactly?</a></h1>
+<p>There are two pieces. Proc macros that process attributes need to register a
+post-expansion pass using the <code>register_post_expansion!</code> macro. During
+expansion, they need to wire up the custom derive corresponding to the
+post-expansion pass.</p>
+
+<pre class='rust rust-example-rendered'>
+<span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>syn</span>;
+<span class='attribute'>#[<span class='ident'>macro_use</span>]</span>
+<span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>post_expansion</span>;
+
+<span class='macro'>register_post_expansion</span><span class='macro'>!</span>(<span class='ident'>PostExpansion_my_macro</span>);
+
+<span class='attribute'>#[<span class='ident'>proc_macro_derive</span>(<span class='ident'>MyMacro</span>)]</span>
+<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>my_macro</span>(<span class='ident'>input</span>: <span class='ident'>TokenStream</span>) <span class='op'>-&gt;</span> <span class='ident'>TokenStream</span> {
+    <span class='kw'>let</span> <span class='ident'>source</span> <span class='op'>=</span> <span class='ident'>input</span>.<span class='ident'>to_string</span>();
+    <span class='kw'>let</span> <span class='ident'>ast</span> <span class='op'>=</span> <span class='ident'>syn</span>::<span class='ident'>parse_macro_input</span>(<span class='kw-2'>&amp;</span><span class='ident'>source</span>).<span class='ident'>unwrap</span>();
+
+    <span class='kw'>let</span> <span class='ident'>derived_impl</span> <span class='op'>=</span> <span class='ident'>expand_my_macro</span>(<span class='kw-2'>&amp;</span><span class='ident'>ast</span>);
+
+    <span class='kw'>let</span> <span class='ident'>stripped</span> <span class='op'>=</span> <span class='ident'>post_expansion</span>::<span class='ident'>strip_attrs_later</span>(<span class='ident'>ast</span>, <span class='kw-2'>&amp;</span>[<span class='string'>&quot;my_attr&quot;</span>], <span class='string'>&quot;my_macro&quot;</span>);
+
+    <span class='kw'>let</span> <span class='ident'>tokens</span> <span class='op'>=</span> <span class='macro'>quote</span><span class='macro'>!</span> {
+        <span class='attribute'>#<span class='ident'>stripped</span>
+        <span class='attribute'>#<span class='ident'>derived_impl</span>
+    };
+
+    <span class='ident'>tokens</span>.<span class='ident'>to_string</span>().<span class='ident'>parse</span>().<span class='ident'>unwrap</span>()
+}</pre>
+</div><h2 id='macros' class='section-header'><a href="#macros">Macros</a></h2>
+<table>
+                       <tr class=' module-item'>
+                           <td><a class='macro' href='macro.register_post_expansion.html'
+                                  title='post_expansion::register_post_expansion'>register_post_expansion</a></td>
+                           <td class='docblock-short'>
+                                <p>Register a Macros 1.1 custom derive mode corresponding to a post-expansion
+pass for the current crate. Must be called at the top level of a proc-macro
+crate. Must be called with an identifier for the post-expansion pass, which
+must be &quot;PostExpansion_&quot; + unique identifier. Recommended to use the crate
+name of the current crate as the unique identifier.</p>
+                           </td>
+                       </tr></table><h2 id='functions' class='section-header'><a href="#functions">Functions</a></h2>
+<table>
+                       <tr class=' module-item'>
+                           <td><a class='fn' href='fn.run.html'
+                                  title='post_expansion::run'>run</a></td>
+                           <td class='docblock-short'>
+                                <p>Run post-expansion pass. This is called from the <code>register_post_expansion!</code>
+macro and should not need to be called directly.</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='fn' href='fn.strip_attrs_later.html'
+                                  title='post_expansion::strip_attrs_later'>strip_attrs_later</a></td>
+                           <td class='docblock-short'>
+                                <p>Set up a post-expansion pass to strip the given attributes after other
+custom derives have had a chance to see them. Must be used together with the
+<code>register_post_expansion!</code> macro. The third argument is the unique
+identifier from the invocation of <code>register_post_expansion!</code>. Recommended to
+use the crate name of the current crate as the unique identifier.</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='fn' href='fn.strip_attrs_now.html'
+                                  title='post_expansion::strip_attrs_now'>strip_attrs_now</a></td>
+                           <td class='docblock-short'>
+                                <p>Strip the specified attributes from the AST. Note that if it is possible
+those attributes may be needed by other custom derives, you should use
+<code>strip_attrs_later</code> instead which strips the attributes only after other
+custom derives have had a chance to see them.</p>
+                           </td>
+                       </tr></table></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <aside id="help" class="hidden">
+        <div>
+            <h1 class="hidden">Help</h1>
+
+            <div class="shortcuts">
+                <h2>Keyboard Shortcuts</h2>
+
+                <dl>
+                    <dt>?</dt>
+                    <dd>Show this help dialog</dd>
+                    <dt>S</dt>
+                    <dd>Focus the search field</dd>
+                    <dt>&larrb;</dt>
+                    <dd>Move up in search results</dd>
+                    <dt>&rarrb;</dt>
+                    <dd>Move down in search results</dd>
+                    <dt>&#9166;</dt>
+                    <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
+                </dl>
+            </div>
+
+            <div class="infos">
+                <h2>Search Tricks</h2>
+
+                <p>
+                    Prefix searches with a type followed by a colon (e.g.
+                    <code>fn:</code>) to restrict the search to a given type.
+                </p>
+
+                <p>
+                    Accepted types are: <code>fn</code>, <code>mod</code>,
+                    <code>struct</code>, <code>enum</code>,
+                    <code>trait</code>, <code>type</code>, <code>macro</code>,
+                    and <code>const</code>.
+                </p>
+
+                <p>
+                    Search functions by type signature (e.g.
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
+                </p>
+            </div>
+        </div>
+    </aside>
+
+    
+
+    <script>
+        window.rootPath = "../";
+        window.currentCrate = "post_expansion";
+    </script>
+    <script src="../jquery.js"></script>
+    <script src="../main.js"></script>
+    <script defer src="../search-index.js"></script>
+</body>
+</html>
