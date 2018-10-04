@@ -1,1 +1,0 @@
-initSidebarItems({"mod":[["particle",""],["vector","Contains primitive objects and traits for performing vector geometry"]]});

@@ -1,1 +1,0 @@
-initSidebarItems({"struct":[["Box","A Box with a center at origin and one of the corners created by offset"]],"trait":[["Ball",""],["Toroid","Anything that implements this trait permits its space to be infinitely wrapping."]]});

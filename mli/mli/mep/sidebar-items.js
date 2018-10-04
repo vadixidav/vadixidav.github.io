@@ -1,1 +1,0 @@
-initSidebarItems({"struct":[["Mep","A multi-expression program represented using a series of operations that can reuse results of previous operations."],["ResultIterator",""]]});

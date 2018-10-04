@@ -1,1 +1,0 @@
-initSidebarItems({"struct":[["FixedBitSet","**FixedBitSet** is a simple fixed size set of bits that can be enabled (1 / **true**) or disabled (0 / **false**)."]]});
