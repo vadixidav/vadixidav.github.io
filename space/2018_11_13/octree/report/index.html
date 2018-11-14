@@ -1,0 +1,1815 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>octree Summary - Criterion.rs</title>
+    <style type="text/css">
+        body {
+            font: 14px Helvetica Neue;
+            text-rendering: optimizelegibility;
+        }
+
+        .body {
+            width: 960px;
+            margin: auto;
+        }
+
+        a:link {
+            color: #1F78B4;
+            text-decoration: none;
+        }
+
+        h2 {
+            font-size: 36px;
+            font-weight: 300;
+        }
+
+        h3 {
+            font-size: 24px;
+            font-weight: 300;
+        }
+
+        #footer {
+            height: 40px;
+            background: #888;
+            color: white;
+            font-size: larger;
+            font-weight: 300;
+        }
+
+        #footer a {
+            color: white;
+            text-decoration: underline;
+        }
+
+        #footer p {
+            text-align: center
+        }
+    </style>
+</head>
+
+<body>
+    <div class="body">
+        <h2>octree</h2>
+        
+        <h3>Violin Plot</h3>
+        <a href="violin.svg">
+            <img src="violin.svg" alt="Violin Plot"/>
+        </a>
+        <p>This chart shows the relationship between function/parameter and iteration time. The thickness of the shaded region indicates the probability that a measurement of the given function/parameter would take a particular length of time.</p>
+        
+        
+        <h3>Line Chart</h3>
+        <img src="lines.svg" alt="Line Chart"/>
+        <p>This chart shows the mean measured time for each function as the input (or the size of the input) increases.</p>
+        
+        
+        <section class="plots">
+            <a href="../../octree/insertion/57/report/index.html"><h4>octree/insertion/57</h4></a>
+            <table width="100%">
+                <tbody>
+                    <tr>
+                        <td>
+                            <a href="../../octree/insertion/57/report/pdf.svg">
+                                <img src="../../octree/insertion/57/report/pdf_small.svg" alt="PDF of Slope" width="" height="" />
+                            </a>
+                        </td>
+                        <td>
+                            <a href="../../octree/insertion/57/report/regression.svg">
+                                <img src="../../octree/insertion/57/report/regression_small.svg" alt="Regression" width="" height="" />
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        
+        <section class="plots">
+            <a href="../../octree/insertion/86/report/index.html"><h4>octree/insertion/86</h4></a>
+            <table width="100%">
+                <tbody>
+                    <tr>
+                        <td>
+                            <a href="../../octree/insertion/86/report/pdf.svg">
+                                <img src="../../octree/insertion/86/report/pdf_small.svg" alt="PDF of Slope" width="" height="" />
+                            </a>
+                        </td>
+                        <td>
+                            <a href="../../octree/insertion/86/report/regression.svg">
+                                <img src="../../octree/insertion/86/report/regression_small.svg" alt="Regression" width="" height="" />
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        
+        <section class="plots">
+            <a href="../../octree/insertion/129/report/index.html"><h4>octree/insertion/129</h4></a>
+            <table width="100%">
+                <tbody>
+                    <tr>
+                        <td>
+                            <a href="../../octree/insertion/129/report/pdf.svg">
+                                <img src="../../octree/insertion/129/report/pdf_small.svg" alt="PDF of Slope" width="" height="" />
+                            </a>
+                        </td>
+                        <td>
+                            <a href="../../octree/insertion/129/report/regression.svg">
+                                <img src="../../octree/insertion/129/report/regression_small.svg" alt="Regression" width="" height="" />
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        
+        <section class="plots">
+            <a href="../../octree/insertion/194/report/index.html"><h4>octree/insertion/194</h4></a>
+            <table width="100%">
+                <tbody>
+                    <tr>
+                        <td>
+                            <a href="../../octree/insertion/194/report/pdf.svg">
+                                <img src="../../octree/insertion/194/report/pdf_small.svg" alt="PDF of Slope" width="" height="" />
+                            </a>
+                        </td>
+                        <td>
+                            <a href="../../octree/insertion/194/report/regression.svg">
+                                <img src="../../octree/insertion/194/report/regression_small.svg" alt="Regression" width="" height="" />
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        
+        <section class="plots">
+            <a href="../../octree/insertion/291/report/index.html"><h4>octree/insertion/291</h4></a>
+            <table width="100%">
+                <tbody>
+                    <tr>
+                        <td>
+                            <a href="../../octree/insertion/291/report/pdf.svg">
+                                <img src="../../octree/insertion/291/report/pdf_small.svg" alt="PDF of Slope" width="" height="" />
+                            </a>
+                        </td>
+                        <td>
+                            <a href="../../octree/insertion/291/report/regression.svg">
+                                <img src="../../octree/insertion/291/report/regression_small.svg" alt="Regression" width="" height="" />
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        
+        <section class="plots">
+            <a href="../../octree/insertion/437/report/index.html"><h4>octree/insertion/437</h4></a>
+            <table width="100%">
+                <tbody>
+                    <tr>
+                        <td>
+                            <a href="../../octree/insertion/437/report/pdf.svg">
+                                <img src="../../octree/insertion/437/report/pdf_small.svg" alt="PDF of Slope" width="" height="" />
+                            </a>
+                        </td>
+                        <td>
+                            <a href="../../octree/insertion/437/report/regression.svg">
+                                <img src="../../octree/insertion/437/report/regression_small.svg" alt="Regression" width="" height="" />
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        
+        <section class="plots">
+            <a href="../../octree/insertion/656/report/index.html"><h4>octree/insertion/656</h4></a>
+            <table width="100%">
+                <tbody>
+                    <tr>
+                        <td>
+                            <a href="../../octree/insertion/656/report/pdf.svg">
+                                <img src="../../octree/insertion/656/report/pdf_small.svg" alt="PDF of Slope" width="" height="" />
+                            </a>
+                        </td>
+                        <td>
+                            <a href="../../octree/insertion/656/report/regression.svg">
+                                <img src="../../octree/insertion/656/report/regression_small.svg" alt="Regression" width="" height="" />
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        
+        <section class="plots">
+            <a href="../../octree/insertion/985/report/index.html"><h4>octree/insertion/985</h4></a>
+            <table width="100%">
+                <tbody>
+                    <tr>
+                        <td>
+                            <a href="../../octree/insertion/985/report/pdf.svg">
+                                <img src="../../octree/insertion/985/report/pdf_small.svg" alt="PDF of Slope" width="" height="" />
+                            </a>
+                        </td>
+                        <td>
+                            <a href="../../octree/insertion/985/report/regression.svg">
+                                <img src="../../octree/insertion/985/report/regression_small.svg" alt="Regression" width="" height="" />
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        
+        <section class="plots">
+            <a href="../../octree/insertion/1477/report/index.html"><h4>octree/insertion/1477</h4></a>
+            <table width="100%">
+                <tbody>
+                    <tr>
+                        <td>
+                            <a href="../../octree/insertion/1477/report/pdf.svg">
+                                <img src="../../octree/insertion/1477/report/pdf_small.svg" alt="PDF of Slope" width="" height="" />
+                            </a>
+                        </td>
+                        <td>
+                            <a href="../../octree/insertion/1477/report/regression.svg">
+                                <img src="../../octree/insertion/1477/report/regression_small.svg" alt="Regression" width="" height="" />
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        
+        <section class="plots">
+            <a href="../../octree/insertion/2216/report/index.html"><h4>octree/insertion/2216</h4></a>
+            <table width="100%">
+                <tbody>
+                    <tr>
+                        <td>
+                            <a href="../../octree/insertion/2216/report/pdf.svg">
+                                <img src="../../octree/insertion/2216/report/pdf_small.svg" alt="PDF of Slope" width="" height="" />
+                            </a>
+                        </td>
+                        <td>
+                            <a href="../../octree/insertion/2216/report/regression.svg">
+                                <img src="../../octree/insertion/2216/report/regression_small.svg" alt="Regression" width="" height="" />
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        
+        <section class="plots">
+            <a href="../../octree/insertion/3325/report/index.html"><h4>octree/insertion/3325</h4></a>
+            <table width="100%">
+                <tbody>
+                    <tr>
+                        <td>
+                            <a href="../../octree/insertion/3325/report/pdf.svg">
+                                <img src="../../octree/insertion/3325/report/pdf_small.svg" alt="PDF of Slope" width="" height="" />
+                            </a>
+                        </td>
+                        <td>
+                            <a href="../../octree/insertion/3325/report/regression.svg">
+                                <img src="../../octree/insertion/3325/report/regression_small.svg" alt="Regression" width="" height="" />
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        
+        <section class="plots">
+            <a href="../../octree/insertion/4987/report/index.html"><h4>octree/insertion/4987</h4></a>
+            <table width="100%">
+                <tbody>
+                    <tr>
+                        <td>
+                            <a href="../../octree/insertion/4987/report/pdf.svg">
+                                <img src="../../octree/insertion/4987/report/pdf_small.svg" alt="PDF of Slope" width="" height="" />
+                            </a>
+                        </td>
+                        <td>
+                            <a href="../../octree/insertion/4987/report/regression.svg">
+                                <img src="../../octree/insertion/4987/report/regression_small.svg" alt="Regression" width="" height="" />
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        
+        <section class="plots">
+            <a href="../../octree/insertion/7481/report/index.html"><h4>octree/insertion/7481</h4></a>
+            <table width="100%">
+                <tbody>
+                    <tr>
+                        <td>
+                            <a href="../../octree/insertion/7481/report/pdf.svg">
+                                <img src="../../octree/insertion/7481/report/pdf_small.svg" alt="PDF of Slope" width="" height="" />
+                            </a>
+                        </td>
+                        <td>
+                            <a href="../../octree/insertion/7481/report/regression.svg">
+                                <img src="../../octree/insertion/7481/report/regression_small.svg" alt="Regression" width="" height="" />
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        
+        <section class="plots">
+            <a href="../../octree/insertion/11222/report/index.html"><h4>octree/insertion/11222</h4></a>
+            <table width="100%">
+                <tbody>
+                    <tr>
+                        <td>
+                            <a href="../../octree/insertion/11222/report/pdf.svg">
+                                <img src="../../octree/insertion/11222/report/pdf_small.svg" alt="PDF of Slope" width="" height="" />
+                            </a>
+                        </td>
+                        <td>
+                            <a href="../../octree/insertion/11222/report/regression.svg">
+                                <img src="../../octree/insertion/11222/report/regression_small.svg" alt="Regression" width="" height="" />
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        
+        <section class="plots">
+            <a href="../../octree/insertion/16834/report/index.html"><h4>octree/insertion/16834</h4></a>
+            <table width="100%">
+                <tbody>
+                    <tr>
+                        <td>
+                            <a href="../../octree/insertion/16834/report/pdf.svg">
+                                <img src="../../octree/insertion/16834/report/pdf_small.svg" alt="PDF of Slope" width="" height="" />
+                            </a>
+                        </td>
+                        <td>
+                            <a href="../../octree/insertion/16834/report/regression.svg">
+                                <img src="../../octree/insertion/16834/report/regression_small.svg" alt="Regression" width="" height="" />
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        
+        <section class="plots">
+            <a href="../../octree/insertion/25251/report/index.html"><h4>octree/insertion/25251</h4></a>
+            <table width="100%">
+                <tbody>
+                    <tr>
+                        <td>
+                            <a href="../../octree/insertion/25251/report/pdf.svg">
+                                <img src="../../octree/insertion/25251/report/pdf_small.svg" alt="PDF of Slope" width="" height="" />
+                            </a>
+                        </td>
+                        <td>
+                            <a href="../../octree/insertion/25251/report/regression.svg">
+                                <img src="../../octree/insertion/25251/report/regression_small.svg" alt="Regression" width="" height="" />
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        
+        <section class="plots">
+            <a href="../../octree/insertion/37876/report/index.html"><h4>octree/insertion/37876</h4></a>
+            <table width="100%">
+                <tbody>
+                    <tr>
+                        <td>
+                            <a href="../../octree/insertion/37876/report/pdf.svg">
+                                <img src="../../octree/insertion/37876/report/pdf_small.svg" alt="PDF of Slope" width="" height="" />
+                            </a>
+                        </td>
+                        <td>
+                            <a href="../../octree/insertion/37876/report/regression.svg">
+                                <img src="../../octree/insertion/37876/report/regression_small.svg" alt="Regression" width="" height="" />
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        
+        <section class="plots">
+            <a href="../../octree/insertion/56815/report/index.html"><h4>octree/insertion/56815</h4></a>
+            <table width="100%">
+                <tbody>
+                    <tr>
+                        <td>
+                            <a href="../../octree/insertion/56815/report/pdf.svg">
+                                <img src="../../octree/insertion/56815/report/pdf_small.svg" alt="PDF of Slope" width="" height="" />
+                            </a>
+                        </td>
+                        <td>
+                            <a href="../../octree/insertion/56815/report/regression.svg">
+                                <img src="../../octree/insertion/56815/report/regression_small.svg" alt="Regression" width="" height="" />
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        
+        <section class="plots">
+            <a href="../../octree/insertion/85222/report/index.html"><h4>octree/insertion/85222</h4></a>
+            <table width="100%">
+                <tbody>
+                    <tr>
+                        <td>
+                            <a href="../../octree/insertion/85222/report/pdf.svg">
+                                <img src="../../octree/insertion/85222/report/pdf_small.svg" alt="PDF of Slope" width="" height="" />
+                            </a>
+                        </td>
+                        <td>
+                            <a href="../../octree/insertion/85222/report/regression.svg">
+                                <img src="../../octree/insertion/85222/report/regression_small.svg" alt="Regression" width="" height="" />
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        
+        <section class="plots">
+            <a href="../../octree/insertion/127834/report/index.html"><h4>octree/insertion/127834</h4></a>
+            <table width="100%">
+                <tbody>
+                    <tr>
+                        <td>
+                            <a href="../../octree/insertion/127834/report/pdf.svg">
+                                <img src="../../octree/insertion/127834/report/pdf_small.svg" alt="PDF of Slope" width="" height="" />
+                            </a>
+                        </td>
+                        <td>
+                            <a href="../../octree/insertion/127834/report/regression.svg">
+                                <img src="../../octree/insertion/127834/report/regression_small.svg" alt="Regression" width="" height="" />
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        
+        <section class="plots">
+            <a href="../../octree/insertion/191751/report/index.html"><h4>octree/insertion/191751</h4></a>
+            <table width="100%">
+                <tbody>
+                    <tr>
+                        <td>
+                            <a href="../../octree/insertion/191751/report/pdf.svg">
+                                <img src="../../octree/insertion/191751/report/pdf_small.svg" alt="PDF of Slope" width="" height="" />
+                            </a>
+                        </td>
+                        <td>
+                            <a href="../../octree/insertion/191751/report/regression.svg">
+                                <img src="../../octree/insertion/191751/report/regression_small.svg" alt="Regression" width="" height="" />
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        
+        <section class="plots">
+            <a href="../../octree/insertion/287626/report/index.html"><h4>octree/insertion/287626</h4></a>
+            <table width="100%">
+                <tbody>
+                    <tr>
+                        <td>
+                            <a href="../../octree/insertion/287626/report/pdf.svg">
+                                <img src="../../octree/insertion/287626/report/pdf_small.svg" alt="PDF of Slope" width="" height="" />
+                            </a>
+                        </td>
+                        <td>
+                            <a href="../../octree/insertion/287626/report/regression.svg">
+                                <img src="../../octree/insertion/287626/report/regression_small.svg" alt="Regression" width="" height="" />
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        
+        <section class="plots">
+            <a href="../../octree/insertion/431439/report/index.html"><h4>octree/insertion/431439</h4></a>
+            <table width="100%">
+                <tbody>
+                    <tr>
+                        <td>
+                            <a href="../../octree/insertion/431439/report/pdf.svg">
+                                <img src="../../octree/insertion/431439/report/pdf_small.svg" alt="PDF of Slope" width="" height="" />
+                            </a>
+                        </td>
+                        <td>
+                            <a href="../../octree/insertion/431439/report/regression.svg">
+                                <img src="../../octree/insertion/431439/report/regression_small.svg" alt="Regression" width="" height="" />
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        
+        <section class="plots">
+            <a href="../../octree/insertion/647159/report/index.html"><h4>octree/insertion/647159</h4></a>
+            <table width="100%">
+                <tbody>
+                    <tr>
+                        <td>
+                            <a href="../../octree/insertion/647159/report/pdf.svg">
+                                <img src="../../octree/insertion/647159/report/pdf_small.svg" alt="PDF of Slope" width="" height="" />
+                            </a>
+                        </td>
+                        <td>
+                            <a href="../../octree/insertion/647159/report/regression.svg">
+                                <img src="../../octree/insertion/647159/report/regression_small.svg" alt="Regression" width="" height="" />
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        
+        <section class="plots">
+            <a href="../../octree/insertion/970739/report/index.html"><h4>octree/insertion/970739</h4></a>
+            <table width="100%">
+                <tbody>
+                    <tr>
+                        <td>
+                            <a href="../../octree/insertion/970739/report/pdf.svg">
+                                <img src="../../octree/insertion/970739/report/pdf_small.svg" alt="PDF of Slope" width="" height="" />
+                            </a>
+                        </td>
+                        <td>
+                            <a href="../../octree/insertion/970739/report/regression.svg">
+                                <img src="../../octree/insertion/970739/report/regression_small.svg" alt="Regression" width="" height="" />
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        
+        <section class="plots">
+            <a href="../../octree/insertion/1456109/report/index.html"><h4>octree/insertion/1456109</h4></a>
+            <table width="100%">
+                <tbody>
+                    <tr>
+                        <td>
+                            <a href="../../octree/insertion/1456109/report/pdf.svg">
+                                <img src="../../octree/insertion/1456109/report/pdf_small.svg" alt="PDF of Slope" width="" height="" />
+                            </a>
+                        </td>
+                        <td>
+                            <a href="../../octree/insertion/1456109/report/regression.svg">
+                                <img src="../../octree/insertion/1456109/report/regression_small.svg" alt="Regression" width="" height="" />
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        
+        <section class="plots">
+            <a href="../../octree/insertion/2184164/report/index.html"><h4>octree/insertion/2184164</h4></a>
+            <table width="100%">
+                <tbody>
+                    <tr>
+                        <td>
+                            <a href="../../octree/insertion/2184164/report/pdf.svg">
+                                <img src="../../octree/insertion/2184164/report/pdf_small.svg" alt="PDF of Slope" width="" height="" />
+                            </a>
+                        </td>
+                        <td>
+                            <a href="../../octree/insertion/2184164/report/regression.svg">
+                                <img src="../../octree/insertion/2184164/report/regression_small.svg" alt="Regression" width="" height="" />
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        
+        <section class="plots">
+            <a href="../../octree/insertion/3276246/report/index.html"><h4>octree/insertion/3276246</h4></a>
+            <table width="100%">
+                <tbody>
+                    <tr>
+                        <td>
+                            <a href="../../octree/insertion/3276246/report/pdf.svg">
+                                <img src="../../octree/insertion/3276246/report/pdf_small.svg" alt="PDF of Slope" width="" height="" />
+                            </a>
+                        </td>
+                        <td>
+                            <a href="../../octree/insertion/3276246/report/regression.svg">
+                                <img src="../../octree/insertion/3276246/report/regression_small.svg" alt="Regression" width="" height="" />
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        
+        <section class="plots">
+            <a href="../../octree/insertion/4914369/report/index.html"><h4>octree/insertion/4914369</h4></a>
+            <table width="100%">
+                <tbody>
+                    <tr>
+                        <td>
+                            <a href="../../octree/insertion/4914369/report/pdf.svg">
+                                <img src="../../octree/insertion/4914369/report/pdf_small.svg" alt="PDF of Slope" width="" height="" />
+                            </a>
+                        </td>
+                        <td>
+                            <a href="../../octree/insertion/4914369/report/regression.svg">
+                                <img src="../../octree/insertion/4914369/report/regression_small.svg" alt="Regression" width="" height="" />
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        
+        <section class="plots">
+            <a href="../../octree/iteration/57/report/index.html"><h4>octree/iteration/57</h4></a>
+            <table width="100%">
+                <tbody>
+                    <tr>
+                        <td>
+                            <a href="../../octree/iteration/57/report/pdf.svg">
+                                <img src="../../octree/iteration/57/report/pdf_small.svg" alt="PDF of Slope" width="" height="" />
+                            </a>
+                        </td>
+                        <td>
+                            <a href="../../octree/iteration/57/report/regression.svg">
+                                <img src="../../octree/iteration/57/report/regression_small.svg" alt="Regression" width="" height="" />
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        
+        <section class="plots">
+            <a href="../../octree/iteration/86/report/index.html"><h4>octree/iteration/86</h4></a>
+            <table width="100%">
+                <tbody>
+                    <tr>
+                        <td>
+                            <a href="../../octree/iteration/86/report/pdf.svg">
+                                <img src="../../octree/iteration/86/report/pdf_small.svg" alt="PDF of Slope" width="" height="" />
+                            </a>
+                        </td>
+                        <td>
+                            <a href="../../octree/iteration/86/report/regression.svg">
+                                <img src="../../octree/iteration/86/report/regression_small.svg" alt="Regression" width="" height="" />
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        
+        <section class="plots">
+            <a href="../../octree/iteration/129/report/index.html"><h4>octree/iteration/129</h4></a>
+            <table width="100%">
+                <tbody>
+                    <tr>
+                        <td>
+                            <a href="../../octree/iteration/129/report/pdf.svg">
+                                <img src="../../octree/iteration/129/report/pdf_small.svg" alt="PDF of Slope" width="" height="" />
+                            </a>
+                        </td>
+                        <td>
+                            <a href="../../octree/iteration/129/report/regression.svg">
+                                <img src="../../octree/iteration/129/report/regression_small.svg" alt="Regression" width="" height="" />
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        
+        <section class="plots">
+            <a href="../../octree/iteration/194/report/index.html"><h4>octree/iteration/194</h4></a>
+            <table width="100%">
+                <tbody>
+                    <tr>
+                        <td>
+                            <a href="../../octree/iteration/194/report/pdf.svg">
+                                <img src="../../octree/iteration/194/report/pdf_small.svg" alt="PDF of Slope" width="" height="" />
+                            </a>
+                        </td>
+                        <td>
+                            <a href="../../octree/iteration/194/report/regression.svg">
+                                <img src="../../octree/iteration/194/report/regression_small.svg" alt="Regression" width="" height="" />
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        
+        <section class="plots">
+            <a href="../../octree/iteration/291/report/index.html"><h4>octree/iteration/291</h4></a>
+            <table width="100%">
+                <tbody>
+                    <tr>
+                        <td>
+                            <a href="../../octree/iteration/291/report/pdf.svg">
+                                <img src="../../octree/iteration/291/report/pdf_small.svg" alt="PDF of Slope" width="" height="" />
+                            </a>
+                        </td>
+                        <td>
+                            <a href="../../octree/iteration/291/report/regression.svg">
+                                <img src="../../octree/iteration/291/report/regression_small.svg" alt="Regression" width="" height="" />
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        
+        <section class="plots">
+            <a href="../../octree/iteration/437/report/index.html"><h4>octree/iteration/437</h4></a>
+            <table width="100%">
+                <tbody>
+                    <tr>
+                        <td>
+                            <a href="../../octree/iteration/437/report/pdf.svg">
+                                <img src="../../octree/iteration/437/report/pdf_small.svg" alt="PDF of Slope" width="" height="" />
+                            </a>
+                        </td>
+                        <td>
+                            <a href="../../octree/iteration/437/report/regression.svg">
+                                <img src="../../octree/iteration/437/report/regression_small.svg" alt="Regression" width="" height="" />
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        
+        <section class="plots">
+            <a href="../../octree/iteration/656/report/index.html"><h4>octree/iteration/656</h4></a>
+            <table width="100%">
+                <tbody>
+                    <tr>
+                        <td>
+                            <a href="../../octree/iteration/656/report/pdf.svg">
+                                <img src="../../octree/iteration/656/report/pdf_small.svg" alt="PDF of Slope" width="" height="" />
+                            </a>
+                        </td>
+                        <td>
+                            <a href="../../octree/iteration/656/report/regression.svg">
+                                <img src="../../octree/iteration/656/report/regression_small.svg" alt="Regression" width="" height="" />
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        
+        <section class="plots">
+            <a href="../../octree/iteration/985/report/index.html"><h4>octree/iteration/985</h4></a>
+            <table width="100%">
+                <tbody>
+                    <tr>
+                        <td>
+                            <a href="../../octree/iteration/985/report/pdf.svg">
+                                <img src="../../octree/iteration/985/report/pdf_small.svg" alt="PDF of Slope" width="" height="" />
+                            </a>
+                        </td>
+                        <td>
+                            <a href="../../octree/iteration/985/report/regression.svg">
+                                <img src="../../octree/iteration/985/report/regression_small.svg" alt="Regression" width="" height="" />
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        
+        <section class="plots">
+            <a href="../../octree/iteration/1477/report/index.html"><h4>octree/iteration/1477</h4></a>
+            <table width="100%">
+                <tbody>
+                    <tr>
+                        <td>
+                            <a href="../../octree/iteration/1477/report/pdf.svg">
+                                <img src="../../octree/iteration/1477/report/pdf_small.svg" alt="PDF of Slope" width="" height="" />
+                            </a>
+                        </td>
+                        <td>
+                            <a href="../../octree/iteration/1477/report/regression.svg">
+                                <img src="../../octree/iteration/1477/report/regression_small.svg" alt="Regression" width="" height="" />
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        
+        <section class="plots">
+            <a href="../../octree/iteration/2216/report/index.html"><h4>octree/iteration/2216</h4></a>
+            <table width="100%">
+                <tbody>
+                    <tr>
+                        <td>
+                            <a href="../../octree/iteration/2216/report/pdf.svg">
+                                <img src="../../octree/iteration/2216/report/pdf_small.svg" alt="PDF of Slope" width="" height="" />
+                            </a>
+                        </td>
+                        <td>
+                            <a href="../../octree/iteration/2216/report/regression.svg">
+                                <img src="../../octree/iteration/2216/report/regression_small.svg" alt="Regression" width="" height="" />
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        
+        <section class="plots">
+            <a href="../../octree/iteration/3325/report/index.html"><h4>octree/iteration/3325</h4></a>
+            <table width="100%">
+                <tbody>
+                    <tr>
+                        <td>
+                            <a href="../../octree/iteration/3325/report/pdf.svg">
+                                <img src="../../octree/iteration/3325/report/pdf_small.svg" alt="PDF of Slope" width="" height="" />
+                            </a>
+                        </td>
+                        <td>
+                            <a href="../../octree/iteration/3325/report/regression.svg">
+                                <img src="../../octree/iteration/3325/report/regression_small.svg" alt="Regression" width="" height="" />
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        
+        <section class="plots">
+            <a href="../../octree/iteration/4987/report/index.html"><h4>octree/iteration/4987</h4></a>
+            <table width="100%">
+                <tbody>
+                    <tr>
+                        <td>
+                            <a href="../../octree/iteration/4987/report/pdf.svg">
+                                <img src="../../octree/iteration/4987/report/pdf_small.svg" alt="PDF of Slope" width="" height="" />
+                            </a>
+                        </td>
+                        <td>
+                            <a href="../../octree/iteration/4987/report/regression.svg">
+                                <img src="../../octree/iteration/4987/report/regression_small.svg" alt="Regression" width="" height="" />
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        
+        <section class="plots">
+            <a href="../../octree/iteration/7481/report/index.html"><h4>octree/iteration/7481</h4></a>
+            <table width="100%">
+                <tbody>
+                    <tr>
+                        <td>
+                            <a href="../../octree/iteration/7481/report/pdf.svg">
+                                <img src="../../octree/iteration/7481/report/pdf_small.svg" alt="PDF of Slope" width="" height="" />
+                            </a>
+                        </td>
+                        <td>
+                            <a href="../../octree/iteration/7481/report/regression.svg">
+                                <img src="../../octree/iteration/7481/report/regression_small.svg" alt="Regression" width="" height="" />
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        
+        <section class="plots">
+            <a href="../../octree/iteration/11222/report/index.html"><h4>octree/iteration/11222</h4></a>
+            <table width="100%">
+                <tbody>
+                    <tr>
+                        <td>
+                            <a href="../../octree/iteration/11222/report/pdf.svg">
+                                <img src="../../octree/iteration/11222/report/pdf_small.svg" alt="PDF of Slope" width="" height="" />
+                            </a>
+                        </td>
+                        <td>
+                            <a href="../../octree/iteration/11222/report/regression.svg">
+                                <img src="../../octree/iteration/11222/report/regression_small.svg" alt="Regression" width="" height="" />
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        
+        <section class="plots">
+            <a href="../../octree/iteration/16834/report/index.html"><h4>octree/iteration/16834</h4></a>
+            <table width="100%">
+                <tbody>
+                    <tr>
+                        <td>
+                            <a href="../../octree/iteration/16834/report/pdf.svg">
+                                <img src="../../octree/iteration/16834/report/pdf_small.svg" alt="PDF of Slope" width="" height="" />
+                            </a>
+                        </td>
+                        <td>
+                            <a href="../../octree/iteration/16834/report/regression.svg">
+                                <img src="../../octree/iteration/16834/report/regression_small.svg" alt="Regression" width="" height="" />
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        
+        <section class="plots">
+            <a href="../../octree/iteration/25251/report/index.html"><h4>octree/iteration/25251</h4></a>
+            <table width="100%">
+                <tbody>
+                    <tr>
+                        <td>
+                            <a href="../../octree/iteration/25251/report/pdf.svg">
+                                <img src="../../octree/iteration/25251/report/pdf_small.svg" alt="PDF of Slope" width="" height="" />
+                            </a>
+                        </td>
+                        <td>
+                            <a href="../../octree/iteration/25251/report/regression.svg">
+                                <img src="../../octree/iteration/25251/report/regression_small.svg" alt="Regression" width="" height="" />
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        
+        <section class="plots">
+            <a href="../../octree/iteration/37876/report/index.html"><h4>octree/iteration/37876</h4></a>
+            <table width="100%">
+                <tbody>
+                    <tr>
+                        <td>
+                            <a href="../../octree/iteration/37876/report/pdf.svg">
+                                <img src="../../octree/iteration/37876/report/pdf_small.svg" alt="PDF of Slope" width="" height="" />
+                            </a>
+                        </td>
+                        <td>
+                            <a href="../../octree/iteration/37876/report/regression.svg">
+                                <img src="../../octree/iteration/37876/report/regression_small.svg" alt="Regression" width="" height="" />
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        
+        <section class="plots">
+            <a href="../../octree/iteration/56815/report/index.html"><h4>octree/iteration/56815</h4></a>
+            <table width="100%">
+                <tbody>
+                    <tr>
+                        <td>
+                            <a href="../../octree/iteration/56815/report/pdf.svg">
+                                <img src="../../octree/iteration/56815/report/pdf_small.svg" alt="PDF of Slope" width="" height="" />
+                            </a>
+                        </td>
+                        <td>
+                            <a href="../../octree/iteration/56815/report/regression.svg">
+                                <img src="../../octree/iteration/56815/report/regression_small.svg" alt="Regression" width="" height="" />
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        
+        <section class="plots">
+            <a href="../../octree/iteration/85222/report/index.html"><h4>octree/iteration/85222</h4></a>
+            <table width="100%">
+                <tbody>
+                    <tr>
+                        <td>
+                            <a href="../../octree/iteration/85222/report/pdf.svg">
+                                <img src="../../octree/iteration/85222/report/pdf_small.svg" alt="PDF of Slope" width="" height="" />
+                            </a>
+                        </td>
+                        <td>
+                            <a href="../../octree/iteration/85222/report/regression.svg">
+                                <img src="../../octree/iteration/85222/report/regression_small.svg" alt="Regression" width="" height="" />
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        
+        <section class="plots">
+            <a href="../../octree/iteration/127834/report/index.html"><h4>octree/iteration/127834</h4></a>
+            <table width="100%">
+                <tbody>
+                    <tr>
+                        <td>
+                            <a href="../../octree/iteration/127834/report/pdf.svg">
+                                <img src="../../octree/iteration/127834/report/pdf_small.svg" alt="PDF of Slope" width="" height="" />
+                            </a>
+                        </td>
+                        <td>
+                            <a href="../../octree/iteration/127834/report/regression.svg">
+                                <img src="../../octree/iteration/127834/report/regression_small.svg" alt="Regression" width="" height="" />
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        
+        <section class="plots">
+            <a href="../../octree/iteration/191751/report/index.html"><h4>octree/iteration/191751</h4></a>
+            <table width="100%">
+                <tbody>
+                    <tr>
+                        <td>
+                            <a href="../../octree/iteration/191751/report/pdf.svg">
+                                <img src="../../octree/iteration/191751/report/pdf_small.svg" alt="PDF of Slope" width="" height="" />
+                            </a>
+                        </td>
+                        <td>
+                            <a href="../../octree/iteration/191751/report/regression.svg">
+                                <img src="../../octree/iteration/191751/report/regression_small.svg" alt="Regression" width="" height="" />
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        
+        <section class="plots">
+            <a href="../../octree/iteration/287626/report/index.html"><h4>octree/iteration/287626</h4></a>
+            <table width="100%">
+                <tbody>
+                    <tr>
+                        <td>
+                            <a href="../../octree/iteration/287626/report/pdf.svg">
+                                <img src="../../octree/iteration/287626/report/pdf_small.svg" alt="PDF of Slope" width="" height="" />
+                            </a>
+                        </td>
+                        <td>
+                            <a href="../../octree/iteration/287626/report/regression.svg">
+                                <img src="../../octree/iteration/287626/report/regression_small.svg" alt="Regression" width="" height="" />
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        
+        <section class="plots">
+            <a href="../../octree/iteration/431439/report/index.html"><h4>octree/iteration/431439</h4></a>
+            <table width="100%">
+                <tbody>
+                    <tr>
+                        <td>
+                            <a href="../../octree/iteration/431439/report/pdf.svg">
+                                <img src="../../octree/iteration/431439/report/pdf_small.svg" alt="PDF of Slope" width="" height="" />
+                            </a>
+                        </td>
+                        <td>
+                            <a href="../../octree/iteration/431439/report/regression.svg">
+                                <img src="../../octree/iteration/431439/report/regression_small.svg" alt="Regression" width="" height="" />
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        
+        <section class="plots">
+            <a href="../../octree/iteration/647159/report/index.html"><h4>octree/iteration/647159</h4></a>
+            <table width="100%">
+                <tbody>
+                    <tr>
+                        <td>
+                            <a href="../../octree/iteration/647159/report/pdf.svg">
+                                <img src="../../octree/iteration/647159/report/pdf_small.svg" alt="PDF of Slope" width="" height="" />
+                            </a>
+                        </td>
+                        <td>
+                            <a href="../../octree/iteration/647159/report/regression.svg">
+                                <img src="../../octree/iteration/647159/report/regression_small.svg" alt="Regression" width="" height="" />
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        
+        <section class="plots">
+            <a href="../../octree/iteration/970739/report/index.html"><h4>octree/iteration/970739</h4></a>
+            <table width="100%">
+                <tbody>
+                    <tr>
+                        <td>
+                            <a href="../../octree/iteration/970739/report/pdf.svg">
+                                <img src="../../octree/iteration/970739/report/pdf_small.svg" alt="PDF of Slope" width="" height="" />
+                            </a>
+                        </td>
+                        <td>
+                            <a href="../../octree/iteration/970739/report/regression.svg">
+                                <img src="../../octree/iteration/970739/report/regression_small.svg" alt="Regression" width="" height="" />
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        
+        <section class="plots">
+            <a href="../../octree/iteration/1456109/report/index.html"><h4>octree/iteration/1456109</h4></a>
+            <table width="100%">
+                <tbody>
+                    <tr>
+                        <td>
+                            <a href="../../octree/iteration/1456109/report/pdf.svg">
+                                <img src="../../octree/iteration/1456109/report/pdf_small.svg" alt="PDF of Slope" width="" height="" />
+                            </a>
+                        </td>
+                        <td>
+                            <a href="../../octree/iteration/1456109/report/regression.svg">
+                                <img src="../../octree/iteration/1456109/report/regression_small.svg" alt="Regression" width="" height="" />
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        
+        <section class="plots">
+            <a href="../../octree/iteration/2184164/report/index.html"><h4>octree/iteration/2184164</h4></a>
+            <table width="100%">
+                <tbody>
+                    <tr>
+                        <td>
+                            <a href="../../octree/iteration/2184164/report/pdf.svg">
+                                <img src="../../octree/iteration/2184164/report/pdf_small.svg" alt="PDF of Slope" width="" height="" />
+                            </a>
+                        </td>
+                        <td>
+                            <a href="../../octree/iteration/2184164/report/regression.svg">
+                                <img src="../../octree/iteration/2184164/report/regression_small.svg" alt="Regression" width="" height="" />
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        
+        <section class="plots">
+            <a href="../../octree/iteration/3276246/report/index.html"><h4>octree/iteration/3276246</h4></a>
+            <table width="100%">
+                <tbody>
+                    <tr>
+                        <td>
+                            <a href="../../octree/iteration/3276246/report/pdf.svg">
+                                <img src="../../octree/iteration/3276246/report/pdf_small.svg" alt="PDF of Slope" width="" height="" />
+                            </a>
+                        </td>
+                        <td>
+                            <a href="../../octree/iteration/3276246/report/regression.svg">
+                                <img src="../../octree/iteration/3276246/report/regression_small.svg" alt="Regression" width="" height="" />
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        
+        <section class="plots">
+            <a href="../../octree/iteration/4914369/report/index.html"><h4>octree/iteration/4914369</h4></a>
+            <table width="100%">
+                <tbody>
+                    <tr>
+                        <td>
+                            <a href="../../octree/iteration/4914369/report/pdf.svg">
+                                <img src="../../octree/iteration/4914369/report/pdf_small.svg" alt="PDF of Slope" width="" height="" />
+                            </a>
+                        </td>
+                        <td>
+                            <a href="../../octree/iteration/4914369/report/regression.svg">
+                                <img src="../../octree/iteration/4914369/report/regression_small.svg" alt="Regression" width="" height="" />
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        
+        <section class="plots">
+            <a href="../../octree/full_fold/57/report/index.html"><h4>octree/full_fold/57</h4></a>
+            <table width="100%">
+                <tbody>
+                    <tr>
+                        <td>
+                            <a href="../../octree/full_fold/57/report/pdf.svg">
+                                <img src="../../octree/full_fold/57/report/pdf_small.svg" alt="PDF of Slope" width="" height="" />
+                            </a>
+                        </td>
+                        <td>
+                            <a href="../../octree/full_fold/57/report/regression.svg">
+                                <img src="../../octree/full_fold/57/report/regression_small.svg" alt="Regression" width="" height="" />
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        
+        <section class="plots">
+            <a href="../../octree/full_fold/86/report/index.html"><h4>octree/full_fold/86</h4></a>
+            <table width="100%">
+                <tbody>
+                    <tr>
+                        <td>
+                            <a href="../../octree/full_fold/86/report/pdf.svg">
+                                <img src="../../octree/full_fold/86/report/pdf_small.svg" alt="PDF of Slope" width="" height="" />
+                            </a>
+                        </td>
+                        <td>
+                            <a href="../../octree/full_fold/86/report/regression.svg">
+                                <img src="../../octree/full_fold/86/report/regression_small.svg" alt="Regression" width="" height="" />
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        
+        <section class="plots">
+            <a href="../../octree/full_fold/129/report/index.html"><h4>octree/full_fold/129</h4></a>
+            <table width="100%">
+                <tbody>
+                    <tr>
+                        <td>
+                            <a href="../../octree/full_fold/129/report/pdf.svg">
+                                <img src="../../octree/full_fold/129/report/pdf_small.svg" alt="PDF of Slope" width="" height="" />
+                            </a>
+                        </td>
+                        <td>
+                            <a href="../../octree/full_fold/129/report/regression.svg">
+                                <img src="../../octree/full_fold/129/report/regression_small.svg" alt="Regression" width="" height="" />
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        
+        <section class="plots">
+            <a href="../../octree/full_fold/194/report/index.html"><h4>octree/full_fold/194</h4></a>
+            <table width="100%">
+                <tbody>
+                    <tr>
+                        <td>
+                            <a href="../../octree/full_fold/194/report/pdf.svg">
+                                <img src="../../octree/full_fold/194/report/pdf_small.svg" alt="PDF of Slope" width="" height="" />
+                            </a>
+                        </td>
+                        <td>
+                            <a href="../../octree/full_fold/194/report/regression.svg">
+                                <img src="../../octree/full_fold/194/report/regression_small.svg" alt="Regression" width="" height="" />
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        
+        <section class="plots">
+            <a href="../../octree/full_fold/291/report/index.html"><h4>octree/full_fold/291</h4></a>
+            <table width="100%">
+                <tbody>
+                    <tr>
+                        <td>
+                            <a href="../../octree/full_fold/291/report/pdf.svg">
+                                <img src="../../octree/full_fold/291/report/pdf_small.svg" alt="PDF of Slope" width="" height="" />
+                            </a>
+                        </td>
+                        <td>
+                            <a href="../../octree/full_fold/291/report/regression.svg">
+                                <img src="../../octree/full_fold/291/report/regression_small.svg" alt="Regression" width="" height="" />
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        
+        <section class="plots">
+            <a href="../../octree/full_fold/437/report/index.html"><h4>octree/full_fold/437</h4></a>
+            <table width="100%">
+                <tbody>
+                    <tr>
+                        <td>
+                            <a href="../../octree/full_fold/437/report/pdf.svg">
+                                <img src="../../octree/full_fold/437/report/pdf_small.svg" alt="PDF of Slope" width="" height="" />
+                            </a>
+                        </td>
+                        <td>
+                            <a href="../../octree/full_fold/437/report/regression.svg">
+                                <img src="../../octree/full_fold/437/report/regression_small.svg" alt="Regression" width="" height="" />
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        
+        <section class="plots">
+            <a href="../../octree/full_fold/656/report/index.html"><h4>octree/full_fold/656</h4></a>
+            <table width="100%">
+                <tbody>
+                    <tr>
+                        <td>
+                            <a href="../../octree/full_fold/656/report/pdf.svg">
+                                <img src="../../octree/full_fold/656/report/pdf_small.svg" alt="PDF of Slope" width="" height="" />
+                            </a>
+                        </td>
+                        <td>
+                            <a href="../../octree/full_fold/656/report/regression.svg">
+                                <img src="../../octree/full_fold/656/report/regression_small.svg" alt="Regression" width="" height="" />
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        
+        <section class="plots">
+            <a href="../../octree/full_fold/985/report/index.html"><h4>octree/full_fold/985</h4></a>
+            <table width="100%">
+                <tbody>
+                    <tr>
+                        <td>
+                            <a href="../../octree/full_fold/985/report/pdf.svg">
+                                <img src="../../octree/full_fold/985/report/pdf_small.svg" alt="PDF of Slope" width="" height="" />
+                            </a>
+                        </td>
+                        <td>
+                            <a href="../../octree/full_fold/985/report/regression.svg">
+                                <img src="../../octree/full_fold/985/report/regression_small.svg" alt="Regression" width="" height="" />
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        
+        <section class="plots">
+            <a href="../../octree/full_fold/1477/report/index.html"><h4>octree/full_fold/1477</h4></a>
+            <table width="100%">
+                <tbody>
+                    <tr>
+                        <td>
+                            <a href="../../octree/full_fold/1477/report/pdf.svg">
+                                <img src="../../octree/full_fold/1477/report/pdf_small.svg" alt="PDF of Slope" width="" height="" />
+                            </a>
+                        </td>
+                        <td>
+                            <a href="../../octree/full_fold/1477/report/regression.svg">
+                                <img src="../../octree/full_fold/1477/report/regression_small.svg" alt="Regression" width="" height="" />
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        
+        <section class="plots">
+            <a href="../../octree/full_fold/2216/report/index.html"><h4>octree/full_fold/2216</h4></a>
+            <table width="100%">
+                <tbody>
+                    <tr>
+                        <td>
+                            <a href="../../octree/full_fold/2216/report/pdf.svg">
+                                <img src="../../octree/full_fold/2216/report/pdf_small.svg" alt="PDF of Slope" width="" height="" />
+                            </a>
+                        </td>
+                        <td>
+                            <a href="../../octree/full_fold/2216/report/regression.svg">
+                                <img src="../../octree/full_fold/2216/report/regression_small.svg" alt="Regression" width="" height="" />
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        
+        <section class="plots">
+            <a href="../../octree/full_fold/3325/report/index.html"><h4>octree/full_fold/3325</h4></a>
+            <table width="100%">
+                <tbody>
+                    <tr>
+                        <td>
+                            <a href="../../octree/full_fold/3325/report/pdf.svg">
+                                <img src="../../octree/full_fold/3325/report/pdf_small.svg" alt="PDF of Slope" width="" height="" />
+                            </a>
+                        </td>
+                        <td>
+                            <a href="../../octree/full_fold/3325/report/regression.svg">
+                                <img src="../../octree/full_fold/3325/report/regression_small.svg" alt="Regression" width="" height="" />
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        
+        <section class="plots">
+            <a href="../../octree/full_fold/4987/report/index.html"><h4>octree/full_fold/4987</h4></a>
+            <table width="100%">
+                <tbody>
+                    <tr>
+                        <td>
+                            <a href="../../octree/full_fold/4987/report/pdf.svg">
+                                <img src="../../octree/full_fold/4987/report/pdf_small.svg" alt="PDF of Slope" width="" height="" />
+                            </a>
+                        </td>
+                        <td>
+                            <a href="../../octree/full_fold/4987/report/regression.svg">
+                                <img src="../../octree/full_fold/4987/report/regression_small.svg" alt="Regression" width="" height="" />
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        
+        <section class="plots">
+            <a href="../../octree/full_fold/7481/report/index.html"><h4>octree/full_fold/7481</h4></a>
+            <table width="100%">
+                <tbody>
+                    <tr>
+                        <td>
+                            <a href="../../octree/full_fold/7481/report/pdf.svg">
+                                <img src="../../octree/full_fold/7481/report/pdf_small.svg" alt="PDF of Slope" width="" height="" />
+                            </a>
+                        </td>
+                        <td>
+                            <a href="../../octree/full_fold/7481/report/regression.svg">
+                                <img src="../../octree/full_fold/7481/report/regression_small.svg" alt="Regression" width="" height="" />
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        
+        <section class="plots">
+            <a href="../../octree/full_fold/11222/report/index.html"><h4>octree/full_fold/11222</h4></a>
+            <table width="100%">
+                <tbody>
+                    <tr>
+                        <td>
+                            <a href="../../octree/full_fold/11222/report/pdf.svg">
+                                <img src="../../octree/full_fold/11222/report/pdf_small.svg" alt="PDF of Slope" width="" height="" />
+                            </a>
+                        </td>
+                        <td>
+                            <a href="../../octree/full_fold/11222/report/regression.svg">
+                                <img src="../../octree/full_fold/11222/report/regression_small.svg" alt="Regression" width="" height="" />
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        
+        <section class="plots">
+            <a href="../../octree/full_fold/16834/report/index.html"><h4>octree/full_fold/16834</h4></a>
+            <table width="100%">
+                <tbody>
+                    <tr>
+                        <td>
+                            <a href="../../octree/full_fold/16834/report/pdf.svg">
+                                <img src="../../octree/full_fold/16834/report/pdf_small.svg" alt="PDF of Slope" width="" height="" />
+                            </a>
+                        </td>
+                        <td>
+                            <a href="../../octree/full_fold/16834/report/regression.svg">
+                                <img src="../../octree/full_fold/16834/report/regression_small.svg" alt="Regression" width="" height="" />
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        
+        <section class="plots">
+            <a href="../../octree/full_fold/25251/report/index.html"><h4>octree/full_fold/25251</h4></a>
+            <table width="100%">
+                <tbody>
+                    <tr>
+                        <td>
+                            <a href="../../octree/full_fold/25251/report/pdf.svg">
+                                <img src="../../octree/full_fold/25251/report/pdf_small.svg" alt="PDF of Slope" width="" height="" />
+                            </a>
+                        </td>
+                        <td>
+                            <a href="../../octree/full_fold/25251/report/regression.svg">
+                                <img src="../../octree/full_fold/25251/report/regression_small.svg" alt="Regression" width="" height="" />
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        
+        <section class="plots">
+            <a href="../../octree/full_fold/37876/report/index.html"><h4>octree/full_fold/37876</h4></a>
+            <table width="100%">
+                <tbody>
+                    <tr>
+                        <td>
+                            <a href="../../octree/full_fold/37876/report/pdf.svg">
+                                <img src="../../octree/full_fold/37876/report/pdf_small.svg" alt="PDF of Slope" width="" height="" />
+                            </a>
+                        </td>
+                        <td>
+                            <a href="../../octree/full_fold/37876/report/regression.svg">
+                                <img src="../../octree/full_fold/37876/report/regression_small.svg" alt="Regression" width="" height="" />
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        
+        <section class="plots">
+            <a href="../../octree/full_fold/56815/report/index.html"><h4>octree/full_fold/56815</h4></a>
+            <table width="100%">
+                <tbody>
+                    <tr>
+                        <td>
+                            <a href="../../octree/full_fold/56815/report/pdf.svg">
+                                <img src="../../octree/full_fold/56815/report/pdf_small.svg" alt="PDF of Slope" width="" height="" />
+                            </a>
+                        </td>
+                        <td>
+                            <a href="../../octree/full_fold/56815/report/regression.svg">
+                                <img src="../../octree/full_fold/56815/report/regression_small.svg" alt="Regression" width="" height="" />
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        
+        <section class="plots">
+            <a href="../../octree/full_fold/85222/report/index.html"><h4>octree/full_fold/85222</h4></a>
+            <table width="100%">
+                <tbody>
+                    <tr>
+                        <td>
+                            <a href="../../octree/full_fold/85222/report/pdf.svg">
+                                <img src="../../octree/full_fold/85222/report/pdf_small.svg" alt="PDF of Slope" width="" height="" />
+                            </a>
+                        </td>
+                        <td>
+                            <a href="../../octree/full_fold/85222/report/regression.svg">
+                                <img src="../../octree/full_fold/85222/report/regression_small.svg" alt="Regression" width="" height="" />
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        
+        <section class="plots">
+            <a href="../../octree/full_fold/127834/report/index.html"><h4>octree/full_fold/127834</h4></a>
+            <table width="100%">
+                <tbody>
+                    <tr>
+                        <td>
+                            <a href="../../octree/full_fold/127834/report/pdf.svg">
+                                <img src="../../octree/full_fold/127834/report/pdf_small.svg" alt="PDF of Slope" width="" height="" />
+                            </a>
+                        </td>
+                        <td>
+                            <a href="../../octree/full_fold/127834/report/regression.svg">
+                                <img src="../../octree/full_fold/127834/report/regression_small.svg" alt="Regression" width="" height="" />
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        
+        <section class="plots">
+            <a href="../../octree/full_fold/191751/report/index.html"><h4>octree/full_fold/191751</h4></a>
+            <table width="100%">
+                <tbody>
+                    <tr>
+                        <td>
+                            <a href="../../octree/full_fold/191751/report/pdf.svg">
+                                <img src="../../octree/full_fold/191751/report/pdf_small.svg" alt="PDF of Slope" width="" height="" />
+                            </a>
+                        </td>
+                        <td>
+                            <a href="../../octree/full_fold/191751/report/regression.svg">
+                                <img src="../../octree/full_fold/191751/report/regression_small.svg" alt="Regression" width="" height="" />
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        
+        <section class="plots">
+            <a href="../../octree/full_fold/287626/report/index.html"><h4>octree/full_fold/287626</h4></a>
+            <table width="100%">
+                <tbody>
+                    <tr>
+                        <td>
+                            <a href="../../octree/full_fold/287626/report/pdf.svg">
+                                <img src="../../octree/full_fold/287626/report/pdf_small.svg" alt="PDF of Slope" width="" height="" />
+                            </a>
+                        </td>
+                        <td>
+                            <a href="../../octree/full_fold/287626/report/regression.svg">
+                                <img src="../../octree/full_fold/287626/report/regression_small.svg" alt="Regression" width="" height="" />
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        
+        <section class="plots">
+            <a href="../../octree/full_fold/431439/report/index.html"><h4>octree/full_fold/431439</h4></a>
+            <table width="100%">
+                <tbody>
+                    <tr>
+                        <td>
+                            <a href="../../octree/full_fold/431439/report/pdf.svg">
+                                <img src="../../octree/full_fold/431439/report/pdf_small.svg" alt="PDF of Slope" width="" height="" />
+                            </a>
+                        </td>
+                        <td>
+                            <a href="../../octree/full_fold/431439/report/regression.svg">
+                                <img src="../../octree/full_fold/431439/report/regression_small.svg" alt="Regression" width="" height="" />
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        
+        <section class="plots">
+            <a href="../../octree/full_fold/647159/report/index.html"><h4>octree/full_fold/647159</h4></a>
+            <table width="100%">
+                <tbody>
+                    <tr>
+                        <td>
+                            <a href="../../octree/full_fold/647159/report/pdf.svg">
+                                <img src="../../octree/full_fold/647159/report/pdf_small.svg" alt="PDF of Slope" width="" height="" />
+                            </a>
+                        </td>
+                        <td>
+                            <a href="../../octree/full_fold/647159/report/regression.svg">
+                                <img src="../../octree/full_fold/647159/report/regression_small.svg" alt="Regression" width="" height="" />
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        
+        <section class="plots">
+            <a href="../../octree/full_fold/970739/report/index.html"><h4>octree/full_fold/970739</h4></a>
+            <table width="100%">
+                <tbody>
+                    <tr>
+                        <td>
+                            <a href="../../octree/full_fold/970739/report/pdf.svg">
+                                <img src="../../octree/full_fold/970739/report/pdf_small.svg" alt="PDF of Slope" width="" height="" />
+                            </a>
+                        </td>
+                        <td>
+                            <a href="../../octree/full_fold/970739/report/regression.svg">
+                                <img src="../../octree/full_fold/970739/report/regression_small.svg" alt="Regression" width="" height="" />
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        
+        <section class="plots">
+            <a href="../../octree/full_fold/1456109/report/index.html"><h4>octree/full_fold/1456109</h4></a>
+            <table width="100%">
+                <tbody>
+                    <tr>
+                        <td>
+                            <a href="../../octree/full_fold/1456109/report/pdf.svg">
+                                <img src="../../octree/full_fold/1456109/report/pdf_small.svg" alt="PDF of Slope" width="" height="" />
+                            </a>
+                        </td>
+                        <td>
+                            <a href="../../octree/full_fold/1456109/report/regression.svg">
+                                <img src="../../octree/full_fold/1456109/report/regression_small.svg" alt="Regression" width="" height="" />
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        
+        <section class="plots">
+            <a href="../../octree/full_fold/2184164/report/index.html"><h4>octree/full_fold/2184164</h4></a>
+            <table width="100%">
+                <tbody>
+                    <tr>
+                        <td>
+                            <a href="../../octree/full_fold/2184164/report/pdf.svg">
+                                <img src="../../octree/full_fold/2184164/report/pdf_small.svg" alt="PDF of Slope" width="" height="" />
+                            </a>
+                        </td>
+                        <td>
+                            <a href="../../octree/full_fold/2184164/report/regression.svg">
+                                <img src="../../octree/full_fold/2184164/report/regression_small.svg" alt="Regression" width="" height="" />
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        
+        <section class="plots">
+            <a href="../../octree/full_fold/3276246/report/index.html"><h4>octree/full_fold/3276246</h4></a>
+            <table width="100%">
+                <tbody>
+                    <tr>
+                        <td>
+                            <a href="../../octree/full_fold/3276246/report/pdf.svg">
+                                <img src="../../octree/full_fold/3276246/report/pdf_small.svg" alt="PDF of Slope" width="" height="" />
+                            </a>
+                        </td>
+                        <td>
+                            <a href="../../octree/full_fold/3276246/report/regression.svg">
+                                <img src="../../octree/full_fold/3276246/report/regression_small.svg" alt="Regression" width="" height="" />
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        
+        <section class="plots">
+            <a href="../../octree/full_fold/4914369/report/index.html"><h4>octree/full_fold/4914369</h4></a>
+            <table width="100%">
+                <tbody>
+                    <tr>
+                        <td>
+                            <a href="../../octree/full_fold/4914369/report/pdf.svg">
+                                <img src="../../octree/full_fold/4914369/report/pdf_small.svg" alt="PDF of Slope" width="" height="" />
+                            </a>
+                        </td>
+                        <td>
+                            <a href="../../octree/full_fold/4914369/report/regression.svg">
+                                <img src="../../octree/full_fold/4914369/report/regression_small.svg" alt="Regression" width="" height="" />
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        
+    </div>
+    <div id="footer">
+        <p>This report was generated by
+            <a href="https://github.com/japaric/criterion.rs">Criterion.rs</a>, a statistics-driven benchmarking library in Rust.</p>
+    </div>
+</body>
+
+</html>

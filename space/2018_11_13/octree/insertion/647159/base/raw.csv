@@ -1,0 +1,6 @@
+group,function,value,sample_time_nanos,iteration_count
+octree,insertion,647159,459418000,2
+octree,insertion,647159,895925700,4
+octree,insertion,647159,1268419400,6
+octree,insertion,647159,1649525300,8
+octree,insertion,647159,2075153900,10
