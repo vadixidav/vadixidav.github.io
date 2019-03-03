@@ -1,1 +1,0 @@
-initSidebarItems({"struct":[["Ref","A reference wrapper that lets rust make the same guarentees regardless of internal type"],["RefMut","A mutable reference wrapper that lets rust make the same guarentees regardless of internal type"],["SCell","A smart container for objects in recursive data structures"]]});
