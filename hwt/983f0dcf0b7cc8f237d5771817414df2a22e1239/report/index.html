@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Index - Criterion.rs</title>
+    <style type="text/css">
+        body {
+            font: 14px Helvetica Neue;
+            text-rendering: optimizelegibility;
+        }
+
+        .body {
+            width: 960px;
+            margin: auto;
+        }
+
+        a:link {
+            color: #1F78B4;
+            text-decoration: none;
+        }
+
+        h2 {
+            font-size: 36px;
+            font-weight: 300;
+        }
+
+        h3 {
+            font-size: 24px;
+            font-weight: 300;
+        }
+
+        #footer {
+            height: 40px;
+            background: #888;
+            color: white;
+            font-size: larger;
+            font-weight: 300;
+        }
+
+        #footer a {
+            color: white;
+            text-decoration: underline;
+        }
+
+        #footer p {
+            text-align: center
+        }
+
+        table {
+            border-collapse: collapse;
+        }
+
+        table,
+        th,
+        td {
+            border: 1px solid #888;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="body">
+        <h2>Criterion.rs Benchmark Index</h2>
+        See individual benchmark pages below for more details.
+        <ul>
+            <li><a href="../insert/report/index.html">insert</a></li>
+            
+            <ul>
+                <li>
+                    <table>
+                        <tr>
+                            <th></th>
+                            <th><a href="../insert/times/report/index.html">times</a></th>
+                        </tr>
+                        <tr>
+                            <th>1</th>
+                            <td><a href="../insert/times/1/report/index.html">insert/times/1</a></td>
+                        </tr>
+                        <tr>
+                            <th>2</th>
+                            <td><a href="../insert/times/2/report/index.html">insert/times/2</a></td>
+                        </tr>
+                        <tr>
+                            <th>4</th>
+                            <td><a href="../insert/times/4/report/index.html">insert/times/4</a></td>
+                        </tr>
+                        <tr>
+                            <th>8</th>
+                            <td><a href="../insert/times/8/report/index.html">insert/times/8</a></td>
+                        </tr>
+                        <tr>
+                            <th>16</th>
+                            <td><a href="../insert/times/16/report/index.html">insert/times/16</a></td>
+                        </tr>
+                        <tr>
+                            <th>32</th>
+                            <td><a href="../insert/times/32/report/index.html">insert/times/32</a></td>
+                        </tr>
+                        <tr>
+                            <th>64</th>
+                            <td><a href="../insert/times/64/report/index.html">insert/times/64</a></td>
+                        </tr>
+                        <tr>
+                            <th>128</th>
+                            <td><a href="../insert/times/128/report/index.html">insert/times/128</a></td>
+                        </tr>
+                        <tr>
+                            <th>256</th>
+                            <td><a href="../insert/times/256/report/index.html">insert/times/256</a></td>
+                        </tr>
+                        <tr>
+                            <th>512</th>
+                            <td><a href="../insert/times/512/report/index.html">insert/times/512</a></td>
+                        </tr>
+                        <tr>
+                            <th>1024</th>
+                            <td><a href="../insert/times/1024/report/index.html">insert/times/1024</a></td>
+                        </tr>
+                        <tr>
+                            <th>2048</th>
+                            <td><a href="../insert/times/2048/report/index.html">insert/times/2048</a></td>
+                        </tr>
+                        <tr>
+                            <th>4096</th>
+                            <td><a href="../insert/times/4096/report/index.html">insert/times/4096</a></td>
+                        </tr>
+                        <tr>
+                            <th>8192</th>
+                            <td><a href="../insert/times/8192/report/index.html">insert/times/8192</a></td>
+                        </tr>
+                        <tr>
+                            <th>16384</th>
+                            <td><a href="../insert/times/16384/report/index.html">insert/times/16384</a></td>
+                        </tr>
+                        <tr>
+                            <th>32768</th>
+                            <td><a href="../insert/times/32768/report/index.html">insert/times/32768</a></td>
+                        </tr>
+                        <tr>
+                            <th>65536</th>
+                            <td><a href="../insert/times/65536/report/index.html">insert/times/65536</a></td>
+                        </tr>
+                        <tr>
+                            <th>131072</th>
+                            <td><a href="../insert/times/131072/report/index.html">insert/times/131072</a></td>
+                        </tr>
+                        <tr>
+                            <th>262144</th>
+                            <td><a href="../insert/times/262144/report/index.html">insert/times/262144</a></td>
+                        </tr>
+                        <tr>
+                            <th>524288</th>
+                            <td><a href="../insert/times/524288/report/index.html">insert/times/524288</a></td>
+                        </tr>
+                        <tr>
+                            <th>1048576</th>
+                            <td><a href="../insert/times/1048576/report/index.html">insert/times/1048576</a></td>
+                        </tr>
+                        <tr>
+                            <th>2097152</th>
+                            <td><a href="../insert/times/2097152/report/index.html">insert/times/2097152</a></td>
+                        </tr>
+                        <tr>
+                            <th>4194304</th>
+                            <td><a href="../insert/times/4194304/report/index.html">insert/times/4194304</a></td>
+                        </tr>
+                    </table>
+                </li>
+            </ul>
+            <li><a href="../neighbors/report/index.html">neighbors</a></li>
+            
+            <ul>
+                <li>
+                    <table>
+                        <tr>
+                            <th></th>
+                            <th><a href="../neighbors/nearest_1_hwt_maxerr_0/report/index.html">nearest_1_hwt_maxerr_0</a></th>
+                            <th><a href="../neighbors/nearest_1_hwt_maxerr_1/report/index.html">nearest_1_hwt_maxerr_1</a></th>
+                            <th><a href="../neighbors/nearest_1_hwt_maxerr_10/report/index.html">nearest_1_hwt_maxerr_10</a></th>
+                            <th><a href="../neighbors/nearest_1_hwt_maxerr_2/report/index.html">nearest_1_hwt_maxerr_2</a></th>
+                            <th><a href="../neighbors/nearest_1_hwt_maxerr_3/report/index.html">nearest_1_hwt_maxerr_3</a></th>
+                            <th><a href="../neighbors/nearest_1_hwt_maxerr_5/report/index.html">nearest_1_hwt_maxerr_5</a></th>
+                            <th><a href="../neighbors/nearest_1_linear/report/index.html">nearest_1_linear</a></th>
+                        </tr>
+                        <tr>
+                            <th><a href="../neighbors/1/report/index.html">1</a></th>
+                            <td><a href="../neighbors/nearest_1_hwt_maxerr_0/1/report/index.html">neighbors/nearest_1_hwt_maxerr_0/1</a></td>
+                            <td><a href="../neighbors/nearest_1_hwt_maxerr_1/1/report/index.html">neighbors/nearest_1_hwt_maxerr_1/1</a></td>
+                            <td><a href="../neighbors/nearest_1_hwt_maxerr_10/1/report/index.html">neighbors/nearest_1_hwt_maxerr_10/1</a></td>
+                            <td><a href="../neighbors/nearest_1_hwt_maxerr_2/1/report/index.html">neighbors/nearest_1_hwt_maxerr_2/1</a></td>
+                            <td><a href="../neighbors/nearest_1_hwt_maxerr_3/1/report/index.html">neighbors/nearest_1_hwt_maxerr_3/1</a></td>
+                            <td><a href="../neighbors/nearest_1_hwt_maxerr_5/1/report/index.html">neighbors/nearest_1_hwt_maxerr_5/1</a></td>
+                            <td><a href="../neighbors/nearest_1_linear/1/report/index.html">neighbors/nearest_1_linear/1</a></td>
+                        </tr>
+                        <tr>
+                            <th><a href="../neighbors/2/report/index.html">2</a></th>
+                            <td><a href="../neighbors/nearest_1_hwt_maxerr_0/2/report/index.html">neighbors/nearest_1_hwt_maxerr_0/2</a></td>
+                            <td><a href="../neighbors/nearest_1_hwt_maxerr_1/2/report/index.html">neighbors/nearest_1_hwt_maxerr_1/2</a></td>
+                            <td><a href="../neighbors/nearest_1_hwt_maxerr_10/2/report/index.html">neighbors/nearest_1_hwt_maxerr_10/2</a></td>
+                            <td><a href="../neighbors/nearest_1_hwt_maxerr_2/2/report/index.html">neighbors/nearest_1_hwt_maxerr_2/2</a></td>
+                            <td><a href="../neighbors/nearest_1_hwt_maxerr_3/2/report/index.html">neighbors/nearest_1_hwt_maxerr_3/2</a></td>
+                            <td><a href="../neighbors/nearest_1_hwt_maxerr_5/2/report/index.html">neighbors/nearest_1_hwt_maxerr_5/2</a></td>
+                            <td><a href="../neighbors/nearest_1_linear/2/report/index.html">neighbors/nearest_1_linear/2</a></td>
+                        </tr>
+                        <tr>
+                            <th><a href="../neighbors/4/report/index.html">4</a></th>
+                            <td><a href="../neighbors/nearest_1_hwt_maxerr_0/4/report/index.html">neighbors/nearest_1_hwt_maxerr_0/4</a></td>
+                            <td><a href="../neighbors/nearest_1_hwt_maxerr_1/4/report/index.html">neighbors/nearest_1_hwt_maxerr_1/4</a></td>
+                            <td><a href="../neighbors/nearest_1_hwt_maxerr_10/4/report/index.html">neighbors/nearest_1_hwt_maxerr_10/4</a></td>
+                            <td><a href="../neighbors/nearest_1_hwt_maxerr_2/4/report/index.html">neighbors/nearest_1_hwt_maxerr_2/4</a></td>
+                            <td><a href="../neighbors/nearest_1_hwt_maxerr_3/4/report/index.html">neighbors/nearest_1_hwt_maxerr_3/4</a></td>
+                            <td><a href="../neighbors/nearest_1_hwt_maxerr_5/4/report/index.html">neighbors/nearest_1_hwt_maxerr_5/4</a></td>
+                            <td><a href="../neighbors/nearest_1_linear/4/report/index.html">neighbors/nearest_1_linear/4</a></td>
+                        </tr>
+                        <tr>
+                            <th><a href="../neighbors/8/report/index.html">8</a></th>
+                            <td><a href="../neighbors/nearest_1_hwt_maxerr_0/8/report/index.html">neighbors/nearest_1_hwt_maxerr_0/8</a></td>
+                            <td><a href="../neighbors/nearest_1_hwt_maxerr_1/8/report/index.html">neighbors/nearest_1_hwt_maxerr_1/8</a></td>
+                            <td><a href="../neighbors/nearest_1_hwt_maxerr_10/8/report/index.html">neighbors/nearest_1_hwt_maxerr_10/8</a></td>
+                            <td><a href="../neighbors/nearest_1_hwt_maxerr_2/8/report/index.html">neighbors/nearest_1_hwt_maxerr_2/8</a></td>
+                            <td><a href="../neighbors/nearest_1_hwt_maxerr_3/8/report/index.html">neighbors/nearest_1_hwt_maxerr_3/8</a></td>
+                            <td><a href="../neighbors/nearest_1_hwt_maxerr_5/8/report/index.html">neighbors/nearest_1_hwt_maxerr_5/8</a></td>
+                            <td><a href="../neighbors/nearest_1_linear/8/report/index.html">neighbors/nearest_1_linear/8</a></td>
+                        </tr>
+                        <tr>
+                            <th><a href="../neighbors/16/report/index.html">16</a></th>
+                            <td><a href="../neighbors/nearest_1_hwt_maxerr_0/16/report/index.html">neighbors/nearest_1_hwt_maxerr_0/16</a></td>
+                            <td><a href="../neighbors/nearest_1_hwt_maxerr_1/16/report/index.html">neighbors/nearest_1_hwt_maxerr_1/16</a></td>
+                            <td><a href="../neighbors/nearest_1_hwt_maxerr_10/16/report/index.html">neighbors/nearest_1_hwt_maxerr_10/16</a></td>
+                            <td><a href="../neighbors/nearest_1_hwt_maxerr_2/16/report/index.html">neighbors/nearest_1_hwt_maxerr_2/16</a></td>
+                            <td><a href="../neighbors/nearest_1_hwt_maxerr_3/16/report/index.html">neighbors/nearest_1_hwt_maxerr_3/16</a></td>
+                            <td><a href="../neighbors/nearest_1_hwt_maxerr_5/16/report/index.html">neighbors/nearest_1_hwt_maxerr_5/16</a></td>
+                            <td><a href="../neighbors/nearest_1_linear/16/report/index.html">neighbors/nearest_1_linear/16</a></td>
+                        </tr>
+                        <tr>
+                            <th><a href="../neighbors/32/report/index.html">32</a></th>
+                            <td><a href="../neighbors/nearest_1_hwt_maxerr_0/32/report/index.html">neighbors/nearest_1_hwt_maxerr_0/32</a></td>
+                            <td><a href="../neighbors/nearest_1_hwt_maxerr_1/32/report/index.html">neighbors/nearest_1_hwt_maxerr_1/32</a></td>
+                            <td><a href="../neighbors/nearest_1_hwt_maxerr_10/32/report/index.html">neighbors/nearest_1_hwt_maxerr_10/32</a></td>
+                            <td><a href="../neighbors/nearest_1_hwt_maxerr_2/32/report/index.html">neighbors/nearest_1_hwt_maxerr_2/32</a></td>
+                            <td><a href="../neighbors/nearest_1_hwt_maxerr_3/32/report/index.html">neighbors/nearest_1_hwt_maxerr_3/32</a></td>
+                            <td><a href="../neighbors/nearest_1_hwt_maxerr_5/32/report/index.html">neighbors/nearest_1_hwt_maxerr_5/32</a></td>
+                            <td><a href="../neighbors/nearest_1_linear/32/report/index.html">neighbors/nearest_1_linear/32</a></td>
+                        </tr>
+                        <tr>
+                            <th><a href="../neighbors/64/report/index.html">64</a></th>
+                            <td><a href="../neighbors/nearest_1_hwt_maxerr_0/64/report/index.html">neighbors/nearest_1_hwt_maxerr_0/64</a></td>
+                            <td><a href="../neighbors/nearest_1_hwt_maxerr_1/64/report/index.html">neighbors/nearest_1_hwt_maxerr_1/64</a></td>
+                            <td><a href="../neighbors/nearest_1_hwt_maxerr_10/64/report/index.html">neighbors/nearest_1_hwt_maxerr_10/64</a></td>
+                            <td><a href="../neighbors/nearest_1_hwt_maxerr_2/64/report/index.html">neighbors/nearest_1_hwt_maxerr_2/64</a></td>
+                            <td><a href="../neighbors/nearest_1_hwt_maxerr_3/64/report/index.html">neighbors/nearest_1_hwt_maxerr_3/64</a></td>
+                            <td><a href="../neighbors/nearest_1_hwt_maxerr_5/64/report/index.html">neighbors/nearest_1_hwt_maxerr_5/64</a></td>
+                            <td><a href="../neighbors/nearest_1_linear/64/report/index.html">neighbors/nearest_1_linear/64</a></td>
+                        </tr>
+                        <tr>
+                            <th><a href="../neighbors/128/report/index.html">128</a></th>
+                            <td><a href="../neighbors/nearest_1_hwt_maxerr_0/128/report/index.html">neighbors/nearest_1_hwt_maxerr_0/128</a></td>
+                            <td><a href="../neighbors/nearest_1_hwt_maxerr_1/128/report/index.html">neighbors/nearest_1_hwt_maxerr_1/128</a></td>
+                            <td><a href="../neighbors/nearest_1_hwt_maxerr_10/128/report/index.html">neighbors/nearest_1_hwt_maxerr_10/128</a></td>
+                            <td><a href="../neighbors/nearest_1_hwt_maxerr_2/128/report/index.html">neighbors/nearest_1_hwt_maxerr_2/128</a></td>
+                            <td><a href="../neighbors/nearest_1_hwt_maxerr_3/128/report/index.html">neighbors/nearest_1_hwt_maxerr_3/128</a></td>
+                            <td><a href="../neighbors/nearest_1_hwt_maxerr_5/128/report/index.html">neighbors/nearest_1_hwt_maxerr_5/128</a></td>
+                            <td><a href="../neighbors/nearest_1_linear/128/report/index.html">neighbors/nearest_1_linear/128</a></td>
+                        </tr>
+                        <tr>
+                            <th><a href="../neighbors/256/report/index.html">256</a></th>
+                            <td><a href="../neighbors/nearest_1_hwt_maxerr_0/256/report/index.html">neighbors/nearest_1_hwt_maxerr_0/256</a></td>
+                            <td><a href="../neighbors/nearest_1_hwt_maxerr_1/256/report/index.html">neighbors/nearest_1_hwt_maxerr_1/256</a></td>
+                            <td><a href="../neighbors/nearest_1_hwt_maxerr_10/256/report/index.html">neighbors/nearest_1_hwt_maxerr_10/256</a></td>
+                            <td><a href="../neighbors/nearest_1_hwt_maxerr_2/256/report/index.html">neighbors/nearest_1_hwt_maxerr_2/256</a></td>
+                            <td><a href="../neighbors/nearest_1_hwt_maxerr_3/256/report/index.html">neighbors/nearest_1_hwt_maxerr_3/256</a></td>
+                            <td><a href="../neighbors/nearest_1_hwt_maxerr_5/256/report/index.html">neighbors/nearest_1_hwt_maxerr_5/256</a></td>
+                            <td><a href="../neighbors/nearest_1_linear/256/report/index.html">neighbors/nearest_1_linear/256</a></td>
+                        </tr>
+                        <tr>
+                            <th><a href="../neighbors/512/report/index.html">512</a></th>
+                            <td><a href="../neighbors/nearest_1_hwt_maxerr_0/512/report/index.html">neighbors/nearest_1_hwt_maxerr_0/512</a></td>
+                            <td><a href="../neighbors/nearest_1_hwt_maxerr_1/512/report/index.html">neighbors/nearest_1_hwt_maxerr_1/512</a></td>
+                            <td><a href="../neighbors/nearest_1_hwt_maxerr_10/512/report/index.html">neighbors/nearest_1_hwt_maxerr_10/512</a></td>
+                            <td><a href="../neighbors/nearest_1_hwt_maxerr_2/512/report/index.html">neighbors/nearest_1_hwt_maxerr_2/512</a></td>
+                            <td><a href="../neighbors/nearest_1_hwt_maxerr_3/512/report/index.html">neighbors/nearest_1_hwt_maxerr_3/512</a></td>
+                            <td><a href="../neighbors/nearest_1_hwt_maxerr_5/512/report/index.html">neighbors/nearest_1_hwt_maxerr_5/512</a></td>
+                            <td><a href="../neighbors/nearest_1_linear/512/report/index.html">neighbors/nearest_1_linear/512</a></td>
+                        </tr>
+                        <tr>
+                            <th><a href="../neighbors/1024/report/index.html">1024</a></th>
+                            <td><a href="../neighbors/nearest_1_hwt_maxerr_0/1024/report/index.html">neighbors/nearest_1_hwt_maxerr_0/1024</a></td>
+                            <td><a href="../neighbors/nearest_1_hwt_maxerr_1/1024/report/index.html">neighbors/nearest_1_hwt_maxerr_1/1024</a></td>
+                            <td><a href="../neighbors/nearest_1_hwt_maxerr_10/1024/report/index.html">neighbors/nearest_1_hwt_maxerr_10/1024</a></td>
+                            <td><a href="../neighbors/nearest_1_hwt_maxerr_2/1024/report/index.html">neighbors/nearest_1_hwt_maxerr_2/1024</a></td>
+                            <td><a href="../neighbors/nearest_1_hwt_maxerr_3/1024/report/index.html">neighbors/nearest_1_hwt_maxerr_3/1024</a></td>
+                            <td><a href="../neighbors/nearest_1_hwt_maxerr_5/1024/report/index.html">neighbors/nearest_1_hwt_maxerr_5/1024</a></td>
+                            <td><a href="../neighbors/nearest_1_linear/1024/report/index.html">neighbors/nearest_1_linear/1024</a></td>
+                        </tr>
+                        <tr>
+                            <th><a href="../neighbors/2048/report/index.html">2048</a></th>
+                            <td><a href="../neighbors/nearest_1_hwt_maxerr_0/2048/report/index.html">neighbors/nearest_1_hwt_maxerr_0/2048</a></td>
+                            <td><a href="../neighbors/nearest_1_hwt_maxerr_1/2048/report/index.html">neighbors/nearest_1_hwt_maxerr_1/2048</a></td>
+                            <td><a href="../neighbors/nearest_1_hwt_maxerr_10/2048/report/index.html">neighbors/nearest_1_hwt_maxerr_10/2048</a></td>
+                            <td><a href="../neighbors/nearest_1_hwt_maxerr_2/2048/report/index.html">neighbors/nearest_1_hwt_maxerr_2/2048</a></td>
+                            <td><a href="../neighbors/nearest_1_hwt_maxerr_3/2048/report/index.html">neighbors/nearest_1_hwt_maxerr_3/2048</a></td>
+                            <td><a href="../neighbors/nearest_1_hwt_maxerr_5/2048/report/index.html">neighbors/nearest_1_hwt_maxerr_5/2048</a></td>
+                            <td><a href="../neighbors/nearest_1_linear/2048/report/index.html">neighbors/nearest_1_linear/2048</a></td>
+                        </tr>
+                        <tr>
+                            <th><a href="../neighbors/4096/report/index.html">4096</a></th>
+                            <td><a href="../neighbors/nearest_1_hwt_maxerr_0/4096/report/index.html">neighbors/nearest_1_hwt_maxerr_0/4096</a></td>
+                            <td><a href="../neighbors/nearest_1_hwt_maxerr_1/4096/report/index.html">neighbors/nearest_1_hwt_maxerr_1/4096</a></td>
+                            <td><a href="../neighbors/nearest_1_hwt_maxerr_10/4096/report/index.html">neighbors/nearest_1_hwt_maxerr_10/4096</a></td>
+                            <td><a href="../neighbors/nearest_1_hwt_maxerr_2/4096/report/index.html">neighbors/nearest_1_hwt_maxerr_2/4096</a></td>
+                            <td><a href="../neighbors/nearest_1_hwt_maxerr_3/4096/report/index.html">neighbors/nearest_1_hwt_maxerr_3/4096</a></td>
+                            <td><a href="../neighbors/nearest_1_hwt_maxerr_5/4096/report/index.html">neighbors/nearest_1_hwt_maxerr_5/4096</a></td>
+                            <td><a href="../neighbors/nearest_1_linear/4096/report/index.html">neighbors/nearest_1_linear/4096</a></td>
+                        </tr>
+                        <tr>
+                            <th><a href="../neighbors/8192/report/index.html">8192</a></th>
+                            <td><a href="../neighbors/nearest_1_hwt_maxerr_0/8192/report/index.html">neighbors/nearest_1_hwt_maxerr_0/8192</a></td>
+                            <td><a href="../neighbors/nearest_1_hwt_maxerr_1/8192/report/index.html">neighbors/nearest_1_hwt_maxerr_1/8192</a></td>
+                            <td><a href="../neighbors/nearest_1_hwt_maxerr_10/8192/report/index.html">neighbors/nearest_1_hwt_maxerr_10/8192</a></td>
+                            <td><a href="../neighbors/nearest_1_hwt_maxerr_2/8192/report/index.html">neighbors/nearest_1_hwt_maxerr_2/8192</a></td>
+                            <td><a href="../neighbors/nearest_1_hwt_maxerr_3/8192/report/index.html">neighbors/nearest_1_hwt_maxerr_3/8192</a></td>
+                            <td><a href="../neighbors/nearest_1_hwt_maxerr_5/8192/report/index.html">neighbors/nearest_1_hwt_maxerr_5/8192</a></td>
+                            <td><a href="../neighbors/nearest_1_linear/8192/report/index.html">neighbors/nearest_1_linear/8192</a></td>
+                        </tr>
+                        <tr>
+                            <th><a href="../neighbors/16384/report/index.html">16384</a></th>
+                            <td><a href="../neighbors/nearest_1_hwt_maxerr_0/16384/report/index.html">neighbors/nearest_1_hwt_maxerr_0/16384</a></td>
+                            <td><a href="../neighbors/nearest_1_hwt_maxerr_1/16384/report/index.html">neighbors/nearest_1_hwt_maxerr_1/16384</a></td>
+                            <td><a href="../neighbors/nearest_1_hwt_maxerr_10/16384/report/index.html">neighbors/nearest_1_hwt_maxerr_10/16384</a></td>
+                            <td><a href="../neighbors/nearest_1_hwt_maxerr_2/16384/report/index.html">neighbors/nearest_1_hwt_maxerr_2/16384</a></td>
+                            <td><a href="../neighbors/nearest_1_hwt_maxerr_3/16384/report/index.html">neighbors/nearest_1_hwt_maxerr_3/16384</a></td>
+                            <td><a href="../neighbors/nearest_1_hwt_maxerr_5/16384/report/index.html">neighbors/nearest_1_hwt_maxerr_5/16384</a></td>
+                            <td><a href="../neighbors/nearest_1_linear/16384/report/index.html">neighbors/nearest_1_linear/16384</a></td>
+                        </tr>
+                        <tr>
+                            <th><a href="../neighbors/32768/report/index.html">32768</a></th>
+                            <td><a href="../neighbors/nearest_1_hwt_maxerr_0/32768/report/index.html">neighbors/nearest_1_hwt_maxerr_0/32768</a></td>
+                            <td><a href="../neighbors/nearest_1_hwt_maxerr_1/32768/report/index.html">neighbors/nearest_1_hwt_maxerr_1/32768</a></td>
+                            <td><a href="../neighbors/nearest_1_hwt_maxerr_10/32768/report/index.html">neighbors/nearest_1_hwt_maxerr_10/32768</a></td>
+                            <td><a href="../neighbors/nearest_1_hwt_maxerr_2/32768/report/index.html">neighbors/nearest_1_hwt_maxerr_2/32768</a></td>
+                            <td><a href="../neighbors/nearest_1_hwt_maxerr_3/32768/report/index.html">neighbors/nearest_1_hwt_maxerr_3/32768</a></td>
+                            <td><a href="../neighbors/nearest_1_hwt_maxerr_5/32768/report/index.html">neighbors/nearest_1_hwt_maxerr_5/32768</a></td>
+                            <td><a href="../neighbors/nearest_1_linear/32768/report/index.html">neighbors/nearest_1_linear/32768</a></td>
+                        </tr>
+                        <tr>
+                            <th><a href="../neighbors/65536/report/index.html">65536</a></th>
+                            <td><a href="../neighbors/nearest_1_hwt_maxerr_0/65536/report/index.html">neighbors/nearest_1_hwt_maxerr_0/65536</a></td>
+                            <td><a href="../neighbors/nearest_1_hwt_maxerr_1/65536/report/index.html">neighbors/nearest_1_hwt_maxerr_1/65536</a></td>
+                            <td><a href="../neighbors/nearest_1_hwt_maxerr_10/65536/report/index.html">neighbors/nearest_1_hwt_maxerr_10/65536</a></td>
+                            <td><a href="../neighbors/nearest_1_hwt_maxerr_2/65536/report/index.html">neighbors/nearest_1_hwt_maxerr_2/65536</a></td>
+                            <td><a href="../neighbors/nearest_1_hwt_maxerr_3/65536/report/index.html">neighbors/nearest_1_hwt_maxerr_3/65536</a></td>
+                            <td><a href="../neighbors/nearest_1_hwt_maxerr_5/65536/report/index.html">neighbors/nearest_1_hwt_maxerr_5/65536</a></td>
+                            <td><a href="../neighbors/nearest_1_linear/65536/report/index.html">neighbors/nearest_1_linear/65536</a></td>
+                        </tr>
+                        <tr>
+                            <th><a href="../neighbors/131072/report/index.html">131072</a></th>
+                            <td><a href="../neighbors/nearest_1_hwt_maxerr_0/131072/report/index.html">neighbors/nearest_1_hwt_maxerr_0/131072</a></td>
+                            <td><a href="../neighbors/nearest_1_hwt_maxerr_1/131072/report/index.html">neighbors/nearest_1_hwt_maxerr_1/131072</a></td>
+                            <td><a href="../neighbors/nearest_1_hwt_maxerr_10/131072/report/index.html">neighbors/nearest_1_hwt_maxerr_10/131072</a></td>
+                            <td><a href="../neighbors/nearest_1_hwt_maxerr_2/131072/report/index.html">neighbors/nearest_1_hwt_maxerr_2/131072</a></td>
+                            <td><a href="../neighbors/nearest_1_hwt_maxerr_3/131072/report/index.html">neighbors/nearest_1_hwt_maxerr_3/131072</a></td>
+                            <td><a href="../neighbors/nearest_1_hwt_maxerr_5/131072/report/index.html">neighbors/nearest_1_hwt_maxerr_5/131072</a></td>
+                            <td><a href="../neighbors/nearest_1_linear/131072/report/index.html">neighbors/nearest_1_linear/131072</a></td>
+                        </tr>
+                        <tr>
+                            <th><a href="../neighbors/262144/report/index.html">262144</a></th>
+                            <td><a href="../neighbors/nearest_1_hwt_maxerr_0/262144/report/index.html">neighbors/nearest_1_hwt_maxerr_0/262144</a></td>
+                            <td><a href="../neighbors/nearest_1_hwt_maxerr_1/262144/report/index.html">neighbors/nearest_1_hwt_maxerr_1/262144</a></td>
+                            <td><a href="../neighbors/nearest_1_hwt_maxerr_10/262144/report/index.html">neighbors/nearest_1_hwt_maxerr_10/262144</a></td>
+                            <td><a href="../neighbors/nearest_1_hwt_maxerr_2/262144/report/index.html">neighbors/nearest_1_hwt_maxerr_2/262144</a></td>
+                            <td><a href="../neighbors/nearest_1_hwt_maxerr_3/262144/report/index.html">neighbors/nearest_1_hwt_maxerr_3/262144</a></td>
+                            <td><a href="../neighbors/nearest_1_hwt_maxerr_5/262144/report/index.html">neighbors/nearest_1_hwt_maxerr_5/262144</a></td>
+                            <td><a href="../neighbors/nearest_1_linear/262144/report/index.html">neighbors/nearest_1_linear/262144</a></td>
+                        </tr>
+                        <tr>
+                            <th><a href="../neighbors/524288/report/index.html">524288</a></th>
+                            <td><a href="../neighbors/nearest_1_hwt_maxerr_0/524288/report/index.html">neighbors/nearest_1_hwt_maxerr_0/524288</a></td>
+                            <td><a href="../neighbors/nearest_1_hwt_maxerr_1/524288/report/index.html">neighbors/nearest_1_hwt_maxerr_1/524288</a></td>
+                            <td><a href="../neighbors/nearest_1_hwt_maxerr_10/524288/report/index.html">neighbors/nearest_1_hwt_maxerr_10/524288</a></td>
+                            <td><a href="../neighbors/nearest_1_hwt_maxerr_2/524288/report/index.html">neighbors/nearest_1_hwt_maxerr_2/524288</a></td>
+                            <td><a href="../neighbors/nearest_1_hwt_maxerr_3/524288/report/index.html">neighbors/nearest_1_hwt_maxerr_3/524288</a></td>
+                            <td><a href="../neighbors/nearest_1_hwt_maxerr_5/524288/report/index.html">neighbors/nearest_1_hwt_maxerr_5/524288</a></td>
+                            <td><a href="../neighbors/nearest_1_linear/524288/report/index.html">neighbors/nearest_1_linear/524288</a></td>
+                        </tr>
+                        <tr>
+                            <th><a href="../neighbors/1048576/report/index.html">1048576</a></th>
+                            <td><a href="../neighbors/nearest_1_hwt_maxerr_0/1048576/report/index.html">neighbors/nearest_1_hwt_maxerr_0/1048576</a></td>
+                            <td><a href="../neighbors/nearest_1_hwt_maxerr_1/1048576/report/index.html">neighbors/nearest_1_hwt_maxerr_1/1048576</a></td>
+                            <td><a href="../neighbors/nearest_1_hwt_maxerr_10/1048576/report/index.html">neighbors/nearest_1_hwt_maxerr_10/1048576</a></td>
+                            <td><a href="../neighbors/nearest_1_hwt_maxerr_2/1048576/report/index.html">neighbors/nearest_1_hwt_maxerr_2/1048576</a></td>
+                            <td><a href="../neighbors/nearest_1_hwt_maxerr_3/1048576/report/index.html">neighbors/nearest_1_hwt_maxerr_3/1048576</a></td>
+                            <td><a href="../neighbors/nearest_1_hwt_maxerr_5/1048576/report/index.html">neighbors/nearest_1_hwt_maxerr_5/1048576</a></td>
+                            <td><a href="../neighbors/nearest_1_linear/1048576/report/index.html">neighbors/nearest_1_linear/1048576</a></td>
+                        </tr>
+                        <tr>
+                            <th><a href="../neighbors/2097152/report/index.html">2097152</a></th>
+                            <td><a href="../neighbors/nearest_1_hwt_maxerr_0/2097152/report/index.html">neighbors/nearest_1_hwt_maxerr_0/2097152</a></td>
+                            <td><a href="../neighbors/nearest_1_hwt_maxerr_1/2097152/report/index.html">neighbors/nearest_1_hwt_maxerr_1/2097152</a></td>
+                            <td><a href="../neighbors/nearest_1_hwt_maxerr_10/2097152/report/index.html">neighbors/nearest_1_hwt_maxerr_10/2097152</a></td>
+                            <td><a href="../neighbors/nearest_1_hwt_maxerr_2/2097152/report/index.html">neighbors/nearest_1_hwt_maxerr_2/2097152</a></td>
+                            <td><a href="../neighbors/nearest_1_hwt_maxerr_3/2097152/report/index.html">neighbors/nearest_1_hwt_maxerr_3/2097152</a></td>
+                            <td><a href="../neighbors/nearest_1_hwt_maxerr_5/2097152/report/index.html">neighbors/nearest_1_hwt_maxerr_5/2097152</a></td>
+                            <td><a href="../neighbors/nearest_1_linear/2097152/report/index.html">neighbors/nearest_1_linear/2097152</a></td>
+                        </tr>
+                        <tr>
+                            <th><a href="../neighbors/4194304/report/index.html">4194304</a></th>
+                            <td><a href="../neighbors/nearest_1_hwt_maxerr_0/4194304/report/index.html">neighbors/nearest_1_hwt_maxerr_0/4194304</a></td>
+                            <td><a href="../neighbors/nearest_1_hwt_maxerr_1/4194304/report/index.html">neighbors/nearest_1_hwt_maxerr_1/4194304</a></td>
+                            <td><a href="../neighbors/nearest_1_hwt_maxerr_10/4194304/report/index.html">neighbors/nearest_1_hwt_maxerr_10/4194304</a></td>
+                            <td><a href="../neighbors/nearest_1_hwt_maxerr_2/4194304/report/index.html">neighbors/nearest_1_hwt_maxerr_2/4194304</a></td>
+                            <td><a href="../neighbors/nearest_1_hwt_maxerr_3/4194304/report/index.html">neighbors/nearest_1_hwt_maxerr_3/4194304</a></td>
+                            <td><a href="../neighbors/nearest_1_hwt_maxerr_5/4194304/report/index.html">neighbors/nearest_1_hwt_maxerr_5/4194304</a></td>
+                            <td><a href="../neighbors/nearest_1_linear/4194304/report/index.html">neighbors/nearest_1_linear/4194304</a></td>
+                        </tr>
+                        <tr>
+                            <th><a href="../neighbors/8388608/report/index.html">8388608</a></th>
+                            <td><a href="../neighbors/nearest_1_hwt_maxerr_0/8388608/report/index.html">neighbors/nearest_1_hwt_maxerr_0/8388608</a></td>
+                            <td><a href="../neighbors/nearest_1_hwt_maxerr_1/8388608/report/index.html">neighbors/nearest_1_hwt_maxerr_1/8388608</a></td>
+                            <td><a href="../neighbors/nearest_1_hwt_maxerr_10/8388608/report/index.html">neighbors/nearest_1_hwt_maxerr_10/8388608</a></td>
+                            <td><a href="../neighbors/nearest_1_hwt_maxerr_2/8388608/report/index.html">neighbors/nearest_1_hwt_maxerr_2/8388608</a></td>
+                            <td><a href="../neighbors/nearest_1_hwt_maxerr_3/8388608/report/index.html">neighbors/nearest_1_hwt_maxerr_3/8388608</a></td>
+                            <td><a href="../neighbors/nearest_1_hwt_maxerr_5/8388608/report/index.html">neighbors/nearest_1_hwt_maxerr_5/8388608</a></td>
+                            <td><a href="../neighbors/nearest_1_linear/8388608/report/index.html">neighbors/nearest_1_linear/8388608</a></td>
+                        </tr>
+                        <tr>
+                            <th><a href="../neighbors/16777216/report/index.html">16777216</a></th>
+                            <td><a href="../neighbors/nearest_1_hwt_maxerr_0/16777216/report/index.html">neighbors/nearest_1_hwt_maxerr_0/16777216</a></td>
+                            <td><a href="../neighbors/nearest_1_hwt_maxerr_1/16777216/report/index.html">neighbors/nearest_1_hwt_maxerr_1/16777216</a></td>
+                            <td><a href="../neighbors/nearest_1_hwt_maxerr_10/16777216/report/index.html">neighbors/nearest_1_hwt_maxerr_10/16777216</a></td>
+                            <td><a href="../neighbors/nearest_1_hwt_maxerr_2/16777216/report/index.html">neighbors/nearest_1_hwt_maxerr_2/16777216</a></td>
+                            <td><a href="../neighbors/nearest_1_hwt_maxerr_3/16777216/report/index.html">neighbors/nearest_1_hwt_maxerr_3/16777216</a></td>
+                            <td><a href="../neighbors/nearest_1_hwt_maxerr_5/16777216/report/index.html">neighbors/nearest_1_hwt_maxerr_5/16777216</a></td>
+                            <td><a href="../neighbors/nearest_1_linear/16777216/report/index.html">neighbors/nearest_1_linear/16777216</a></td>
+                        </tr>
+                    </table>
+                </li>
+            </ul>
+        </ul>
+    </div>
+    <div id="footer">
+        <p>This report was generated by
+            <a href="https://github.com/bheisler/criterion.rs">Criterion.rs</a>, a statistics-driven benchmarking
+            library in Rust.</p>
+    </div>
+</body>
+</html>
